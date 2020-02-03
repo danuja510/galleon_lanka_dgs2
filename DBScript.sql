@@ -1,4 +1,6 @@
---galleon_lanka_db_script
+#galleon_lanka_db_script
+
+#sithara
 CREATE TABLE `galleon_lanka`.`supplier` ( 
  `sid` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
@@ -7,6 +9,7 @@ CREATE TABLE `galleon_lanka`.`supplier` (
  PRIMARY KEY (`sid`))
  ENGINE = MyISAM;
 
+#sithara
 CREATE TABLE `galleon_lanka`.`materials` ( 
  `mid` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
@@ -16,6 +19,7 @@ CREATE TABLE `galleon_lanka`.`materials` (
  PRIMARY KEY (`mid`))
  ENGINE = MyISAM;
 
+#gima
 CREATE TABLE `galleon_lanka`.`finished_products` ( 
  `fp_id` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
@@ -24,6 +28,7 @@ CREATE TABLE `galleon_lanka`.`finished_products` (
  PRIMARY KEY (`fp_id`))
  ENGINE = MyISAM;
 
+#gima
 CREATE TABLE `galleon_lanka`.`employees` ( 
  `eno` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
@@ -33,6 +38,7 @@ CREATE TABLE `galleon_lanka`.`employees` (
  PRIMARY KEY (`eno`))
  ENGINE = MyISAM;
 
+#dan
 CREATE TABLE `galleon_lanka`.`customer` ( 
  `cno` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
@@ -42,6 +48,7 @@ CREATE TABLE `galleon_lanka`.`customer` (
  PRIMARY KEY (`cno`))
  ENGINE = MyISAM;
 
+#dan
 CREATE TABLE `galleon_lanka`.`purchase_orders` ( 
  `no` INT NOT NULL AUTO_INCREMENT ,
  `po_no` INT NOT NULL ,
@@ -94,6 +101,7 @@ CREATE TABLE `galleon_lanka`.`gtn` (
  PRIMARY KEY (`no`))
  ENGINE = MyISAM;
 
+#sajini
 CREATE TABLE `galleon_lanka`.`invoice` ( 
  `no` INT NOT NULL AUTO_INCREMENT ,
  `invoice_no` INT NOT NULL ,
@@ -140,6 +148,7 @@ CREATE TABLE `galleon_lanka`.`debtors` (
  PRIMARY KEY (`dbid`))
  ENGINE = MyISAM;
 
+#bom
 CREATE TABLE `galleon_lanka`.`bom` ( 
  `no` INT NOT NULL AUTO_INCREMENT ,
  `bom_id` INT NOT NULL ,
