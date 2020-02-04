@@ -49,15 +49,11 @@ session_start();
       <form class="empReg" action="employee.php" method="post" enctype="multipart/form-data">
         <table border="0" align="center">
           <tr>
-            <td>Employee number</td>
-            <td><input type="text" name="txtEno" id="txtEno" value="" placeholder="enter employee number" required></td>
-          </tr>
-          <tr>
-            <td>Name</td>
+            <td><label for='txtName'>Name</label></td>
             <td><input type="text" name="txtName" id="txtName" value="" placeholder="enter name" required></td>
           </tr>
           <tr>
-            <td>Department</td>
+            <td><label for='lstDepartment'>Department</label></td>
             <td>
                <select name="lstDepartment" id="lstDepartment">
                <option value="----------">----------</option>
@@ -68,11 +64,11 @@ session_start();
             </td>
           </tr>
           <tr>
-            <td>Password</td>
+            <td><label for='txtPwd'>Password</label></td>
             <td><input type="password" name="txtPwd" id="txtPwd" value="" placeholder="enter a valid password" required></td>
           </tr>
           <tr>
-            <td>Confirm Password</td>
+            <td><label for='txtconPwd'>Confirm password</label></td>
             <td><input type="password" name="txtconPwd" id="txtconPwd" value="" placeholder="re-enter the password" required></td>
           </tr>
           <tr>
@@ -84,8 +80,7 @@ session_start();
 
       <?php
           if(isset($_POST['btnSubmit']))
-          {
-				 $eno = $_POST['txtEno'];
+        {
 				 $name = $_POST['txtName'];
 				 $dept = $_POST['lstDepartment'];
          $pwd = $_POST['txtconPwd'];
@@ -95,7 +90,7 @@ session_start();
 					{
 						die("cannot connect to DB server");
 					}
-          $sql="INSERT INTO `employees`(`eno`, `Name`, `Designation`, `Dept`, `password`) VALUES ('".$eno."','".$name."','Manager','".$dept."','".$pwd."')";
+          $sql="INSERT INTO `employees`(`Name`, `Designation`, `Dept`, `password`) VALUES ('".$name."','Manager','".$dept."','".$pwd."')";
           mysqli_query($con,$sql);
 				  mysqli_close($con);
 
