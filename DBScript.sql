@@ -177,3 +177,13 @@ INSERT INTO `employees`
 
  #altering customer table
  ALTER TABLE `customer` CHANGE `cno` `cno` INT(11) NOT NULL AUTO_INCREMENT;
+
+
+ #altering supplier table
+ ALTER TABLE `supplier` CHANGE `sid` `sid` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered the purchase_orders table
+ALTER TABLE `purchase_orders` ADD `approvedBy` INT NULL AFTER `prepared_by_(eno)`;
+
+#altered grn talbe
+ALTER TABLE `grn` ADD `approvedBy` INT NULL AFTER `remarks`;

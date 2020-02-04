@@ -28,7 +28,7 @@
   </head>
   <body>
     <h1>Add Customer</h1>
-    <form class='' action='addCustomer' method='post'>
+    <form action='addCustomer' method='post'>
       <table>
         <tr>
           <td>
