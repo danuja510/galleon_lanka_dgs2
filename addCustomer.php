@@ -28,7 +28,7 @@
   </head>
   <body>
     <h1>Add Customer</h1>
-    <form class='' action='index.html' method='post'>
+    <form class='' action='addCustomer' method='post'>
       <table>
         <tr>
           <td>
@@ -82,9 +82,8 @@
       $address=$_POST["txtAddress"];
       $type=$_POST["txtType"];
       $tpNo=$_POST["txtTPNo"];
-      echo "string";
-			$con=mysqli_connect("localhost","root","","galleon_lanka");
-			if(!con){
+      $con=mysqli_connect("localhost","root","","galleon_lanka");
+			if(!$con){
 				die("Cannot connect to DB server");
 			}
 			$sql="INSERT INTO `customer` (`cno`, `Name`, `Address`, `tpno`, `type`) VALUES (NULL, '".$name."', '".$address."', '".$tpNo."', '".$type."');";
