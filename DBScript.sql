@@ -174,3 +174,6 @@ INSERT INTO `employees`
 
  #altering the employee table
  ALTER TABLE `employees` CHANGE `eno` `eno` INT(11) NOT NULL AUTO_INCREMENT;
+
+ #altering customer table
+ ALTER TABLE `customer` CHANGE `cno` `cno` INT(11) NOT NULL AUTO_INCREMENT;
