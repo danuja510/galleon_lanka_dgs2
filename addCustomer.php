@@ -70,7 +70,7 @@
         <tr>
           <td></td>
           <td>
-            <input type="button" name="btnsubmit" value="Submit" id="btnsubmit" onclick="validate()">
+            <button type="submit" name="btnsubmit" id="btnsubmit" onclick="validate()">Submit</button>
             <input type="reset" name="btnreset" id="btnreset" value="Reset">
           </td>
         </tr>
@@ -82,14 +82,14 @@
       $address=$_POST["txtAddress"];
       $type=$_POST["txtType"];
       $tpNo=$_POST["txtTPNo"];
+      echo "string";
 			$con=mysqli_connect("localhost","root","","galleon_lanka");
 			if(!con){
 				die("Cannot connect to DB server");
 			}
-			$sql="INSERT INTO `employees` (`emp_no`, `type`, `name`, `password`) VALUES ('".$eno."', 'Regular', '".$name."', '".$password."');";
+			$sql="INSERT INTO `customer` (`cno`, `Name`, `Address`, `tpno`, `type`) VALUES (NULL, '".$name."', '".$address."', '".$tpNo."', '".$type."');";
 			mysqli_query($con,$sql);
 			mysqli_close($con);
-			header('Location:empManenegemt.php');
 			}
 	?>
   </body>
