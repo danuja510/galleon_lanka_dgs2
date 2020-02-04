@@ -1,7 +1,7 @@
 #galleon_lanka_db_script
 
 #sithara
-CREATE TABLE `galleon_lanka`.`supplier` ( 
+CREATE TABLE `galleon_lanka`.`supplier` (
  `sid` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
  `Address` VARCHAR(100) NULL ,
@@ -10,7 +10,7 @@ CREATE TABLE `galleon_lanka`.`supplier` (
  ENGINE = MyISAM;
 
 #sithara
-CREATE TABLE `galleon_lanka`.`materials` ( 
+CREATE TABLE `galleon_lanka`.`materials` (
  `mid` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
  `Type` VARCHAR(20) NOT NULL ,
@@ -20,7 +20,7 @@ CREATE TABLE `galleon_lanka`.`materials` (
  ENGINE = MyISAM;
 
 #gima
-CREATE TABLE `galleon_lanka`.`finished_products` ( 
+CREATE TABLE `galleon_lanka`.`finished_products` (
  `fp_id` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
  `bom_id` VARCHAR(20) NOT NULL ,
@@ -29,7 +29,7 @@ CREATE TABLE `galleon_lanka`.`finished_products` (
  ENGINE = MyISAM;
 
 #gima
-CREATE TABLE `galleon_lanka`.`employees` ( 
+CREATE TABLE `galleon_lanka`.`employees` (
  `eno` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
  `Designation` VARCHAR(20) NOT NULL ,
@@ -39,7 +39,7 @@ CREATE TABLE `galleon_lanka`.`employees` (
  ENGINE = MyISAM;
 
 #dan
-CREATE TABLE `galleon_lanka`.`customer` ( 
+CREATE TABLE `galleon_lanka`.`customer` (
  `cno` INT NOT NULL ,
  `Name` VARCHAR(50) NOT NULL ,
  `Address` VARCHAR(50) NULL ,
@@ -49,7 +49,7 @@ CREATE TABLE `galleon_lanka`.`customer` (
  ENGINE = MyISAM;
 
 #dan
-CREATE TABLE `galleon_lanka`.`purchase_orders` ( 
+CREATE TABLE `galleon_lanka`.`purchase_orders` (
  `no` INT NOT NULL AUTO_INCREMENT ,
  `po_no` INT NOT NULL ,
  `sid` INT NOT NULL ,
@@ -102,7 +102,7 @@ CREATE TABLE `galleon_lanka`.`gtn` (
  ENGINE = MyISAM;
 
 #sajini
-CREATE TABLE `galleon_lanka`.`invoice` ( 
+CREATE TABLE `galleon_lanka`.`invoice` (
  `no` INT NOT NULL AUTO_INCREMENT ,
  `invoice_no` INT NOT NULL ,
  `cno` INT NOT NULL ,
@@ -149,7 +149,7 @@ CREATE TABLE `galleon_lanka`.`debtors` (
  ENGINE = MyISAM;
 
 #bom
-CREATE TABLE `galleon_lanka`.`bom` ( 
+CREATE TABLE `galleon_lanka`.`bom` (
  `no` INT NOT NULL AUTO_INCREMENT ,
  `bom_id` INT NOT NULL ,
  `mid` INT NOT NULL ,
@@ -167,7 +167,13 @@ CREATE TABLE `galleon_lanka`.`stocks` (
  PRIMARY KEY (`no`))
  ENGINE = MyISAM;
 
-INSERT INTO `employees` 
+INSERT INTO `employees`
 (`eno`, `Name`, `Designation`, `Dept`, `password`)
  VALUES
  ('1', 't', 'Manager', 'Manager', '123');
+
+ #altering the employee table
+ ALTER TABLE `employees` CHANGE `eno` `eno` INT(11) NOT NULL AUTO_INCREMENT;
+
+ #altering customer table
+ ALTER TABLE `customer` CHANGE `cno` `cno` INT(11) NOT NULL AUTO_INCREMENT;
