@@ -16,8 +16,9 @@ session_start();
         {
 						alert("Please enter a correct Password and Confirm password");
 						return false;
-				}
+				}else{
         return true;
+      }
       }
     function validateDepartment()
       {
@@ -25,8 +26,9 @@ session_start();
           {
             alert("Please select a Department");
 						return false;
-          }
+          }else{
         return true;
+      }
       }
     function Validate()
 		  {
