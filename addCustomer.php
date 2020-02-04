@@ -4,8 +4,30 @@
   <head>
     <meta charset='utf-8'>
     <title>AddCustomer</title>
+    <script type="text/javascript">
+    function validateName()
+    {
+      var name=document.getElementById("txtName").value;
+      if(name=="")
+      {
+        alert("Enter A Name");
+        return false;
+      }
+      else
+        return true;
+    }
+
+    function validate(){
+      if (validateName()) {
+        alert("New Customer Added")
+      }else {
+        event.preventDefault();
+      }
+    }
+    </script>
   </head>
   <body>
+    <h1>Add Customer</h1>
     <form class='' action='index.html' method='post'>
       <table>
         <tr>
@@ -43,6 +65,13 @@
               <option value="dealer">Dealer</option>
               <option value="customer">Customer</option>
             </select>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="button" name="btnsubmit" value="Submit" id="btnsubmit" onclick="validate()">
+            <input type="reset" name="btnreset" id="btnreset" value="Reset">
           </td>
         </tr>
       </table>
