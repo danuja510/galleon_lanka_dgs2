@@ -177,3 +177,6 @@ INSERT INTO `employees`
 
  #altering customer table
  ALTER TABLE `customer` CHANGE `cno` `cno` INT(11) NOT NULL AUTO_INCREMENT;
+
+ #altering supplier table
+ ALTER TABLE `supplier` CHANGE `sid` `sid` INT(11) NOT NULL AUTO_INCREMENT;
