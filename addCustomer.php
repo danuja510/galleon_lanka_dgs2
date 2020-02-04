@@ -76,7 +76,22 @@
         </tr>
       </table>
     </form>
-
+    <?php
+		if(isset($_POST["btnsubmit"])){
+			$name=$_POST["txtName"];
+      $address=$_POST["txtAddress"];
+      $type=$_POST["txtType"];
+      $tpNo=$_POST["txtTPNo"];
+			$con=mysqli_connect("localhost","root","","galleon_lanka");
+			if(!con){
+				die("Cannot connect to DB server");
+			}
+			$sql="INSERT INTO `employees` (`emp_no`, `type`, `name`, `password`) VALUES ('".$eno."', 'Regular', '".$name."', '".$password."');";
+			mysqli_query($con,$sql);
+			mysqli_close($con);
+			header('Location:empManenegemt.php');
+			}
+	?>
   </body>
 </html>
 <!--dan-->
