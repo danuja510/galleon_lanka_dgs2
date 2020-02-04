@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang='en' dir='ltr'>
   <head>
     <meta charset='utf-8'>
@@ -38,7 +38,10 @@
           </td>
           <td>
             <select name='txtType' id='txtType'>
-              <option value=""></option>
+              <option value="other">Other</option>
+              <option value="distributor">Distributor</option>
+              <option value="dealer">Dealer</option>
+              <option value="customer">Customer</option>
             </select>
           </td>
         </tr>
