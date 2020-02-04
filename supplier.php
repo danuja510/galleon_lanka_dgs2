@@ -8,23 +8,24 @@ session_start();
 
     <script type ="text/javascript">
     function validateTelephone()
-    {
+      {
       var tp=document.getElementById('txtTno').value;
       var c=tp.length;
-      if(c !=10)
-      {
+      if(c !=10 && isNaN())
         {
           alert("enter a valid telephone number");
           return false;
         }
+        else
+        {
       return true;
-    }
-  }
+        }
+      }
   function Validate()
 		  {
 					if(validateTelephone())
 					{
-						alert("completed");
+						alert("Record added");
 					}
 					else
 					{
@@ -38,14 +39,9 @@ session_start();
     <h1 align="center">
     Supplier Registration
     </h1>
-<form class="supplier" action="supplier.php" method="post">
+<form class="" action="supplier.php" method="post">
   <table border="0" align="center">
-    <tr>
-      <td>Supplier ID </td>
-      <td><input type="text" name="txtSid" id="txtSid" value=""></td>
-    </tr>
-    <tr>
-      <td>name</td>
+      <td>Name</td>
       <td><input type="text" name="txtName" id="txtName" value=""></td>
     </tr>
     <tr>
@@ -66,25 +62,22 @@ session_start();
 <?php
 
  if(isset($_POST['btnSubmit']))
- {
-
-				 $sid = $_POST['txtSid'];
+    {
 				 $name = $_POST['txtName'];
 				 $Address = $_POST['txtAddress'];
 				 $Tno = $_POST['txtTno'];
-
 
 $con = mysqli_connect("localhost","root","","galleon_lanka");
         if(!$con)
          {
            die("cannot connect to DB server");
          }
-         $sql="INSERT INTO `Supplier`(`sid`, `Name`, `Address`, `tpno`) VALUES ('".$sid."','".$name."','".$Address."','".$Tno."')";
+         $sql="INSERT INTO `Supplier`(`Name`, `Address`, `tpno`) VALUES ('".$name."','".$Address."','".$Tno."')";
                 mysqli_query($con,$sql);
       				  mysqli_close($con);
     }
   ?>
-  </body>
+</body>
 </html>
 
 <!--sithara-->
