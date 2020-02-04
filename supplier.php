@@ -18,7 +18,7 @@ session_start();
         }
         else
         {
-      return true;
+          return true;
         }
       }
   function Validate()
@@ -41,15 +41,15 @@ session_start();
     </h1>
 <form class="" action="supplier.php" method="post">
   <table border="0" align="center">
-      <td>Name</td>
+      <td><label for='txtName'>Name</label></td>
       <td><input type="text" name="txtName" id="txtName" value=""></td>
     </tr>
     <tr>
-      <td>Address</td>
+      <td><label for='txtAddress'>Address</label></td>
       <td><input type="text" name="txtAddress" id="txtAddress" value=""></td>
     </tr>
     <tr>
-      <td>Telephone Number</td>
+      <td><label for='txtTno'>telephone number</label>r</td>
       <td><input type="text" name="txtTno" id="txtTno" value=""></td>
     </tr>
     <tr>
