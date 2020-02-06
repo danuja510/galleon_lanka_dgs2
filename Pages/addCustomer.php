@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php
+ session_start();
+ if(!isset($_SESSION['eno'])){
+   header('Location:signIn.php');
+ }
+?>
 <!DOCTYPE html>
 <html lang='en' dir='ltr'>
   <head>
