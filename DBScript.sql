@@ -187,3 +187,6 @@ ALTER TABLE `purchase_orders` ADD `approvedBy` INT NULL AFTER `prepared_by_(eno)
 
 #altered grn talbe
 ALTER TABLE `grn` ADD `approvedBy` INT NULL AFTER `remarks`;
+
+#altered materials table
+ALTER TABLE `materials` CHANGE `mid` `mid` INT(11) NOT NULL AUTO_INCREMENT;
