@@ -80,7 +80,7 @@
 			mysqli_close($con);
 	if(mysqli_num_rows($result)>0){
 		$_SESSION['eno']=$eno;
-		header('Location:empHome.php');
+		header('Location:../Pages/empHome.php');
 		}else{
 			echo "invalid credentials";}
 		}
