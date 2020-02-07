@@ -58,7 +58,7 @@
             <select name="lstBom" id="lstBom">
               <option value='-----'>-----</option>
               <?php
-                $sql="SELECT * FROM `bom`;";
+                $sql="SELECT DISTINCT `bom_id` FROM `bom`;";
                 $con = mysqli_connect("localhost","root","","galleon_lanka");
                 if(!$con)
                 {
