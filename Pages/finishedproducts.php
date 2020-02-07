@@ -42,7 +42,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2"><input type="submit" name="btnSubmit" value="submit"></td>
+          <td colspan="2"><input type="submit" name="btnNext" value="Next"></td>
         </tr>
       </table>
     </form>
