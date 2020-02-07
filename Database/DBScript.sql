@@ -178,15 +178,17 @@ INSERT INTO `employees`
  #altering customer table
  ALTER TABLE `customer` CHANGE `cno` `cno` INT(11) NOT NULL AUTO_INCREMENT;
 
-
  #altering supplier table
  ALTER TABLE `supplier` CHANGE `sid` `sid` INT(11) NOT NULL AUTO_INCREMENT;
 
 #altered the purchase_orders table
 ALTER TABLE `purchase_orders` ADD `approvedBy` INT NULL AFTER `prepared_by_(eno)`;
 
-#altered grn talbe
+#altered grn table
 ALTER TABLE `grn` ADD `approvedBy` INT NULL AFTER `remarks`;
 
 #altered materials table
 ALTER TABLE `materials` CHANGE `mid` `mid` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered finished products table
+ALTER TABLE `finished_products` CHANGE `fp_id` `fp_id` INT(11) NOT NULL AUTO_INCREMENT;
