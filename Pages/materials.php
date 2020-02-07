@@ -1,6 +1,9 @@
- <?php
-session_start();
- ?>
+<?php
+ session_start();
+ if(!isset($_SESSION['eno'])){
+   header('Location:signIn.php');
+ }
+?>
 <html>
   <head>
     <meta charset="utf-8">
