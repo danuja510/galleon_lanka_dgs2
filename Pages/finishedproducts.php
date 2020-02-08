@@ -32,20 +32,8 @@
           }
       }
 
-      function validateValue(){
-        var val=document.getElementById("txtValue").value;
-        if(val!=null){
-          return true;
-          alert("enter a value");
-        }
-        else {
-          alert("enter a value");
-          return false;
-        }
-      }
-
       function Validate(){
-        if(validateBom() /*&& validateName()*/ && validateValue())
+        if(validateBom() /*&& validateName()*/ )
         {}
         else {
           event.preventDefault();
