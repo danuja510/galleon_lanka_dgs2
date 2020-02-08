@@ -7,7 +7,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>materials</title>
+    <title>add materials</title>
 
       <script type ="text/javascript">
       function validateSupplier(){
@@ -21,20 +21,19 @@
             return true;
         }
       }
-
-      function validateValue(){
-        var value=document.getElementById('txtValue').value;
-        if(!isNaN(value)){
-        return true;
+      function validateType(){
+        if(document.getElementById('lstType').value=="----------")
+        {
+            alert("please select a type");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
       }
-      else {
-        alert("enter a valid value");
-        return false;
-      }
-    }
     function Validate(){
-        if(validateSupplier() && validateValue()){
-          alert("Material added");
+        if(validateSupplier() &&validateType()){
         }
         else {
           event.preventDefault();
@@ -54,8 +53,15 @@
           <td><input type="text" name="txtName" id="txtName" value="" required></td>
         </tr>
         <tr>
-          <td><label for="txtType">Type</label></td>
-          <td><input type="text" name="txtType" id="txtType" value="" required></td>
+          <td><label for="lstType">Type</label></td>
+          <td>
+            <select name="lstType" id="lstType">
+            <option value="----------">----------</option>
+            <option value="Raw">Raw</option>
+            <option value="Packing">Packing</option>
+            <option value="Chemical">Chemical</option>
+            </select>
+          </td>
         </tr>
         <tr>
           <td><label for="lstSid">Supplier</label></td>
@@ -82,7 +88,7 @@
         </tr>
         <tr>
           <td><label for="txtValue">value</label></td>
-          <td><input type="text" name="txtValue" id="txtValue" value="" required></td>
+          <td><input type="number" name="txtValue" id="txtValue" value="" min="0" step="0.01" required></td>
         </tr>
         <tr>
           <td><input type="Submit" name="btnSubmit" id="btnSubmit" value="Submit" onclick="Validate()"></td>
@@ -95,7 +101,7 @@
     if(isset($_POST['btnSubmit']))
        {
          $Name = $_POST['txtName'];
-         $Type = $_POST['txtType'];
+         $Type = $_POST['lstType'];
          $sid = $_POST['lstSid'];
          $Value= $_POST['txtValue'];
 
