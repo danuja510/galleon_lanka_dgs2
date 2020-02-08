@@ -10,7 +10,7 @@
     <title>Finished products</title>
     <script type="text/javascript">
 
-        function validateName(){
+        /*function validateName(){
           var n=document.getElementById("txtName").value;
           if(n==null)
           {
@@ -20,7 +20,7 @@
           else {
               return true;
           }
-        }
+        }*/
         function validateBom(){
           if(document.getElementById('lstBom').value=="-----")
           {
@@ -33,9 +33,10 @@
       }
 
       function validateValue(){
-        var v=document.getElementById("txtValue").value;
-        if(v!=null){
+        var val=document.getElementById("txtValue").value;
+        if(val!=null){
           return true;
+          alert("enter a value");
         }
         else {
           alert("enter a value");
@@ -44,9 +45,8 @@
       }
 
       function Validate(){
-        if(validateBom() && validateName() && validateValue()){
-          alert("finished product added");
-        }
+        if(validateBom() /*&& validateName()*/ && validateValue())
+        {}
         else {
           event.preventDefault();
         }
@@ -59,7 +59,7 @@
       <table>
         <tr>
           <td><label for="txtName">Name</label></td>
-          <td><input type="text" name="txtName" id="txtName" value=""></td>
+          <td><input type="text" name="txtName" id="txtName" value="" required></td>
         </tr>
 
         <tr>
@@ -87,7 +87,7 @@
         </tr>
         <tr>
           <td><label for="txtValue">Value</label></td>
-          <td><input type="number" name="txtValue" id="txtValue" value=""></td>
+          <td><input type="number" name="txtValue" id="txtValue" value="" min="0" step="0.01" required> </td>
         </tr>
         <tr>
           <td colspan="2"><input type="submit" name="btnSubmit" id="btnSubmit" value="Add" onclick="Validate()"></td>
