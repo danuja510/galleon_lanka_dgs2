@@ -1,16 +1,18 @@
 <?php
-session_start();
-if(!isset($_SESSION['eno'])){
+ session_start();
+ if(!isset($_SESSION['eno'])){
    header('Location:signIn.php');
+ }
  ?>
-
+<!DOCTYPE html>
  <html>
   <head>
     <meta charset="utf-8">
     <title>Invoice</title>
     <script type = "text/javascript">
 
-    function validateCustomer(){
+    function validateCustomer()
+    {
       var cno=document.getElementbyId("txtcno").value;
       if (cno=='__')
       {
@@ -35,7 +37,7 @@ if(!isset($_SESSION['eno'])){
         }
     }
 
-    function Calculatetotal()
+   function Calculatetotal()
     {
 
         var q=document.getElementById('txtQuantity');
@@ -44,14 +46,13 @@ if(!isset($_SESSION['eno'])){
         var total= q*p;
 
         document.getElementById('txtTotal').value= total;
-    }
 
 
     function Validate()
     {
-        if(validateCustomer())
+        if(validateCustomer()&&validateQuantity())
         {
-           Calculatetotal();
+          Calculatetotal();
         }
         else
         {
@@ -65,30 +66,11 @@ if(!isset($_SESSION['eno'])){
   <body>
     <h1 align="center">Invoice</h1>
 
-    <form class ="" action ="invoice.php" method ="post">
+    <form action ="invoice.php" method ="post">
       <table border="0" align ="center">
         <tr>
           <td><lable for="txtcno">Select Customer</label></td>
-            <td><select name="txtcno" id="txtcno">
-              <option value='__'>__</option>
-              <?php
-              $sql="SELECT * FROM `invoice`;";
-              $con = mysqli_connect("localhost","root","","galleon_lanka");
-              if(!$con)
-                {
-                  die("Error while connecting to database");
-                }
-                $rowSQL =mysqli_query($con,$sql);
-                while($row=mysqli_fetch_assoc($rowSQL))
-                {
-                  echo "
-                    <option value='".$row['cno']."'>".$row['Name']."</option>
-                  ";
-                }
-                mysqli_close($con);
-               ?>
-             </select>
-            </td>
+          <td><input type="text" name="txtcno" id="txtcno" value=""></td>
         </tr>
         <tr>
           <td><label for= "txtItemNo">Item No</label></td>
@@ -130,8 +112,6 @@ if(!isset($_SESSION['eno'])){
         </tr>
       </table>
     </form>
-
   </body>
-
-
  </html>
+<!--jini-->
