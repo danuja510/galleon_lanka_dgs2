@@ -9,37 +9,47 @@
     <meta charset="utf-8">
     <title>Finished products</title>
     <script type="text/javascript">
+
+        function validateName(){
+          var n=document.getElementById("txtName").value;
+          if(n==null)
+          {
+              alert("please enter a name");
+              return false;
+          }
+          else {
+              return true;
+          }
+        }
         function validateBom(){
-        {
           if(document.getElementById('lstBom').value=="-----")
           {
               alert("please select a BOM");
               return false;
           }
-          else
+          else{
               return true;
-        }
+          }
       }
 
       function validateValue(){
-        var v=document.getElementById('txtValue').value;
-        if(!isNaN(v)){
+        var v=document.getElementById("txtValue").value;
+        if(v!=null){
           return true;
         }
         else {
-          alert("enter a valid value");
+          alert("enter a value");
           return false;
         }
       }
 
       function Validate(){
-        if(validateBom() && validateValue()){
+        if(validateBom() && validateName() && validateValue()){
           alert("finished product added");
         }
         else {
           event.preventDefault();
         }
-
       }
     </script>
   </head>
@@ -49,7 +59,7 @@
       <table>
         <tr>
           <td><label for="txtName">Name</label></td>
-          <td><input type="text" name="txtName" id="txtName" value="" required></td>
+          <td><input type="text" name="txtName" id="txtName" value=""></td>
         </tr>
 
         <tr>
@@ -77,7 +87,7 @@
         </tr>
         <tr>
           <td><label for="txtValue">Value</label></td>
-          <td><input type="text" name="txtValue" id="txtValue" value=""></td>
+          <td><input type="number" name="txtValue" id="txtValue" value=""></td>
         </tr>
         <tr>
           <td colspan="2"><input type="submit" name="btnSubmit" id="btnSubmit" value="Add" onclick="Validate()"></td>
