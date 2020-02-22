@@ -22,15 +22,17 @@
       	{
       		die("Error while connecting to database");
       	}
-      	$sql="SELECT *,sum(amount) as value FROM `grn` where `grn_no`=1 GROUP BY `grn_no`;";
+      	$sql="SELECT *,sum(amount) as value FROM `grn` where `grn_no`=".$grn." GROUP BY `grn_no`;";
       	$rowSQL= mysqli_query( $con,$sql);
       	$row = mysqli_fetch_array( $rowSQL );
         echo "<h2>GRN No. ".$row['grn_no']."</h2>";
         echo "<h2>Supplier No. ".$row['sid']."</h2>";
+        $sid=$row['sid'];
         echo "<h2>Purchase Order No. ".$row['po_no']."</h2>";
         echo "<h2>Date ".$row['date']."</h2>";
         echo "<h2>Prepared by eno ".$row['prepared_by_(eno)']."</h2>";
         echo "<h2>Amount Rs. ".$row['value']."</h2>";
+        $value=$row['value'];
         echo "
           <table>
             <thead>
@@ -48,17 +50,17 @@
             $sql="SELECT * FROM `grn` WHERE `grn_no`=".$grn.";";
             $rowSQL= mysqli_query( $con,$sql);
             mysqli_close($con);
-            while($row=mysqli_fetch_assoc( $rowSQL )){
+            while($row2=mysqli_fetch_assoc( $rowSQL )){
               echo "
                 <tr>
                   <td>
-                    ".$row['mid']."
+                    ".$row2['mid']."
                   </td>
                   <td>
-                    ".$row['qty']."
+                    ".$row2['qty']."
                   </td>
                   <td>
-                    ".$row['amount']."
+                    ".$row2['amount']."
                   </td>
                 </tr>
               ";
@@ -85,6 +87,24 @@
       }
       $sql="UPDATE `grn` SET `approvedBy` = '".$_SESSION['eno']."' WHERE `grn`.`grn_no` = ".$grn.";";
       mysqli_query( $con,$sql);
+      $sql="SELECT * FROM `creditors` WHERE `sid` = ".$sid." ;";
+  		$con = mysqli_connect("localhost","root","","galleon_lanka");
+  			if(!$con)
+  			{
+  				die("Error while connecting to database");
+  			}
+  			$result= mysqli_query($con,$sql);
+        $row = mysqli_fetch_array( $result );
+  	if(mysqli_num_rows($result)>0){
+      $value+=$row['amount'];
+      $sql2="UPDATE `creditors` SET `amount` = '".$value."', `date` = CURDATE() WHERE `creditors`.`sid` = ".$sid.";";
+      mysqli_query( $con,$sql2);
+      mysqli_close($con);
+    }else{
+      $sql2="INSERT INTO `creditors` (`sid`, `amount`, `date`) VALUES ('".$sid."', '".$value."',CURDATE() );";
+      mysqli_query( $con,$sql2);
+      mysqli_close($con);
     }
-  ?>
+  }
+   ?>
 </html>
