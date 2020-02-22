@@ -197,3 +197,11 @@ ALTER TABLE `finished_products` CHANGE `fp_id` `fp_id` INT(11) NOT NULL AUTO_INC
 ALTER TABLE `grn` CHANGE `amount` `amount` FLOAT NOT NULL;
 ALTER TABLE `grn` CHANGE `remarks` `remarks` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
 ALTER TABLE `grn` CHANGE `po_no` `po_no` INT(11) NULL;
+
+#altered creditors table
+ALTER TABLE `creditors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `sid`);
+
+ALTER TABLE `creditors` DROP `crid`;
