@@ -205,3 +205,8 @@ ALTER TABLE `creditors`
      `sid`);
 
 ALTER TABLE `creditors` DROP `crid`;
+
+#altered gtn table
+ALTER TABLE `grn` CHANGE `amount` `amount` FLOAT NOT NULL;
+ALTER TABLE `grn` CHANGE `remarks` `remarks` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+ALTER TABLE `grn` CHANGE `po_no` `po_no` INT(11) NULL;
