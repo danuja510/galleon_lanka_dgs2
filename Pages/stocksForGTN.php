@@ -3,7 +3,9 @@
  if(!isset($_SESSION['eno'])){
    header('Location:signIn.php');
  }else if (!isset($_SESSION['dept'])) {
-   header('Location:empHome.php');
+   header('Location:createGTN.php');
+ }else if (!isset($_SESSION['gtntype'])) {
+   header('Location:createGTN.php');
  }
 ?>
 <!DOCTYPE html>
@@ -23,6 +25,7 @@
           <th></th>
         </thead>
         <?php
+          $type=$_SESSION['gtntype'];
           $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."';";
           $con = mysqli_connect("localhost","root","","galleon_lanka");
           if(!$con)
@@ -44,12 +47,6 @@
           mysqli_close($con);
         ?>
       </table>
-      <label for="txtGTNType">Type Of GTN</label>
-      <select name="txtGTNType" id="txtGTNType">
-        <option value="__">___</option>
-        <option value="in">IN</option>
-        <option value="out">OUT</option>
-      </select>
       <input type="submit" name="btnNext" id="btnNext" value="Next">
     </form>
     <?php
@@ -60,7 +57,7 @@
           die("Error while connecting to database");
         }
         $rowSQL3= mysqli_query( $con,$sql);
-        $m=$_POST['txtGTNType']."+";
+        $m=$type."+";
         $count=0;
         while($row3=mysqli_fetch_assoc( $rowSQL3 )){
           if(isset($_POST[$row3['item_no']])){
@@ -83,3 +80,4 @@
     ?>
   </body>
 </html>
+<!--dan-->
