@@ -211,3 +211,6 @@ ALTER TABLE `gtn` DROP `to(dept)`;
 ALTER TABLE `gtn` CHANGE `from(dept)` `dept` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 ALTER TABLE `gtn` ADD `type` VARCHAR(20) NOT NULL AFTER `qty`;
 ALTER TABLE `gtn` ADD `item_type` VARCHAR(20) NOT NULL AFTER `item_no`;
+
+#altered employees table
+ALTER TABLE `employees` ADD `status` VARCHAR(20) NULL AFTER `password`;
