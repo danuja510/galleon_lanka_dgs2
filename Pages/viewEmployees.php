@@ -40,7 +40,7 @@
             }
            $sql="SELECT * FROM `employees` WHERE `status`='active';";
            $rowSQL= mysqli_query( $con,$sql);
-           $row = mysqli_fetch_array( $rowSQL );
+           while($row = mysqli_fetch_array( $rowSQL )){
         echo "
         <tr>
           <td>
@@ -64,6 +64,7 @@
         </tr>
       </table>
         ";
+      }
       ?>
 
   </body>
