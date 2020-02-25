@@ -214,3 +214,4 @@ ALTER TABLE `gtn` ADD `item_type` VARCHAR(20) NOT NULL AFTER `item_no`;
 
 #altered employees table
 ALTER TABLE `employees` ADD `status` VARCHAR(20) NULL AFTER `password`;
+UPDATE `employees` SET `status` = 'active' WHERE `employees`.`eno` = 1;
