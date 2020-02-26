@@ -61,10 +61,12 @@
         }else{
           if ($_POST['txtDept']=='store') {
             $_SESSION['gtntype']='out';
-          }elseif ($_POST['txtDept']=='fGoods') {
+          }
+          if ($_POST['txtDept']=='fGoods') {
             $_SESSION['gtntype']='in';
           }
-        header('Location:stocksForGTN.php');
+          header('Location:stocksForGTN.php');
+        }
       }
     ?>
   </body>

@@ -23,7 +23,7 @@
       }
       function validate()
       {
-        if(validateDept())
+        if(validateType())
           {}
         else
           event.preventDefault();
@@ -38,10 +38,13 @@
         <option value="in">IN</option>
         <option value="out">OUT</option>
       </select>
+      <input type="submit" name="btnNext" id="btnNext" value="Next" onclick="validate()">
     </form>
     <?php
-      $_SESSION['gtntype']=$_POST['txtGTNType'];
-      header('Location:stocksForGTN.php');
+      if (isset($_POST['btnNext'])) {
+        $_SESSION['gtntype']=$_POST['txtGTNType'];
+        header('Location:stocksForGTN.php');
+      }
     ?>
   </body>
 </html>

@@ -105,7 +105,6 @@
           $sql2="UPDATE `stocks` SET `qty` = '".$qty."', `date` = CURDATE() WHERE `stocks`.`item_no` = ".$row3['item_no']." AND `type`='".$row3['item_type']."' AND `dept`='".$dept."';";
           mysqli_query( $con,$sql2);
         }
-        echo $sql2;
       }
       mysqli_close($con);
     }
