@@ -10,6 +10,8 @@
     <title>view employees</title>
   </head>
   <body>
+    <form method="post">
+
     <table>
       <thead>
         <th>
@@ -68,9 +70,14 @@
 
         ";
       }
+      $eno=$row['eno'];
+      if (isset($_POST['btnEdit'])) {
+        $_SESSION['eno2']=$_POST[$eno];
+        header('Location:manageEmployees.php');
+      }
       ?>
       </table>
-
+      </form>
   </body>
 </html>
 <!--gima-->
