@@ -61,6 +61,9 @@
           <td>
               ".$row['status']."
           </td>
+          <td>
+              <input type='submit' name='btnEdit' value='edit'>
+          </td>
         </tr>
 
         ";
