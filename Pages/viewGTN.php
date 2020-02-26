@@ -81,7 +81,7 @@
   </body>
   <?php
     if (isset($_POST['btnApprove'])) {
-      // updating grn records to approved
+      // updating gtn records to approved
       $con = mysqli_connect("localhost","root","","galleon_lanka");
       if(!$con)
       {
@@ -95,12 +95,17 @@
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
         $sql="SELECT * FROM `stocks` WHERE `item_no` = ".$row3['item_no']." AND `type`='".$row3['item_type']."' AND `dept`='".$dept."' ;";
         $result= mysqli_query($con,$sql);
-        $row = mysqli_fetch_array( $result );
     	  if($type=='in'){
-          $qty=$row3['qty']+$row['qty'];
-          $sql2="UPDATE `stocks` SET `qty` = '".$qty."', `date` = CURDATE() WHERE `stocks`.`item_no` = ".$row3['item_no']." AND `type`='".$row3['item_type']."' AND `dept`='".$dept."';";
+          if (mysqli_num_rows($result)>0) {
+            $row = mysqli_fetch_array( $result );
+            $qty=$row3['qty']+$row['qty'];
+            $sql2="UPDATE `stocks` SET `qty` = '".$qty."', `date` = CURDATE() WHERE `stocks`.`item_no` = ".$row3['item_no']." AND `type`='".$row3['item_type']."' AND `dept`='".$dept."';";
+          }else {
+            $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$dept."');";
+          }
           mysqli_query( $con,$sql2);
         }elseif ($type=='out') {
+          $row = mysqli_fetch_array( $result );
           $qty=$row['qty']-$row3['qty'];
           $sql2="UPDATE `stocks` SET `qty` = '".$qty."', `date` = CURDATE() WHERE `stocks`.`item_no` = ".$row3['item_no']." AND `type`='".$row3['item_type']."' AND `dept`='".$dept."';";
           mysqli_query( $con,$sql2);

@@ -12,7 +12,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>ConfirmPurchaseOrder</title>
+    <title>ConfirmGTN</title>
   </head>
   <body>
     <table>
