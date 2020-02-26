@@ -10,7 +10,7 @@
     <title>view employees</title>
   </head>
   <body>
-    <form method="post">
+    <form method="post" action="viewEmployees.php">
 
     <table>
       <thead>
@@ -25,9 +25,6 @@
         </th>
         <th>
             Dept
-        </th>
-        <th>
-            Password
         </th>
         <th>
             status
@@ -59,9 +56,6 @@
           </td>
           <td>
               ".$row['Dept']."
-          </td>
-          <td>
-              ".$row['password']."
           </td>
           <td>
               ".$row['status']."

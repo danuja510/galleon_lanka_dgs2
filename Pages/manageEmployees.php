@@ -3,6 +3,9 @@
     if(!isset($_SESSION['eno'])){
       header('Location:signIn.php');
     }
+    else if (!isset($_SESSION['eno2'])) {
+    header('Location:viewEmployees.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -10,6 +13,7 @@
     <meta charset="utf-8">
     <title>Manage employees</title>
   </head>
+
   <body>
     <?php
       $con = mysqli_connect("localhost","root","","galleon_lanka");
@@ -19,7 +23,7 @@
           }
          $sql="SELECT * FROM `employees`;";
          $rowSQL= mysqli_query( $con,$sql);
-         while($row = mysqli_fetch_assoc( $rowSQL )){
+         $row = mysqli_fetch_assoc( $rowSQL);
     echo"
         <form action=\"manageEmployees.php\" method=\"post\">
         <table>
@@ -109,7 +113,7 @@
       </table>
     </form>
     ";
-    }
+
     mysqli_close($con);
      ?>
 
