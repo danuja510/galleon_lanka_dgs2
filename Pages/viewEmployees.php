@@ -62,10 +62,11 @@
               ".$row['status']."
           </td>
         </tr>
-      </table>
+
         ";
       }
       ?>
+      </table>
 
   </body>
 </html>
