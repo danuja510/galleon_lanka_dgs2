@@ -47,6 +47,9 @@
         <tr>
           <td>
               ".$row['eno']."
+              ";
+              $eno=$row['eno'];
+        echo "
           </td>
           <td>
               ".$row['Name']."
@@ -67,10 +70,10 @@
               <input type='submit' name='btnEdit' value='edit'>
           </td>
         </tr>
-
         ";
+
       }
-      $eno=$row['eno'];
+
       if (isset($_POST['btnEdit'])) {
         $_SESSION['eno2']=$_POST[$eno];
         header('Location:manageEmployees.php');
