@@ -32,13 +32,14 @@
             die("Error while connecting to database");
           }
           if($_SESSION['gtntype']=='out'){
-            $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."';";
-            $rowSQL= mysqli_query( $con,$sql);
             if ($_SESSION['dept']=='store') {
+              $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material';";
               $iType='material';
             }elseif ($_SESSION['dept']=='pfloor') {
+              $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished product';";
               $iType='finished product';
             }
+            $rowSQL= mysqli_query( $con,$sql);
             while($row=mysqli_fetch_assoc( $rowSQL )){
               echo "
                 <tr>

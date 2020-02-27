@@ -87,7 +87,7 @@
       {
         die("Error while connecting to database");
       }
-      $sql="UPDATE `gtn` SET `approved by` = '".$_SESSION['eno']."' WHERE `gtn`.`gtn_no` = ".$gtn.";";
+      $sql="UPDATE `gtn` SET `approved_by` = '".$_SESSION['eno']."' WHERE `gtn`.`gtn_no` = ".$gtn.";";
       mysqli_query( $con,$sql);
         // adding/updating stock rocords
       $sql3="SELECT `item_no`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$gtn."";
