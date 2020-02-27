@@ -32,13 +32,14 @@
             die("Error while connecting to database");
           }
           if($_SESSION['gtntype']=='out'){
-            $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."';";
-            $rowSQL= mysqli_query( $con,$sql);
             if ($_SESSION['dept']=='store') {
+              $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material';";
               $iType='material';
             }elseif ($_SESSION['dept']=='pfloor') {
+              $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished product';";
               $iType='finished product';
             }
+            $rowSQL= mysqli_query( $con,$sql);
             while($row=mysqli_fetch_assoc( $rowSQL )){
               echo "
                 <tr>
@@ -96,19 +97,44 @@
         {
           die("Error while connecting to database");
         }
-        $rowSQL3= mysqli_query( $con,$sql);
-        $m=$type."+";
-        $count=0;
-        while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-          if(isset($_POST[$row3['item_no']])){
-            $count++;
-            $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no']].'x'.$iType.',';
+        if ($_SESSION['gtntype']=='out') {
+          $rowSQL3= mysqli_query( $con,$sql);
+          $m=$type."+";
+          $count=0;
+          while($row3=mysqli_fetch_assoc( $rowSQL3 )){
+            if(isset($_POST[$row3['item_no']])){
+              $count++;
+              $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no']].'x'.$iType.',';
+            }
+          }
+        }else {
+          if ($_SESSION['dept']=='pfloor') {
+            $rowSQL3= mysqli_query( $con,$sql);
+            $m=$type."+";
+            $count=0;
+            while($row3=mysqli_fetch_assoc( $rowSQL3 )){
+              if(isset($_POST[$row3['mid']])){
+                $count++;
+                $m=$m.$row3['mid'].'x'.$_POST['txt'.$row3['mid']].'x'.$iType.',';
+              }
+            }
+          }
+          if ($_SESSION['dept']=='fGoods') {
+            $rowSQL3= mysqli_query( $con,$sql);
+            $m=$type."+";
+            $count=0;
+            while($row3=mysqli_fetch_assoc( $rowSQL3 )){
+              if(isset($_POST[$row3['fp_id']])){
+                $count++;
+                $m=$m.$row3['fp_id'].'x'.$_POST['txt'.$row3['fp_id']].'x'.$iType.',';
+              }
+            }
           }
         }
         if($count==0){
           echo "
           <script type='text/javascript'>
-            alert('Select A Material to Order');
+            alert('Select A Items to Transfer');
             event.preventDefault();
           </script>
           ";
