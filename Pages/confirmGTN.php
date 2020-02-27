@@ -12,7 +12,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>ConfirmPurchaseOrder</title>
+    <title>ConfirmGTN</title>
   </head>
   <body>
     <table>
@@ -55,9 +55,9 @@
             {
               die("Error while connecting to database");
             }
-            $sql="SELECT * FROM `stocks` WHERE `item_no` = ".$order[0]." AND `type`='".$order[2]."';";
-            $rowSQL= mysqli_query( $con,$sql);
-            $row = mysqli_fetch_array( $rowSQL );
+            //$sql="SELECT * FROM `stocks` WHERE `item_no` = ".$order[0]." AND `type`='".$order[2]."';";
+            //$rowSQL= mysqli_query( $con,$sql);
+            //$row = mysqli_fetch_array( $rowSQL );
             mysqli_close($con);
             echo "
               <tr>
@@ -65,7 +65,7 @@
                   ".$order[0]."
                 </td>
                 <td>
-                  ".$row['type']."
+                  ".$order[2]."
                 </td>
                 <td>
                   ".$order[1]."
