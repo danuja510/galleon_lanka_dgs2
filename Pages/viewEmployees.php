@@ -43,36 +43,46 @@
         echo "
         <tr>
           <td>
-              ".$row['eno']."
-              ";
-              $eno=$row['eno'];
+          ";
+
         echo "
+              ".$row['eno']."
           </td>
+
           <td>
               ".$row['Name']."
           </td>
+
           <td>
               ".$row['Designation']."
           </td>
+
           <td>
               ".$row['Dept']."
           </td>
+
           <td>
               ".$row['status']."
           </td>
           <td>
               <input type='submit' name='btnEdit' value='edit'>
+          ";
+              $eno=$row['eno'];
+              echo"
+          </td>
+          ";
+              if (isset($_POST['btnEdit'])) {
+                $_SESSION['eno2']=$eno;
+                header('Location:manageEmployees.php');
+
+              }
+            }
+            ?>
+
           </td>
         </tr>
-        ";
 
-      }
 
-      if (isset($_POST['btnEdit'])) {
-        $_SESSION['eno2']=$_POST[$eno];
-        header('Location:manageEmployees.php');
-      }
-      ?>
       </table>
       </form>
   </body>

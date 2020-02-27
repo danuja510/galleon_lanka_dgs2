@@ -21,7 +21,8 @@
           {
            die("cannot connect to DB server");
           }
-         $sql="SELECT * FROM `employees`;";
+          $eno2=$_SESSION['eno2'];
+         $sql="SELECT * FROM `employees` where `eno`='$eno2';";
          $rowSQL= mysqli_query( $con,$sql);
          $row = mysqli_fetch_assoc( $rowSQL);
     echo"
@@ -33,7 +34,7 @@
             <label for='txtEno'>Eno</label>
           </td>
           <td>
-            <input type=\"text\" name=\"txtEno\" id=\"txtEno\" value=" .$row['eno']. " required readonly>
+            <input type='text' name='txtEno' id='txtEno' value=" .$row['eno']. " required readonly>
           </td>
         </tr>
 
@@ -97,7 +98,7 @@
             <label for='txtStatus'>Status</label>
           </td>
           <td>
-            <input type=\"text\" name=\"txtStatus\" id=\"txtStatus\" value=" .$row['status']. " required readonly>
+            <input type=\"text\" name=\"txtStatus\" id=\"txtStatus\" value=" .$row['status']. " required readonly >
           </td>
         </tr>
 
@@ -106,7 +107,10 @@
             <input type=\"submit\" name=\"btnUpdate\" id=\"btnUpdate\" value=\"update\">
           </td>
           <td>
-            <input type=\"button\" name=\"btnDelete\" id=\"btnDelete\" value=\"delete\">
+          :;
+            if($st=='active')
+            echo"
+            <input type=\"submit\" name=\"btnDelete\" id=\"btnDelete\" value=\"delete\">
           </td>
         </tr>
 
@@ -119,6 +123,7 @@
 
      <?php
      if(isset($_POST["btnUpdate"])){
+       echo "updated";
        $name=$_POST["txtName"];
        $dep=$_POST["lstDepartment"];
        $pass=$_POST["txtPwd"];
@@ -127,7 +132,7 @@
          die("Cannot connect to DB server");
        }
 
-       $sql1='UPDATE `employees` SET `Name` = '.$row['name'].',`Dept`='.$row['dep'].', `password` = '.$row['pass'].' WHERE `employees`.`eno` = '.$row['eno'].' ;';
+       $sql1="UPDATE `employees` SET `Name` = '.$name.',`Dept`='.$dep.', `password` = '.$pass.' WHERE `eno` = '".$_SESSION['eno2']."'";
        mysqli_query($con1,$sql1);
        mysqli_close($con1);
        }
@@ -135,16 +140,15 @@
 
    <?php
    if(isset($_POST["btnDelete"])){
+     echo "deleted";
      $st=$_POST["txtStatus"];
      $con3=mysqli_connect("localhost","root","","galleon_lanka");
      if(!$con3){
        die("Cannot connect to DB server");
      }
-     if($st="active")
-        $sql3='UPDATE `employees` SET `status` = "inactive" WHERE `employees`.`eno` = '.$row['eno'].' ';
-     else
-        echo "employee is already deleted";
-
+     if($st="active"){
+        $sql3="UPDATE `employees` SET `status` = 'inactive' WHERE `eno` = '".$_SESSION['eno2']."'";
+     }
      mysqli_query($con3,$sql3);
      mysqli_close($con3);
      }
