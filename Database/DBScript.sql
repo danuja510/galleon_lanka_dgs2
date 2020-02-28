@@ -192,3 +192,27 @@ ALTER TABLE `materials` CHANGE `mid` `mid` INT(11) NOT NULL AUTO_INCREMENT;
 
 #altered finished products table
 ALTER TABLE `finished_products` CHANGE `fp_id` `fp_id` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered grn table
+ALTER TABLE `grn` CHANGE `amount` `amount` FLOAT NOT NULL;
+ALTER TABLE `grn` CHANGE `remarks` `remarks` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+ALTER TABLE `grn` CHANGE `po_no` `po_no` INT(11) NULL;
+
+#altered creditors table
+ALTER TABLE `creditors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `sid`);
+
+ALTER TABLE `creditors` DROP `crid`;
+
+#altered gtn table
+ALTER TABLE `gtn` DROP `to(dept)`;
+ALTER TABLE `gtn` CHANGE `from(dept)` `dept` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+ALTER TABLE `gtn` ADD `type` VARCHAR(20) NOT NULL AFTER `qty`;
+ALTER TABLE `gtn` ADD `item_type` VARCHAR(20) NOT NULL AFTER `item_no`;
+
+#altered employees table
+ALTER TABLE `employees` ADD `status` VARCHAR(20) NULL AFTER `password`;
+UPDATE `employees` SET `status` = 'active' WHERE `employees`.`eno` = 1;
+ALTER TABLE `employees` ADD `email` VARCHAR(50) NOT NULL AFTER `password`;
