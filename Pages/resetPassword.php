@@ -51,9 +51,17 @@
           </td>
         </tr>
 
+        <tr>
+          <td>
+              <input type="submit" name="btnSubmit" id="btnSubmit" value="Reset Password">
+          </td>
+          <td>
+              <input type="reset" name="btnReset" id="btnReset" value="Clear">
+          </td>
+        </tr>
       </table>
-
     </form>
 
   </body>
 </html>
+<!--sithara--->
