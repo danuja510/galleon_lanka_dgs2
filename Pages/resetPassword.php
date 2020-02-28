@@ -3,6 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>Reset password</title>
+    <script type="text/javascript">
+    function validatePassword()
+      {
+      var pwd=document.getElementById('txtPass').value;
+      var cpwd=document.getElementById('txtConPass').value;
+      if((pwd.length < 3) || (pwd != cpwd))
+        {
+						alert("Please enter a correct Password and Confirm password");
+						return false;
+				}else{
+        return true;
+      }
+      }
+      </script>
   </head>
   <body>
     <form action="resetPassword.php" method="post">
@@ -53,7 +67,7 @@
 
         <tr>
           <td>
-              <input type="submit" name="btnSubmit" id="btnSubmit" value="Reset Password">
+              <input type="submit" name="btnSubmit" id="btnSubmit" value="Reset Password" onclick="validatePassword()">
           </td>
           <td>
               <input type="reset" name="btnReset" id="btnReset" value="Clear">
@@ -61,6 +75,23 @@
         </tr>
       </table>
     </form>
+    <?php
+    if(isset($_POST['btnSubmit']))
+       {
+         $eno = $_POST['txtEno'];
+         $pwd= $_POST['txtPass'];
+         $cpwd= $_POST['txtConPass'];
+
+         $con = mysqli_connect("localhost","root","","galleon_lanka");
+         if(!$con)
+            {
+                die("cannot connect to DB server");
+            }
+        $sql="SELECT  `email` FROM `employees` WHERE `eno`='".$eno."'";
+        mysqli_query($con,$sql);
+        mysqli_close($con);
+       }
+     ?>
 
   </body>
 </html>
