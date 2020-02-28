@@ -12,6 +12,7 @@
    </head>
    <body>
      <a href="createPurchaseOrders.php">New Purchase Order</a>
+     <a href="createGTN.php">New GTN</a>
    </body>
  </html>
  <!--dan-->
