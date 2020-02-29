@@ -79,6 +79,7 @@
     if(isset($_POST['btnSubmit']))
        {
          $eno = $_POST['txtEno'];
+         $email = $_POST['txtEmail'];
          $pwd= $_POST['txtPass'];
          $cpwd= $_POST['txtConPass'];
 
@@ -87,8 +88,10 @@
             {
                 die("cannot connect to DB server");
             }
-        $sql="SELECT  `email` FROM `employees` WHERE `eno`='".$eno."'";
-        mysqli_query($con,$sql);
+        $res = mysqli_query("SELECT  `email` FROM `employees` WHERE `eno`='".$eno."'");
+        $result = mysql_fetch_array($res);
+        echo $result['something'];
+        mysqli_query($con);
         mysqli_close($con);
        }
      ?>
