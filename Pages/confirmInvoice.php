@@ -13,7 +13,6 @@
     <title>confirmInvoice</title>
   </head>
   <body>
-
       <table>
         <thead>
           <th>
