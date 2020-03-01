@@ -53,7 +53,15 @@
           </td>
           <td>
             <input type=\"text\" name=\"txtDes\" id=\"txtDes\" value=" .$row['Designation']. " required readonly>
-            <input type = \"button\" value=\"promote\">
+            ";
+            $desg = $row['Designation'];
+            if($desg=='Employee')
+            {
+              echo"
+            <input type = \"submit\" name=\"btnPromote\" value=\"promote\">
+            ";
+            }
+            echo"
           </td>
         </tr>
 
@@ -127,6 +135,11 @@
     mysqli_close($con);
      ?>
 
+                </td>
+            </tr>
+          </table>
+     </form>
+
      <?php
      if(isset($_POST["btnUpdate"])){
        $name=$_POST["txtName"];
@@ -143,30 +156,37 @@
        }
    ?>
 
-   <?php
-   if(isset($_POST["btnDelete"])){
-     $con=mysqli_connect("localhost","root","","galleon_lanka");
-     if(!$con){
-       die("Cannot connect to DB server");
-     }
-     $sql3="UPDATE `employees` SET `status` = 'inactive' WHERE `eno` = '".$_SESSION['eno2']."'";
-     mysqli_query($con,$sql3);
-     mysqli_close($con);
-     //echo "deleted";
 
+     <?php
+     if(isset($_POST["btnDelete"])){
+       $con=mysqli_connect("localhost","root","","galleon_lanka");
+       if(!$con){
+         die("Cannot connect to DB server");
+       }
+       $sql3="UPDATE `employees` SET `status` = 'inactive' WHERE `eno` = '".$_SESSION['eno2']."'";
+       mysqli_query($con,$sql3);
+       mysqli_close($con);
+       //echo "deleted";
+       }
+  ?>
+
+  <?php
+
+  if(isset($_POST["btnPromote"])){
+    echo "promoted";
+    $con=mysqli_connect("localhost","root","","galleon_lanka");
+    if(!$con){
+      die("Cannot connect to DB server");
+    }
+    $sql4="UPDATE `employees` SET `Designation` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
+    mysqli_query($con,$sql4);
+    mysqli_close($con);
+
+    }
 ?>
-       </td>
-     </tr>
-     </table>
-     </form>
-<?php
 
 
 
-      }
-
-
- ?>
   </body>
 </html>
 <!--gima-->
