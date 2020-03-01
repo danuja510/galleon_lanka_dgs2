@@ -65,44 +65,26 @@
               ".$row['status']."
           </td>
           <td>
-              <input type='submit' name='".$row['eno']."' value='edit'>
+              <input type='submit' name='btnEdit' value='edit'>
           ";
-
+              $eno=$row['eno'];
               echo"
           </td>
-          </tr>
           ";
+              if (isset($_POST['btnEdit'])) {
+                $_SESSION['eno2']=$eno;
+                header('Location:manageEmployees.php');
 
-
-
+              }
             }
-            mysqli_close($con);
             ?>
 
-
+          </td>
+        </tr>
 
 
       </table>
       </form>
-<?php
-          //  $eno=$row['eno'];
-          $con = mysqli_connect("localhost","root","","galleon_lanka");
-            if(!$con)
-              {
-               die("cannot connect to DB server");
-              }
-             $sql="SELECT * FROM `employees` WHERE `status`='active';";
-             $rowSQL= mysqli_query( $con,$sql);
-          while($row = mysqli_fetch_array( $rowSQL )){
-            if (isset($_POST[$row['eno']])) {
-              $_SESSION['eno2']=$row['eno'];
-              header('Location:manageEmployees.php');
-            }
-          }
-          mysqli_close($con);
-            ?>
-
-
   </body>
 </html>
 <!--gima-->

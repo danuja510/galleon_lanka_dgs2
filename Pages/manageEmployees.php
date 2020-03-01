@@ -107,22 +107,7 @@
             <input type=\"submit\" name=\"btnUpdate\" id=\"btnUpdate\" value=\"update\">
           </td>
           ";
-          $st=$row['status'];
-          $con3=mysqli_connect("localhost","root","","galleon_lanka");
-          if(!$con3){
-            die("Cannot connect to DB server");
-          }
 
-          echo"
-          <tr>
-             <td>
-          ";
-
-          if($st=='active'){
-            echo"
-              <input type='submit' name='btnDelete' id='btnDelete' value='delete'>
-              ";
-          }
 
     mysqli_close($con);
      ?>
@@ -132,36 +117,46 @@
        $name=$_POST["txtName"];
        $dep=$_POST["lstDepartment"];
        $pass=$_POST["txtPwd"];
-       $con=mysqli_connect("localhost","root","","galleon_lanka");
-       if(!$con){
+       $con1=mysqli_connect("localhost","root","","galleon_lanka");
+       if(!$con1){
          die("Cannot connect to DB server");
        }
 
        $sql1="UPDATE `employees` SET `Name` = '".$name."',`Dept`='".$dep."', `password` = '".$pass."' WHERE `eno` = '".$_SESSION['eno2']."'";
-       mysqli_query($con,$sql1);
-       mysqli_close($con);
+       mysqli_query($con1,$sql1);
+       mysqli_close($con1);
        }
    ?>
 
    <?php
    if(isset($_POST["btnDelete"])){
-     $con=mysqli_connect("localhost","root","","galleon_lanka");
-     if(!$con){
+     //echo "deleted";
+     //$st=$_POST["txtStatus"];
+     $con3=mysqli_connect("localhost","root","","galleon_lanka");
+     if(!$con3){
        die("Cannot connect to DB server");
      }
-     $sql3="UPDATE `employees` SET `status` = 'inactive' WHERE `eno` = '".$_SESSION['eno2']."'";
-     mysqli_query($con,$sql3);
-     mysqli_close($con);
-     //echo "deleted";
 
-?>
+     echo"
+     <tr>
+        <td>
+     <script type= text/javascript>
+     var sta=document.getElementById('txtStatus').value;
+     if(sta=='active'){
+
+         <input type='submit' name='btnDelete' id='btnDelete' value='delete'>
+
+     }
+     </script>
        </td>
      </tr>
      </table>
      </form>
-<?php
+     ";
+      $sql3="UPDATE `employees` SET `status` = 'inactive' WHERE `eno` = '".$_SESSION['eno2']."'";
 
-
+      mysqli_query($con3,$sql3);
+      mysqli_close($con3);
 
       }
 
