@@ -94,6 +94,15 @@
 
         <tr>
           <td>
+            <label for='txtEmail'>Email</label>
+          </td>
+          <td>
+            <input type=\"text\" name=\"txtEmail\" id=\"txtEmail\" value=" .$row['email']. " required>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
             <label for='txtPwd'>Password</label>
           </td>
           <td>
@@ -145,17 +154,17 @@
        $name=$_POST["txtName"];
        $dep=$_POST["lstDepartment"];
        $pass=$_POST["txtPwd"];
+       $email=$_POST["txtEmail"];
        $con=mysqli_connect("localhost","root","","galleon_lanka");
        if(!$con){
          die("Cannot connect to DB server");
        }
 
-       $sql1="UPDATE `employees` SET `Name` = '".$name."',`Dept`='".$dep."', `password` = '".$pass."' WHERE `eno` = '".$_SESSION['eno2']."'";
+       $sql1="UPDATE `employees` SET `Name` = '".$name."',`Dept`='".$dep."', `password` = '".$pass."',`email` = '".$email."' WHERE `eno` = '".$_SESSION['eno2']."'";
        mysqli_query($con,$sql1);
        mysqli_close($con);
        }
-   ?>
-
+       ?>
 
      <?php
      if(isset($_POST["btnDelete"])){
@@ -168,25 +177,23 @@
        mysqli_close($con);
        //echo "deleted";
        }
-  ?>
+        ?>
 
-  <?php
+        <?php
 
-  if(isset($_POST["btnPromote"])){
-    echo "promoted";
-    $con=mysqli_connect("localhost","root","","galleon_lanka");
-    if(!$con){
-      die("Cannot connect to DB server");
-    }
-    $sql4="UPDATE `employees` SET `Designation` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
-    mysqli_query($con,$sql4);
-    mysqli_close($con);
+      if(isset($_POST["btnPromote"])){
+        echo "promoted";
+        $con=mysqli_connect("localhost","root","","galleon_lanka");
+        if(!$con){
+          die("Cannot connect to DB server");
+        }
+        $sql4="UPDATE `employees` SET `Designation` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
+        mysqli_query($con,$sql4);
+        mysqli_close($con);
 
-    }
-?>
-
-
-
+        }
+        ?>
   </body>
 </html>
+
 <!--gima-->
