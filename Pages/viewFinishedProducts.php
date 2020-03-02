@@ -10,7 +10,7 @@
     <title>view finished products</title>
   </head>
   <body>
-    <form>
+    <form action="viewFinishedProducts.php" method="post">
     <table>
       <thead>
         <th>
@@ -25,6 +25,9 @@
         <th>
             value
         </th>
+        <th>
+            status
+        </th>
       </thead>
 
       <?php
@@ -33,9 +36,9 @@
             {
              die("cannot connect to DB server");
             }
-           $sql="SELECT * FROM `finished_products`;";
+           $sql="SELECT * FROM `finished_products` WHERE `status`='active';";
            $rowSQL= mysqli_query( $con,$sql);
-           while($row = mysqli_fetch_array( $rowSQL )){
+           while($row = mysqli_fetch_array($rowSQL)){
         echo "
         <tr>
           <td>
@@ -51,18 +54,41 @@
               ".$row['value']."
           </td>
           <td>
+              ".$row['status']."
+          </td>
+          <td>
               <input type='submit' name='".$row['fp_id']."' value='edit'>
           </td>
         </tr>
-      </table>
+
         ";
       }
+
       mysqli_close($con);
       ?>
+
+  </table>
     </form>
 
     <?php
-//here
+
+    $con1 = mysqli_connect("localhost","root","","galleon_lanka");
+      if(!$con1)
+        {
+         die("cannot connect to DB server");
+        }
+
+       $sql="SELECT * FROM `employees` WHERE `status`='active';";
+       $rowSQL= mysqli_query( $con1,$sql);
+
+      while($row = mysqli_fetch_array( $rowSQL )){
+
+        if (isset($_POST[$row['fp_id']])) {
+          $_SESSION['fpid']=$row['fp_id'];
+          header('Location:manageFinishedProducts.php');
+        }
+      }
+      mysqli_close($con1);
 
      ?>
   </body>
