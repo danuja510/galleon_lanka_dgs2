@@ -10,6 +10,7 @@
     <title>view finished products</title>
   </head>
   <body>
+    <form>
     <table>
       <thead>
         <th>
@@ -49,12 +50,21 @@
           <td>
               ".$row['value']."
           </td>
+          <td>
+              <input type='submit' name='".$row['fp_id']."' value='edit'>
+          </td>
         </tr>
       </table>
         ";
       }
+      mysqli_close($con);
       ?>
+    </form>
 
+    <?php
+//here
+
+     ?>
   </body>
 </html>
 <!--gima-->
