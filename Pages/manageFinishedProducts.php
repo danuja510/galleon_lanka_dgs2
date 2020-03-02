@@ -48,7 +48,8 @@ echo"
             <input type='text' name='txtName' id='txtName' value=" .$row['Name']. " required>
           </td>
         </tr>
-
+";
+echo "
         <tr>
           <td>
             <label for='lstBomid'>BOM ID</label>
@@ -59,20 +60,32 @@ echo"
                 <option value=".$row['bom_id'].">
                    ".$row['bom_id']."
                 </option>
-
-                <option value=''>
-                   -----
+";
+                $bom=$row['bom_id'];
+                $sql2="SELECT distinct `bom_id` FROM `bom` where `bom_id` != '$bom' ;";
+                $rowSQL= mysqli_query( $con,$sql2);
+                while($row = mysqli_fetch_assoc( $rowSQL)){
+echo"
+                <option value='".$row['bom_id']."'>
+                   ".$row['bom_id']."
                 </option>
+";
+              }
+echo "
             </select>
           </td>
         </tr>
-
+          ";
+          $sql="SELECT * FROM `finished_products` where `fp_id`='$fp';";
+          $rowSQL= mysqli_query( $con,$sql);
+          $row = mysqli_fetch_assoc( $rowSQL);
+echo"
         <tr>
           <td>
             <label for='txtValue'>value</label>
           </td>
           <td>
-            <input type='text' name='txtValue' id='txtValue' value=" .$row['value']. " required>
+            <input type='text' name='txtValue' id='txtValue' value=".$row['value']." required>
           </td>
         </tr>
 
@@ -82,14 +95,55 @@ echo"
           </td>
           <td>
             <input type='text' name='txtStatus' id='txtStatus' value=" .$row['status']. " readonly>
-            ";
-            ?>
-
-          </td>
+            </td>
         </tr>
 
+        <tr>
+          <td>
+              <input type='submit' name='btnUpdate' value='update'>
+          </td>
+
+          <td>
+";
+          $st=$row['status'];
+          if($st=='active'){
+            echo"
+              <input type='submit' name='btnDelete' id='btnDelete' value='delete'>
+              ";
+          }
+echo"
+        </tr>
+";
+            ?>
       </table>
     </form>
+
+    <?php
+    if(isset($_POST["btnUpdate"])){
+      $name=$_POST["txtName"];
+      $b=$_POST["lstBomid"];
+      $val=$_POST["txtValue"];
+      $con=mysqli_connect("localhost","root","","galleon_lanka");
+      if(!$con){
+        die("Cannot connect to DB server");
+      }
+      $sql3="UPDATE `finished_products` SET `Name` = '".$name."',`bom_id`='".$b."', `value` = '".$val."' WHERE `fp_id` = '".$_SESSION['fpid']."'";
+      mysqli_query($con,$sql3);
+      mysqli_close($con);
+      }
+      ?>
+
+      <?php
+      if(isset($_POST["btnDelete"])){
+        $con=mysqli_connect("localhost","root","","galleon_lanka");
+        if(!$con){
+          die("Cannot connect to DB server");
+        }
+        $sql4="UPDATE `finished_products` SET `status` = 'inactive' WHERE `fp_id` = '".$_SESSION['fpid']."'";
+        mysqli_query($con,$sql4);
+        mysqli_close($con);
+        }
+         ?>
 
   </body>
 </html>
