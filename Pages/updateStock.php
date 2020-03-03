@@ -24,13 +24,13 @@
           {
             die("Error while connecting to database");
           }
-          $sql="SELECT * FROM `stocks` WHERE `dept`='pfloor'AND `type`='material';";
+          $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='pfloor'AND `type`='material' GROUP BY `item_no`,`type`;";
           $rowSQL= mysqli_query( $con,$sql);
           while($row=mysqli_fetch_assoc( $rowSQL )){
             echo "
               <tr>
                 <td>".$row['item_no']."</td>
-                <td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['qty']."' value='".$row['qty']."'></td>
+                <td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['Qty']."' value='".$row['Qty']."'></td>
               </tr>
             ";
           }
@@ -44,7 +44,7 @@
         mysqli_close($con);
         $m="";
         while($row=mysqli_fetch_assoc( $rowSQL )){
-          $m=$m.$row['item_no'].'x'.$_POST['txt'.$row['item_no']].',';
+          $m=$m.$row['item_no'].'x'.($row['Qty']-$_POST['txt'.$row['item_no']]).',';
         }
       $_SESSION['ifg_us']=$m;
       header('Location:confirmIFG.php');
