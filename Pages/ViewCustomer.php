@@ -42,7 +42,13 @@
           echo "<td>" . $row['Address'] . "</td>";
           echo "<td>" . $row['tpno'] . "</td>";
           echo "<td>" . $row['type'] . "</td>";
-          echo "<td>" ." <input type='submit' id='btnUpdate".$row['cno'] ."'  name='btnUpdate".$row['cno'] ."' value='Update Customer'> <input type='submit' name='btndelete' id='btndelete' value= 'Delete Customer' ". "</td>";
+
+          if ($row['state'] =='active') {
+          echo "<td>" ." <input type='submit' id='btnUpdate".$row['cno'] ."'  name='btnUpdate".$row['cno'] ."' value='Update Customer'> ";
+
+          echo "<td>" ."<input type='submit' name='btndelete".$row['cno'] ."' id='btndelete".$row['cno'] ."' value= 'Delete Customer' ". "</td>";
+
+        }
           echo "</tr>";
         }
       ?>
@@ -64,21 +70,21 @@
         $_SESSION['customer']=$row['cno'];
         header('Location:updateCustomerPage.php');
       }
-    }
 
-    /*if(isset($_POST['btndelete']))
+
+    if(isset($_POST['btndelete'.$row['cno']]))
     {
       $con = mysqli_connect("localhost","root","","galleon_lanka");
       if(!$con)
       {
         die("Error while connecting to database");
       }
-      $sql2="DELETE FROM 'customer' WHERE 'customer'.'cno'=".$cno.";";
+      $sql2="UPDATE `customer` SET `state` = 'inactive' WHERE `customer`.`cno`=".$row['cno'].";";
       mysqli_query($con,$sql2);
       mysqli_close($con);
       header('Location:ViewCustomer.php');
     }
-*/
+}
 
 ?>
 </html>

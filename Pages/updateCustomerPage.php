@@ -4,7 +4,7 @@
   {
     header('Location:signIn.php');
   }
-  if(!isset($_SESSION["customer"]))
+  if(!isset($_SESSION['customer']))
   {
     header('Location:ViewCustomer.php');
   }
