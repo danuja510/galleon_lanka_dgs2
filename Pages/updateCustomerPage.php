@@ -33,10 +33,6 @@
       	$row = mysqli_fetch_array( $rowSQL );
 
         echo "<h4>Customer Number: ".$row['cno']."</h4>";
-        echo "<h4>Customer Name : ".$row['Name']."</h4>";
-        echo "<h4>Address       : ".$row['Address']."</h4>";
-        echo "<h4>Telephone No. : ".$row['tpno']."</h4>";
-        echo "<h4>Customer Type : ".$row['type']."</h4>";
        ?>
 
        <h2> Update Details </h2>
@@ -46,7 +42,7 @@
             <label for='txtName'>Name</label>
           </td>
           <td>
-            <input type='text' name='txtName' id='txtName'>
+            <input type='text' name='txtName' <?php echo "value='".$row['Name']."'"; ?> id='txtName'>
           </td>
         </tr>
         <tr>
@@ -54,7 +50,7 @@
             <label for='txtAddress'>Address</label>
           </td>
           <td>
-            <input type='text' name='txtAddress' id='txtAddress'>
+            <input type='text' name='txtAddress' <?php echo "value='".$row['Address']."'"; ?> id='txtAddress'>
           </td>
         </tr>
         <tr>
@@ -62,7 +58,7 @@
             <label for='txtTPNo'>TP No</label>
           </td>
           <td>
-            <input type='text' name='txtTPNo' id='txtTPNo'>
+            <input type='text' name='txtTPNo' <?php echo "value='".$row['tpno']."'"; ?> id='txtTPNo'>
           </td>
         </tr>
         <tr>
@@ -70,7 +66,8 @@
             <label for='txtType'>Type</label>
           </td>
           <td>
-            <select name='txtType' id='txtType'>
+            <select name='txtType'  id='txtType'>
+              <option value="<?php echo $row['type']; ?>"><?php echo $row['type']; ?></option>
               <option value="other">Other</option>
               <option value="distributor">Distributor</option>
               <option value="dealer">Dealer</option>
@@ -100,8 +97,7 @@
     {
       die("Cannot connect to DB server");
     }
-    $sql="UPDATE 'customer' SET 'Name' = '".$name."', 'Address' = '".$address."','tpno'='".$tpno."', 'type'= '".$type."' WHERE 'customer'.'cno'=".$cno.";";
-
+    $sql="UPDATE `customer` SET `Name` = '".$name."', `Address` = '".$address."',`tpno`='".$tpno."', `type`= '".$type."' WHERE `customer`.`cno`=".$cno.";";
     mysqli_query($con,$sql);
 		mysqli_close($con);
     }

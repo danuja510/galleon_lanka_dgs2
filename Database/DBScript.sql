@@ -223,3 +223,6 @@ ALTER TABLE `debtors`
    ADD PRIMARY KEY(
      `cno`);
 ALTER TABLE `debtors` DROP `dbid`;
+
+#altered customer table
+ALTER TABLE `customer` ADD `state` VARCHAR(20) NOT NULL AFTER `type`;
