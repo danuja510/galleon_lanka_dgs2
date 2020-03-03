@@ -42,7 +42,7 @@
           echo "<td>" . $row['Address'] . "</td>";
           echo "<td>" . $row['tpno'] . "</td>";
           echo "<td>" . $row['type'] . "</td>";
-          echo "<td>" ." <input type='submit' name='".$row['cno']."' value='view'>". "</td>";
+          echo "<td>" ." <input type='submit' id='btnUpdate' name='btnUpdate' value='Update Customer'> <input type='submit' name='btndelete' id='btndelete' value= 'Delete Customer' ". "</td>";
           echo "</tr>";
         }
       ?>
@@ -50,19 +50,36 @@
   </form>
 </body>
 <?php
-  $con = mysqli_connect("localhost","root","","galleon_lanka");
-  if(!$con)
+  if(isset($_POST['btnUpdate']))
   {
-    die("Error while connecting to database");
-  }
-  $sql="SELECT * FROM `customer` GROUP BY `cno`;";
-  $rowSQL= mysqli_query( $con,$sql);
-  mysqli_close($con);
-  while($row=mysqli_fetch_assoc( $rowSQL )){
-    if(isset($_POST[$row['cno']])){
-      $_SESSION['customer']=$row['cno'];
-      header('Location:viewCustomerPage.php');
+    $con = mysqli_connect("localhost","root","","galleon_lanka");
+    if(!$con)
+    {
+      die("Error while connecting to database");
     }
+    $sql2="SELECT * FROM `customer` GROUP BY `cno`;";
+    $rowSQL= mysqli_query( $con,$sql2);
+    mysqli_close($con);
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      if(isset($_POST[$row['cno']])){
+        $_SESSION['customer']=$row['cno'];
+        header('Location:updateCustomerPage.php');
+      }
+    }
+
+    if(isset($_POST['btndelete']))
+    {
+      $con = mysqli_connect("localhost","root","","galleon_lanka");
+      if(!$con)
+      {
+        die("Error while connecting to database");
+      }
+      $sql2="DELETE FROM 'customer' WHERE 'customer'.'cno'=".$cno.";";
+      mysqli_query($con,$sql2);
+      mysqli_close($con);
+      header('Location:ViewCustomer.php');
+    }
+
   }
 ?>
 </html>
