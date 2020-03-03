@@ -223,3 +223,11 @@ ALTER TABLE `debtors`
    ADD PRIMARY KEY(
      `cno`);
 ALTER TABLE `debtors` DROP `dbid`;
+
+#altered debtor table
+ALTER TABLE `debtors` ADD `no` INT NOT NULL FIRST;
+ALTER TABLE `debtors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `no`);
+ALTER TABLE `debtors` CHANGE `no` `no` INT(11) NOT NULL AUTO_INCREMENT;
