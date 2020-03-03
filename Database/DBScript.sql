@@ -1,5 +1,8 @@
 #galleon_lanka_db_script
 
+#query for viewing stocks
+SELECT `item_no`,`type`,`dept`,SUM(qty) as Qty FROM `stocks`  GROUP BY `item_no`,`type`,`dept`
+
 #sithara
 CREATE TABLE `galleon_lanka`.`supplier` (
  `sid` INT NOT NULL ,

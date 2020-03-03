@@ -89,38 +89,14 @@
       $sql="UPDATE `grn` SET `approvedBy` = '".$_SESSION['eno']."' WHERE `grn`.`grn_no` = ".$grn.";";
       mysqli_query( $con,$sql);
       // adding/updating creditor records
-      $sql="SELECT * FROM `creditors` WHERE `sid` = ".$sid." ;";
-  		$con = mysqli_connect("localhost","root","","galleon_lanka");
-  			if(!$con)
-  			{
-  				die("Error while connecting to database");
-  			}
-  			$result= mysqli_query($con,$sql);
-        $row = mysqli_fetch_array( $result );
-  	if(mysqli_num_rows($result)>0){
-      $value+=$row['amount'];
-      $sql2="UPDATE `creditors` SET `amount` = '".$value."', `date` = CURDATE() WHERE `creditors`.`sid` = ".$sid.";";
-      mysqli_query( $con,$sql2);
-
-    }else{
       $sql2="INSERT INTO `creditors` (`sid`, `amount`, `date`) VALUES ('".$sid."', '".$value."',CURDATE() );";
       mysqli_query( $con,$sql2);
-    }
       // adding/updating stock rocords
       $sql3="SELECT `mid`,`qty` FROM `grn` WHERE `grn_no`=".$grn."";
       $rowSQL3= mysqli_query( $con,$sql3);
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-        $sql="SELECT * FROM `stocks` WHERE `item_no` = ".$row3['mid']." AND `type`='material' AND `dept`='store' ;";
-        $result= mysqli_query($con,$sql);
-        $row = mysqli_fetch_array( $result );
-    	  if(mysqli_num_rows($result)>0){
-          $qty=$row3['qty']+$row['qty'];
-          $sql2="UPDATE `stocks` SET `qty` = '".$qty."', `date` = CURDATE() WHERE `stocks`.`item_no` = ".$row3['mid']." AND `type`='material' AND `dept`='store';";
-          mysqli_query( $con,$sql2);
-        }else{
           $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['mid']."', '".$row3['qty']."', 'material', CURDATE(), 'store');";
           mysqli_query( $con,$sql2);
-        }
       }
       mysqli_close($con);
     }

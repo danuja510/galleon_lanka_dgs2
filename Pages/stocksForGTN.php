@@ -33,10 +33,10 @@
           }
           if($_SESSION['gtntype']=='out'){
             if ($_SESSION['dept']=='store') {
-              $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material';";
+              $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_no`,`type`;";
               $iType='material';
             }elseif ($_SESSION['dept']=='pfloor') {
-              $sql="SELECT * FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished product';";
+              $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished product' GROUP BY `item_no`,`type`;";
               $iType='finished product';
             }
             $rowSQL= mysqli_query( $con,$sql);
@@ -45,8 +45,8 @@
                 <tr>
                   <td>".$row['item_no']."</td>
                   <td>".$row['type']."</td>
-                  <td>".$row['qty']."</td>
-                  <td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['qty']."' value='0'></td>
+                  <td>".$row['Qty']."</td>
+                  <td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['Qty']."' value='0'></td>
                   <td><input type='checkbox' name='".$row['item_no']."' value='".$row['item_no']."' ></td>
                 </tr>
               ";
