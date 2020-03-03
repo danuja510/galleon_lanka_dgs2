@@ -1,5 +1,8 @@
 #galleon_lanka_db_script
 
+#query for viewing stocks
+SELECT `item_no`,`type`,`dept`,SUM(qty) as Qty FROM `stocks`  GROUP BY `item_no`,`type`,`dept`
+
 #sithara
 CREATE TABLE `galleon_lanka`.`supplier` (
  `sid` INT NOT NULL ,
@@ -223,3 +226,19 @@ ALTER TABLE `debtors`
    ADD PRIMARY KEY(
      `cno`);
 ALTER TABLE `debtors` DROP `dbid`;
+
+#altered debtor table
+ALTER TABLE `debtors` ADD `no` INT NOT NULL FIRST;
+ALTER TABLE `debtors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `no`);
+ALTER TABLE `debtors` CHANGE `no` `no` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered creditor table
+ALTER TABLE `creditors` ADD `no` INT NOT NULL FIRST;
+ALTER TABLE `creditors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `no`);
+ALTER TABLE `creditors` CHANGE `no` `no` INT(11) NOT NULL AUTO_INCREMENT;

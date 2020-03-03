@@ -11,7 +11,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>View GRN</title>
+    <title>ViewInvoice</title>
   </head>
   <body>
     <form action="viewInvoice.php" method="post">
@@ -87,32 +87,16 @@
       }
       $sql="UPDATE `invoice` SET `approved_by` = '".$_SESSION['eno']."' WHERE `invoice`.`invoice_no` = ".$invoice.";";
       mysqli_query( $con,$sql);
-      // adding/updating debtor records
-      $sql="SELECT * FROM `debtors` WHERE `cno` = ".$cno." ;";
-  		$con = mysqli_connect("localhost","root","","galleon_lanka");
-  		if(!$con)
-  		{
-  			die("Error while connecting to database");
-  		}
-  		$result= mysqli_query($con,$sql);
-      $row = mysqli_fetch_array( $result );
-    	if(mysqli_num_rows($result)>0){
-        $value+=$row['amount'];
-        $sql2="UPDATE `debtors` SET `amount` = '".$value."', `date` = CURDATE() WHERE `debtors`.`cno` = ".$cno.";";
+      // adding debtor records
+
+        $sql2="INSERT INTO `debtors` (`no`,`cno`, `amount`, `date`) VALUES (NULL,'".$cno."', '".$value."',CURDATE() );";
         mysqli_query( $con,$sql2);
-      }else{
-        $sql2="INSERT INTO `debtors` (`cno`, `amount`, `date`) VALUES ('".$cno."', '".$value."',CURDATE() );";
-        mysqli_query( $con,$sql2);
-      }
+
       // updating stock rocords
       $sql3="SELECT `item_no`,`qty` FROM `invoice` WHERE `invoice_no`=".$invoice."";
       $rowSQL3= mysqli_query( $con,$sql3);
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-        $sql="SELECT * FROM `stocks` WHERE `item_no` = ".$row3['item_no']." AND `type`='finished product' AND `dept`='fGoods' ;";
-        $result= mysqli_query($con,$sql);
-        $row = mysqli_fetch_array( $result );
-        $qty=$row['qty']-$row3['qty'];
-        $sql2="UPDATE `stocks` SET `qty` = '".$qty."', `date` = CURDATE() WHERE `stocks`.`item_no` = ".$row3['item_no']." AND `type`='finished product' AND `dept`='fGoods';";
+        $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', 'finished product', CURDATE(), 'fGoods');";
         mysqli_query( $con,$sql2);
       }
       mysqli_close($con);
