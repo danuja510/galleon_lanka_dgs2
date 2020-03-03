@@ -4,11 +4,11 @@
   {
     header('Location:signIn.php');
   }
-/*  if(!isset($_SESSION["customer"]))
+  if(!isset($_SESSION["customer"]))
   {
     header('Location:ViewCustomer.php');
   }
-*/
+
  ?>
 
 
@@ -28,7 +28,7 @@
         {
           die("Error while connecting to database");
         }
-        $sql="SELECT * FROM 'customer' WHERE 'cno'=".$cno.";";
+        $sql="SELECT * FROM `customer` WHERE `cno`=".$cno.";";
         $rowSQL= mysqli_query( $con,$sql);
       	$row = mysqli_fetch_array( $rowSQL );
 
