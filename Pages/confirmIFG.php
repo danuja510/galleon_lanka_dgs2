@@ -52,15 +52,8 @@
               </td>
             </tr>
           ";
-          $sql2="SELECT * FROM `stocks` WHERE `item_no` = ".$order[0]." AND `type`='finished product' AND `dept`='pfloor' ;";
-          $result= mysqli_query($con,$sql2);
-          $row = mysqli_fetch_array( $result );
-      	  if(mysqli_num_rows($result)>0){
-            $qty=$order[1]+$row['qty'];
-            $query[$i]="UPDATE `stocks` SET `qty` = '".$qty."', `date` = CURDATE() WHERE `stocks`.`item_no` = ".$order[0]." AND `type`='finished product' AND `dept`='pfloor';";
-          }else{
             $query[$i]="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$order[0]."', '".$order[1]."', 'finished product', CURDATE(), 'pfloor');";
-          }
+
         }
       }
       ?>
@@ -75,17 +68,20 @@
         $ifg_uss=explode(',',$ifg_us);
         for ($i=0; $i <sizeof($ifg_uss)-1 ; $i++) {
           $order=explode('x',$ifg_uss[$i]);
+          $sql4="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='pfloor'AND `item_no`=".$order[0]." AND `type`='material' GROUP BY `item_no`,`type`;";
+          $rowSQL4= mysqli_query( $con,$sql4);
+          $row4 = mysqli_fetch_array( $rowSQL4 );
           echo "
             <tr>
               <td>
                 ".$order[0]."
               </td>
               <td>
-                ".$order[1]."
+                ".($row4['Qty']-$order[1])."
               </td>
             </tr>
           ";
-          $query2[$i]="UPDATE `stocks` SET `qty` = '".$order[1]."', `date` = CURDATE() WHERE `stocks`.`item_no` = ".$order[0]." AND `type`='material' AND `dept`='pfloor';";
+          $query2[$i]="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$order[0]."', '".-$order[1]."', 'material', CURDATE(), 'pfloor');";
           }
         mysqli_close($con);
       ?>
