@@ -182,13 +182,15 @@
         <?php
 
       if(isset($_POST["btnPromote"])){
-        echo "promoted";
+        //echo "promoted";
         $con=mysqli_connect("localhost","root","","galleon_lanka");
         if(!$con){
           die("Cannot connect to DB server");
         }
         $sql4="UPDATE `employees` SET `Designation` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
+        $sql5="UPDATE `employees` SET `Dept` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
         mysqli_query($con,$sql4);
+        mysqli_query($con,$sql5);
         mysqli_close($con);
 
         }

@@ -85,7 +85,7 @@ echo"
             <label for='txtValue'>value</label>
           </td>
           <td>
-            <input type='text' name='txtValue' id='txtValue' value=".$row['value']." required>
+            <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required>
           </td>
         </tr>
 
