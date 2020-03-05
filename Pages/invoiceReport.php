@@ -16,18 +16,20 @@ function header()
       $this->cell(20);
 
 
-      $this->rect(5,5,200,35,'D');
+      //$this->rect(5,5,200,35,'D');
+      $this->line(10, 10, 210-10, 10);
+      $this->line(10, 40, 210-10, 40);
       $this->cell(150,15,'GALLEON LANKA (PVT) LTD',0,1,'C');
       $this->cell(20);
 
       $this->SetFont('Arial','',10);
       $this->cell(150,8,'#67/A1,OLD ROAD, WETERA, POLGASOWITA',0,1,'C');
       $this->cell(20);
-      $this->cell(150,8,'tel #: 122334',0,1,'C');
+      $this->cell(150,8,'Tel: +94 11 4 423 928 / +94 76 440 1 440',0,1,'C');
       $this->Ln(8);
 
       $this->SetFont('Arial','B',13);
-      $this->cell(200,8,'INVOICE',0,1,'C');
+      $this->cell(210,8,'INVOICE',0,1,'C');
       $this->Ln(10);
 
 
@@ -103,7 +105,42 @@ function header()
           $this->cell(15,10,$row['total'],0,1,'L');
           $this->Ln();
         }
-          $this->cell(120,10,$row['total'],0,1,'L');
+          $sql="SELECT * FROM `invoice` where `no`='1';";
+          $rowSQL1= mysqli_query($con,$sql);
+          $row = mysqli_fetch_assoc( $rowSQL1);
+
+          $this->line(10, 133, 210-10, 133);
+          $this->line(10, 140, 210-10, 140);
+          $this->cell(110);
+          $this->cell(10,10,'total Rs.',0,0,'L');
+          $this->cell(50);
+          $this->cell(10,10,$row['total'],0,1,'L');
+
+          $this->SetFont('Times','I','10');
+          $this->cell(10,10,'*cash on delivery',0,1,'L');
+          $this->cell(10,5,'*please make your payments to either;',0,1,'L');
+          $this->cell(10,5,'Galleon Lanka (Pvt) Ltd - Cargills Bank Ac no 0209xxxxxxxx or',0,1,'L');
+          $this->cell(10,5,'H M D K Dabare - Commercial Bank Ac no 877xxxxxxx',0,1,'L');
+
+          $this->Ln(20);
+
+          $this->cell(70,5,'..................................',0,0,'C');
+          $this->cell(70,5,'..................................',0,0,'C');
+          $this->cell(70,5,'..................................',0,1,'C');
+          $this->cell(70,5,'Prepared by',0,0,'C');
+          $this->cell(70,5,'Approved by',0,0,'C');
+          $this->multicell(70,5,"Signature & stamp \n received the above items in \n good order & condition",0,'C');
+
+          $this->Ln(20);
+
+          $this->cell(70,5,'..................................',0,0,'C');
+          $this->cell(70,5,'..................................',0,0,'C');
+          $this->cell(70,5,'..................................',0,1,'C');
+          $this->cell(70,5,'Loaded by',0,0,'C');
+          $this->cell(70,5,'Drivers name and signature',0,0,'C');
+          $this->multicell(70,5,"vehicle number",0,'C');
+
+
   }
 }
 
