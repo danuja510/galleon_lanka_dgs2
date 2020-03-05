@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require ('fpdf.php');
+require ('FPDF lib/fpdf.php');
 
 class PDF extends FPDF
 {
@@ -9,7 +9,7 @@ class PDF extends FPDF
 function header()
   {
 
-      $this->Image('logo.png',10,10,30,20);
+      $this->Image('FPDF lib/logo.png',10,10,30,20);
 
       $this->SetFont('Arial','B',18);
 
