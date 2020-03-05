@@ -79,7 +79,6 @@ function header()
       $this->SetFont('Arial','',10);
       $this->cell(80,5,'Remark',0,1);
 
-
       //$this->Ln(10);
       $this->SetFont('Times','B','10');
       //$this->line(10, 105, 210-10, 105);
@@ -101,9 +100,10 @@ function header()
           $this->cell(80,10,$row['item_no'],0,0,'L');
           $this->cell(30,10,$row['item_no'],0,0,'L');
           $this->cell(30,10,$row['qty'],0,0,'L');
-          $this->cell(15,10,$row['total'],0,0,'L');
+          $this->cell(15,10,$row['total'],0,1,'L');
           $this->Ln();
         }
+          $this->cell(120,10,$row['total'],0,1,'L');
   }
 }
 
