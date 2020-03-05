@@ -94,7 +94,7 @@ function header()
 
       $this->SetFont('Times','B','10');
 
-      $sql="SELECT * FROM `invoice` where `no`='1';";
+      $sql="SELECT * FROM `invoice` ;";
       $rowSQL1= mysqli_query($con,$sql);
         while($row = mysqli_fetch_assoc( $rowSQL1))
         {
@@ -103,18 +103,18 @@ function header()
           $this->cell(30,10,$row['item_no'],0,0,'L');
           $this->cell(30,10,$row['qty'],0,0,'L');
           $this->cell(15,10,$row['total'],0,1,'L');
-          $this->Ln();
+          
         }
-          $sql="SELECT * FROM `invoice` where `no`='1';";
-          $rowSQL1= mysqli_query($con,$sql);
-          $row = mysqli_fetch_assoc( $rowSQL1);
+          $sql1="SELECT * FROM `invoice` where `no`='1';";
+          $rowSQL2= mysqli_query($con,$sql1);
+          $row1 = mysqli_fetch_assoc( $rowSQL2);
 
           $this->line(10, 133, 210-10, 133);
           $this->line(10, 140, 210-10, 140);
           $this->cell(110);
           $this->cell(10,10,'total Rs.',0,0,'L');
           $this->cell(50);
-          $this->cell(10,10,$row['total'],0,1,'L');
+          $this->cell(10,10,$row1['total'],0,1,'L');
 
           $this->SetFont('Times','I','10');
           $this->cell(10,10,'*cash on delivery',0,1,'L');
