@@ -242,3 +242,6 @@ ALTER TABLE `creditors`
    ADD PRIMARY KEY(
      `no`);
 ALTER TABLE `creditors` CHANGE `no` `no` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered bom table
+ALTER TABLE `bom` CHANGE `mid` `mName` VARCHAR(50) NOT NULL;
