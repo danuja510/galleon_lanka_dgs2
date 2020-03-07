@@ -1,5 +1,9 @@
 <?php
 session_start();
+//if(!isset($_SESSION['']))
+//  {
+//    header('');
+//  }
 
 require ('../FPDF lib/fpdf.php');
 
@@ -32,14 +36,18 @@ function header()
       $this->cell(210,8,'INVOICE',0,1,'C');
       $this->Ln(10);
 
-
     $con = mysqli_connect("localhost","root","","galleon_lanka");
       if(!$con)
         {
           die("cannot connect to DB server");
         }
 
-      $sql1="SELECT * FROM `customer` where `cno`='1';";
+        $sql1="SELECT * FROM `invoice`;";         // add session
+        $rowSQL1= mysqli_query($con,$sql1);
+        $row = mysqli_fetch_assoc($rowSQL1);
+        $cust=$row['cno'];
+                                                                    //getting customer name
+      $sql1="SELECT * FROM `customer` where `cno`=$cust;";
       $rowSQL1= mysqli_query($con,$sql1);
       $row = mysqli_fetch_assoc($rowSQL1);
 
@@ -51,16 +59,17 @@ function header()
 
       $this->cell(25,5,'Date',0,0,'L');
 
-      $sql="SELECT * FROM `invoice` where `no`='1';";
+      $sql="SELECT * FROM `invoice` where `invoice_no`='22';";   //add session
       $rowSQL= mysqli_query($con,$sql);
       $row = mysqli_fetch_assoc( $rowSQL);
+
 
       $this->cell(80,5,$row['date'],0,0,'L');
 
       $this->Ln(5);
       $this->cell(20);
 
-      $sql1="SELECT * FROM `customer` where `cno`='1';";
+      $sql1="SELECT * FROM `customer` where `cno`=$cust;";            //getting customer addr
       $rowSQL1= mysqli_query($con,$sql1);
       $row = mysqli_fetch_assoc( $rowSQL1);
 
@@ -68,7 +77,7 @@ function header()
 
       $this->cell(25,5,'Invoice no.',0,0,'L');
 
-      $sql="SELECT * FROM `invoice` where `no`='1';";
+      $sql="SELECT * FROM `invoice` where `invoice_no`='22';";   //add session
       $rowSQL= mysqli_query($con,$sql);
       $row = mysqli_fetch_assoc( $rowSQL);
 
@@ -85,36 +94,44 @@ function header()
       $this->SetFont('Times','B','10');
       //$this->line(10, 105, 210-10, 105);
       $this->cell(30,10,'item code','T',0,'L');
-      $this->line(10, 110, 210-15, 110);
+      $this->line(10, 110, 210-8, 110);
       $this->cell(80,10,'item description','T',0,'L');
       $this->cell(30,10,'unit price','T',0,'L');
       $this->cell(30,10,'qty','T',0,'L');
-      $this->cell(15,10,'amount','T',1,'L');
+      $this->cell(22,10,'amount','T',1,'L');
 
 
       $this->SetFont('Times','B','10');
 
-      $sql="SELECT * FROM `invoice` ;";
+      $sql="SELECT `item_no` FROM `invoice` where `invoice_no`='22';"; /////////////session////////////////////
       $rowSQL1= mysqli_query($con,$sql);
+      $ino=$row['item_no'];
+      $qty=$row['qty'];
+
+        $sql="SELECT * FROM `finished_products` where `fp_id`=$ino;";
+        $rowSQL1= mysqli_query($con,$sql);
         while($row = mysqli_fetch_assoc( $rowSQL1))
         {
-          $this->cell(30,10,$row['item_no'],0,0,'L');
-          $this->cell(80,10,$row['item_no'],0,0,'L');
-          $this->cell(30,10,$row['item_no'],0,0,'L');
-          $this->cell(30,10,$row['qty'],0,0,'L');
-          $this->cell(15,10,$row['total'],0,1,'L');
+          $this->cell(30,10,$row['fp_id'],0,0,'L');
+          $this->cell(80,10,$row['Name'],0,0,'L');
+          $this->cell(30,10,$row['value'],0,0,'L');   ////////////////////////////////////////
+          $this->cell(30,10,$qty,0,0,'L');
+          $tot=$qty*$row['value'];
+          $this->cell(15,10,$tot,0,1,'L');
 
         }
+          $this->Ln(10);
+
           $sql1="SELECT * FROM `invoice` where `no`='1';";
           $rowSQL2= mysqli_query($con,$sql1);
           $row1 = mysqli_fetch_assoc( $rowSQL2);
 
-          $this->line(10, 133, 210-10, 133);
-          $this->line(10, 140, 210-10, 140);
-          $this->cell(110);
-          $this->cell(10,10,'total Rs.',0,0,'L');
-          $this->cell(50);
-          $this->cell(10,10,$row1['total'],0,1,'L');
+          //$this->line(10, 133, 210-10, 133);
+          //$this->line(10, 140, 210-10, 140);
+          $this->cell(110,10,'','T,B',0,'');
+          $this->cell(10,10,'total Rs.','T,B',0,'L');
+          $this->cell(50,10,'','T,B',0,'');
+          $this->cell(20,10,$row1['total'],'T,B',1,'L'); ///////////////////////////////////
 
           $this->SetFont('Times','I','10');
           $this->cell(10,10,'*cash on delivery',0,1,'L');
@@ -124,20 +141,20 @@ function header()
 
           $this->Ln(20);
 
-          $this->cell(70,5,'..................................',0,0,'C');
-          $this->cell(70,5,'..................................',0,0,'C');
+          $this->cell(50,5,'..................................',0,0,'C');
+          $this->cell(85,5,'..................................',0,0,'C');
           $this->cell(70,5,'..................................',0,1,'C');
-          $this->cell(70,5,'Prepared by',0,0,'C');
-          $this->cell(70,5,'Approved by',0,0,'C');
+          $this->cell(50,5,'Prepared by',0,0,'C');
+          $this->cell(85,5,'Approved by',0,0,'C');
           $this->multicell(70,5,"Signature & stamp \n received the above items in \n good order & condition",0,'C');
 
           $this->Ln(20);
 
-          $this->cell(70,5,'..................................',0,0,'C');
-          $this->cell(70,5,'..................................',0,0,'C');
+          $this->cell(50,5,'..................................',0,0,'C');
+          $this->cell(85,5,'..................................',0,0,'C');
           $this->cell(70,5,'..................................',0,1,'C');
-          $this->cell(70,5,'Loaded by',0,0,'C');
-          $this->cell(70,5,'Drivers name and signature',0,0,'C');
+          $this->cell(50,5,'Loaded by',0,0,'C');
+          $this->cell(85,5,'Drivers name and signature',0,0,'C');
           $this->multicell(70,5,"vehicle number",0,'C');
 
 
