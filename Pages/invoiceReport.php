@@ -122,7 +122,7 @@ function header()
         }
           $this->Ln(10);
 
-          $sql1="SELECT * FROM `invoice` where `no`='1';";
+          $sql1="SELECT * FROM `invoice` where `no`='1';"; ///////////////////////////
           $rowSQL2= mysqli_query($con,$sql1);
           $row1 = mysqli_fetch_assoc( $rowSQL2);
 
