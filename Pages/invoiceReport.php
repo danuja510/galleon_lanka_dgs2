@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require ('FPDF lib/fpdf.php');
+require ('../FPDF lib/fpdf.php');
 
 class PDF extends FPDF
 {
@@ -9,7 +9,7 @@ class PDF extends FPDF
 function header()
   {
 
-      $this->Image('FPDF lib/logo.png',10,10,30,20);
+      $this->Image('../FPDF lib/logo.png',10,10,30,20);
 
       $this->SetFont('Arial','B',18);
 
@@ -103,7 +103,7 @@ function header()
           $this->cell(30,10,$row['item_no'],0,0,'L');
           $this->cell(30,10,$row['qty'],0,0,'L');
           $this->cell(15,10,$row['total'],0,1,'L');
-          
+
         }
           $sql1="SELECT * FROM `invoice` where `no`='1';";
           $rowSQL2= mysqli_query($con,$sql1);
