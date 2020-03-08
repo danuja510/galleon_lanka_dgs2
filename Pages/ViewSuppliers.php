@@ -28,7 +28,7 @@
         {
           die("Error while connecting to database");
         }
-        $sql="SELECT * FROM `supplier` GROUP BY `sid`;";
+        $sql="SELECT * FROM `supplier`;";
         $rowSQL= mysqli_query( $con,$sql);
         mysqli_close($con);
 
@@ -39,6 +39,14 @@
           echo "<td>" . $row['Name'] . "</td>";
           echo "<td>" . $row['Address'] . "</td>";
           echo "<td>" . $row['tpno'] . "</td>";
+
+
+          if ($row['state']== 'active')
+          {
+            echo "<td>" . "<input type ='submit' id = 'btnUpdate".$row['sid'] ."' name='btnUpdate".$row['sid'] ."' value= 'Update Supplier'> ";
+
+            echo "<td>" . "<input type ='submit' id= 'btnDelete".$row['sid'] ."' name='btnDelete".$row['sid'] . "'value= 'Delete Supplier'>". "</td>";
+          }
           echo "</tr>";
         }
       ?>
@@ -51,13 +59,28 @@
   {
     die("Error while connecting to database");
   }
-  $sql="SELECT * FROM `supplier` GROUP BY `sid`;";
-  $rowSQL= mysqli_query( $con,$sql);
+  $sql2="SELECT * FROM `supplier`;";
+  $rowSQL= mysqli_query( $con,$sql2);
   mysqli_close($con);
   while($row=mysqli_fetch_assoc( $rowSQL )){
-    if(isset($_POST[$row['sid']])){
+    if(isset($_POST['btnUpdate'.$row['sid']]))
+    {
       $_SESSION['supplier']=$row['sid'];
-      header('Location:viewSupplierPage.php');
+      header('Location:updateSupplierPage.php');
+    }
+
+    if(isset($_POST['btnDelete'.$row['sid']]))
+    {
+      $con = mysqli_connect("localhost","root","","galleon_lanka");
+      if(!$con)
+      {
+        die("Eror while connecting to database");
+      }
+
+      $sql2="UPDATE `supplier` SET `state` = 'inactive' WHERE `supplier`.`sid`=".$row['sid'].";";
+      mysqli_query($con,$sql2);
+      mysqli_close($con);
+      header('Location:ViewSuppliers.php');
     }
   }
 ?>

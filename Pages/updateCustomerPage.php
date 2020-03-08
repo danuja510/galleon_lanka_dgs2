@@ -21,6 +21,7 @@
   <body>
     <form action="updateCustomerPage.php" method="post">
       <h2> Current Details </h2>
+
       <?php
         $cno=$_SESSION['customer'];
         $con = mysqli_connect("localhost","root","","galleon_lanka");
@@ -78,7 +79,7 @@
         <tr>
           <td></td>
           <td>
-            <button type="submit" name="btnsubmit" id="btnsubmit" onclick="validate()">Submit</button>
+            <button type="submit" name="btnsubmit" id="btnsubmit">Submit</button>
             <input type="reset" name="btnreset" id="btnreset" value="Reset">
           </td>
         </tr>
