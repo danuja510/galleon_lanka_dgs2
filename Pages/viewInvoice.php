@@ -69,7 +69,9 @@
           </table>
         ";
         if($row['approved_by']!=null){
-          echo "<h2>Status :Approved</h2>";
+          echo "<h2>Status :Approved</h2>
+            <input type='submit' value='Print' name='btnPrint'>
+          ";
         }else{
           echo "<h2>Status :Pending</h2>";
           echo "<input type='submit' value='approve' name='btnApprove'>";
@@ -100,6 +102,9 @@
         mysqli_query( $con,$sql2);
       }
       mysqli_close($con);
+    }
+    if (isset($_POST['btnPrint'])) {
+      header('Location:invoiceReport.php');
     }
     ?>
   </body>
