@@ -1,12 +1,13 @@
 <?php
 session_start();
-if(!isset($_SESSION['eno'])){
+if(!isset($_SESSION['eno']))
+  {
   header('Location:signIn.php');
-}
-//if(!isset($_SESSION['Print_invoice']))
-//  {
-//    header('viewInvoice.php');
-//  }
+  }
+if(!isset($_SESSION['invoice']))
+  {
+    header('viewInvoice.php');
+  }
 
 require ('../FPDF lib/fpdf.php');
 
@@ -45,11 +46,12 @@ function header()
           die("cannot connect to DB server");
         }
 
-        $sql1="SELECT * FROM `invoice`;";         // add session
+        $sql1="SELECT * FROM `invoice` where `invoice_no`=".$_SESSION['invoice'].";";
         $rowSQL1= mysqli_query($con,$sql1);
         $row = mysqli_fetch_assoc($rowSQL1);
         $cust=$row['cno'];
-                                                                    //getting customer name
+
+      //getting customer name
       $sql1="SELECT * FROM `customer` where `cno`=$cust;";
       $rowSQL1= mysqli_query($con,$sql1);
       $row = mysqli_fetch_assoc($rowSQL1);
@@ -62,7 +64,7 @@ function header()
 
       $this->cell(25,5,'Date',0,0,'L');
 
-      $sql="SELECT * FROM `invoice` where `invoice_no`='22';";   //add session
+      $sql="SELECT * FROM `invoice` where `invoice_no`=".$_SESSION['invoice'].";";
       $rowSQL= mysqli_query($con,$sql);
       $row = mysqli_fetch_assoc( $rowSQL);
 
@@ -72,7 +74,8 @@ function header()
       $this->Ln(5);
       $this->cell(20);
 
-      $sql1="SELECT * FROM `customer` where `cno`=$cust;";            //getting customer addr
+      //getting customer name
+      $sql1="SELECT * FROM `customer` where `cno`=$cust;";
       $rowSQL1= mysqli_query($con,$sql1);
       $row = mysqli_fetch_assoc( $rowSQL1);
 
@@ -80,7 +83,7 @@ function header()
 
       $this->cell(25,5,'Invoice no.',0,0,'L');
 
-      $sql="SELECT * FROM `invoice` where `invoice_no`='22';";   //add session
+      $sql="SELECT * FROM `invoice` where `invoice_no`=".$_SESSION['invoice'].";";
       $rowSQL= mysqli_query($con,$sql);
       $row = mysqli_fetch_assoc( $rowSQL);
 
@@ -106,23 +109,24 @@ function header()
 
       $this->SetFont('Times','B','10');
 
-      $sql="SELECT `item_no`,`qty` FROM `invoice` where `invoice_no`='22' group by `item_no`,`qty`;";    /////////////session////////////////////
+      //getting finished goods details
+      $sql="SELECT `item_no`,`qty`,`value` FROM `invoice` where `invoice_no`=".$_SESSION['invoice']." group by `item_no`,`qty`,`value`;";
       $rowSQL1= mysqli_query($con,$sql);
       $sum=0;
       while($row1=mysqli_fetch_assoc( $rowSQL1))
       {
       $ino=$row1['item_no'];
       $qty=$row1['qty'];
-
-        $sql="SELECT `fp_id`,`Name`,`value` FROM `finished_products` where `fp_id`=$ino group by `fp_id`,`Name`,`value`;";
+      $val=$row1['value'];
+        $sql="SELECT `fp_id`,`Name` FROM `finished_products` where `fp_id`=$ino group by `fp_id`,`Name`;";
         $rowSQL2= mysqli_query($con,$sql);
         while($row = mysqli_fetch_assoc( $rowSQL2))
         {
           $this->cell(30,10,$row['fp_id'],0,0,'L');
           $this->cell(80,10,$row['Name'],0,0,'L');
-          $this->cell(30,10,$row['value'],0,0,'L');
+          $this->cell(30,10,$val,0,0,'L');
           $this->cell(30,10,$qty,0,0,'L');
-          $tot=$qty*$row['value'];
+          $tot=$qty*$val;
           $sum=$tot+$sum;
           $this->cell(15,10,$tot,0,1,'L');
 
@@ -130,16 +134,12 @@ function header()
       }
           $this->Ln(10);
 
-          $sql1="SELECT * FROM `invoice` where `no`='1';"; ///////////////////////////
-          $rowSQL2= mysqli_query($con,$sql1);
-          $row1 = mysqli_fetch_assoc( $rowSQL2);
-
           //$this->line(10, 133, 210-10, 133);
           //$this->line(10, 140, 210-10, 140);
           $this->cell(110,10,'','T,B',0,'');
           $this->cell(10,10,'total Rs.','T,B',0,'L');
           $this->cell(50,10,'','T,B',0,'');
-          $this->cell(20,10,$sum,'T,B',1,'L'); ///////////////////////////////////
+          $this->cell(20,10,$sum,'T,B',1,'L');
 
           $this->SetFont('Times','I','10');
           $this->cell(10,10,'*cash on delivery',0,1,'L');
