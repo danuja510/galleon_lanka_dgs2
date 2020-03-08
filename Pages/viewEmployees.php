@@ -37,7 +37,7 @@
             {
              die("cannot connect to DB server");
             }
-           $sql="SELECT * FROM `employees` WHERE `status`='active';";
+           $sql="SELECT * FROM `employees`;";
            $rowSQL= mysqli_query( $con,$sql);
            while($row = mysqli_fetch_array( $rowSQL )){
         echo "
@@ -65,8 +65,15 @@
               ".$row['status']."
           </td>
           <td>
-              <input type='submit' name='".$row['eno']."' value='edit'>
           ";
+          $st=$row['status'];
+            if($st=="active")
+            {
+              echo"
+              <input type='submit' name='".$row['eno']."' value='edit'>
+              ";
+            }
+
 
               echo"
           </td>

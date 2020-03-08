@@ -12,6 +12,23 @@
   <head>
     <meta charset="utf-8">
     <title>Manage employees</title>
+
+    <script type="text/javascript">
+    function validateEmail()
+      {
+        var em=document.getElementById("txtEmail").value;
+        var atposition=em.indexOf("@");
+        var dotposition=em.lastIndexOf(".");
+        var em1=em.toLowerCase();
+
+        if (atposition<1 || dotposition<atposition+2 || dotposition+2>=em1.length)
+          {
+          alert("Please enter a valid e-mail address");
+          event.preventDefault();
+          }
+      }
+    </script>
+
   </head>
 
   <body>
@@ -76,15 +93,15 @@
                     ".$row['Dept']."
                  </option>
 
-                 <option value=\"Store\">
+                 <option value=\"store\">
                     Store
                  </option>
 
-                 <option value=\"Production_floor\">
+                 <option value=\"pFloor\">
                     Production floor
                  </option>
 
-                 <option value=\"Finished_goods\">
+                 <option value=\"fGoods\">
                     Finished goods
                  </option>
 
@@ -121,7 +138,7 @@
 
         <tr>
           <td>
-            <input type=\"submit\" name=\"btnUpdate\" id=\"btnUpdate\" value=\"update\">
+            <input type=\"submit\" name=\"btnUpdate\" id=\"btnUpdate\" value=\"update\" onclick='validateEmail()'>
           </td>
           ";
           $st=$row['status'];

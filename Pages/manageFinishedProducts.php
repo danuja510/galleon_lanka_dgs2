@@ -107,9 +107,9 @@ echo"
 ";
           $st=$row['status'];
           if($st=='active'){
-            echo"
+echo"
               <input type='submit' name='btnDelete' id='btnDelete' value='delete'>
-              ";
+";
           }
 echo"
         </tr>

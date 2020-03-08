@@ -36,10 +36,10 @@
             {
              die("cannot connect to DB server");
             }
-           $sql="SELECT * FROM `finished_products` WHERE `status`='active';";
+           $sql="SELECT * FROM `finished_products`;";
            $rowSQL= mysqli_query( $con,$sql);
            while($row = mysqli_fetch_array($rowSQL)){
-        echo "
+echo "
         <tr>
           <td>
               ".$row['fp_id']."
@@ -57,11 +57,19 @@
               ".$row['status']."
           </td>
           <td>
+";
+          $sts=$row['status'];
+          if($sts=="active")
+          {
+echo"
               <input type='submit' name='".$row['fp_id']."' value='edit'>
+";
+          }
+echo"
           </td>
         </tr>
 
-        ";
+";
       }
 
       mysqli_close($con);
@@ -81,8 +89,8 @@
        $sql="SELECT * FROM `finished_products` WHERE `status`='active';";
        $rowSQL= mysqli_query( $con1,$sql);
 
-      while($row = mysqli_fetch_array( $rowSQL )){
-
+      while($row = mysqli_fetch_array( $rowSQL ))
+      {
         if (isset($_POST[$row['fp_id']])) {
           $_SESSION['fpid']=$row['fp_id'];
           header('Location:manageFinishedProducts.php');
