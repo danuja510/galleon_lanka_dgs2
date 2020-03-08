@@ -1,8 +1,8 @@
 <?php
 session_start();
-//if(!isset($_SESSION['']))
+//if(!isset($_SESSION['Print_invoice']))
 //  {
-//    header('');
+//    header('viewInvoice.php');
 //  }
 
 require ('../FPDF lib/fpdf.php');
@@ -103,23 +103,28 @@ function header()
 
       $this->SetFont('Times','B','10');
 
-      $sql="SELECT `item_no` FROM `invoice` where `invoice_no`='22';"; /////////////session////////////////////
+      $sql="SELECT `item_no`,`qty` FROM `invoice` where `invoice_no`='22' group by `item_no`,`qty`;";    /////////////session////////////////////
       $rowSQL1= mysqli_query($con,$sql);
-      $ino=$row['item_no'];
-      $qty=$row['qty'];
+      $sum=0;
+      while($row1=mysqli_fetch_assoc( $rowSQL1))
+      {
+      $ino=$row1['item_no'];
+      $qty=$row1['qty'];
 
-        $sql="SELECT * FROM `finished_products` where `fp_id`=$ino;";
-        $rowSQL1= mysqli_query($con,$sql);
-        while($row = mysqli_fetch_assoc( $rowSQL1))
+        $sql="SELECT `fp_id`,`Name`,`value` FROM `finished_products` where `fp_id`=$ino group by `fp_id`,`Name`,`value`;";
+        $rowSQL2= mysqli_query($con,$sql);
+        while($row = mysqli_fetch_assoc( $rowSQL2))
         {
           $this->cell(30,10,$row['fp_id'],0,0,'L');
           $this->cell(80,10,$row['Name'],0,0,'L');
-          $this->cell(30,10,$row['value'],0,0,'L');   ////////////////////////////////////////
+          $this->cell(30,10,$row['value'],0,0,'L');
           $this->cell(30,10,$qty,0,0,'L');
           $tot=$qty*$row['value'];
+          $sum=$tot+$sum;
           $this->cell(15,10,$tot,0,1,'L');
 
         }
+      }
           $this->Ln(10);
 
           $sql1="SELECT * FROM `invoice` where `no`='1';"; ///////////////////////////
@@ -131,7 +136,7 @@ function header()
           $this->cell(110,10,'','T,B',0,'');
           $this->cell(10,10,'total Rs.','T,B',0,'L');
           $this->cell(50,10,'','T,B',0,'');
-          $this->cell(20,10,$row1['total'],'T,B',1,'L'); ///////////////////////////////////
+          $this->cell(20,10,$sum,'T,B',1,'L'); ///////////////////////////////////
 
           $this->SetFont('Times','I','10');
           $this->cell(10,10,'*cash on delivery',0,1,'L');
@@ -156,7 +161,6 @@ function header()
           $this->cell(50,5,'Loaded by',0,0,'C');
           $this->cell(85,5,'Drivers name and signature',0,0,'C');
           $this->multicell(70,5,"vehicle number",0,'C');
-
 
   }
 }
