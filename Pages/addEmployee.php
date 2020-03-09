@@ -29,28 +29,34 @@ if(!isset($_SESSION['eno'])){
           {
             alert("Please select a Department");
 						return false;
-          }else{
+          }
+          else
+          {
         return true;
-      }
+          }
       }
       function validateEmail()
         {
           var em=document.getElementById("txtEmail").value;
           var atposition=em.indexOf("@");
           var dotposition=em.lastIndexOf(".");
-          var em1=em.toLowerCase();
+          //var em1=em.toLowerCase();
 
-          if (atposition<1 || dotposition<atposition+2 || dotposition+2>=em1.length)
+          if (atposition<1 || dotposition<atposition+2 || dotposition+2>=em.length)
             {
-            alert("Please enter a valid e-mail address");
-            event.preventDefault();
+              alert("Please enter a valid e-mail address");
+              return false;
+            }
+            else
+            {
+              return true;
             }
         }
     function Validate()
 		  {
 					if(validatePassword() && validateDepartment() && validateEmail())
 					{
-						alert("Registration is completed");
+					
 					}
 					else
 					{
@@ -59,58 +65,104 @@ if(!isset($_SESSION['eno'])){
 			}
     </script>
   </head>
+
   <body>
-    <h1 align="center">
+    <h1>
       Create account
     </h1>
 
-      <form class="empReg" action="employee.php" method="post" enctype="multipart/form-data">
-        <table border="0" align="center">
+      <form  action="addEmployee.php" method="post" >
+
+        <table>
           <tr>
-            <td><label for='txtName'>Name</label></td>
-            <td><input type="text" name="txtName" id="txtName" value="" placeholder="enter name" required></td>
+            <td>
+              <label for='txtName'>
+                Name
+              </label>
+            </td>
+            <td>
+              <input type="text" name="txtName" id="txtName" value="" required>
+            </td>
           </tr>
+
           <tr>
-            <td><label for='lstDepartment'>Department</label></td>
+            <td>
+              <label for='lstDepartment'>
+                Department
+              </label>
+            </td>
             <td>
                <select name="lstDepartment" id="lstDepartment">
                <option value="----------">----------</option>
-               <option value="Store">Store</option>
-               <option value="Production_floor">Production floor</option>
-               <option value="Finished_goods">Finished goods</option>
+               <option value="store">Store</option>
+               <option value="pFloor">Production floor</option>
+               <option value="fGoods">Finished goods</option>
                </select>
             </td>
           </tr>
+
           <tr>
-            <td><label for='txtPwd'>Password</label></td>
-            <td><input type="password" name="txtPwd" id="txtPwd" value="" placeholder="enter a valid password" required></td>
+            <td>
+              <label for='txtEmail'>
+                Email
+              </label>
+            </td>
+            <td>
+              <input type="text" name="txtEmail" id="txtEmail" value="" required>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for='txtPwd'>
+                Password
+              </label>
+            </td>
+            <td>
+              <input type="password" name="txtPwd" id="txtPwd" value="" placeholder="enter a valid password" required>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for='txtconPwd'>
+                Confirm password
+              </label>
+            </td>
+            <td>
+              <input type="password" name="txtconPwd" id="txtconPwd" value="" placeholder="re-enter the password" required>
+            </td>
           </tr>
           <tr>
-            <td><label for='txtconPwd'>Confirm password</label></td>
-            <td><input type="password" name="txtconPwd" id="txtconPwd" value="" placeholder="re-enter the password" required></td>
-          </tr>
-          <tr>
-            <td><input type="submit" name="btnSubmit" id="btnSubmit" onclick="Validate()"></td>
-            <td><input type="reset" name="btnReset" id="btnReset"></td>
+            <td>
+              <input type="submit" name="btnSubmit" id="btnSubmit" onclick="Validate()">
+            </td>
+            <td>
+              <input type="reset" name="btnReset" id="btnReset">
+            </td>
           </tr>
         </table>
+
       </form>
 
       <?php
           if(isset($_POST['btnSubmit']))
+
         {
+
 				 $name = $_POST['txtName'];
 				 $dept = $_POST['lstDepartment'];
          $pwd = $_POST['txtconPwd'];
+         $email=$_POST['txtEmail'];
 
-         $con = mysqli_connect("localhost","root","","galleon_lanka");
-         if(!$con)
+         $con1 = mysqli_connect("localhost","root","","galleon_lanka");
+         if(!$con1)
 					{
 						die("cannot connect to DB server");
 					}
-          $sql="INSERT INTO `employees`(`Name`, `Designation`, `Dept`, `password`) VALUES ('".$name."','Manager','".$dept."','".$pwd."')";
-          mysqli_query($con,$sql);
-				  mysqli_close($con);
+          $sql1="INSERT INTO `employees`(`Name`, `Designation`, `Dept`, `password`,`email`,`status`) VALUES ('".$name."','Employee','".$dept."','".$pwd."','".$email."','active');";
+          mysqli_query($con1,$sql1);
+				  mysqli_close($con1);
 
         }
        ?>
