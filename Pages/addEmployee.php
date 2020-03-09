@@ -30,9 +30,22 @@ session_start();
         return true;
       }
       }
+      function validateEmail()
+        {
+          var em=document.getElementById("txtEmail").value;
+          var atposition=em.indexOf("@");
+          var dotposition=em.lastIndexOf(".");
+          var em1=em.toLowerCase();
+
+          if (atposition<1 || dotposition<atposition+2 || dotposition+2>=em1.length)
+            {
+            alert("Please enter a valid e-mail address");
+            event.preventDefault();
+            }
+        }
     function Validate()
 		  {
-					if(validatePassword() && validateDepartment())
+					if(validatePassword() && validateDepartment() && validateEmail())
 					{
 						alert("Registration is completed");
 					}
