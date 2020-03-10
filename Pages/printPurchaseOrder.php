@@ -4,10 +4,10 @@ if(!isset($_SESSION['eno']))
   {
   header('Location:signIn.php');
   }
-//if(!isset($_SESSION['pOrder']))
-  //{
-    //header('viewPurchaseOrder.php');
-  //}
+if(!isset($_SESSION['pOrder']))
+  {
+    header('viewPurchaseOrder.php');
+  }
 
 require ('../FPDF lib/fpdf.php');
 
@@ -45,7 +45,7 @@ function header()
           die("cannot connect to DB server");
         }
 
-        $sql1="SELECT *,SUM(amount) AS sum FROM `purchase_orders` where `po_no`=".$_SESSION['pOrder']." GROUP BY po_no;";                    /////session
+        $sql1="SELECT *,SUM(amount) AS sum FROM `purchase_orders` where `po_no`=".$_SESSION['pOrder']." GROUP BY po_no;";
         $rowSQL1= mysqli_query($con,$sql1);
         $row = mysqli_fetch_assoc($rowSQL1);
         $sum=$row['sum'];
@@ -66,9 +66,9 @@ function header()
 
       $this->cell(80,5,$row['Name'],0,0,'L');
       //$sname=$row['Name'];
-      //$saddress=$row['Address'];
+      $saddress=$row['Address'];
 
-      $this->cell(25,5,'Date',0,0,'L');
+      $this->cell(35,5,'Date',0,0,'L');
 
 
       $this->cell(80,5,$date,0,0,'L');
@@ -79,21 +79,21 @@ function header()
 
       $this->cell(80,5,$saddress,0,0,'L');
 
-      $this->cell(25,5,'Purchase Order no.',0,0,'L');
+      $this->cell(35,5,'Purchase Order no.',0,0,'L');
 
       $this->cell(25,5,$_SESSION['pOrder'],0,0,'L');
 
       $this->Ln(20);
 
       $this->SetFont('Arial','U',10);
-      $this->cell(80,5,'Description of Goods',0,1);
+      $this->cell(80,5,'Description of materials',0,1);
       $this->SetFont('Arial','',10);
 
       //$this->Ln(10);
       $this->SetFont('Times','B','10');
       //$this->line(10, 105, 210-10, 105);
       $this->cell(30,10,'Item Code','T',0,'L');
-      $this->line(10, 110, 210-8, 110);
+      $this->line(10, 105, 210-8, 105);
       $this->cell(80,10,'Item Description','T',0,'L');
       $this->cell(30,10,'Unit Price','T',0,'L');
       $this->cell(30,10,'Qty.','T',0,'L');
@@ -102,7 +102,6 @@ function header()
 
       $this->SetFont('Times','B','10');
 
-      //getting finished goods details
       $sql="SELECT `mid`,`qty`,`amount` FROM `purchase_orders` where `po_no`=".$_SESSION['pOrder']." ";
       $rowSQL1= mysqli_query($con,$sql);
       while($row1=mysqli_fetch_assoc( $rowSQL1))
@@ -118,7 +117,7 @@ function header()
           $this->cell(80,10,$row['Name'],0,0,'L');
           $this->cell(30,10,$amt,0,0,'L');
           $this->cell(30,10,$qty,0,0,'L');
-          $this->cell(15,10,$sum,0,1,'L');
+          $this->cell(15,10,$row1['amount'],0,1,'L');
 
         }
       }
