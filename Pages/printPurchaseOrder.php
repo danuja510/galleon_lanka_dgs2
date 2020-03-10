@@ -6,7 +6,7 @@ if(!isset($_SESSION['eno']))
   }
 //if(!isset($_SESSION['pOrder']))
   //{
-    //header('viewInvoice.php');
+    //header('viewPurchaseOrder.php');
   //}
 
 require ('../FPDF lib/fpdf.php');
