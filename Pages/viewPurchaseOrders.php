@@ -72,7 +72,7 @@
       mysqli_close($con);
       while($row=mysqli_fetch_assoc( $rowSQL )){
         if(isset($_POST[$row['po_no']])){
-          $_SESSION['purchaseOrder']=$row['po_no'];
+          $_SESSION['pOrder']=$row['po_no'];
           header('Location:managePurchaseOrder.php');
         }
       }

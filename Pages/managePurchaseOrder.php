@@ -3,7 +3,7 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }
- if(!isset($_SESSION['purchaseOrder'])){
+ if(!isset($_SESSION['pOrder'])){
    header('Location:viewPurchaseOrders.php');
  }
 ?>
@@ -16,7 +16,7 @@
   <body>
     <form action="managePurchaseOrder.php" method="post">
       <?php
-        $PO=$_SESSION['purchaseOrder'];
+        $PO=$_SESSION['pOrder'];
       	$con = mysqli_connect("localhost","root","","galleon_lanka");
       	if(!$con)
       	{
