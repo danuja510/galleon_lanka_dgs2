@@ -85,8 +85,8 @@
             $_SESSION['DES']='Manager';
             $_SESSION['DEPT']='Manager';
           }else {
-            if ($row[ 'Designation']=='employee') {
-              $_SESSION['DES']='employee';
+            if ($row[ 'Designation']=='Employee') {
+              $_SESSION['DES']='Employee';
               $_SESSION['DEPT']=$row[ 'Dept'];
             }
           }
