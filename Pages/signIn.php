@@ -67,25 +67,36 @@
       </table>
     </form>
     <?php
-	if(isset($_POST['btnsubmit'])){
-		$eno=$_POST['txtENO'];
-		$pass=$_POST['txtPass'];
-		$sql="SELECT * FROM `employees` WHERE `eno` = ".$eno." AND `password` LIKE '".$pass."';";
-		$con = mysqli_connect("localhost","root","","galleon_lanka");
-			if(!$con)
-			{
-				die("Error while connecting to database");
-			}
-			$result= mysqli_query($con,$sql);
-			mysqli_close($con);
-	if(mysqli_num_rows($result)>0){
-		$_SESSION['eno']=$eno;
-		header('Location:empHome.php');
-		}else{
-			echo "invalid credentials";}
-		}
+    	if(isset($_POST['btnsubmit'])){
+    		$eno=$_POST['txtENO'];
+    		$pass=$_POST['txtPass'];
+    		$sql="SELECT * FROM `employees` WHERE `eno` = ".$eno." AND `password` LIKE '".$pass."';";
+    		$con = mysqli_connect("localhost","root","","galleon_lanka");
+    			if(!$con)
+    			{
+    				die("Error while connecting to database");
+    			}
+    			$result= mysqli_query($con,$sql);
 
-	?>
+      	if(mysqli_num_rows($result)>0){
+          $row=mysqli_fetch_array($result);
+
+          if ($row[ 'Designation']=='Manager') {
+            $_SESSION['DES']='Manager';
+            $_SESSION['DEPT']='Manager';
+          }else {
+            if ($row[ 'Designation']=='employee') {
+              $_SESSION['DES']='employee';
+              $_SESSION['DEPT']=$row[ 'Dept'];
+            }
+          }
+      		$_SESSION['eno']=$eno;
+      		header('Location:empHome.php');
+    		}else{
+    			echo "invalid credentials";
+        }
+    	}
+    ?>
   </body>
 </html>
 <!--dan-->
