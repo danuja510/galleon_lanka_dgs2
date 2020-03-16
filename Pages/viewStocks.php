@@ -23,15 +23,35 @@ $dep=$_SESSION['DEPT'];
     <title>view stocks</title>
   </head>
   <body>
+    <form action="viewStocks.php" method="post">
+
     <label for="lblDept">
-        your Department:
+        Your Department:
     </label>
     <label>
       <?php
         echo "$dep";
       ?>
     </label>
+    <br>
+    <?php
+    if($dep=="Manager")
+    {
+echo"
+    <label for='lstDepartment'>
+        Sort by Department:
+    </label>
+    <select name='lstDepartment'>
+      <option value='A'>All</option>
+      <option value='B'>store</option>
+      <option value='C'>P floor</option>
+      <option value='D'>F goods</option>
+    </select>
 
+    <input type='submit' name='btnSort' value='Sort'>
+";
+    }
+     ?>
     <table border="1">
       <thead>
         <td>Department</td>
@@ -45,22 +65,27 @@ $dep=$_SESSION['DEPT'];
         {
           die("cannot connect to DB server");
         }
+        $s="";
+        if(isset($_POST['btnSort']))
+        {
+            $s=$_POST['lstDepartment'];
+        }
       if($dep=="Manager")
       {
       $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` GROUP BY dept,item_no;";
       }
 
-      if($dep=="store")
+      if($dep=="store" || $s=="B")
       {
       $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='store' GROUP BY dept,item_no;";
       }
-      
-      if($dep=="pfloor")
+
+      if($dep=="pFloor" || $s=="C")
       {
       $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='pfloor' GROUP BY dept,item_no;";
       }
 
-      if($dep=="fGoods")
+      if($dep=="fGoods" || $s=="D")
       {
       $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='fGoods' GROUP BY dept,item_no;";
       }
@@ -77,7 +102,7 @@ echo"
       }
     ?>
     </table>
-
+    </form>
   </body>
 </html>
 
