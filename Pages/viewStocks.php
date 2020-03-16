@@ -54,7 +54,7 @@ $dep=$_SESSION['DEPT'];
       {
       $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='store' GROUP BY dept,item_no;";
       }
-
+      
       if($dep=="pfloor")
       {
       $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='pfloor' GROUP BY dept,item_no;";
