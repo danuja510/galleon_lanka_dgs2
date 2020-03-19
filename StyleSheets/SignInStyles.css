@@ -1,0 +1,60 @@
+.section-signIn {
+    margin: 30px 25% 80px 25%;
+    
+}
+
+.section-signIn h2{
+    font-weight: 400;
+}
+
+
+input[type=number],input[type=password]{
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+input[type=submit]{
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 200px;
+    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+    background-color: #2980b9;
+    border: 1px solid #2980b9;
+    color: #fff;
+    margin-right: 15px;
+}
+
+input[type=submit]:hover,
+input[type=submit]:active{
+    background-color: #1d5a81;
+}
+
+label{
+    margin-left: 25%;
+}
+
+p {
+    font-size: 80%;
+    line-height: 145%;
+}
+
+a:link,
+a:visited{
+    color: #2980b9;
+    text-decoration: none;
+    padding-bottom: 1px;
+    -webkit-transition: border-bottom 0.2s, color 0.2s;
+    transition: border-bottom 0.2s, color 0.2s;
+}
+
+a:hover,
+a:active{
+    color: #555;
+}
+
+/*--dan--*/

@@ -1,0 +1,44 @@
+table{
+  width: 100%;
+}
+
+tr{
+  text-align: center;
+  height: 35px;
+  background-color: #f9f9f9;
+}
+
+th{
+  background-color: #f0f0f0;
+}
+
+.bt{
+  background-color: #fff;
+}
+
+input[type=submit]{
+    display: inline-block;
+    padding: 2px 12px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 50px;
+    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+    background-color: #2980b9;
+    border: 1px solid #2980b9;
+    color: #fff;
+    margin-right: 15px;
+}
+
+input[type=submit]:hover,
+input[type=submit]:active{
+    background-color: #1d5a81;
+}
+
+a:link,
+a:visited{
+  text-decoration: none;
+  color: #555;
+}
+
+.new{ margin-top: 10px; }

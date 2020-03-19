@@ -9,7 +9,7 @@ if(!isset($_SESSION['invoice']))
     header('viewInvoice.php');
   }
 
-require ('../FPDF lib/fpdf.php');
+require ('../Libraries/FPDF/fpdf.php');
 
 class PDF extends FPDF
 {

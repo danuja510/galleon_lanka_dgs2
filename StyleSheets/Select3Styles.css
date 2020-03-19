@@ -1,0 +1,28 @@
+#btnConfirm{
+  background-color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+#btnDelete{
+    background-color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+input[type=submit],#btnConfirm,#btnDelete{
+    padding: 10px 35px;
+    margin-top: 5px;
+}
+
+#btnConfirm:hover,
+#btnConfirm:active{
+    background-color: #25a25a;
+}
+
+#btnDelete:hover,
+#btnDelete:active{
+    background-color: #e3301e;
+}
+
+.gtn{
+  margin-bottom: 10px;
+}
