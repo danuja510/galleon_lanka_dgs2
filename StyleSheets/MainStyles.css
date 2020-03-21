@@ -14,6 +14,8 @@ html  {
     text-rendering: optimizeLegibility;
 }
 
+section { min-height: 260px; }
+
 h1,
 h2,
 h3  {

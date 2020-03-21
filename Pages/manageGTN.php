@@ -41,7 +41,7 @@
           <a href="createGTN.php">
             <div class="new">
               <i class="ion-ios-compose-outline"></i>
-              New GRN
+              New GTN
             </div>
           </a>
         </div>

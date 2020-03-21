@@ -57,6 +57,12 @@ input[type=text],select{
     border: 1px solid #ccc;
 }
 
+input[type=number]{
+   width: 75%;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
 label{
     margin-left: 60%;
 }
@@ -77,4 +83,35 @@ h2{
 
 .conf-gtn{
     margin:40px auto 120px auto;
+}
+
+a:link,
+a:visited{
+    color: #2980b9;
+    text-decoration: none;
+    padding-bottom: 1px;
+    -webkit-transition: border-bottom 0.2s, color 0.2s;
+    transition: border-bottom 0.2s, color 0.2s;
+}
+
+select{
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+a:hover,
+a:active{
+    color: #555;
+}
+
+.nc{
+    font-size: 90%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.ncr{
+    font-size: 80%;
 }
