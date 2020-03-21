@@ -37,9 +37,7 @@
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                 </a>
-                <a href="#">
-                    <div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div>
-                </a>
+                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
             </div>
         </div>
     </header>
@@ -68,7 +66,7 @@
                   }
                   $rowSQL= mysqli_query( $con,$sql);
                   while($row=mysqli_fetch_assoc( $rowSQL )){
-                    echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td><input type='checkbox' id='".$row['item_no']."' class='css-checkbox' name='".$row['item_no']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."'>&nbsp;</label></td></tr>";
+                    echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_no']."' class='css-checkbox' name='".$row['item_no']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."'>&nbsp;</label></td></tr>";
                   }
                 }else {
                   if ($_SESSION['dept']=='pfloor') {
@@ -76,7 +74,7 @@
                     $rowSQL= mysqli_query( $con,$sql);
                     $iType='material';
                     while($row=mysqli_fetch_assoc( $rowSQL )){
-                      echo "<tr><td>".$row['mid']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['mid']."' name='txt".$row['mid']."' step='1' min='0' value='0'></td><td><input type='checkbox' id='".$row['mid']."' class='css-checkbox' name='".$row['mid']."' value='".$row['mid']."'><label class='css-label' for='".$row['mid']."'>&nbsp;</label></td></tr>";
+                      echo "<tr><td>".$row['mid']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['mid']."' name='txt".$row['mid']."' step='1' min='0' value='0'></td><td class='chk'><input type='checkbox' id='".$row['mid']."' class='css-checkbox' name='".$row['mid']."' value='".$row['mid']."'><label class='css-label' for='".$row['mid']."'>&nbsp;</label></td></tr>";
                     }
                   }
                   if ($_SESSION['dept']=='fGoods') {
@@ -84,13 +82,13 @@
                     $rowSQL= mysqli_query( $con,$sql);
                     $iType='finished product';
                     while($row=mysqli_fetch_assoc( $rowSQL )){
-                      echo "<tr><td>".$row['fp_id']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['fp_id']."' name='txt".$row['fp_id']."' step='1' min='0' value='0'></td><td><input id='".$row['fp_id']."' type='checkbox' class='css-checkbox' name='".$row['fp_id']."' value='".$row['fp_id']."'><label class='css-label' for='".$row['fp_id']."'>&nbsp;</label></td></tr>";
+                      echo "<tr><td>".$row['fp_id']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['fp_id']."' name='txt".$row['fp_id']."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['fp_id']."' type='checkbox' class='css-checkbox' name='".$row['fp_id']."' value='".$row['fp_id']."'><label class='css-label' for='".$row['fp_id']."'>&nbsp;</label></td></tr>";
                     }
                   }
                 }
                 mysqli_close($con);
                 ?>
-              <tr><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt"><input type="submit" name="btnNext" value="Next"></td></tr>
+              <tr><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt chk"><input type="submit" name="btnNext" value="Next"></td></tr>
             </table>
           </form>
         </div>

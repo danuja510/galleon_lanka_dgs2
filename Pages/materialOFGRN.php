@@ -101,7 +101,7 @@
                     $checked="checked='checked'";
                   }
                 }
-                echo "<tr><td>".$row1['mid']."</td><td>".$row1['Name']."</td><td>".$row1['Type']."</td><td>".$row1['value']."</td><td><input type='number' id='txt".$row1['mid']."' name='txt".$row1['mid']."' value='".$val."' step='1' min='0'></td><td><input id='".$row1['mid']."' type='checkbox' class='css-checkbox' name='".$row1['mid']."' value='".$row1['mid']."' ".$checked."><label class='css-label' for='".$row1['mid']."'>&nbsp;</label></td></tr>";
+                echo "<tr><td>".$row1['mid']."</td><td>".$row1['Name']."</td><td>".$row1['Type']."</td><td>".$row1['value']."</td><td><input type='number' id='txt".$row1['mid']."' name='txt".$row1['mid']."' value='".$val."' step='1' min='0'></td><td class='chk'><input id='".$row1['mid']."' type='checkbox' class='css-checkbox' name='".$row1['mid']."' value='".$row1['mid']."' ".$checked."><label class='css-label' for='".$row1['mid']."'>&nbsp;</label></td></tr>";
                 }
                 mysqli_close($con);
               ?>
@@ -111,7 +111,7 @@
                 <td class="bt">&nbsp;</td>
                 <td class="bt">&nbsp;</td>
                 <td class="bt">&nbsp;</td>
-                <td class="bt"><input type="submit" name="btnNext" value="Next"></td>
+                <td class="bt chk"><input type="submit" name="btnNext" value="Next"></td>
               </tr>
             </table>
           </form>
