@@ -67,7 +67,7 @@
         </div>
     </header>
     <section class="section-select2">
-        <form  action="supplierOFGRN.php" method="post">
+        <form  action="../PHPScripts/supplierOFGRNScript.php" method="post">
           <div class="row">
             <div class="col span-1-of-2">
                 <label for="txtSupplier">Select Supplier</label>
@@ -116,12 +116,6 @@
                 <p>Designed and Developed by DGS2</p>
         </div>
     </footer>
-    <?php
-      if (isset($_POST['btnNext'])) {
-        $_SESSION['sid']=$_POST['txtSupplier'];
-        header('Location:materialOFGRN.php');
-      }
-    ?>
   </body>
 </html>
 <!--dan-->

@@ -45,7 +45,7 @@
     <section class="section-select2">
       <div class="row">
         <div class="col span-2-of-2">
-          <form action="stocksForGTN.php" method="post">
+          <form action="../PHPScripts/stocksForGTNScript.php" method="post">
             <table>
               <thead><th>Item No.</th><th>Type</th><th>Available Qty.</th><th>Qty. to be transfered <?php echo $_SESSION['gtntype']; ?></th><th class="bt">&nbsp;</th>
               </thead>
@@ -98,55 +98,20 @@
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
-    <?php
-      if (isset($_POST['btnNext'])) {
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        if ($_SESSION['gtntype']=='out') {
-          $rowSQL3= mysqli_query( $con,$sql);
-          $m=$type."+";
-          $count=0;
-          while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-            if(isset($_POST[$row3['item_no']])){
-              $count++;
-              $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no']].'x'.$iType.',';
-            }
+      <?php
+      if(isset($_GET['count'])){
+          if($_GET['count']==0){
+              echo "<script type='text/javascript'>alert('Select A Item that have Have been/Needs to be Transfered');</script>";
           }
-        }else {
-          if ($_SESSION['dept']=='pfloor') {
-            $rowSQL3= mysqli_query( $con,$sql);
-            $m=$type."+";
-            $count=0;
-            while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['mid']])){
-                $count++;
-                $m=$m.$row3['mid'].'x'.$_POST['txt'.$row3['mid']].'x'.$iType.',';
-              }
-            }
-          }
-          if ($_SESSION['dept']=='fGoods') {
-            $rowSQL3= mysqli_query( $con,$sql);
-            $m=$type."+";
-            $count=0;
-            while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['fp_id']])){
-                $count++;
-                $m=$m.$row3['fp_id'].'x'.$_POST['txt'.$row3['fp_id']].'x'.$iType.',';
-              }
-            }
-          }
-        }
-        if($count==0){
-          echo "<script type='text/javascript'>alert('Select A Items to Transfer');event.preventDefault();</script>";
-        }else {
-          $_SESSION['GTN']=$m;
-          header('Location:confirmGTN.php');
-        }
+          unset($_GET['count']);
       }
-    ?>
+      if(isset($_GET['count2'])){
+          if($_GET['count2']==0){
+              echo "<script type='text/javascript'>alert('Please add a Quantity for the Respective Item that was/Needs to be Transfered');</script>";
+          }
+          unset($_GET['count2']);
+      }
+      ?>
   </body>
 </html>
 <!--dan-->

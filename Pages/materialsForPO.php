@@ -65,7 +65,7 @@
     <section class="section-manage">
       <div class="row">
         <div class="col span-2-of-2">
-            <form action="materialsForPO.php" method="post">
+            <form action="../PHPScripts/materialsForPOScript.php" method="post">
               <table>
                 <thead><th>Material ID</th><th>Name</th><th>Type</th><th>Value</th><th>Qty.</th><th class="bt">&nbsp;</th></thead>
                 <?php
@@ -96,36 +96,24 @@
           </div>
         </div>
       </section>
-    <?php
-      if (isset($_POST['btnNext'])) {
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        $rowSQL2= mysqli_query( $con,$sql1);
-        $m="";
-        $count=0;
-        $date=$_POST['txtDate'];
-        while($row2=mysqli_fetch_assoc( $rowSQL2 )){
-          if(isset($_POST[$row2['mid']])){
-            $count++;
-            $m=$m.$row2['mid'].'x'.$_POST['txt'.$row2['mid']].',';
-          }
-        }
-        if($count==0){
-          echo "<script type='text/javascript'>alert('Select A Material to Order');event.preventDefault();</script>";
-        }else {
-          $_SESSION['PO']=$m;
-          $_SESSION['date']=$date;
-          header('Location:confirmPO.php');
-        }
-      }
-    ?>
     <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
+    <?php
+      if(isset($_GET['count'])){
+          if($_GET['count']==0){
+              echo "<script type='text/javascript'>alert('Select A Material to Order');</script>";
+          }
+          unset($_GET['count']);
+      }
+      if(isset($_GET['count2'])){
+          if($_GET['count2']==0){
+              echo "<script type='text/javascript'>alert('Please add a Quantity for the Respective Material to Order');</script>";
+          }
+          unset($_GET['count2']);
+      }
+      ?>
   </body>
 </html>
 <!--dan-->

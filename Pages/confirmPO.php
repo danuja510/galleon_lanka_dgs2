@@ -96,8 +96,12 @@
                       '".$date."', '".$_SESSION['eno']."', NULL);";
                   }
                 }
+                $_SESSION['POQ']=$query;
+                $_SESSION['POQC']=$count;
+                unset($_SESSION['sid']);
+                unset($_SESSION['PO']);
               ?>
-              <form  action="confirmPO.php" method="post">
+              <form  action="../PHPScripts/confirmPOScript.php" method="post">
                 <tr>
                   <td class='bt'>&nbsp;</td>
                   <td class='bt'>&nbsp;</td>
@@ -116,20 +120,6 @@
         <div class="row"><p>Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
-    <?php
-      if (isset($_POST['btnConfirm'])) {
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        for ($i=0; $i < $count; $i++) {
-          mysqli_query($con,$query[$i]);
-        }
-        mysqli_close($con);
-        header('Location:empHome.php');
-      }
-   ?>
   </body>
 </html>
 <!--dan-->

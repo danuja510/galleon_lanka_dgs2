@@ -126,8 +126,12 @@
               $query[$i]="INSERT INTO `grn` (`no`, `grn_no`, `po_no`, `sid`, `mid`, `qty`, `date`, `amount`, `prepared_by_(eno)`,       `remarks`,`approvedBy`)VALUES(NULL,'".$grn_no."',".$pono.",'".$_SESSION['sid']."','".$order[0]."','".$order[1]."',CURDATE(),'".$row['value']*$order[1]."', '".$_SESSION['eno']."', NULL, NULL);";
             }
           }
+            $_SESSION['GRNQ']=$query;
+            $_SESSION['GRNQC']=$count;
+            unset($_SESSION['sid']);
+            unset($_SESSION['GRN']);
         ?>
-        <form  action="confirmGRN.php" method="post">
+        <form  action="../PHPScripts/confirmGRNScript.php" method="post">
           <tr>
             <td class="bt">&nbsp;</td>
             <td class="bt">&nbsp;</td>
@@ -149,20 +153,6 @@
                 <p>Designed and Developed by DGS2</p>
         </div>
     </footer>
-    <?php
-      if (isset($_POST['btnConfirm'])) {
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        for ($i=0; $i < $count; $i++) {
-          mysqli_query($con,$query[$i]);
-        }
-        mysqli_close($con);
-        header('Location:viewGRN.php');
-      }
-   ?>
   </body>
 </html>
 <!--dan-->

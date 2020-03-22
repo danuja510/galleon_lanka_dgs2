@@ -9,7 +9,7 @@ if(!isset($_SESSION['invoice']))
     header('viewInvoice.php');
   }
 
-require ('../Libraries/FPDF/fpdf.php');
+require ('../Resources/FPDF/fpdf.php');
 
 class PDF extends FPDF
 {
@@ -17,7 +17,6 @@ class PDF extends FPDF
 function header()
   {
 
-      //$this->Image('../assets/logo.png',10,10,30,20);
 
       $this->SetFont('Arial','B',18);
       $this->cell(20);

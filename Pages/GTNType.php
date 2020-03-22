@@ -58,7 +58,7 @@
         </div>
     </header>
     <section class="section-select2 cgtn">
-        <form action="GTNType.php" method="post">
+        <form action="../PHPScripts/GTNTypeScript.php" method="post">
             <div class="row">
                 <div class="col span-1-of-2">
                     <label for="txtGTNType">Select GTN Type</label>
@@ -89,12 +89,6 @@
                 <p>Designed and Developed by DGS2</p>
         </div>
     </footer>
-    <?php
-      if (isset($_POST['btnNext'])) {
-        $_SESSION['gtntype']=$_POST['txtGTNType'];
-        header('Location:stocksForGTN.php');
-      }
-    ?>
   </body>
 </html>
 <!--dan-->

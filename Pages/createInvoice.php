@@ -56,7 +56,7 @@
         </div>
     </header>
       <section class="section-manage">
-        <form action="createInvoice.php" method="post">
+        <form action="../PHPScripts/createInvoiceScript.php" method="post">
       <div class="row">
         <div class="col span-1-of-7">
             <div class="row nc">
@@ -98,7 +98,7 @@
         {
           die("Error while connecting to database");
         }
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished product' GROUP BY `item_no`,`type`;;";
+        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished product' GROUP BY `item_no`,`type`;";
         $rowSQL= mysqli_query( $con,$sql);
         mysqli_close($con);
         while($row=mysqli_fetch_assoc( $rowSQL )){
@@ -111,40 +111,23 @@
             </div>
           </form>
       </section>
-    
-    
-    
-      
-        
-      </form>
       <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
       </footer>
       <?php
-        if (isset($_POST['btnNext'])) {
-          $_SESSION['cno']=$_POST['txtCNO'];
-          $con = mysqli_connect("localhost","root","","galleon_lanka");
-          if(!$con)
-          {
-            die("Error while connecting to database");
+      if(isset($_GET['count'])){
+          if($_GET['count']==0){
+              echo "<script type='text/javascript'>alert('Select A Item to be Sold');</script>";
           }
-          $rowSQL3= mysqli_query( $con,$sql);
-          $m="";
-          $count=0;
-          while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-            if(isset($_POST[$row3['item_no']])){
-              $count++;
-              $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no']].',';
-            }
+          unset($_GET['count']);
+      }
+      if(isset($_GET['count2'])){
+          if($_GET['count2']==0){
+              echo "<script type='text/javascript'>alert('Please add a Quantity for the Respective Item');</script>";
           }
-          if($count==0){
-            echo "<script type='text/javascript'>alert('Select A Material to Order');event.preventDefault();</script>";
-          }else {
-            $_SESSION['INVOICE']=$m;
-            header('Location:confirmInvoice.php');
-          }
-        }
+          unset($_GET['count2']);
+      }
       ?>
   </body>
 </html>

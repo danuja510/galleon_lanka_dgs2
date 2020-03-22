@@ -71,7 +71,7 @@
     ?>
     <section class="section-manage">
         <div class="row">
-          <form action="materialOFGRN.php" method="post">
+          <form action="../PHPScripts/materialOFGRNScript.php" method="post">
             <table>
               <thead>
                 <th>Material ID</th>
@@ -125,33 +125,20 @@
                 <p>Designed and Developed by DGS2</p>
         </div>
     </footer>
-    <?php
-      if (isset($_POST['btnNext'])) {
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        $rowSQL3= mysqli_query( $con,$sql1);
-        $m="";
-        $count=0;
-        while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-          if(isset($_POST[$row3['mid']])){
-            $count++;
-            $m=$m.$row3['mid'].'x'.$_POST['txt'.$row3['mid']].',';
+      <?php
+      if(isset($_GET['count'])){
+          if($_GET['count']==0){
+              echo "<script type='text/javascript'>alert('Select A Material that have been Received');</script>";
           }
-        }
-        if($count==0){
-          echo "<script type='text/javascript'>
-            alert('Select A Material to Order');
-            event.preventDefault();
-          </script>";
-        }else {
-          $_SESSION['GRN']=$m;
-          header('Location:confirmGRN.php');
-        }
+          unset($_GET['count']);
       }
-    ?>
+      if(isset($_GET['count2'])){
+          if($_GET['count2']==0){
+              echo "<script type='text/javascript'>alert('Please add a Quantity for the Respective Material that was Received');</script>";
+          }
+          unset($_GET['count2']);
+      }
+      ?>
   </body>
 </html>
 <!--dan-->

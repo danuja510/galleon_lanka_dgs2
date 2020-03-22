@@ -40,7 +40,7 @@
         </div>
     </header>
     <section class="section-view">
-        <form action="viewGTN.php" method="post">
+        <form action="../PHPScripts/viewGTNScript.php" method="post">
         <div class="row">
             <div class="col span-1-of-2">
                   <?php
@@ -55,9 +55,9 @@
                     $row = mysqli_fetch_array( $rowSQL );
                     echo "<div class='row'><div class='col span-1-of-2'>GTN No. </div><div class='col span-1-of-2'>".$row['gtn_no']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Department </div><div class='col span-1-of-2'>".$row['dept']."</div></div>";
-                    $dept=$row['dept'];
+                    $_SESSION['gdept']=$row['dept'];
                     echo "<div class='row'><div class='col span-1-of-2'>Type </div><div class='col span-1-of-2'>".$row['type']."</div></div>";
-                    $type=$row['type'];
+                    $_SESSION['gtype']=$row['type'];
                     echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['date']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'>".$row['prepared_by']."</div></div>";
                     
@@ -102,33 +102,6 @@
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
       </footer>
-  <?php
-    if (isset($_POST['btnConfirm'])) {
-      // updating gtn records to approved
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-        die("Error while connecting to database");
-      }
-      $sql="UPDATE `gtn` SET `approved_by` = '".$_SESSION['eno']."' WHERE `gtn`.`gtn_no` = ".$gtn.";";
-      mysqli_query( $con,$sql);
-        // adding/updating stock rocords
-      $sql3="SELECT `item_no`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$gtn."";
-      $rowSQL3= mysqli_query( $con,$sql3);
-      while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-    	  if($type=='in'){
-          $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$dept."');";
-        }elseif ($type=='out') {
-          $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$dept."');";
-        }
-        mysqli_query( $con,$sql2);
-
-      }
-      mysqli_close($con);
-    header('Location:manageGTN.php');
-    }
-
-   ?>
 </body>
 </html>
 <!--dan-->

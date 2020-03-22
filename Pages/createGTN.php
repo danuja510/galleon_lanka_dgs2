@@ -56,7 +56,7 @@
         </div>
     </header>
     <section class="section-select2 cgtn">
-          <form  action="createGTN.php" method="post">
+          <form  action="../PHPScripts/createGTNScript.php" method="post">
               <div class="row">
                   <div class="col span-1-of-2">
                     <label for="txtDept">Select Department</label>
@@ -88,22 +88,6 @@
                 <p>Designed and Developed by DGS2</p>
         </div>
     </footer>
-    <?php
-      if (isset($_POST['btnNext'])) {
-        $_SESSION['dept']=$_POST['txtDept'];
-        if ($_POST['txtDept']=='pfloor') {
-          header('Location:GTNType.php');
-        }else{
-          if ($_POST['txtDept']=='store') {
-            $_SESSION['gtntype']='out';
-          }
-          if ($_POST['txtDept']=='fGoods') {
-            $_SESSION['gtntype']='in';
-          }
-          header('Location:stocksForGTN.php');
-        }
-      }
-    ?>
   </body>
 </html>
 <!--dan-->

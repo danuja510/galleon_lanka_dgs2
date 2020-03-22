@@ -46,7 +46,7 @@
           </a>
         </div>
           <div class="col span-6-of-7">
-    <form action="manageInvoices.php" method="post">
+    <form action="../PHPScripts/manageInvoicesScript.php" method="post">
       <table>
         <thead>
           <th>Invoice no.</th>
@@ -83,21 +83,5 @@
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
-    <?php
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-        die("Error while connecting to database");
-      }
-      $sql="SELECT * FROM `invoice` GROUP BY `invoice_no`;";
-      $rowSQL= mysqli_query( $con,$sql);
-      mysqli_close($con);
-      while($row=mysqli_fetch_assoc( $rowSQL )){
-        if(isset($_POST[$row['invoice_no']])){
-          $_SESSION['invoice']=$row['invoice_no'];
-          header('Location:viewInvoice.php');
-        }
-      }
-    ?>
   </body>
 </html>

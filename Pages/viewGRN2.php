@@ -53,7 +53,7 @@
         </div>
     </header>
     <section class="section-view">
-        <form action="viewGRN2.php" method="post">
+        <form action="../PHPScripts/viewGRN2Script.php" method="post">
         <div class="row">
             <div class="col span-1-of-2">
                 <?php
@@ -68,7 +68,7 @@
                     $row = mysqli_fetch_array( $rowSQL );
                     echo "<div class='row'><div class='col span-1-of-2'>GRN No. </div><div class='col span-1-of-2'>".$row['grn_no']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Supplier No. </div><div class='col span-1-of-2'>".$row['sid']."</div></div>";
-                    $sid=$row['sid'];
+                    $_SESSION['gsid']=$row['sid'];
                     echo "<div class='row'><div class='col span-1-of-2'>Purchase Order No. </div><div class='col span-1-of-2'>".$row['po_no']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['date']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'>".$row['prepared_by_(eno)']."</div></div>";
@@ -119,29 +119,5 @@
         </div>
     </footer>
   </body>
-  <?php
-    if (isset($_POST['btnConfirm'])) {
-      // updating grn records to approved
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-        die("Error while connecting to database");
-      }
-      $sql="UPDATE `grn` SET `approvedBy` = '".$_SESSION['eno']."' WHERE `grn`.`grn_no` = ".$grn.";";
-      mysqli_query( $con,$sql);
-      // adding/updating creditor records
-      $sql2="INSERT INTO `creditors` (`sid`, `amount`, `date`) VALUES ('".$sid."', '".$value."',CURDATE() );";
-      mysqli_query( $con,$sql2);
-      // adding/updating stock rocords
-      $sql3="SELECT `mid`,`qty` FROM `grn` WHERE `grn_no`=".$grn."";
-      $rowSQL3= mysqli_query( $con,$sql3);
-      while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-          $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['mid']."', '".$row3['qty']."', 'material', CURDATE(), 'store');";
-          mysqli_query( $con,$sql2);
-      }
-      mysqli_close($con);
-      header('Location:viewGRN.php');
-    }
-   ?>
 </html>
 <!--dan-->

@@ -88,8 +88,12 @@
             $query[$i]="INSERT INTO `gtn` (`no`, `gtn_no`, `item_no`,`item_type`, `qty`, `type`, `remarks`, `dept`,`prepared_by`, `approved_by`, `date`) VALUES (NULL, '".$gtn_no."', '".$order[0]."', '".$order[2]."', '".$order[1]."','".$gtnType."', NULL, '".$_SESSION['dept']."','".$_SESSION['eno']."', NULL, CURDATE());";
           }
         }
+            $_SESSION['GTNQ']=$query;
+            $_SESSION['GTNQC']=$count;
+            unset($_SESSION['dept']);
+            unset($_SESSION['GTN']);
       ?>
-      <form  action="confirmGTN.php" method="post">
+      <form  action="../PHPScripts/confirmGTNScript.php" method="post">
         <tr>
           <td class="bt">&nbsp;</td>
           <td class="bt">&nbsp;</td>
@@ -111,20 +115,6 @@
                 <p>Designed and Developed by DGS2</p>
         </div>
     </footer>
-    <?php
-      if (isset($_POST['btnConfirm'])) {
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        for ($i=0; $i < $count; $i++) {
-          mysqli_query($con,$query[$i]);
-        }
-        mysqli_close($con);
-        header('Location:manageGTN.php');
-      }
-   ?>
   </body>
 </html>
 <!--dan-->

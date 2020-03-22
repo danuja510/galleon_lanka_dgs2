@@ -54,7 +54,7 @@
         </div>
     </header>
       <section class="section-select2">
-        <form  action="createPurchaseOrders.php" method="post">
+        <form  action="../PHPScripts/createPurchaseOrdersScript.php" method="post">
             <div class="row">
                 <div class="col span-1-of-2">
                     <label for="txtSupplier">Select Supplier</label>
@@ -99,12 +99,6 @@
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
-    <?php
-      if (isset($_POST['btnNext'])) {
-        $_SESSION['sid']=$_POST['txtSupplier'];
-        header('Location:materialsForPO.php');
-      }
-    ?>
   </body>
 </html>
 <!--dan-->

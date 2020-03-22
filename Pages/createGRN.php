@@ -68,7 +68,7 @@
         </div>
     </header>
     <section class="section-select2">
-      <form  action="createGRN.php" method="post">
+      <form  action="../PHPScripts/createGRNScript.php" method="post">
           <div class="row">
             <div class="col span-1-of-2">
                 <label for="txtPO">Select Purchase Order</label>
@@ -108,21 +108,6 @@
               </div>
           </div>
       </form>
-      <?php
-        if (isset($_POST['btnNext'])) {
-          $con = mysqli_connect("localhost","root","","galleon_lanka");
-          if(!$con)
-          {
-            die("Error while connecting to database");
-          }
-          $sql="SELECT DISTINCT `sid` FROM `purchase_orders` WHERE `po_no` = ".$_POST['txtPO'].";";
-          $rowSQL= mysqli_query( $con,$sql);
-          $row = mysqli_fetch_array( $rowSQL );
-          $_SESSION['pono']=$_POST['txtPO'];
-          $_SESSION['sid']=$row['sid'];
-          header('Location:materialOFGRN.php');
-        }
-      ?>
     </section>
     <footer>
         <div class="row">
