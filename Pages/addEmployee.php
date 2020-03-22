@@ -56,7 +56,7 @@ if(!isset($_SESSION['eno'])){
 		  {
 					if(validatePassword() && validateDepartment() && validateEmail())
 					{
-					
+
 					}
 					else
 					{
@@ -108,7 +108,7 @@ if(!isset($_SESSION['eno'])){
               </label>
             </td>
             <td>
-              <input type="text" name="txtEmail" id="txtEmail" value="" required>
+              <input type="email" name="txtEmail" id="txtEmail" value="" required>
             </td>
           </tr>
 
