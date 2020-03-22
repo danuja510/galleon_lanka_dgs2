@@ -56,6 +56,7 @@ echo"
       <thead>
         <td>Department</td>
         <td>item no</td>
+        <td>type</td>
         <td>qty</td>
       </thead>
 
@@ -72,22 +73,22 @@ echo"
         }
       if($dep=="Manager")
       {
-      $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` GROUP BY dept,item_no;";
+      $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` GROUP BY dept,item_no;";
       }
 
       if($dep=="store" || $s=="B")
       {
-      $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='store' GROUP BY dept,item_no;";
+      $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='store' GROUP BY dept,item_no;";
       }
 
       if($dep=="pFloor" || $s=="C")
       {
-      $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='pfloor' GROUP BY dept,item_no;";
+      $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='pfloor' GROUP BY dept,item_no;";
       }
 
       if($dep=="fGoods" || $s=="D")
       {
-      $sql="SELECT dept,item_no,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='fGoods' GROUP BY dept,item_no;";
+      $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='fGoods' GROUP BY dept,item_no;";
       }
       $rowSQL= mysqli_query($con,$sql);
       while($row=mysqli_fetch_assoc($rowSQL))
@@ -96,6 +97,7 @@ echo"
       <tr>
         <td>".$row['dept']."</td>
         <td>".$row['item_no']."</td>
+        <td>".$row['type']."</td>
         <td>".$row['finalstock']."</td>
       </tr>
 ";
@@ -105,7 +107,4 @@ echo"
     </form>
   </body>
 </html>
-
-
-
 <!--gima-->
