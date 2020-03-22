@@ -1,0 +1,117 @@
+#btnConfirm{
+  background-color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+#btnDelete{
+    background-color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+input[type=submit],#btnConfirm,#btnDelete{
+    padding: 10px 35px;
+    margin-top: 5px;
+}
+
+#btnConfirm:hover,
+#btnConfirm:active{
+    background-color: #25a25a;
+}
+
+#btnDelete:hover,
+#btnDelete:active{
+    background-color: #e3301e;
+}
+
+#btnReset{
+    display: inline-block;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 50px;
+    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+    border: 3px solid #2980b9;
+    background-color: #fff;
+    color: #2980b9;
+    margin-right: 15px;
+    padding: 8px 32px;
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+#btnReset:hover,
+#btnReset:active{
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.gtn{
+  margin-bottom: 10px;
+}
+
+input[type=text],select{
+    width: 75%;
+    margin-right: 25%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+input[type=number]{
+   width: 75%;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+label{
+    margin-left: 60%;
+}
+
+.dd{
+    margin-left: auto;
+}
+
+h2{
+    margin-top: 10px;
+    font-weight: 400;
+}
+
+.chk{
+    width: 150px;
+    text-align: center;
+}
+
+.conf-gtn{
+    margin:40px auto 120px auto;
+}
+
+a:link,
+a:visited{
+    color: #2980b9;
+    text-decoration: none;
+    padding-bottom: 1px;
+    -webkit-transition: border-bottom 0.2s, color 0.2s;
+    transition: border-bottom 0.2s, color 0.2s;
+}
+
+select{
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+a:hover,
+a:active{
+    color: #555;
+}
+
+.nc{
+    font-size: 90%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.ncr{
+    font-size: 80%;
+}
