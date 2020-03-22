@@ -43,7 +43,7 @@
   </head>
   <body>
     <h1>add finished products</h1>
-    <form class="" action="finishedproducts.php" method="post">
+    <form action="addFinishedProducts.php" method="post">
       <table>
         <tr>
           <td><label for="txtName">Name</label></td>
@@ -91,7 +91,7 @@
   			if(!$con1){
   				die("Cannot connect to DB server");
   			}
-  			$sql1="INSERT INTO `finished_products` (`Name`, `bom_id`, `value`) VALUES ('".$name."', '".$bom."', '".$val."')";
+  			$sql1="INSERT INTO `finished_products` (`Name`, `bom_id`, `value`,`status`) VALUES ('".$name."', '".$bom."', '".$val."','active')";
   			mysqli_query($con1,$sql1);
   			mysqli_close($con1);
   			}

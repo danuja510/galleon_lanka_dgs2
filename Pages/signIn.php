@@ -3,69 +3,65 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/SignInStyles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>signIn</title>
-    <script type="text/javascript">
-    function validateEmpNo()
-    {
-      var eno= document.getElementById("txtENO").value;
-       if (isNaN(eno)) {
-        alert("Enter A Valid Employee Number");
-        return false;
-      }
-      else
-        return true;
-    }
-
-    /*function validatePassword()
-    {
-      var pwd=document.getElementById("txtPass").value;
-      if(pwd=="")
-      {
-        alert("Enter the password");
-        return false;
-      }
-      else
-        return true;
-    }*/
-
-    function validate()
-    {
-      if(validateEmpNo() /*&& validatePassword()*/)
-        {}
-      else
-        event.preventDefault();
-    }
-    </script>
   </head>
   <body>
-    <h1>Sign In</h1>
-    <form action="signIn.php" method="post">
-      <table>
-        <tr>
-          <td>
+    <header>
+      <div class="row">
+        <h1>Manufacturing Management System</h1>
+        <h3>Galleon Lanka PLC</h3>
+      </div>
+    </header>
+    <section class="section-signIn">
+      <h2>Sign In</h2>
+      <form action="signIn.php" method="post">
+        <div class="row">
+          <div class="col span-1-of-2">
             <label for="txtENO">Employee No</label>
-          </td>
-          <td>
-            <input type="text" name="txtENO" id="txtENO" required>
-          </td>
-        </tr>
-        <tr>
-          <td>
+          </div>
+          <div class="col span-1-of-2">
+            <input type="number" name="txtENO" id="txtENO" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col span-1-of-2">
             <label for="txtPass">Password</label>
-          </td>
-          <td>
+          </div>
+          <div class="col span-1-of-2">
             <input type="password" name="txtPass" id="txtPass" required>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <input type="submit" name="btnsubmit" id="btnsubmit" value="Submit" onclick="validate()">
-            <input type="reset" value="Reset" name="btnreset>"
-          </td>
-        </tr>
-      </table>
-    </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col span-1-of-2">
+            <label>&nbsp;</label>
+          </div>
+          <div class="col span-1-of-2">
+            <input type="submit" name="btnsubmit" id="btnsubmit" value="Submit">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col span-1-of-2">
+            <label>&nbsp;</label>
+          </div>
+          <div class="col span-1-of-2">
+            <p>If Forgot Password <a href="#">Click here</a><br> If Forgot Employee No. <a href="#">Click here</a></p>
+          </div>
+        </div>
+      </form>
+    </section>
+    <footer>
+        <div class="row">
+                <p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p>
+        </div>
+        <div class="row">
+                <p>Designed and Developed by DGS2</p>
+        </div>
+    </footer>
     <?php
     	if(isset($_POST['btnsubmit'])){
     		$eno=$_POST['txtENO'];

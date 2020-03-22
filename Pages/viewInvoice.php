@@ -11,10 +11,38 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>ViewInvoice</title>
   </head>
   <body>
-    <form action="viewInvoice.php" method="post">
+      <header>
+        <div class="row">
+            <h1>Manufacturing Management System</h1>
+            <h3>Galleon Lanka PLC</h3>
+        </div>
+        <div class="nav">
+            <div class="row">
+                <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                <a href="empHome.php">
+                    <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                </a>
+                <a href="logout.php">
+                    <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
+                </a>
+                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+            </div>
+        </div>
+    </header>
+      <section class="section-view">
+    <form action="../PHPScripts/viewInvoiceScript.php" method="post">
+        <div class="row">
+            <div class="col span-1-of-2">
       <?php
         $invoice=$_SESSION['invoice'];
       	$con = mysqli_connect("localhost","root","","galleon_lanka");
@@ -25,88 +53,53 @@
       	$sql="SELECT *,sum(total) as price FROM `invoice` where `invoice_no`=".$invoice." GROUP BY `invoice_no`;";
       	$rowSQL= mysqli_query( $con,$sql);
       	$row = mysqli_fetch_array( $rowSQL );
-        echo "<h2>Invoice No. ".$row['invoice_no']."</h2>";
-        echo "<h2>Customer No. ".$row['cno']."</h2>";
-        $cno=$row['cno'];
-        echo "<h2>Purchase Order No. ".$row['po_no']."</h2>";
-        echo "<h2>Date ".$row['date']."</h2>";
-        echo "<h2>Prepared by eno ".$row['prepared_by']."</h2>";
-        echo "<h2>Amount Rs. ".$row['price']."</h2>";
-        $value=$row['price'];
-        echo "
-          <table>
-            <thead>
-              <th>
-                Product ID
-              </th>
-              <th>
-                Qty.
-              </th>
-              <th>
-                value
-              </th>
-            </thead>
-            ";
+        echo "<div class='row'><div class='col span-1-of-2'>Invoice No. </div><div class='col span-1-of-2'>".$row['invoice_no']."</div></div>";
+        echo "<div class='row'><div class='col span-1-of-2'>Customer No. </div><div class='col span-1-of-2'>".$row['cno']."</div></div>";
+        $_SESSION['Icno']=$row['cno'];
+        echo "<div class='row'><div class='col span-1-of-2'>Purchase Order No. </div><div class='col span-1-of-2'>".$row['po_no']."</div></div>";
+        echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['date']."</div></div>";
+        echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'>".$row['prepared_by']."</div></div>";
+        echo "<div class='row'><div class='col span-1-of-2'>Amount Rs. </div><div class='col span-1-of-2'>".$row['price']."</div></div>";
+        $_SESSION['Ivalue']=$row['price'];
+        if($row['approved_by']!=null){
+            echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Approved</div></div>";
+        }else{
+          echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Pending</div></div>";
+        }
+        ?>
+             </div>
+        <div class="col span-1-of-2">
+        <?php
+        echo "<table><thead><th>Product ID</th><th>Qty.</th><th>value</th></thead>";
             $sql="SELECT * FROM `invoice` WHERE `invoice_no`=".$invoice.";";
             $rowSQL= mysqli_query( $con,$sql);
             mysqli_close($con);
             while($row2=mysqli_fetch_assoc( $rowSQL )){
-              echo "
-                <tr>
-                  <td>
-                    ".$row2['item_no']."
-                  </td>
-                  <td>
-                    ".$row2['qty']."
-                  </td>
-                  <td>
-                    ".$row2['value']."
-                  </td>
-                </tr>
-              ";
+              echo "<tr><td>".$row2['item_no']."</td><td>".$row2['qty']."</td><td>".$row2['value']."</td></tr>";
             }
-          echo "
-          </table>
-        ";
-        if($row['approved_by']!=null){
-          echo "<h2>Status :Approved</h2>
-            <input type='submit' value='Print' name='btnPrint'>
-          ";
-        }else{
-          echo "<h2>Status :Pending</h2>";
-          echo "<input type='submit' value='approve' name='btnApprove'>";
-        }
-
+          echo "</table>";
       ?>
-    </form>
-    <?php
-    if (isset($_POST['btnApprove'])) {
-      // updating invoice records to approved
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-        die("Error while connecting to database");
-      }
-      $sql="UPDATE `invoice` SET `approved_by` = '".$_SESSION['eno']."' WHERE `invoice`.`invoice_no` = ".$invoice.";";
-      mysqli_query( $con,$sql);
-      // adding debtor records
-
-        $sql2="INSERT INTO `debtors` (`no`,`cno`, `amount`, `date`) VALUES (NULL,'".$cno."', '".$value."',CURDATE() );";
-        mysqli_query( $con,$sql2);
-
-      // updating stock rocords
-      $sql3="SELECT `item_no`,`qty` FROM `invoice` WHERE `invoice_no`=".$invoice."";
-      $rowSQL3= mysqli_query( $con,$sql3);
-      while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-        $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', 'finished product', CURDATE(), 'fGoods');";
-        mysqli_query( $con,$sql2);
-      }
-      mysqli_close($con);
-    }
-    if (isset($_POST['btnPrint'])) {
-      header('Location:invoiceReport.php');
-    }
-    ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class='row'>
+                <div class='col span-1-of-2'>&nbsp;</div>
+                <div class='col span-1-of-2'>
+        <?php
+        if($row['approved_by']!=null){
+            echo "<input type='submit' value='Print' name='btnPrint'>";
+        }else{
+            echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
+         }?>
+     <input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
+                </div>
+            </div>
+        </div>
+                </form>
+      </section>
+    <footer>
+        <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
+        <div class="row"><p>Designed and Developed by DGS2</p></div>
+    </footer>
   </body>
-</table>
 <!--dan-->

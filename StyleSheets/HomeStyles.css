@@ -1,0 +1,40 @@
+.icon-select{
+    color: #2980b9;
+    display: block;
+    font-size: 400%;
+    transition: color 0.5s;
+}
+
+.select-option{
+    margin: 10px;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 10px;
+    height: 170px;
+    transition: background-color 0.5s;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    box-shadow:  0 2px 2px #efefef;
+}
+
+.select-option:hover{
+    background-color: #2980b9;
+}
+
+.select-option h4{
+  margin-bottom: 15px;
+  transition: color 0.5s;
+}
+
+.section-select a:link,
+.section-select a:visited{
+    color: #555;
+    text-decoration: none;
+}
+
+.select-option:hover .icon-select,
+.select-option:hover h4{
+    color: #fff;
+}
+
+.title{float: left;}
