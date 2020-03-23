@@ -1,5 +1,8 @@
 #galleon_lanka_db_script
 
+#query for viewing stocks
+SELECT `item_no`,`type`,`dept`,SUM(qty) as Qty FROM `stocks`  GROUP BY `item_no`,`type`,`dept`
+
 #sithara
 CREATE TABLE `galleon_lanka`.`supplier` (
  `sid` INT NOT NULL ,
@@ -216,3 +219,33 @@ ALTER TABLE `gtn` ADD `item_type` VARCHAR(20) NOT NULL AFTER `item_no`;
 ALTER TABLE `employees` ADD `status` VARCHAR(20) NULL AFTER `password`;
 UPDATE `employees` SET `status` = 'active' WHERE `employees`.`eno` = 1;
 ALTER TABLE `employees` ADD `email` VARCHAR(50) NOT NULL AFTER `password`;
+
+#altered debtor table
+ALTER TABLE `debtors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `cno`);
+ALTER TABLE `debtors` DROP `dbid`;
+
+#altered debtor table
+ALTER TABLE `debtors` ADD `no` INT NOT NULL FIRST;
+ALTER TABLE `debtors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `no`);
+ALTER TABLE `debtors` CHANGE `no` `no` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered creditor table
+ALTER TABLE `creditors` ADD `no` INT NOT NULL FIRST;
+ALTER TABLE `creditors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `no`);
+ALTER TABLE `creditors` CHANGE `no` `no` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered bom table
+ALTER TABLE `bom` CHANGE `mid` `mName` VARCHAR(50) NOT NULL;
+
+#altered finished products table
+ALTER TABLE `finished_products` ADD `status` VARCHAR(20) NULL AFTER `value`;
+ALTER TABLE `finished_products` CHANGE `status` `status` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
