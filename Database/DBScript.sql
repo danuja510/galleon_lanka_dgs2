@@ -1,5 +1,8 @@
 #galleon_lanka_db_script
 
+#query for viewing stocks
+SELECT `item_no`,`type`,`dept`,SUM(qty) as Qty FROM `stocks`  GROUP BY `item_no`,`type`,`dept`
+
 #sithara
 CREATE TABLE `galleon_lanka`.`supplier` (
  `sid` INT NOT NULL ,
@@ -224,6 +227,7 @@ ALTER TABLE `debtors`
      `cno`);
 ALTER TABLE `debtors` DROP `dbid`;
 
+<<<<<<< HEAD
 #altered customer table
 ALTER TABLE `customer` ADD `state` VARCHAR(20) NOT NULL AFTER `type`;
 
@@ -233,3 +237,27 @@ ALTER TABLE `supplier` ADD `state` VARCHAR(20) NOT NULL AFTER `tpno`;
 #altered creditors table
 ALTER TABLE `creditors` ADD `state` VARCHAR(20) NOT NULL AFTER `date`;
 
+=======
+#altered debtor table
+ALTER TABLE `debtors` ADD `no` INT NOT NULL FIRST;
+ALTER TABLE `debtors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `no`);
+ALTER TABLE `debtors` CHANGE `no` `no` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered creditor table
+ALTER TABLE `creditors` ADD `no` INT NOT NULL FIRST;
+ALTER TABLE `creditors`
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `no`);
+ALTER TABLE `creditors` CHANGE `no` `no` INT(11) NOT NULL AUTO_INCREMENT;
+
+#altered bom table
+ALTER TABLE `bom` CHANGE `mid` `mName` VARCHAR(50) NOT NULL;
+
+#altered finished products table
+ALTER TABLE `finished_products` ADD `status` VARCHAR(20) NULL AFTER `value`;
+ALTER TABLE `finished_products` CHANGE `status` `status` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+>>>>>>> master
