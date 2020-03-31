@@ -226,3 +226,10 @@ ALTER TABLE `debtors` DROP `dbid`;
 
 #altered customer table
 ALTER TABLE `customer` ADD `state` VARCHAR(20) NOT NULL AFTER `type`;
+
+#altered supplier table
+ALTER TABLE `supplier` ADD `state` VARCHAR(20) NOT NULL AFTER `tpno`;
+
+#altered creditors table
+ALTER TABLE `creditors` ADD `state` VARCHAR(20) NOT NULL AFTER `date`;
+
