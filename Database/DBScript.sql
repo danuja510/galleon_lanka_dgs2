@@ -261,3 +261,6 @@ ALTER TABLE `bom` CHANGE `mid` `mName` VARCHAR(50) NOT NULL;
 ALTER TABLE `finished_products` ADD `status` VARCHAR(20) NULL AFTER `value`;
 ALTER TABLE `finished_products` CHANGE `status` `status` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 >>>>>>> master
+
+#altered the payment_voucher table
+ALTER TABLE `payment_voucher` ADD `approvedBy` INT NULL AFTER `prepared_by_(eno)`;
