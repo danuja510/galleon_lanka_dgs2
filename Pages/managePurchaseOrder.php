@@ -94,7 +94,7 @@
         mysqli_query( $con,$sql2);
       }
     if (isset($_POST['btnPrint'])) {
-      header('Location:printPurchaseOrder.php');
+      header('Location:../Reports/printPurchaseOrder.php');
     }
     ?>
   </body>
