@@ -38,17 +38,17 @@
       while($row=mysqli_fetch_array($rowSQL))
       {
 echo"
-  <tr>
-      <td>
-          ".$row['cno']."
-      </td>
-      <td>
-          ".$row['tot']."
-      </td>
-      <td>
-          ".$row['date']."
-      </td>
-  </tr>
+<tr>
+    <td>
+        ".$row['cno']."
+    </td>
+    <td>
+        ".$row['tot']."
+    </td>
+    <td>
+        ".$row['date']."
+    </td>
+</tr>
 ";
       }
   ?>
