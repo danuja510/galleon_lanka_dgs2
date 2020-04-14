@@ -10,12 +10,29 @@ session_start();
 
     <script type="text/javascript">
 
-  
+    function validateEmail()
+      {
+        var em=document.getElementById("txtEmail").value;
+        var atposition=em.indexOf("@");
+        var dotposition=em.lastIndexOf(".");
+        //var em1=em.toLowerCase();
+
+        if (atposition<1 || dotposition<atposition+2 || dotposition+2>=em.length)
+          {
+            alert("Please enter a valid e-mail address");
+            //return false;
+            event.preventDefault();
+          }
+          else
+          {
+            //return true;
+          }
+      }
     </script>
 
   </head>
   <body>
-    <form action="reset.php" method="post">
+    <form action="resetPassword.php" method="post">
     <table>
       <tr>
         <td>

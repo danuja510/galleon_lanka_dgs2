@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_SESSION['reset']))
   {
-    header('Location:reset.php');
+    header('Location:resetPassword.php');
   }
  ?>
 
@@ -13,7 +13,6 @@ if(!isset($_SESSION['reset']))
      <title>create new password</title>
 
      <script type="text/javascript">
-
      function validatePassword()
        {
        var pwd=document.getElementById('txtPwd').value;
@@ -86,5 +85,4 @@ if(!isset($_SESSION['reset']))
       ?>
    </body>
  </html>
-
 <!--sithara-->
