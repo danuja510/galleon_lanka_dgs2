@@ -127,7 +127,7 @@
                 </a>
             </div>
             <div class="col span-1-of-4">
-                <a href="#">
+                <a href="manageBOM.php">
                     <div class="select-option">
                         <i class="ion-ios-color-filter-outline icon-select"></i>
                         <h4>Manage BOMs</h4>

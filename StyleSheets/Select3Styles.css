@@ -3,12 +3,13 @@
   border: 1px solid #2ecc71;
 }
 
-#btnDelete{
+#btnDelete,
+.btn-del{
     background-color: #e74c3c;
     border: 1px solid #e74c3c;
 }
 
-input[type=submit],#btnConfirm,#btnDelete{
+input[type=submit],#btnConfirm, #btnNext,#btnDelete,.btn-del{
     padding: 10px 35px;
     margin-top: 5px;
 }
@@ -18,12 +19,14 @@ input[type=submit],#btnConfirm,#btnDelete{
     background-color: #25a25a;
 }
 
+.btn-del:hover,
+.btn-del:active
 #btnDelete:hover,
 #btnDelete:active{
     background-color: #e3301e;
 }
 
-#btnReset{
+#btnReset, #btnNext{
     display: inline-block;
     font-weight: 300;
     text-decoration: none;
@@ -39,6 +42,8 @@ input[type=submit],#btnConfirm,#btnDelete{
     font-weight: 400;
 }
 
+#btnNext:hover,
+#btnNext:active,
 #btnReset:hover,
 #btnReset:active{
     background-color: #2980b9;
@@ -59,6 +64,7 @@ input[type=text],select{
 
 input[type=number]{
    width: 75%;
+    padding: 7px;
     border-radius: 3px;
     border: 1px solid #ccc;
 }
@@ -94,12 +100,6 @@ a:visited{
     transition: border-bottom 0.2s, color 0.2s;
 }
 
-select{
-    width: 100%;
-    padding: 7px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-}
 
 a:hover,
 a:active{

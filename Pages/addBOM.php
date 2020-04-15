@@ -8,75 +8,89 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/CheckboxStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>addBOM</title>
   </head>
   <body>
-    <form action="addBOM.php" method="post">
-      <label for="txtName">BOM Name</label>
-      <input type="text" name="txtName" list="lstBOM" required><br>
-      <datalist id="lstBOM">
-        <?php
-          $con=mysqli_connect("localhost","root","","galleon_lanka");
-          if(!$con){
-            die("Cannot connect to DB server");
-          }
-          $sql="SELECT DISTINCT Name FROM `materials`";
-          $rowSQL= mysqli_query( $con,$sql);
-          while($row=mysqli_fetch_assoc( $rowSQL )){
-            echo "<option value='".$row["Name"]."'>";
-          }
-          mysqli_close($con);
-        ?>
-      </datalist>
-      <label for="txtQty">Qty.</label>
-      <input type="number" name="txtQty" min=1 required>
-      <input type="submit" name="btnSubmit" value="Next">
-      <button type="submit" name="btnNext">Add Another Material</button>
+    <header>
+        <div class="row">
+            <h1>Manufacturing Management System</h1>
+            <h3>Galleon Lanka PLC</h3>
+        </div>
+        <div class="nav">
+            <div class="row">
+                <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                <a href="empHome.php">
+                    <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                </a>
+                <a href="logout.php">
+                    <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
+                </a>
+                <a href="#">
+                    <div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div>
+                </a>
+            </div>
+        </div>
+    </header>
+      <h2>Add BOM</h2>
+    <section class="section-add">
+      <form action="../PHPScripts/addBOMScript.php" method="post">
+        <div class="row">
+                <div class="col span-1-of-2">
+                    <label for="txtName">BOM Name</label>
+                </div>
+                <div class="col span-1-of-2">
+                    <input type="text" name="txtName" list="lstBOM" required><br>
+                      <datalist id="lstBOM">
+                        <?php
+                          $con=mysqli_connect("localhost","root","","galleon_lanka");
+                          if(!$con){
+                            die("Cannot connect to DB server");
+                          }
+                          $sql="SELECT DISTINCT Name FROM `materials`";
+                          $rowSQL= mysqli_query( $con,$sql);
+                          while($row=mysqli_fetch_assoc( $rowSQL )){
+                            echo "<option value='".$row["Name"]."'>";
+                          }
+                          mysqli_close($con);
+                        ?>
+                      </datalist>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col span-1-of-2">
+                    <label for="txtQty">Qty.</label>
+                </div>
+                <div class="col span-1-of-2">
+                    <input type="number" name="txtQty" min=1 required>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col span-1-of-2">
+                    &nbsp;
+                </div>
+                <div class="col span-1-of-2">
+                    <input type="submit" name="btnSubmit" value="Next">
+                    <button type="submit" id="btnNext" name="btnNext">Add Another Material</button>
+                </div>
+        </div>
     </form>
-    <?php
-      if (isset($_POST['btnNext'])) {
-        if (isset($_SESSION["bom"])) {
-          $found=FALSE;
-          for ($i=0; $i <sizeof($_SESSION["bom"]) ; $i++) {
-            $bom=explode(',',$_SESSION["bom"][$i]);
-            if ($bom[0]==$_POST['txtName']) {
-              $_SESSION["bom"][$i]="".$_POST['txtName'].",".($bom[1]+$_POST['txtQty'])."";
-              $found=TRUE;
-              header('Location:addBOM.php');
-            }
-          }
-          if (!$found==TRUE) {
-            $_SESSION["bom"][sizeof($_SESSION["bom"])]=$_POST['txtName'].",".$_POST['txtQty'];
-            header('Location:addBOM.php');
-          }
-        }else{
-          $_SESSION["bom"]=[];
-          $_SESSION["bom"][0]=$_POST['txtName'].",".$_POST['txtQty'];
-          header('Location:addBOM.php');
-        }
-      }
-
-      if (isset($_POST['btnSubmit'])) {
-        if (isset($_SESSION["bom"])) {
-          $found=FALSE;
-          for ($i=0; $i <sizeof($_SESSION["bom"]) ; $i++) {
-            $bom=explode(',',$_SESSION["bom"][$i]);
-            if ($bom[0]==$_POST['txtName']) {
-              $_SESSION["bom"][$i]="".$bom[0].",".($bom[1]+$_POST['txtQty'])."";
-              $found=TRUE;
-            }
-          }
-          if (!$found==TRUE) {
-            $_SESSION["bom"][sizeof($_SESSION["bom"])]=$_POST['txtName'].",".$_POST['txtQty'];
-          }
-        }else{
-          $_SESSION["bom"]=[];
-          $_SESSION["bom"][0]=$_POST['txtName'].",".$_POST['txtQty'];
-
-        }
-        header('Location:confirmBOM.php');
-      }
-    ?>
+    </section>
+      <footer>
+        <div class="row">
+                <p>Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p>
+        </div>
+        <div class="row">
+                <p>Designed and Developed by DGS2</p>
+        </div>
+    </footer>
   </body>
 </html>
 <!--dan-->

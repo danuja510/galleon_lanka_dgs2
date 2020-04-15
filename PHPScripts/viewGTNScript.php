@@ -27,3 +27,6 @@
       unset($_SESSION['gtype']);
     header('Location:../Pages/manageGTN.php');
     }
+    if (isset($_POST['btnPrint'])) {
+      header('Location:../Reports/GTNReport.php');
+    }

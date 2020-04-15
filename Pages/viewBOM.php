@@ -29,9 +29,34 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>viewBOM</title>
   </head>
   <body>
+      <header>
+        <div class="row">
+            <h1>Manufacturing Management System</h1>
+            <h3>Galleon Lanka PLC</h3>
+        </div>
+        <div class="nav">
+            <div class="row">
+                <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                <a href="empHome.php">
+                    <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                </a>
+                <a href="logout.php">
+                    <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
+                </a>
+                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+            </div>
+        </div>
+    </header>
     <datalist id="lstBOM">
       <?php
         $con=mysqli_connect("localhost","root","","galleon_lanka");
@@ -46,16 +71,52 @@
         mysqli_close($con);
       ?>
     </datalist>
-  <?php
-    echo "BOM id = ".$_SESSION['BOM'];
-    $con = mysqli_connect("localhost","root","","galleon_lanka");
-    if(!$con)
-    {
-        die("Error while connecting to database");
+      <section class="section-view">
+        <div class="row">
+          <div class="col span-1-of-4">
+              <div class="row">
+                  <div class="col span-1-of-2">
+                 <?php
+                  echo "BOM ID";
+                  ?> 
+              </div>
+              <div class="col span-1-of-2">
+                  <?php
+                  echo $_SESSION['BOM'];;
+                  ?>
+              </div>
+              </div>
+              <div class="row">
+                  <div class="col span-1-of-2">
+                 <?php
+                  echo "State";
+                  ?> 
+              </div>
+              <div class="col span-1-of-2">
+                  <?php
+                  echo $state;
+                  ?>
+              </div>
+              </div>
+              
+            <?php  
+              
+    if ($active) {
+        echo "<form action='../PHPScripts/viewBOMScript.php' method='post'>";
+      echo "<input type='submit' value='Update' name='btnUpdate'>";
+      echo "<input type='submit' id='btnDelete' value='Delete' name='btnDelete'>";
     }
-    echo "state =".$state;
+            $con = mysqli_connect("localhost","root","","galleon_lanka");
+            if(!$con)
+            {
+                die("Error while connecting to database");
+            }
+      ?>
+            </div>
+          <div class="col span-3-of-4">
+            <?php
     echo "<table><thead><th>Material Name</th><th>Qty.</th><th></th></thead>";
-    echo "<form action='viewBOM.php' method='post'>";
+    
     $sql="SELECT * FROM `bom` WHERE `bom_id`=".$_SESSION['BOM'].";";
     $rowSQL= mysqli_query( $con,$sql);
     mysqli_close($con);
@@ -63,7 +124,7 @@
       $dm="";
       $readonly="readonly";
       if ($active) {
-        $dm="<button type='submit' name='btnDeteleM".$row['no']."'>DM</button>";
+        $dm="<button type='submit' class='btn-del' name='btnDeteleM".$row['no']."'>Delete</button>";
         $readonly="";
       }
       echo "<tr><td>".$row['mName']."</td><td><input type='number' value='".$row['qty']."' name='txtQty".$row['no']."' min=1 ".$readonly." required></td><td>".$dm."</td></tr>";
@@ -72,84 +133,15 @@
       echo "<tr><td><input type='text' id='txtName' name='txtName' list='lstBOM'></td><td><input type='number' id='txtQtyN' name='txtQtyN' min=1></td><td><input type='submit' onclick='validate()' value ='Add' id='btnAdd' name='btnAdd'></td></tr>";
     }
     echo "</table>";
-    if ($active) {
-      echo "<input type='submit' value='Update' name='btnUpdate'>";
-      echo "<input type='submit' value='Delete' name='btnDelete'>";
-    }
     echo "</form>";
   ?>
-  <?php
-    if (isset($_POST['btnUpdate'])) {
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-          die("Error while connecting to database");
-      }
-      $sql="SELECT * FROM `bom` WHERE `bom_id`=".$_SESSION['BOM'].";";
-      $rowSQL= mysqli_query( $con,$sql);
-      while($row=mysqli_fetch_assoc( $rowSQL )){
-        $sql2="UPDATE `bom` SET `qty` = '".$_POST['txtQty'.$row['no']]."' WHERE `bom`.`no` = ".$row['no'].";";
-        mysqli_query( $con,$sql2);
-      }
-      mysqli_close($con);
-      header('Location:viewBOM.php');
-    }
-
-    if(isset($_POST['btnDelete'])){
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-          die("Error while connecting to database");
-      }
-      $sql3="UPDATE `bom` SET `state` = 'inactive' WHERE `bom`.`bom_id` = ".$_SESSION['BOM'].";";
-      mysqli_query( $con,$sql3);
-      mysqli_close($con);
-      unset($_SESSION['BOM']);
-      header('Location:manageBOM.php');
-    }
-
-    $con = mysqli_connect("localhost","root","","galleon_lanka");
-    if(!$con)
-    {
-        die("Error while connecting to database");
-    }
-    $sql="SELECT * FROM `bom` WHERE `bom_id`=".$_SESSION['BOM'].";";
-    $rowSQL= mysqli_query( $con,$sql);
-    while($row=mysqli_fetch_assoc( $rowSQL )){
-      if (isset($_POST['btnDeteleM'.$row['no']])) {
-        $sql4="DELETE FROM `bom` WHERE `no`=".$row['no'];
-        mysqli_query( $con,$sql4);
-        header('Location:viewBOM.php');
-      }
-    }
-
-    if (isset($_POST['btnAdd'])) {
-      $mName=$_POST['txtName'];
-      $qty=$_POST['txtQtyN'];
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-          die("Error while connecting to database");
-      }
-      $sql="SELECT * FROM `bom` WHERE `bom_id`=".$_SESSION['BOM'].";";
-      $rowSQL= mysqli_query( $con,$sql);
-      $found=FALSE;
-      while($row=mysqli_fetch_assoc( $rowSQL )){
-        if ($row['mName']==$mName) {
-          $sql5="UPDATE `bom` SET `qty` = '".($row['qty']+$qty)."' WHERE `bom`.`no` = ".$row['no'].";";
-          mysqli_query( $con,$sql5);
-          $found=TRUE;
-          header('Location:viewBOM.php');
-        }
-      }
-      if (!$found) {
-        $sql7="INSERT INTO `bom` (`no`, `bom_id`, `mName`, `qty`, `state`) VALUES (NULL, '".$_SESSION['BOM']."', '".$mName."', '".$qty."', 'active');";
-        mysqli_query( $con,$sql7);
-      }
-      mysqli_close($con);
-      header('Location:viewBOM.php');
-    }
-  ?>
+        </div>
+        </div>
+      </section>
+      <footer>
+        <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
+        <div class="row"><p>Designed and Developed by DGS2</p></div>
+    </footer>
   <script type="text/javascript">
   function validateName(){
     var mName=document.getElementById("txtName").value;
