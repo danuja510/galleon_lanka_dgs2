@@ -250,5 +250,10 @@ ALTER TABLE `bom` CHANGE `mid` `mName` VARCHAR(50) NOT NULL;
 ALTER TABLE `finished_products` ADD `status` VARCHAR(20) NULL AFTER `value`;
 ALTER TABLE `finished_products` CHANGE `status` `status` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 
+
 #altered materials table
 ALTER TABLE `materials` ADD `status` VARCHAR(10) NOT NULL AFTER `value`;
+
+#altered bom table
+ALTER TABLE `bom` ADD `state` VARCHAR(10) NOT NULL AFTER `qty`;
+

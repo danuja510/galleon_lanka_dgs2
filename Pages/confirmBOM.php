@@ -1,8 +1,10 @@
 <?php
- session_start();
- if(!isset($_SESSION['eno'])){
-   header('Location:signIn.php');
- }
+  session_start();
+  if(!isset($_SESSION['eno'])){
+    header('Location:signIn.php');
+  }elseif (!isset($_SESSION['bom'])) {
+    header('Location:addBOM.php');
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -11,15 +13,14 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
-    <link rel="stylesheet" type="text/css" href="../Resources/CSS/CheckboxStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
-    <title>updateStock</title>
+    <title>confirmBOM</title>
   </head>
   <body>
-    <header>
+      <header>
         <div class="row">
             <h1>Manufacturing Management System</h1>
             <h3>Galleon Lanka PLC</h3>
@@ -37,43 +38,37 @@
             </div>
         </div>
     </header>
-    <section class="section-manage">
-        <div class="row">
-            <div class="col span-2-of-2">
-                <form action="../PHPScripts/updateStockScript.php" method="post">
-      <table>
-        <thead>
-          <th>Material ID</th>
-          <th>Updated Qty.</th>
-        </thead>
-        <?php
-          $con = mysqli_connect("localhost","root","","galleon_lanka");
-          if(!$con)
-          {
-            die("Error while connecting to database");
-          }
-          $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='pfloor'AND `type`='material' GROUP BY `item_no`,`type`;";
-          $rowSQL= mysqli_query( $con,$sql);
-          mysqli_close($con);
-          while($row=mysqli_fetch_assoc( $rowSQL )){
-            echo "
-              <tr>
-                <td>".$row['item_no']."</td>
-                <td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['Qty']."' value='".$row['Qty']."'></td>
-              </tr>
-            ";
-          }
-        ?>
+      <section>
+        <div class='row'>
+            <div class='col span-2-of-2'>
+                <table>
+      <thead>
+        <th>Material Name</th>
+        <th>Quantity</th>
+      </thead>
+      <?php
+        for ($i=0; $i <sizeof($_SESSION["bom"]) ; $i++) {
+          $bom=explode(',',$_SESSION["bom"][$i]);
+          echo "
           <tr>
-              <td class="bt"></td>
-              <td class="bt"><input type="submit" name="btnNext" id="btnNext" value="Next"></td>
+            <td>".$bom[0]."</td>
+            <td>".$bom[1]."</td>
           </tr>
-        
-      </table>
-    </form>
+          ";
+        }
+      ?>
+      <tr>
+        <td class="bt">&nbsp;</td>
+        <form action="../PHPScripts/confirmBOMScript.php" method="post">
+          <td class="bt"><input type='submit' value='Confirm' id='btnConfirm' name='btnConfirm'>
+              <button type='submit' id='btnNext' name='btnNext'>Back</button>
+              <input type='submit' id='btnDelete' name='btnDelete' value='Reset'></td>
+        </form>
+      </tr>
+    </table>
             </div>
         </div>
-    </section>
+      </section>
     <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
