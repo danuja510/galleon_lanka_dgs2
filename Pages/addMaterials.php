@@ -100,12 +100,13 @@ input[type=number],input[type=text], select
                 <select name="lstSid" id="lstSid">
                 <option value='-----'>-----</option>
                 <?php
-                  $sql="SELECT * FROM `supplier`;";
+
                   $con = mysqli_connect("localhost","root","","galleon_lanka");
                   if(!$con)
                   {
                     die("Error while connecting to database");
                   }
+                  $sql="SELECT * FROM `supplier`;";
                   $rowSQL= mysqli_query( $con,$sql);
                   while($row=mysqli_fetch_assoc( $rowSQL )){
                     echo "
