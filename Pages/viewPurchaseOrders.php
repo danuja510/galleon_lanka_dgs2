@@ -83,7 +83,7 @@
                 <td>
                   ".$approve."
                 </td>
-                <td>
+                <td class='bt'>
                   <input type='submit' name='".$row['po_no']."' value='manage'>
                 </td>
               </tr>
