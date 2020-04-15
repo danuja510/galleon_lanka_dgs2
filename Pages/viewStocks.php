@@ -21,6 +21,7 @@ $dep=$_SESSION['DEPT'];
   <head>
     <meta charset="utf-8">
     <title>view stocks</title>
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/viewStocksStyles.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
@@ -52,11 +53,11 @@ $dep=$_SESSION['DEPT'];
       <section class="section-manage">
         <div class="row">
             <form action="viewStocks.php" method="post">
-            <div class="col span-1-of-3">
+            <div class="col span-1-of-7">
                     <div class="new">
                     Your Department:
                     <?php
-                    echo "$dep";
+                    echo "<b>$dep</b><br>";
                     ?>
               <br>
                 <?php
@@ -76,13 +77,13 @@ $dep=$_SESSION['DEPT'];
                  ?>
                     </div>
         </div> 
-            <div class="col span-2-of-2">    
+            <div class="col span-6-of-7">    
         <table>
           <thead>
-            <td>Department</td>
-            <td>item no</td>
-            <td>type</td>
-            <td>qty</td>
+            <th>Department</th>
+            <th>item no</th>
+            <th>type</th>
+            <th>qty</th>
           </thead>
 
           <?php
