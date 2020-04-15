@@ -47,33 +47,27 @@ function header()
         $sql1="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." GROUP BY gtn_no;";
         $rowSQL1= mysqli_query($con,$sql1);
         $row = mysqli_fetch_assoc($rowSQL1);
-        $sum=$row['sum'];
-        $sup=$row['sid'];
         $date=$row['date'];
-	$remark=$row['remarks'];
-	$prpby=$row['prepared_by'];
+      	$remark=$row['remarks'];
+      	$prpby=$row['prepared_by'];
       	$appby=$row['approved_by'];
-
-      //getting customer name
-      $sql1="SELECT * FROM `supplier` where `sid`=$sup;";
-      $rowSQL1= mysqli_query($con,$sql1);
-      $row = mysqli_fetch_assoc($rowSQL1);
 
       $this->SetFont('Arial','B',10);
       $this->cell(20,5,'Department:',0,0,'L');
-      $this->cell(20,5,'GTN Type:',0,0,'L');
       $this->SetFont('Arial','',10);
 
-      $this->cell(80,5,$_SESSION['gdept'],0,0,'L');
+      $this->cell(80,5,"  ".$_SESSION['gdept'],0,0,'L');
 
       $this->cell(25,5,'Date',0,0,'L');
 
 
-      $this->cell(80,5,$date,0,0,'L');
+      $this->cell(25,5,$date,0,0,'L');
 
       $this->Ln(5);
-      $this->cell(20);
 
+      $this->SetFont('Arial','B',10);
+      $this->cell(20,5,'GTN Type:',0,0,'L');
+      $this->SetFont('Arial','',10);
 
       $this->cell(80,5,$_SESSION['gtype'],0,0,'L');
 
@@ -89,36 +83,52 @@ function header()
       $this->cell(80,5,"Remarks: $remark",0,1);
 
       $this->SetFont('Times','B','10');
-      $this->cell(30,10,'Meterial Code','T',0,'L');
-      $this->line(10, 110, 210-8, 110);
-      $this->cell(60,10,'Meterial Description','T',0,'L');
-      $this->cell(30,10,'Meterial Type','T',0,'L');
-      $this->cell(30,10,'Unit Price','T',0,'L');
-      $this->cell(20,10,'Qty.','T',0,'L');
-      $this->cell(22,10,'Amount','T',1,'L');
+      $this->cell(30,10,'Item Code','T',0,'L');
+      $this->line(10, 110, 210-10, 110);
+      $this->cell(80,10,'Item Description','T',0,'L');
+      $this->cell(30,10,'Item Type','T',0,'L');
+      $this->cell(20,10,'Qty.','T',1,'L');
 
 
       $this->SetFont('Times','B','10');
 
       //getting finished goods details
-      $sql="SELECT * FROM `grn` where `grn_no`=".$_SESSION['grn']." ";
-      $rowSQL1= mysqli_query($con,$sql);
-      while($row1=mysqli_fetch_assoc( $rowSQL1))
-      {
-      $ino=$row1['mid'];
-      $qty=$row1['qty'];
-      $val=$row1['amount'];
-        $sql="SELECT `mid`,`Name`,`type`,`value` FROM `materials` where `mid`=$ino;";
-        $rowSQL2= mysqli_query($con,$sql);
-        while($row = mysqli_fetch_assoc( $rowSQL2))
+      if ($_SESSION['gdept'] =='store' or ($_SESSION['gdept']== 'pfloor' and $_SESSION['gtype']=='in')) {
+        $sql="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." ";
+        $rowSQL1= mysqli_query($con,$sql);
+        while($row1=mysqli_fetch_assoc( $rowSQL1))
         {
-          $this->cell(30,10,$row['mid'],0,0,'L');
-          $this->cell(60,10,$row['Name'],0,0,'L');
-          $this->cell(30,10,$row['type'],0,0,'L');
-          $this->cell(30,10,$row['value'],0,0,'L');
-          $this->cell(20,10,$qty,0,0,'L');
-          $this->cell(15,10,$row1['amount'],0,1,'L');
+        $ino=$row1['item_no'];
+        $qty=$row1['qty'];
+          $sql="SELECT `mid`,`Name`,`value` FROM `materials` where `mid`=$ino;";
+          $rowSQL2= mysqli_query($con,$sql);
+          while($row = mysqli_fetch_assoc( $rowSQL2))
+          {
+            $this->cell(30,10,$row['mid'],0,0,'L');
+            $this->cell(80,10,$row['Name'],0,0,'L');
+            $this->cell(30,10,$row1['item_type'],0,0,'L');
+            $this->cell(20,10,$qty,0,1,'L');
 
+          }
+        }
+      }else{
+        $sql="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." ";
+        $rowSQL1= mysqli_query($con,$sql);
+        while($row1=mysqli_fetch_assoc( $rowSQL1))
+        {
+        $ino=$row1['item_no'];
+        $qty=$row1['qty'];
+          $sql="SELECT `fp_id`,`Name` FROM `finished_products` where `fp_id`=$ino;";
+          $rowSQL2= mysqli_query($con,$sql);
+          while($row = mysqli_fetch_assoc( $rowSQL2))
+          {
+            $this->cell(30,10,$row['fp_id'],0,0,'L');
+            $this->cell(80,10,$row['Name'],0,0,'L');
+            $this->cell(30,10,$row1['item_type'],0,0,'L');
+            $this->cell(30,10,$qty,0,0,'L');
+            $this->cell(15,10,"",0,1,'L');
+
+          }
         }
       }
 
