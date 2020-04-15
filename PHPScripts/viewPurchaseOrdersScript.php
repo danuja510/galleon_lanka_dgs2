@@ -13,4 +13,3 @@ session_start();
               header('Location:../Pages/managePurchaseOrder.php');
             }
           }
-?>
