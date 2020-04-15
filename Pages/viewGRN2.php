@@ -99,7 +99,9 @@
                 <div class='col span-1-of-2'>&nbsp;</div>
                 <div class='col span-1-of-2'>
                     <?php
-                        if($row['approvedBy']!=null){}
+                        if($row['approvedBy']!=null){
+                          echo "<input type='submit' value='Print' name='btnPrint'>";
+                        }
                         else{
                             echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
                         }

@@ -24,3 +24,6 @@
       unset($_SESSION['gsid']);
       header('Location:../Pages/viewGRN.php');
     }
+    if (isset($_POST['btnPrint'])) {
+      header('Location:../Reports/GRNReport.php');
+    }
