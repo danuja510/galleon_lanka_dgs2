@@ -48,7 +48,12 @@
         }
       }
       </script>
-
+<style>
+input[type=number],input[type=text], select
+{
+  width:50%;
+}
+</style>
   </head>
   <body>
     <header>
@@ -117,8 +122,11 @@
               <td><input type="number" name="txtValue" id="txtValue" value="" min="0" step="0.01" required></td>
             </tr>
             <tr>
-              <td><input type="Submit" name="btnSubmit" id="btnSubmit" value="Submit" onclick="Validate()"></td>
-              <td><input type="Reset" name="btnReset" id="btnReset" value="Reset"></td>
+              <td></td>
+              <td>
+                <input type="Submit" name="btnSubmit" id="btnSubmit" value="Submit" onclick="Validate()">
+                <input type="Reset" name="btnReset" id="btnReset" value="Reset">
+              </td>
             </tr>
           </table>
         </form>
