@@ -51,7 +51,7 @@
     <section class="section-select">
         <div class="row">
             <div class="col span-1-of-4">
-                <a href="createPurchaseOrders.php">
+                <a href="viewPurchaseOrders.php">
                     <div class="select-option">
                         <i class="ion-ios-paper-outline icon-select"></i>
                         <h4>Manage Purchase Orders</h4>
@@ -85,7 +85,7 @@
         </div>
         <div class="row">
             <div class="col span-1-of-4">
-                <a href="manageEmployees.php">
+                <a href="viewEmployees.php">
                     <div class="select-option">
                         <i class="ion-ios-person-outline icon-select"></i>
                         <h4>Manage Employees</h4>
@@ -93,7 +93,7 @@
                 </a>
             </div>
             <div class="col span-1-of-4">
-                <a href="#">
+                <a href="viewSuppliers.php">
                     <div class="select-option">
                         <i class="ion-ios-person-outline icon-select"></i>
                         <h4>Manage Suppliers</h4>
@@ -101,7 +101,7 @@
                 </a>
             </div>
             <div class="col span-1-of-4">
-                <a href="#">
+                <a href="viewCustomer.php">
                     <div class="select-option">
                         <i class="ion-ios-person-outline icon-select"></i>
                         <h4>Manage Customers</h4>
@@ -109,7 +109,7 @@
                 </a>
             </div>
             <div class="col span-1-of-4">
-                <a href="manageFinishedProducts.php">
+                <a href="viewFinishedProducts.php">
                     <div class="select-option">
                         <i class="ion-ios-star icon-select"></i>
                         <h4>Manage Finished Products</h4>
@@ -119,7 +119,7 @@
         </div>
         <div class="row">
             <div class="col span-1-of-4">
-                <a href="#">
+                <a href="viewMaterials.php">
                     <div class="select-option">
                         <i class="ion-ios-star-outline icon-select"></i>
                         <h4>Manage Materials</h4>
@@ -135,7 +135,7 @@
                 </a>
             </div>
             <div class="col span-1-of-4">
-                <a href="inputFinishedGoods.php">
+                <a href="viewStocks.php">
                     <div class="select-option">
                         <i class="ion-clipboard icon-select"></i>
                         <h4>View Stock</h4>
@@ -153,7 +153,7 @@
         </div>
         <div class="row">
             <div class="col span-1-of-4">
-                <a href="#">
+                <a href="managePaymentVouchers.php">
                     <div class="select-option">
                         <i class="ion-ios-paper-outline icon-select"></i>
                         <h4>Manage Payment Vouchers</h4>
@@ -161,7 +161,7 @@
                 </a>
             </div>
             <div class="col span-1-of-4">
-                <a href="#">
+                <a href="viewCashreceipt.php">
                     <div class="select-option">
                         <i class="ion-ios-paper-outline icon-select"></i>
                         <h4>Manage Cash Receipts</h4>
