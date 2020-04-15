@@ -98,7 +98,7 @@ if(!isset($_SESSION['eno'])){
     <section>
         <div class="row">
             <div class="col span-2-of-2">
-                <form  action="addEmployee.php" method="post" >
+        <form  action="../PHPScripts/addEmployeeScript.php" method="post" >
         <table>
           <tr>
             <td>
@@ -178,28 +178,6 @@ if(!isset($_SESSION['eno'])){
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
-
-      <?php
-          if(isset($_POST['btnSubmit']))
-
-        {
-
-				 $name = $_POST['txtName'];
-				 $dept = $_POST['lstDepartment'];
-         $pwd = $_POST['txtconPwd'];
-         $email=$_POST['txtEmail'];
-
-         $con1 = mysqli_connect("localhost","root","","galleon_lanka");
-         if(!$con1)
-					{
-						die("cannot connect to DB server");
-					}
-          $sql1="INSERT INTO `employees`(`Name`, `Designation`, `Dept`, `password`,`email`,`status`) VALUES ('".$name."','Employee','".$dept."','".$pwd."','".$email."','active');";
-          mysqli_query($con1,$sql1);
-				  mysqli_close($con1);
-
-        }
-       ?>
   </body>
 </html>
 
