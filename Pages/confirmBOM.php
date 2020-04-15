@@ -48,11 +48,12 @@
       $bom_id=$max+1;
       for ($i=0; $i <sizeof($_SESSION["bom"]) ; $i++) {
         $bom=explode(',',$_SESSION["bom"][$i]);
-        $sql="INSERT INTO `bom` (`no`, `bom_id`, `mName`, `qty`) VALUES (NULL, '".$bom_id."', '".$bom[0]."', '".$bom[1]."');";
+        $sql="INSERT INTO `bom` (`no`, `bom_id`, `mName`, `qty`, `state`) VALUES (NULL, '".$bom_id."', '".$bom[0]."', '".$bom[1]."', 'active');";
         mysqli_query( $con, $sql);
       }
       mysqli_close($con);
       unset($_SESSION["bom"]);
+      header('Location:manageBOM.php');
     }
     ?>
   </body>

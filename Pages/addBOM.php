@@ -20,16 +20,16 @@
           if(!$con){
             die("Cannot connect to DB server");
           }
-          $sql="SELECT DISTINCT mName FROM `bom`";
+          $sql="SELECT DISTINCT Name FROM `materials`";
           $rowSQL= mysqli_query( $con,$sql);
           while($row=mysqli_fetch_assoc( $rowSQL )){
-            echo "<option value='".$row["mName"]."'>";
+            echo "<option value='".$row["Name"]."'>";
           }
           mysqli_close($con);
         ?>
       </datalist>
       <label for="txtQty">Qty.</label>
-      <input type="number" name="txtQty" min=0 required>
+      <input type="number" name="txtQty" min=1 required>
       <input type="submit" name="btnSubmit" value="Next">
       <button type="submit" name="btnNext">Add Another Material</button>
     </form>
