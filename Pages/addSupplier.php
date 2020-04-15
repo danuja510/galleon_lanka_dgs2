@@ -39,7 +39,7 @@ session_start();
     <h1 align="center">
     Supplier Registration
     </h1>
-<form class="" action="supplier.php" method="post">
+<form class="" action="addSupplier.php" method="post">
   <table border="0" align="center">
       <td><label for='txtName'>Name</label></td>
       <td><input type="text" name="txtName" id="txtName" value=""></td>
