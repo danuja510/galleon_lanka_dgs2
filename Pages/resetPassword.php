@@ -8,28 +8,6 @@ session_start();
     <meta charset="utf-8">
     <title>reset pwd</title>
 
-    <script type="text/javascript">
-
-    function validateEmail()
-      {
-        var em=document.getElementById("txtEmail").value;
-        var atposition=em.indexOf("@");
-        var dotposition=em.lastIndexOf(".");
-        //var em1=em.toLowerCase();
-
-        if (atposition<1 || dotposition<atposition+2 || dotposition+2>=em.length)
-          {
-            alert("Please enter a valid e-mail address");
-            //return false;
-            event.preventDefault();
-          }
-          else
-          {
-            //return true;
-          }
-      }
-    </script>
-
   </head>
   <body>
     <form action="resetPassword.php" method="post">
@@ -52,13 +30,13 @@ session_start();
             </label>
         </td>
         <td>
-            <input type="text" name="txtEmail" id="txtEmail" value="" required>
+            <input type="email" name="txtEmail" id="txtEmail" value="" required>
         </td>
       </tr>
 
       <tr>
         <td>
-            <input type="submit" name="btnSubmit" value="Confirm" onclick="validateEmail()">
+            <input type="submit" name="btnSubmit" value="Confirm">
             <input type="reset" name="btnreset" value="Reset">
         </td>
       </tr>
