@@ -78,6 +78,7 @@
               <td><input type="text" name="txtName" id="txtName" value="" required></td>
             </tr>
 
+
             <tr>
               <td><label for="lstBom">BOM ID</label></td>
               <td>
@@ -110,6 +111,7 @@
               <td><input type="submit" name="btnSubmit" id="btnSubmit" value="Add" onclick="Validate()"></td>
             </tr>
           </table>
+
 
     </form>
             </div>
