@@ -40,7 +40,7 @@
       <section class="section-manage">
         <div class="row">
             <div class="col span-2-of-2">
-                <form method="post" action="viewEmployees.php">
+                <form method="post" action="../PHPScripts/viewEmployeesScript.php">
         <table>
           <thead>
                 <th>
@@ -58,8 +58,8 @@
                 <th>
                     status
                 </th>
-                <th>
-                    edit
+                <th class='bt'>
+                    
                 </th>
           </thead>
 
@@ -71,38 +71,34 @@
             }
            $sql="SELECT * FROM `employees`;";
            $rowSQL= mysqli_query( $con,$sql);
+           mysqli_close($con);
            while($row = mysqli_fetch_array( $rowSQL )){
         echo "
         <tr>
           <td>
           ";
-
         echo "
               ".$row['eno']."
           </td>
-
           <td>
               ".$row['Name']."
           </td>
-
           <td>
               ".$row['Designation']."
           </td>
-
           <td>
               ".$row['Dept']."
           </td>
-
           <td>
               ".$row['status']."
           </td>
-          <td>
+          <td class='bt'>
           ";
           $st=$row['status'];
             if($st=="active")
             {
               echo"
-              <input type='submit' name='".$row['eno']."' value='edit'>
+              <input type='submit' name='".$row['eno']."' value='view'>
               ";
             }
               echo"
@@ -110,7 +106,6 @@
           </tr>
           ";
             }
-            mysqli_close($con);
             ?>
       </table>
       </form>  
@@ -122,24 +117,6 @@
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
-      
-<?php
-          //  $eno=$row['eno'];
-          $con = mysqli_connect("localhost","root","","galleon_lanka");
-            if(!$con)
-              {
-               die("cannot connect to DB server");
-              }
-             $sql="SELECT * FROM `employees` WHERE `status`='active';";
-             $rowSQL= mysqli_query( $con,$sql);
-          while($row = mysqli_fetch_array( $rowSQL )){
-            if (isset($_POST[$row['eno']])) {
-              $_SESSION['eno2']=$row['eno'];
-              header('Location:manageEmployees.php');
-            }
-          }
-          mysqli_close($con);
-            ?>
   </body>
 </html>
 <!--gima-->
