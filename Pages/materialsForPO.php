@@ -77,7 +77,16 @@
                   $sql1="SELECT * FROM `materials` WHERE `sid` = '".$sid."';";
                   $rowSQL1= mysqli_query( $con,$sql1);
                   while($row1=mysqli_fetch_assoc( $rowSQL1 )){
-                    echo "<tr><td>".$row1['mid']."</td><td>".$row1['Name']."</td><td>".$row1['Type']."</td><td>".$row1['value']."</td><td><input type='number' id='txt".$row1['mid']."' name='txt".$row1['mid']."' value='0' step='1' min='0'></td><td class='chk'><input id='".$row1['mid']."' type='checkbox' class='css-checkbox' name='".$row1['mid']."' value='".$row1['mid']."'><label class='css-label' for='".$row1['mid']."'>&nbsp;</label></td></tr>";
+                    echo "
+                    <tr>
+                        <td>".$row1['mid']."</td>
+                        <td>".$row1['Name']."</td>
+                        <td>".$row1['Type']."</td>
+                        <td>".$row1['value']."</td>
+                        <td><input type='number' id='txt".$row1['mid']."' name='txt".$row1['mid']."' value='0' step='1' min='0'></td>
+                        <td class='chk'><input id='".$row1['mid']."' type='checkbox' class='css-checkbox' name='".$row1['mid']."' value='".$row1['mid']."'><label class='css-label' for='".$row1['mid']."'>&nbsp;</label></td>
+                        </tr>
+                        ";
                   }
                   mysqli_close($con);
                 ?>
@@ -87,9 +96,13 @@
                   </td>
                   <td>
                     <input type="date" name="txtDate" id="txtDate" required>
-                  </td><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt">
-                    <input type="submit" name="btnNext" id="btnNext" value="Next" onclick="validateDate()">
                   </td>
+                    <td class="bt">&nbsp;</td>
+                    <td class="bt">&nbsp;</td>
+                    <td class="bt">&nbsp;</td>
+                    <td class="bt">
+                        <input type="submit" name="btnNext" id="btnNext" value="Next" onclick="validateDate()">
+                    </td>
                 </tr>
             </table>
             </form>
