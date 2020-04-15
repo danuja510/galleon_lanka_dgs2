@@ -78,7 +78,8 @@ input[type=number],input[type=text], select
     <div class="row">
       <div class="col span-2-of-2">
         <form action="../PHPScripts/addMaterialsScript.php" method="post">
-          <table border="0" align="center">
+          <table>
+
               <tr>
               <td><label for="txtName">Name</label></td>
               <td><input type="text" name="txtName" id="txtName" value="" required></td>
