@@ -39,7 +39,17 @@
       
       <section class="section-manage">
         <div class="row">
-            <div class="col span-2-of-2">
+
+        <div class="col span-1-of-7">
+          <a href="addEmployee.php">
+            <div class="new">
+              <i class="ion-ios-compose-outline"></i>
+              New Employee
+            </div>
+          </a>
+        </div>
+
+            <div class="col span-6-of-7">
                 <form method="post" action="../PHPScripts/viewEmployeesScript.php">
         <table>
           <thead>
