@@ -4,6 +4,7 @@ if(!isset($_SESSION['eno']))
   {
   header('Location:signIn.php');
   }
+  $_SESSION['PVoucher']=1;
 if(!isset($_SESSION['PVoucher']))
   {
     header('viewPaymentVoucher.php');
@@ -51,7 +52,7 @@ function header()
         $supplier=$row['sid'];
         $date=$row['date'];
 	$remark=$row['remarks'];
-	$prpby=$row['prepared_by'];
+	$prpby=$row['prepared_by_(eno)'];
       	$appby=$row['approvedBy'];
 
       //getting supplier name

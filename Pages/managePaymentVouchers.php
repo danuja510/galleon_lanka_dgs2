@@ -74,7 +74,7 @@
             }else{
               $approve='Pending';
             }
-            echo "<tr><td>".$row['pv_no']."</td><td>".$row['sid']."</td><td>".$row['date']."</td><td>".$row['prepared_by']."</td><td>".$approve."</td><td><input type='submit' name='".$row['pv_no']."' value='view'></td></tr>";
+            echo "<tr><td>".$row['pv_no']."</td><td>".$row['sid']."</td><td>".$row['date']."</td><td>".$row['prepared_by_(eno)']."</td><td>".$approve."</td><td><input type='submit' name='".$row['pv_no']."' value='view'></td></tr>";
           }
         ?>
       </table>
