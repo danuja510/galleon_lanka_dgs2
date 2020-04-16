@@ -143,7 +143,7 @@
                 </a>
             </div>
             <div class="col span-1-of-4">
-                <a href="effMonthly.php">
+                <a href="selectEf.php">
                     <div class="select-option">
                         <i class="ion-arrow-graph-up-right icon-select"></i>
                         <h4>View State</h4>
