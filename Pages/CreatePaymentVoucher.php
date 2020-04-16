@@ -18,7 +18,7 @@
     <script type="text/javascript">
      function validateSupplier()
      {
-       var sid=document.getElementById("txtSid").value;
+       var sid=document.getElementById("lstSupplier").value;
        if(sid=='___')
        {
          alert('Please select the supplier');
@@ -67,14 +67,13 @@
 
     <section class="section-select2">
     <form action="../PHPScripts/createPaymentVoucherScript.php" method="post">
-    <table>
         <div class="row">
           <div class="col span-1-of-2">
-              <label for="txtSupplier">Select Supplier</label>
+              <label for="lstSupplier">Select Supplier</label>
           </div>
           <div class="col span-1-of-2">
-            <select name="lstSupplier" ud="lstSupplier">
-              <option value="___">___</option>
+            <select name="lstSupplier" id="lstSupplier">
+              <option value = "___">___</option>
               <?php
                 $sql="SELECT * FROM `supplier`;";
                 $con=mysqli_connect("localhost","root","","galleon_lanka");
@@ -100,11 +99,6 @@
           </div>
           <div class="col span-1-of-2">
             <input type="submit" name="btnNext" value="Next" onclick="validate()">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col span-1-of-1 alt-path">
-            If new Supplier <a href="supplier.php">click here</a>
           </div>
         </div>
       </form>

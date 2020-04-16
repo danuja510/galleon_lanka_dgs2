@@ -8,82 +8,90 @@
  <html>
  <head>
    <meta charset="utf-8">
+   <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
    <title align="center">View Supplier</title>
   <head>
   <body>
-    <form action="ViewSuppliers.php" method="post">
-      <table width="80%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6EAF8">
-        <thread>
-          <tr>
-          <th align="center" > Supplier ID </th>
-          <th align="center" > Name </th>
-          <th align="center" > Address </th>
-          <th align="center" > Telephone No. </th>
-          </tr>
-        </thread>
+    <header>
+        <div class="row">
+            <h1>Manufacturing Management System</h1>
+            <h3>Galleon Lanka PLC</h3>
+        </div>
+        <div class="nav">
+            <div class="row">
+                <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                <a href="empHome.php">
+                    <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                </a>
+                <a href="logout.php">
+                    <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
+                </a>
+                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+            </div>
+        </div>
+    </header>
+    <section class ="section-manage">
+      <div class ="row">
+        <div class ="col span-2-of-2">
+          <form action="../PHPScripts/ViewSuppliersScript.php" method="post">
+            <table width="80%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6EAF8">
+              <thread>
+                <tr>
+                <th align="center" > Supplier ID </th>
+                <th align="center" > Name </th>
+                <th align="center" > Address </th>
+                <th align="center" > Telephone No. </th>
+                </tr>
+              </thread>
 
-        <?php
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        $sql="SELECT * FROM `supplier`;";
-        $rowSQL= mysqli_query( $con,$sql);
-        mysqli_close($con);
+              <?php
+              $con = mysqli_connect("localhost","root","","galleon_lanka");
+              if(!$con)
+              {
+                die("Error while connecting to database");
+              }
+              $sql="SELECT * FROM `supplier`;";
+              $rowSQL= mysqli_query( $con,$sql);
+              mysqli_close($con);
 
-        while($row = mysqli_fetch_assoc( $rowSQL ))
-        {
-          echo "<tr>";
-          echo "<td>" . $row['sid'] . "</td>";
-          echo "<td>" . $row['Name'] . "</td>";
-          echo "<td>" . $row['Address'] . "</td>";
-          echo "<td>" . $row['tpno'] . "</td>";
+              while($row = mysqli_fetch_assoc( $rowSQL ))
+              {
+                echo "<tr>";
+                echo "<td>" . $row['sid'] . "</td>";
+                echo "<td>" . $row['Name'] . "</td>";
+                echo "<td>" . $row['Address'] . "</td>";
+                echo "<td>" . $row['tpno'] . "</td>";
 
 
-          if ($row['state']== 'active')
-          {
-            echo "<td>" . "<input type ='submit' id = 'btnUpdate".$row['sid'] ."' name='btnUpdate".$row['sid'] ."' value= 'Update Supplier'> ";
+                if ($row['state']== 'active')
+                {
+                  echo "<td>" . "<input type ='submit' id = 'btnUpdate".$row['sid'] ."' name='btnUpdate".$row['sid'] ."' value= 'Update Supplier'> ";
 
-            echo "<td>" . "<input type ='submit' id= 'btnDelete".$row['sid'] ."' name='btnDelete".$row['sid'] . "'value= 'Delete Supplier'>". "</td>";
-          }
-          echo "</tr>";
-        }
-      ?>
-    </table>
-  </form>
+                  echo "<td>" . "<input type ='submit' id= 'btnDelete".$row['sid'] ."' name='btnDelete".$row['sid'] . "'value= 'Delete Supplier'>". "</td>";
+                }
+                echo "</tr>";
+              }
+            ?>
+          </table>
+        </form>
+        </div>
+      </div>
+    </section>
+  <footer>
+        <div class="row">
+                <p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p>
+        </div>
+        <div class="row">
+                <p>Designed and Developed by DGS2</p>
+        </div>
+    </footer>
 </body>
-<?php
-  $con = mysqli_connect("localhost","root","","galleon_lanka");
-  if(!$con)
-  {
-    die("Error while connecting to database");
-  }
-  $sql2="SELECT * FROM `supplier`;";
-  $rowSQL= mysqli_query( $con,$sql2);
-  mysqli_close($con);
-  while($row=mysqli_fetch_assoc( $rowSQL )){
-    if(isset($_POST['btnUpdate'.$row['sid']]))
-    {
-      $_SESSION['supplier']=$row['sid'];
-      header('Location:updateSupplierPage.php');
-    }
 
-    if(isset($_POST['btnDelete'.$row['sid']]))
-    {
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-        die("Eror while connecting to database");
-      }
-
-      $sql2="UPDATE `supplier` SET `state` = 'inactive' WHERE `supplier`.`sid`=".$row['sid'].";";
-      mysqli_query($con,$sql2);
-      mysqli_close($con);
-      header('Location:ViewSuppliers.php');
-    }
-  }
-?>
 </html>
 
 <!--jini-->

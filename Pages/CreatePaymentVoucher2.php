@@ -3,8 +3,10 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }
-  else if (!isset($_SESSION['sid'])) {
+  elseif (!isset($_SESSION['sid']))
+  {
     header('Location:createPaymentVoucher.php');
+  }
  ?>
 <html lang="en" dir="ltr">
 <head>
@@ -21,7 +23,7 @@
       function validateDate(){
         var d=document.getElementById('txtDate').value;
         if (new Date()> new Date(Date.parse(d))) {
-          alert("select a valid date");
+          alert("Select a valid date");
         }
         else
         {
@@ -75,11 +77,13 @@
         mysqli_close($con);
       ?>
     <section class="section-add">
+      <div class="row">
+        <div class="col span-2-of-2">
 
-          <form action="CreatePaymentVoucher.php" method="post">
+          <form action="../PHPScripts/CreatePaymentVoucher2Script.php" method="post">
               <div class="row">
                 <div class="col span-1-of-2">
-                    <label for="txtPVno">PV number </label> </td>
+                    <label for="txtPVno">PV number </label>
                 </div>
                 <div class="col span-1-of-2">
                   <input type='text'name="txtPVno" id="txtPVno">
@@ -88,28 +92,28 @@
 
               <div class="row">
                 <div class="col span-1-of-2">
-                  <label for="txtDate">Date </label> </td>
+                  <label class="dd" for="txtDate">Date </label>
                 </div>
                 <div class="col span-1-of-2">
-                  <input type='date' name="txtDate" id="txtDate" required></td>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col span-1-of-2">
-                  <label for="txtAmount">Amount </lable></td>
-                </div>
-                <div class="col span-1-of-2">
-                  <input type='text' name="txtAmount" id="txtAmount"> </td>
+                  <input type='date' name="txtDate" id="txtDate" required>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col span-1-of-2">
-                  <label for="txtRemarks">Remarks </lable></td>
+                  <label for="txtAmount">Amount </label>
                 </div>
                 <div class="col span-1-of-2">
-                  <input type='text' name="txtRemarks" id="txtRemarks"> </td>
+                  <input type='text' name="txtAmount" id="txtAmount">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col span-1-of-2">
+                  <label for="txtRemarks">Remarks </label>
+                </div>
+                <div class="col span-1-of-2">
+                  <input type='text' name="txtRemarks" id="txtRemarks">
                 </div>
               </div>
               <div class="row">
@@ -117,7 +121,7 @@
                       &nbsp;
                   </div>
                   <div class="col span-1-of-2">
-                    <input type="submit" name="btnSubmit" value="Submit" onclick="Validate()"></td>
+                    <input type="submit" name="btnSubmit" value="Submit" onclick="Validate()">
                   </div>
               </div>
 
@@ -131,25 +135,7 @@
                   <p>Designed and Developed by DGS2</p>
           </div>
       </footer>
-        <?php
-        if(isset($_POST['btnSubmit']))
-        {
-          $grn_no=$_POST['txtGrn'];
-          $sid=$_POST['lstSupplier'];
-          $date=$_POST['txtDate'];
-          $amount=$_POST['txtAmount'];
-          $remarks=$_POST['txtRemarks'];
 
-          $con1= mysqli_connect("localhost","root","","galleon_lanka");
-          if(!$con1)
-          {
-            die("cannot connect to DB server");
-          }
-          $sql1="INSERT INTO `payment_voucher`(`grn_no`,`sid`,`date`,`amount`,`prepared_by_(eno)`,`remarks`) VALUES('".$grn_no."','".$sid."','".$date."','".$amount."','','".$remarks."');";
-          mysqli_query($con1,$sql1);
-          mysqli_close($con1);
-        }
-        ?>
   </body>
 </html>
 <!--jini-->
