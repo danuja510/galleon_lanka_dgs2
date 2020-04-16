@@ -227,17 +227,14 @@ ALTER TABLE `debtors`
      `cno`);
 ALTER TABLE `debtors` DROP `dbid`;
 
-<<<<<<< HEAD
+
 #altered customer table
 ALTER TABLE `customer` ADD `state` VARCHAR(20) NOT NULL AFTER `type`;
 
 #altered supplier table
 ALTER TABLE `supplier` ADD `state` VARCHAR(20) NOT NULL AFTER `tpno`;
 
-#altered creditors table
-ALTER TABLE `creditors` ADD `state` VARCHAR(20) NOT NULL AFTER `date`;
 
-=======
 #altered debtor table
 ALTER TABLE `debtors` ADD `no` INT NOT NULL FIRST;
 ALTER TABLE `debtors`
@@ -260,7 +257,16 @@ ALTER TABLE `bom` CHANGE `mid` `mName` VARCHAR(50) NOT NULL;
 #altered finished products table
 ALTER TABLE `finished_products` ADD `status` VARCHAR(20) NULL AFTER `value`;
 ALTER TABLE `finished_products` CHANGE `status` `status` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
->>>>>>> master
+
 
 #altered the payment_voucher table
 ALTER TABLE `payment_voucher` ADD `approvedBy` INT NULL AFTER `prepared_by_(eno)`;
+
+
+#altered materials table
+ALTER TABLE `materials` ADD `status` VARCHAR(10) NOT NULL AFTER `value`;
+
+#altered bom table
+ALTER TABLE `bom` ADD `state` VARCHAR(10) NOT NULL AFTER `qty`;
+
+

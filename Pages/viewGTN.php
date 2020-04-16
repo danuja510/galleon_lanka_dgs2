@@ -60,14 +60,14 @@
                     $_SESSION['gtype']=$row['type'];
                     echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['date']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'>".$row['prepared_by']."</div></div>";
-                    
+
                     echo "<div class='row'><div class='col span-1-of-2'>Remark</div>";
                     echo "<div class='col span-1-of-2'><p>".$row['remarks']."</div></div>";
                     if($row['approved_by']!=null){
                       echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Approved</div></div>";
                     }else{
                       echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Pending</div></div>";
-                      
+
                     }
                   ?>
                 </div>
@@ -86,12 +86,14 @@
             <div class='row'>
                 <div class='col span-1-of-2'>&nbsp;</div>
                 <div class='col span-1-of-2'>
-                <?php if($row['approved_by']!=null){}
+                <?php if($row['approved_by']!=null){
+                  echo "<input type='submit' value='Print' name='btnPrint'>";
+                }
                     else{
                         echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
                     }
                 ?>
-                    
+
                     <input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
                 </div>
             </div>
