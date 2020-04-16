@@ -1,4 +1,5 @@
 <?php
+session_start();
 if(isset($_POST["btnsubmit"]))
 {
   $cno=$_SESSION['customer'];
@@ -23,4 +24,5 @@ if(!$con)
 $sql="UPDATE `customer` SET `Name` = '".$name."', `Address` = '".$address."',`tpno`='".$tpno."', `type`= '".$type."' WHERE `customer`.`cno`=".$cno.";";
 mysqli_query($con,$sql);
 mysqli_close($con);
+header('Location:../Pages/updateCustomerPage.php');
 }

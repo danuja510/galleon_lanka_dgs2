@@ -1,4 +1,5 @@
 <?php
+  session_start();
   $con = mysqli_connect("localhost","root","","galleon_lanka");
   if(!$con)
   {

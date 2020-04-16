@@ -1,4 +1,5 @@
 <?php
+  session_start();
    if(isset($_POST["btnsubmit"]))
    {
      $sid=$_SESSION['supplier'];
@@ -20,4 +21,5 @@
    $sql="UPDATE `supplier` SET `Name` = '".$name."', `Address` = '".$address."',`tpno`='".$tpno."'  WHERE `supplier`.`sid`=".$sid.";";
    mysqli_query($con,$sql);
    mysqli_close($con);
+   header('Location:../Pages/updateSupplierPage.php');
    }

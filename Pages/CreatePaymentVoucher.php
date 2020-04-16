@@ -85,7 +85,7 @@
                 $rowSQL=mysqli_query($con,$sql);
                 while($row=mysqli_fetch_assoc($rowSQL))
                 {
-                  echo "<option value'".$row['sid']."'>".$row['sid']."-".$row['Name']."</option>";
+                  echo "<option value='".$row['sid']."'>".$row['sid']."-".$row['Name']."</option>";
 
                 }
                 mysqli_close($con);

@@ -49,20 +49,15 @@
               {
                 die("Error while connecting to database");
               }
-              $sql="SELECT * FROM `creditors`;";
+              $sql="SELECT *,SUM(amount) as Amount FROM `creditors` group by sid;";
               $rowSQL= mysqli_query( $con,$sql);
               mysqli_close($con);
 
               while($row = mysqli_fetch_assoc( $rowSQL ))
               {
-                echo "<tr><td>" . $row['sid'] . "</td><td>" . $row['amount'] . "</td><td>" . $row['date'] . "</td>";
+                echo "<tr><td>" . $row['sid'] . "</td><td>" . $row['Amount'] . "</td><td>" . $row['date'] . "</td>";
 
-                if ($row['state']== 'active')
-                  {
-                    echo "<td>" . "<input type ='submit' id = 'btnUpdate".$row['sid'] ."' name='btnUpdate".$row['sid'] ."' value= 'Update Creditor'> ";
-
-                    echo "<td>" . "<input type ='submit' id= 'btnDelete".$row['sid'] ."' name='btnDelete".$row['sid'] . "'value= 'Delete Creditor'>". "</td>";
-                  }
+                
                   echo "</tr>";
               }
             ?>

@@ -22,12 +22,13 @@
 
       function validateDate(){
         var d=document.getElementById('txtDate').value;
-        if (new Date()> new Date(Date.parse(d))) {
+        if (new Date()< new Date(Date.parse(d))) {
           alert("Select a valid date");
+          return false;
         }
         else
         {
-          event.preventDefault();
+          return true;
         }
       }
 
@@ -65,16 +66,6 @@
       </header>
       <?php
         $sid=$_SESSION['sid'];
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        $sql="SELECT * FROM `supplier` WHERE `sid` = ".$sid.";";
-        $rowSQL= mysqli_query( $con,$sql);
-        $row = mysqli_fetch_array( $rowSQL );
-        echo "<h2> GRNs of ".$row['Name']."</h2>";
-        mysqli_close($con);
       ?>
     <section class="section-add">
       <div class="row">
