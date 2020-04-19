@@ -14,6 +14,14 @@ else if(!isset($_SESSION['DEPT']))
 }
 $des=$_SESSION['DES'];
 $dep=$_SESSION['DEPT'];
+$op="";
+if(isset($_GET['sort'])){
+    switch ($_GET['sort']){
+        case 'store':$op = "<option value='".$_GET['sort']."'>Store</option>";break;
+        case 'pFloor':$op = "<option value='".$_GET['sort']."'>Production Floor</option>";break;
+        case 'fGoods':$op = "<option value='".$_GET['sort']."'>Finished Goods</option>";break;
+    }
+}
 
  ?>
 <!DOCTYPE html>
@@ -52,12 +60,12 @@ $dep=$_SESSION['DEPT'];
     </header>
       <section class="section-manage">
         <div class="row">
-            <form action="viewStocks.php" method="post">
+            <form action="../PHPScripts/viewStocksScript.php" method="post">
             <div class="col span-1-of-7">
                     <div class="new">
                     Your Department:
                     <?php
-                    echo "<b>$dep</b><br>";
+                    echo "<p style='text-transform: capitalize;'><b>$dep</b></p><br>";
                     ?>
               <br>
                 <?php
@@ -66,10 +74,11 @@ $dep=$_SESSION['DEPT'];
             echo"
                     Sort by Department:
                 <select name='lstDepartment'>
-                  <option value='A'>All</option>
-                  <option value='B'>store</option>
-                  <option value='C'>P floor</option>
-                  <option value='D'>F goods</option>
+                    ".$op."
+                  <option value='all'>All</option>
+                  <option value='store'>Store</option>
+                  <option value='pFloor'>Production floor</option>
+                  <option value='fGoods'>Finished Goods</option>
                 </select>
                 <input type='submit' name='btnSort' value='Sort'>
             ";
@@ -92,30 +101,14 @@ $dep=$_SESSION['DEPT'];
             {
               die("cannot connect to DB server");
             }
-            $s="";
-            if(isset($_POST['btnSort']))
-            {
-                $s=$_POST['lstDepartment'];
-            }
+            $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$dep."' GROUP BY dept, item_no, type;";
           if($dep=="Manager")
           {
-          $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` GROUP BY dept,item_no;";
-          }
-
-          if($dep=="store" || $s=="B")
-          {
-          $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='store' GROUP BY dept,item_no;";
-          }
-
-          if($dep=="pFloor" || $s=="C")
-          {
-          $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='pfloor' GROUP BY dept,item_no;";
-          }
-
-          if($dep=="fGoods" || $s=="D")
-          {
-          $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='fGoods' GROUP BY dept,item_no;";
-          }
+          $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` GROUP BY dept, item_no, type;";
+              if(isset($_GET['sort']) && $_GET['sort']!='all'){
+                  $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$_GET['sort']."' GROUP BY dept, item_no, type;";
+              }
+          }          
           $rowSQL= mysqli_query($con,$sql);
           while($row=mysqli_fetch_assoc($rowSQL))
           {
