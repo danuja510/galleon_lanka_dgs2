@@ -78,13 +78,14 @@
               <td><input type="text" name="txtName" id="txtName" value="" required></td>
             </tr>
 
+
             <tr>
               <td><label for="lstBom">BOM ID</label></td>
               <td>
                 <select name="lstBom" id="lstBom" style='width:200px;'>
                   <option value='-----'>-----</option>
                   <?php
-                    $sql="SELECT DISTINCT `bom_id` FROM `bom`;";
+                    $sql="SELECT DISTINCT `bom_id` FROM `bom` WHERE `state` = 'active';";
                     $con = mysqli_connect("localhost","root","","galleon_lanka");
                     if(!$con)
                     {
@@ -110,6 +111,7 @@
               <td><input type="submit" name="btnSubmit" id="btnSubmit" value="Add" onclick="Validate()"></td>
             </tr>
           </table>
+
 
     </form>
             </div>

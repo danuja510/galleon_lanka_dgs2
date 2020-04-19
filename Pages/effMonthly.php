@@ -301,12 +301,12 @@ while($row=mysqli_fetch_assoc( $rowSQL )){
 }
 
   mysqli_close($con);
-  for ($j=0; $j <sizeof($effpFloor) ; $j++){
-    echo $effpFloor[$j]->itemID."x".$effpFloor[$j]->qty.",";
-  }
-  echo "efficiency =".round($pFloorout/$pFloorIn*100,2)."%";
-  echo "efficiency1 =".round($gGoodsTransferIn/$pfloorTransferOut*100,2)."%";
-  echo "efficiency3 =".round($fgoodsout/$gGoodsIn*100,2)."%";
+
+  echo "Efficiency of Store =".round($storeout/$storein*100,2)."% <br>";
+  echo "Efficiency of stock transfers between Store and Production Floor=".round($pfloorTransferIn/$storeTransferOut*100,2)."% <br>";  
+  echo "Efficiency of Production Floor =".round($pFloorout/$pFloorIn*100,2)."% <br>";
+  echo "Efficiency of stock transfers between Production Floor and Finished goods=".round($gGoodsTransferIn/$pfloorTransferOut*100,2)."% <br>";
+  echo "Efficiency of Finished Goods =".round($fgoodsout/$gGoodsIn*100,2)."% <br>";
 
 ?>
 <!--dan-->

@@ -1,4 +1,4 @@
 <?php
     session_start();
-    unset($_SESSION['eno']);
+    session_destroy();
     header('Location:signIn.php');

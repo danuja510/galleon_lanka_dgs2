@@ -39,7 +39,17 @@
     
       <section class="section-manage">
           <div class="row">
-            <div class="col span-2-of-2">
+
+          <div class="col span-1-of-7">
+          <a href="addFinishedProducts.php">
+            <div class="new">
+              <i class="ion-ios-compose-outline"></i>
+              New F.Product
+            </div>
+          </a>
+        </div>
+
+            <div class="col span-6-of-7">
         <form action="../PHPScripts/viewFinishedProductsScript.php" method="post">
         <table>
           <thead>

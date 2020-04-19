@@ -82,7 +82,7 @@
                   <input type='text' name='txtEno' id='txtEno' value=" .$row['eno']. " required readonly>
                 </td>
               </tr>
-      
+
               <tr>
                 <td>
                   <label for='txtName'>Name</label>
@@ -91,14 +91,14 @@
                   <input type=\"text\" name=\"txtName\" id=\"txtName\" value=" .$row['Name']. " required>
                 </td>
               </tr>
-      
+
               <tr>
                 <td>
                   <label for='txtDes'>Designation</label>
                 </td>
                 <td>
                   <input type=\"text\" name=\"txtDes\" id=\"txtDes\" value=" .$row['Designation']. " required readonly>
-                </td> 
+                </td>
                 <td class='bt'>
                   ";
                   $desg = $row['Designation'];
@@ -111,44 +111,44 @@
                   echo"
                 </td>
               </tr>
-      
+
               <tr>
                 <td>
                   <label for='lstDepartment'>Department</label>
                 </td>
-                
+
                 <td>
                   <select name=\"lstDepartment\" id=\"lstDepartment\" style=\"width:200px;\">
-      
+
                       <option value=".$row['Dept'].">
                           ".$row['Dept']."
                       </option>
-      
+
                       <option value=\"store\">
                           Store
                       </option>
-      
+
                       <option value=\"pFloor\">
                           Production floor
                       </option>
-      
+
                       <option value=\"fGoods\">
                           Finished goods
                       </option>
-      
+
                   </select>
                 </td>
               </tr>
-      
+
               <tr>
                 <td>
                   <label for='txtEmail'>Email</label>
                 </td>
                 <td>
-                  <input type=\"text\" name=\"txtEmail\" id=\"txtEmail\" value=" .$row['email']. " required>
+                  <input type=\"text\" name=\"txtEmail\" id=\"txtEmail\" value='" .$row['email']. "' required>
                 </td>
               </tr>
-      
+
               <tr>
                 <td>
                   <label for='txtPwd'>Password</label>
@@ -157,7 +157,7 @@
                   <input type=\"text\" name=\"txtPwd\" id=\"txtPwd\" value=" .$row['password']. " required>
                 </td>
               </tr>
-      
+
               <tr>
                 <td>
                   <label for='txtStatus'>Status</label>
@@ -167,7 +167,7 @@
                 </td>
               </tr>
               </table>
-      
+
               <div class='row'>
               <div class='row'>
                   <div class='col span-1-of-2'>&nbsp;</div>
@@ -180,12 +180,12 @@
                 if(!$con3){
                   die("Cannot connect to DB server");
                 }
-      
+
                 echo"
                 <tr>
                   <td>
                 ";
-      
+
                 if($st=='active'){
                   echo"
                       <input type='submit' name='btnDelete' id='btnDelete' value='Delete'>
@@ -194,13 +194,13 @@
                 </div>
                     ";
                 }
-      
+
           mysqli_close($con);
           ?>
-      
+
                       </td>
                   </tr>
-                
+
           </form>
               </div>
             </div>

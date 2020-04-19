@@ -87,8 +87,8 @@
                     <input type="submit" name="btnConfirm" id="btnConfirm" value="Submit">
             <input type="reset" name="btnReset" id="btnReset" value="Reset">
                 </div>
-            </div> 
-        </form>  
+            </div>
+        </form>
     </section>
     <footer>
         <div class="row">
