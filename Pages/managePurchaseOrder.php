@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
-    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select2Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
   </head>
   <body>
@@ -40,7 +40,7 @@
         </div>
     </header>
     <section class="section-view">
-      <form action="managePurchaseOrder.php" method="post">
+      <form action="../PHPScripts/managePurchaseOrderScript.php" method="post">
       <div class="row">
           <div class="col span-1-of-2">
           <?php
@@ -109,11 +109,12 @@
               <div class='col span-1-of-2'>&nbsp;</div>
               <div class='col span-1-of-2'>";
           if($row['approvedBy']!=null){
-              echo"<input type='submit' value='Print' name='btnPrint'>";
+            echo"<input type='submit' value='Print' name='btnPrint'>";
           }else{
-            echo"<input type='submit' value='approve' name='btnApprove'>";
+            echo"<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
           }
-          echo"</div>
+          echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
+          </div>
           </div>
       </div>";
       ?>
@@ -124,25 +125,6 @@
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
-    <?php
-    if (isset($_POST['btnApprove'])) {
-      // updating invoice records to approved
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con)
-      {
-        die("Error while connecting to database");
-      }
-      $sql="UPDATE `purchase_orders` SET `approvedBy` = '".$_SESSION['eno']."' WHERE `purchase_orders`.`po_no` = ".$PO.";";
-      mysqli_query( $con,$sql);
-      // adding creditor records
-
-        $sql2="INSERT INTO `creditors` (`no`,`sid`, `amount`, `date`) VALUES (NULL,'".$sid."', '".$value."',CURDATE());";
-        mysqli_query( $con,$sql2);
-      }
-    if (isset($_POST['btnPrint'])) {
-      header('Location:../Reports/printPurchaseOrder.php');
-    }
-    ?>
   </body>
 </table>
 <!--gima-->
