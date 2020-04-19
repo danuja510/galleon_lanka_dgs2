@@ -43,7 +43,7 @@
           <a href="createPurchaseOrders.php">
             <div class="new">
               <i class="ion-ios-compose-outline"></i>
-              New purchase order
+              New Purchase &nbsp; &nbsp; &nbsp; Order
             </div>
           </a>
         </div>
