@@ -13,5 +13,5 @@
         }
     $sql1="INSERT INTO `employees`(`Name`, `Designation`, `Dept`, `password`,`email`,`status`) VALUES ('".$name."','Employee','".$dept."','".$pwd."','".$email."','active');";
     mysqli_query($con1,$sql1);
-    header('Location:../Pages/addEmployee.php');      
+    header('Location:../Pages/viewEmployees.php');      
     }
