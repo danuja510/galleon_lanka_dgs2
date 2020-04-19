@@ -12,7 +12,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Manage FP</title>
+    <title>Manage Finished Products</title>
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
@@ -56,7 +56,7 @@ echo"
         <section class='section-manage'>
           <div class='row'>
               <div class='col span-2-of-2'>
-              <form action='manageFinishedProducts.php' method='post'>
+              <form action='../PHPScripts/manageFinishedProductsScript.php' method='post'>
               <table>
         
                 <tr>
@@ -154,33 +154,6 @@ echo"
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
-
-    <?php
-    if(isset($_POST["btnUpdate"])){
-      $name=$_POST["txtName"];
-      $b=$_POST["lstBomid"];
-      $val=$_POST["txtValue"];
-      $con=mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con){
-        die("Cannot connect to DB server");
-      }
-      $sql3="UPDATE `finished_products` SET `Name` = '".$name."',`bom_id`='".$b."', `value` = '".$val."' WHERE `fp_id` = '".$_SESSION['fpid']."'";
-      mysqli_query($con,$sql3);
-      mysqli_close($con);
-      }
-      ?>
-
-      <?php
-      if(isset($_POST["btnDelete"])){
-        $con=mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con){
-          die("Cannot connect to DB server");
-        }
-        $sql4="UPDATE `finished_products` SET `status` = 'inactive' WHERE `fp_id` = '".$_SESSION['fpid']."'";
-        mysqli_query($con,$sql4);
-        mysqli_close($con);
-        }
-         ?>
 
   </body>
 </html>
