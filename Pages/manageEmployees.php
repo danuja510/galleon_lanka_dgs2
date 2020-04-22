@@ -17,25 +17,9 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select2Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
-    <title>Manage employees</title>
-
-    <script type="text/javascript">
-    function validateEmail()
-      {
-        var em=document.getElementById("txtEmail").value;
-        var atposition=em.indexOf("@");
-        var dotposition=em.lastIndexOf(".");
-        var em1=em.toLowerCase();
-
-        if (atposition<1 || dotposition<atposition+2 || dotposition+2>=em1.length)
-          {
-          alert("Please enter a valid e-mail address");
-          event.preventDefault();
-          }
-      }
-    </script>
-
+    <title>Manage Employees</title>
   </head>
 
   <body>
@@ -57,6 +41,7 @@
             </div>
         </div>
     </header>
+    
     <?php
       $con = mysqli_connect("localhost","root","","galleon_lanka");
         if(!$con)
@@ -67,36 +52,34 @@
          $sql="SELECT * FROM `employees` where `eno`='$eno2';";
          $rowSQL= mysqli_query( $con,$sql);
          $row = mysqli_fetch_assoc( $rowSQL);
+
     echo"
-
           <section class='section-manage'>
-            <div class='row'>
-              <div class='col span-2-of-2'>
+          <h2>Manage Employees</h2>
               <form action=\"../PHPScripts/manageEmployeesScript.php\" method=\"post\">
-              <table>
-              <tr>
-                <td>
+              <div class='row'>
+                <div class='col span-1-of-2'>
                   <label for='txtEno'>Eno</label>
-                </td>
-                <td>
+                </div>
+                <div class='col span-1-of-2'>
                   <input type='text' name='txtEno' id='txtEno' value=" .$row['eno']. " required readonly>
-                </td>
-              </tr>
+                </div>
+              </div>
 
-              <tr>
-                <td>
+              <div class='row'>
+                <div class='col span-1-of-2'>
                   <label for='txtName'>Name</label>
-                </td>
-                <td>
+                </div>
+                <div class='col span-1-of-2'>
                   <input type=\"text\" name=\"txtName\" id=\"txtName\" value=" .$row['Name']. " required>
-                </td>
-              </tr>
+                </div>
+              </div>
 
-              <tr>
-                <td>
+              <div class='row'>
+                <div class='col span-1-of-2'>
                   <label for='txtDes'>Designation</label>
-                </td>
-                <td>
+                </div>
+                <div class='col span-1-of-2'>
                   <input type=\"text\" name=\"txtDes\" id=\"txtDes\" value=" .$row['Designation']. " required readonly>              
                   ";
                   $desg = $row['Designation'];
@@ -107,103 +90,79 @@
                   ";
                   }
                   echo"
-                </td>
-              </tr>
+                </div>
+              </div>
 
-              <tr>
-                <td>
+              <div class='row'>
+                <div class='col span-1-of-2'>
                   <label for='lstDepartment'>Department</label>
-                </td>
-                <td>
-                  <select name=\"lstDepartment\" id=\"lstDepartment\" style=\"width:200px;\">
-
+                </div>
+                <div class='col span-1-of-2'>
+                  <select name=\"lstDepartment\" id=\"lstDepartment\">
                       <option value=".$row['Dept'].">
                           ".$row['Dept']."
                       </option>
-
                       <option value=\"store\">
                           Store
                       </option>
-
                       <option value=\"pFloor\">
                           Production floor
                       </option>
-
                       <option value=\"fGoods\">
                           Finished goods
                       </option>
-
                   </select>
-                  ";
-            
-                echo"
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <label for='txtEmail'>Email</label>
-                </td>
-                <td>
-                  <input type=\"text\" name=\"txtEmail\" id=\"txtEmail\" value='" .$row['email']. "' required>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <label for='txtPwd'>Password</label>
-                </td>
-                <td>
-                  <input type=\"text\" name=\"txtPwd\" id=\"txtPwd\" value=" .$row['password']. " required>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <label for='txtStatus'>Status</label>
-                </td>
-                <td>
-                  <input type=\"text\" name=\"txtStatus\" id=\"txtStatus\" value=" .$row['status']. " required readonly >
-                </td>
-              </tr>
-              </table>
+                </div>
+              </div>
 
               <div class='row'>
+                <div class='col span-1-of-2'>
+                  <label for='txtEmail'>Email</label>
+                </div>
+                <div class='col span-1-of-2'>
+                  <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\" value='" .$row['email']. "' required>
+                </div>
+              </div>
+
+              <div class='row'>
+                <div class='col span-1-of-2'>
+                  <label for='txtPwd'>Password</label>
+                </div>
+                <div class='col span-1-of-2'>
+                  <input type=\"text\" name=\"txtPwd\" id=\"txtPwd\" value=" .$row['password']. " required>
+                </div>
+              </div>
+
+              <div class='row'>
+                <div class='col span-1-of-2'>
+                  <label for='txtStatus'>Status</label>
+                </div>
+                <div class='col span-1-of-2'>
+                  <input type=\"text\" name=\"txtStatus\" id=\"txtStatus\" value=" .$row['status']. " required readonly >
+                </div>
+              </div>
+
               <div class='row'>
                   <div class='col span-1-of-2'>&nbsp;</div>
                   <div class='col span-1-of-2'>
-                  <input type=\"submit\" name=\"btnUpdate\" id=\"btnUpdate\" value=\"Update\" onclick='validateEmail()'>
-                </td>
+                    <input type=\"submit\" name=\"btnUpdate\" id=\"btnUpdate\" value=\"Update\">
+                  
                 ";
                 $st=$row['status'];
                 $con3=mysqli_connect("localhost","root","","galleon_lanka");
                 if(!$con3){
                   die("Cannot connect to DB server");
                 }
-
-                echo"
-                <tr>
-                  <td>
-                ";
-
                 if($st=='active'){
                   echo"
                       <input type='submit' name='btnDelete' id='btnDelete' value='Delete'>
-                      </div>
-                    </div>
                 </div>
+              </div>
                     ";
                 }
-
           mysqli_close($con);
           ?>
-
-                      </td>
-                  </tr>
-
           </form>
-              </div>
-            </div>
           </section>
 
      <footer>

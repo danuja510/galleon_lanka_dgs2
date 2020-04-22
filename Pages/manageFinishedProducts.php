@@ -16,12 +16,13 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
-    <link rel="stylesheet" type="text/css" href="../Resources/CSS/CheckboxStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select2Styles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
   </head>
+
   <body>
   <header>
         <div class="row">
@@ -41,6 +42,7 @@
             </div>
             </div>
     </header>
+
   <?php
   $con = mysqli_connect("localhost","root","","galleon_lanka");
       if(!$con)
@@ -54,37 +56,33 @@
 
 echo"
         <section class='section-manage'>
-          <div class='row'>
-              <div class='col span-2-of-2'>
+        <h2>Manage Finished Products</h2>
               <form action='../PHPScripts/manageFinishedProductsScript.php' method='post'>
-              <table>
         
-                <tr>
-                  <td>
+                <div class='row'>
+                  <div class='col span-1-of-2'>
                     <label for='txtFpid'>FP ID</label>
-                  </td>
-                  <td>
+                  </div>
+                  <div class='col span-1-of-2'>
+                    <input type='text' name='txtFpid' id='txtFpid' value=".$row['fp_id']." required readonly>
+                  </div>
+                </div>
         
-                    <input type='text' name='txtFpid' id='txtFpid' value=".$row['fp_id']." style='width:200px;' required readonly>
-                  </td>
-                </tr>
-        
-                <tr>
-                  <td>
+                <div class='row'>
+                  <div class='col span-1-of-2'>
                     <label for='txtName'>Name</label>
-                  </td>
-                  <td>
-                    <input type='text' name='txtName' id='txtName' value=".$row['Name']." style='width:200px;' required>
-                  </td>
-                </tr>
-        ";
-        echo "
-                <tr>
-                  <td>
+                  </div>
+                  <div class='col span-1-of-2'>
+                    <input type='text' name='txtName' id='txtName' value=".$row['Name']." required>
+                  </div>
+                </div>
+      
+                <div class='row'>
+                  <div class='col span-1-of-2'>
                     <label for='lstBomid'>BOM ID</label>
-                  </td>
-                  <td>
-                    <select name='lstBomid' id='lstBomid' style='width:200px;'>
+                  </div>
+                  <div class='col span-1-of-2'>
+                    <select name='lstBomid' id='lstBomid'>
         
                         <option value=".$row['bom_id'].">
                            ".$row['bom_id']."
@@ -102,53 +100,50 @@ echo"
                       }
         echo "
                     </select>
-                  </td>
-                </tr>
+                  </div>
+                </div>
                   ";
                   $sql="SELECT * FROM `finished_products` where `fp_id`='$fp';";
                   $rowSQL= mysqli_query( $con,$sql);
                   $row = mysqli_fetch_assoc( $rowSQL);
         echo"
-                <tr>
-                  <td>
-                    <label for='txtValue'>value</label>
-                  </td>
-                  <td>
-                    <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' style='width:200px;' required>
-                  </td>
-                </tr>
+                <div class='row'>
+                  <div class='col span-1-of-2'>
+                    <label for='txtValue'>Value</label>
+                  </div>
+                  <div class='col span-1-of-2'>
+                    <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required>
+                  </div>
+                </div>
         
-                <tr>
-                  <td>
-                    <label for='txtStatus'>status</label>
-                  </td>
-                  <td>
-                    <input type='text' name='txtStatus' id='txtStatus' value=".$row['status']." style='width:200px;' readonly>
-                    </td>
-                </tr>
+                <div class='row'>
+                  <div class='col span-1-of-2'>
+                    <label for='txtStatus'>Status</label>
+                  </div>
+                  <div class='col span-1-of-2'>
+                    <input type='text' name='txtStatus' id='txtStatus' value=".$row['status']." readonly>
+                    </div>
+                </div>
         
-                <tr>
-                  <td>
-                      
-                  </td>
-        
-                  <td>
-                      <input type='submit' name='btnUpdate' value='update'>
+                <div class='row'>
+                  <div class='col span-1-of-2'>
+                     &nbsp;   
+                  </div>
+                  <div class='col span-1-of-2'>
+                      <input type='submit' name='btnUpdate' value='Update'>
         ";
                   $st=$row['status'];
                   if($st=='active'){
         echo"
-                      <input type='submit' name='btnDelete' id='btnDelete' value='delete'>
+                      <input type='submit' name='btnDelete' id='btnDelete' value='Delete'>
+                  </div>
         ";
                   }
         echo"
-                </tr>
+                </div>
         ";
                     ?>
-              </table>
             </form>
-              </div>
-          </div>
         </section>
     <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
