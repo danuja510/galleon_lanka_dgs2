@@ -25,8 +25,7 @@
       $sql3="UPDATE `bom` SET `state` = 'inactive' WHERE `bom`.`bom_id` = ".$_SESSION['BOM'].";";
       mysqli_query( $con,$sql3);
       mysqli_close($con);
-      unset($_SESSION['BOM']);
-      header('Location:../Pages/manageBOM.php');
+      header('Location:../Pages/viewBOM.php');
     }
 
     $con = mysqli_connect("localhost","root","","galleon_lanka");

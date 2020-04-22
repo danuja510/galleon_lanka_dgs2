@@ -76,7 +76,7 @@
             <select name="txtSupplier" id="txtSupplier">
               <option value='__'>___</option>
               <?php
-                $sql="SELECT * FROM `supplier`;";
+                $sql="SELECT * FROM `supplier` where state = 'active';";
                 $con = mysqli_connect("localhost","root","","galleon_lanka");
                 if(!$con)
                 {

@@ -3,13 +3,12 @@
   border: 1px solid #2ecc71;
 }
 
-#btnDelete,
-.btn-del{
+#btnDelete{
     background-color: #e74c3c;
     border: 1px solid #e74c3c;
 }
 
-input[type=submit],#btnConfirm, #btnNext,#btnDelete,.btn-del{
+input[type=submit],#btnConfirm, #btnNext,#btnDelete{
     padding: 10px 35px;
     margin-top: 5px;
 }
@@ -19,8 +18,6 @@ input[type=submit],#btnConfirm, #btnNext,#btnDelete,.btn-del{
     background-color: #25a25a;
 }
 
-.btn-del:hover,
-.btn-del:active
 #btnDelete:hover,
 #btnDelete:active{
     background-color: #e3301e;

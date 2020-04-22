@@ -63,7 +63,7 @@
                     <select name="txtSupplier" id="txtSupplier">
                       <option value='__'>___</option>
                       <?php
-                        $sql="SELECT * FROM `supplier`;";
+                        $sql="SELECT * FROM `supplier` where state='active';";
                         $con = mysqli_connect("localhost","root","","galleon_lanka");
                         if(!$con)
                         {
@@ -90,7 +90,7 @@
           </div>
           <div class="row">
               <div class="col span-1-of-1 alt-path">
-                  If new Supplier <a href="supplier.php">click here</a>
+                  If new Supplier <a href="addSupplier.php">click here</a>
               </div>
           </div>
         </form>

@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/viewStyles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>viewBOM</title>
   </head>
@@ -74,7 +75,7 @@
       <section class="section-view">
         <div class="row">
           <div class="col span-1-of-4">
-              <div class="row">
+              <div style="margin-top:25px;" class="row">
                   <div class="col span-1-of-2">
                  <?php
                   echo "BOM ID";
@@ -103,8 +104,6 @@
               
     if ($active) {
         echo "<form action='../PHPScripts/viewBOMScript.php' method='post'>";
-      echo "<input type='submit' value='Update' name='btnUpdate'>";
-      echo "<input type='submit' id='btnDelete' value='Delete' name='btnDelete'>";
     }
             $con = mysqli_connect("localhost","root","","galleon_lanka");
             if(!$con)
@@ -114,9 +113,12 @@
       ?>
             </div>
           <div class="col span-3-of-4">
-            <?php
-    echo "<table><thead><th>Material Name</th><th>Qty.</th><th></th></thead>";
-    
+              <div class="row">
+                 <div class="col span-1-of-3 th"><h3>Material Name</h3></div>
+                 <div class="col span-1-of-3 th"><h3>Qty.</h3></div>
+                 <div class="col span-1-of-3 th">&nbsp;</div>
+              </div>
+            <?php    
     $sql="SELECT * FROM `bom` WHERE `bom_id`=".$_SESSION['BOM'].";";
     $rowSQL= mysqli_query( $con,$sql);
     mysqli_close($con);
@@ -124,17 +126,31 @@
       $dm="";
       $readonly="readonly";
       if ($active) {
-        $dm="<button type='submit' class='btn-del' name='btnDeteleM".$row['no']."'>Delete</button>";
+        $dm="<button type='submit' class='btn-del' name='btnDeteleM".$row['no']."'><i class='ion-ios-trash'></i></button>";
         $readonly="";
       }
-      echo "<tr><td>".$row['mName']."</td><td><input type='number' value='".$row['qty']."' name='txtQty".$row['no']."' min=1 ".$readonly." required></td><td>".$dm."</td></tr>";
+      echo "<div class='row'>
+                 <div class='col span-1-of-3 td'>".$row['mName']."</div>
+                 <div class='col span-1-of-3 td'><input type='number' value='".$row['qty']."' name='txtQty".$row['no']."' min=1 ".$readonly." required></div>
+                 <div class='col span-1-of-3'>".$dm."</div>
+              </div>";
     }
     if ($active) {
-      echo "<tr><td><input type='text' id='txtName' name='txtName' list='lstBOM'></td><td><input type='number' id='txtQtyN' name='txtQtyN' min=1></td><td><input type='submit' onclick='validate()' value ='Add' id='btnAdd' name='btnAdd'></td></tr>";
-    }
-    echo "</table>";
-    echo "</form>";
-  ?>
+      echo "<div class='row'>
+                 <div class='col span-1-of-3 td'><input type='text' id='txtName' name='txtName' list='lstBOM'></div>
+                 <div class='col span-1-of-3 td'><input type='number' id='txtQtyN' name='txtQtyN' min=1></div>
+                 <div class='col span-1-of-3 td'><input type='submit' onclick='validate()' value ='Add' id='btnAdd' name='btnAdd'></div>
+              </div>";
+    }?>
+                <div class="row">
+                   <div class="col span-2-of-2 td">
+                       <?php
+              echo "<input type='submit' value='Update' name='btnUpdate'>";
+      echo "<input type='submit' id='btnDelete' value='Delete' name='btnDelete'>";
+              ?>
+                    </div> 
+                </div>
+              </form>
         </div>
         </div>
       </section>
