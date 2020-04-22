@@ -54,7 +54,10 @@ input[type=submit],#btnConfirm, #btnNext,#btnDelete,.btn-del{
   margin-bottom: 10px;
 }
 
-input[type=text],select{
+input[type=text],
+select,
+input[type=email],
+input[type=password]{
     width: 75%;
     margin-right: 25%;
     padding: 7px;
