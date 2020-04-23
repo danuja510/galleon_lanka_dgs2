@@ -70,7 +70,7 @@
                   }
                 }else {
                   if ($_SESSION['dept']=='pfloor') {
-                    $sql="SELECT * FROM `materials`;";
+                    $sql="SELECT * FROM `materials` where status='active';";
                     $rowSQL= mysqli_query( $con,$sql);
                     $iType='material';
                     while($row=mysqli_fetch_assoc( $rowSQL )){
@@ -78,7 +78,7 @@
                     }
                   }
                   if ($_SESSION['dept']=='fGoods') {
-                    $sql="SELECT * FROM `finished_products`;";
+                    $sql="SELECT * FROM `finished_products` where status='active';";
                     $rowSQL= mysqli_query( $con,$sql);
                     $iType='finished product';
                     while($row=mysqli_fetch_assoc( $rowSQL )){

@@ -1,0 +1,26 @@
+.th h3{
+    font-weight:400;
+}
+
+.td{
+    text-align: center;
+}
+
+.td input[type=text], .td input[type=number]{
+    text-align: center;
+   width: 100%; 
+}
+
+.btn-del{
+    margin-left: 10px;
+    padding: 0;
+    border: 0;
+    transform: color 0.4s;
+    background-color: #fff;
+    text-decoration: none;
+}
+
+.btn-del:hover,
+.btn-del:active{
+    color: #e3301e;
+}

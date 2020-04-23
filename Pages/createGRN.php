@@ -77,7 +77,7 @@
                 <select name="txtPO" id="txtPO">
                 <option value='__'>___</option>
                 <?php
-                  $sql="SELECT DISTINCT `po_no` FROM `purchase_orders`;";
+                  $sql="SELECT DISTINCT `po_no` FROM `purchase_orders` WHERE approvedBy is not null;";
                   $con = mysqli_connect("localhost","root","","galleon_lanka");
                   if(!$con)
                   {

@@ -83,11 +83,11 @@ function header()
       $this->cell(80,5,"Remarks: $remark",0,1);
 
       $this->SetFont('Times','B','10');
-      $this->cell(30,10,'Item Code','T',0,'L');
-      $this->line(10, 110, 210-10, 110);
+      $this->cell(40,10,'Item Code','T',0,'L');
+      $this->line(10, 110, 200, 110);
       $this->cell(80,10,'Item Description','T',0,'L');
-      $this->cell(30,10,'Item Type','T',0,'L');
-      $this->cell(20,10,'Qty.','T',1,'L');
+      $this->cell(40,10,'Item Type','T',0,'L');
+      $this->cell(30,10,'Qty.','T',1,'L');
 
 
       $this->SetFont('Times','B','10');
@@ -104,10 +104,10 @@ function header()
           $rowSQL2= mysqli_query($con,$sql);
           while($row = mysqli_fetch_assoc( $rowSQL2))
           {
-            $this->cell(30,10,$row['mid'],0,0,'L');
+            $this->cell(40,10,$row['mid'],0,0,'L');
             $this->cell(80,10,$row['Name'],0,0,'L');
-            $this->cell(30,10,$row1['item_type'],0,0,'L');
-            $this->cell(20,10,$qty,0,1,'L');
+            $this->cell(40,10,$row1['item_type'],0,0,'L');
+            $this->cell(30,10,$qty,0,1,'L');
 
           }
         }
@@ -122,11 +122,10 @@ function header()
           $rowSQL2= mysqli_query($con,$sql);
           while($row = mysqli_fetch_assoc( $rowSQL2))
           {
-            $this->cell(30,10,$row['fp_id'],0,0,'L');
+            $this->cell(40,10,$row['fp_id'],0,0,'L');
             $this->cell(80,10,$row['Name'],0,0,'L');
-            $this->cell(30,10,$row1['item_type'],0,0,'L');
-            $this->cell(30,10,$qty,0,0,'L');
-            $this->cell(15,10,"",0,1,'L');
+            $this->cell(40,10,$row1['item_type'],0,0,'L');
+            $this->cell(30,10,$qty,0,1,'L');
 
           }
         }
