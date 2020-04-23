@@ -23,7 +23,7 @@ if(isset($_POST["btnDelete"])){
     header('Location:../Pages/viewEmployees.php');
     }
  
-if(isset($_POST["btnPromote"])){
+if(isset($_POST["btnConfirm"])){
     $sql4="UPDATE `employees` SET `Designation` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
     $sql5="UPDATE `employees` SET `Dept` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
     mysqli_query($con,$sql4);

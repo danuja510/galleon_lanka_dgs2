@@ -81,6 +81,8 @@ if(isset($_GET['sort'])){
                   <option value='fGoods'>Finished Goods</option>
                 </select>
                 <input type='submit' name='btnSort' value='Sort'>
+                <br>&nbsp;<br>
+                <a href='inputFinishedGoods.php'><b class='ifg'>Input Finished Goods</b></a>
             ";
                 }
                  ?>

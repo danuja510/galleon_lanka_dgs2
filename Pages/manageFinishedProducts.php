@@ -53,6 +53,13 @@
        $sql="SELECT * FROM `finished_products` where `fp_id`='$fp';";
        $rowSQL= mysqli_query( $con,$sql);
        $row = mysqli_fetch_assoc( $rowSQL);
+       $st=$row['status'];
+         $readonly="";
+         $disabled="";
+         if($st=='inactive'){
+            $readonly="readonly";
+            $disabled="disabled";
+         }
 
 echo"
         <section class='section-manage'>
@@ -73,7 +80,7 @@ echo"
                     <label for='txtName'>Name</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <input type='text' name='txtName' id='txtName' value=".$row['Name']." required>
+                    <input type='text' name='txtName' id='txtName' value=".$row['Name']." required $readonly>
                   </div>
                 </div>
       
@@ -82,7 +89,7 @@ echo"
                     <label for='lstBomid'>BOM ID</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <select name='lstBomid' id='lstBomid'>
+                    <select name='lstBomid' id='lstBomid' $disabled>
         
                         <option value=".$row['bom_id'].">
                            ".$row['bom_id']."
@@ -112,7 +119,7 @@ echo"
                     <label for='txtValue'>Value</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required>
+                    <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required $readonly>
                   </div>
                 </div>
         
@@ -129,9 +136,10 @@ echo"
                   <div class='col span-1-of-2'>
                      &nbsp;   
                   </div>
-                  <div class='col span-1-of-2'>
-                      <input type='submit' name='btnUpdate' value='Update'>
-        ";
+                  <div class='col span-1-of-2'>";
+                  if($st=='active'){
+                      echo"<input type='submit' name='btnUpdate' value='Update'>";
+                  }
                   $st=$row['status'];
                   if($st=='active'){
         echo"

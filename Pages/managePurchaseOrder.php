@@ -77,7 +77,7 @@
                 Qty.
               </th>
               <th>
-                value
+                Value
               </th>
             </thead>
             ";

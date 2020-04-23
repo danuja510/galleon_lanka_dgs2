@@ -4,10 +4,11 @@
       header('Location:signIn.php');
     }
 ?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>view finished products</title>
+    <title>View Finished Products</title>
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
@@ -61,10 +62,10 @@
                 BOM_ID
             </th>
             <th>
-                value
+                Value
             </th>
             <th>
-                status
+                Status
             </th>
             <th class='bt'>
                 
@@ -100,13 +101,13 @@
               </td>
               <td class='bt'>
     ";
-              $sts=$row['status'];
-              if($sts=="active")
-              {
+              // $sts=$row['status'];
+              // if($sts=="active")
+              // {
     echo"
-                  <input type='submit' name='".$row['fp_id']."' value='edit'>
+                  <input type='submit' name='".$row['fp_id']."' value='View'>
     ";
-              }
+              // }
     echo"
               </td>
             </tr>

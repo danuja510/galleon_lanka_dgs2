@@ -52,11 +52,19 @@
          $sql="SELECT * FROM `employees` where `eno`='$eno2';";
          $rowSQL= mysqli_query( $con,$sql);
          $row = mysqli_fetch_assoc( $rowSQL);
+         $st=$row['status'];
+         $readonly="";
+         $disabled="";
+         if($st=='inactive')
+         {
+            $readonly="readonly";
+            $disabled="disabled";
+         }
 
     echo"
           <section class='section-manage'>
           <h2>Manage Employees</h2>
-              <form action=\"../PHPScripts/manageEmployeesScript.php\" method=\"post\">
+              <form action='../PHPScripts/manageEmployeesScript.php' method='post'>
               <div class='row'>
                 <div class='col span-1-of-2'>
                   <label for='txtEno'>Eno</label>
@@ -71,7 +79,7 @@
                   <label for='txtName'>Name</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <input type=\"text\" name=\"txtName\" id=\"txtName\" value=" .$row['Name']. " required>
+                  <input type='text' name='txtName' id='txtName' value=" .$row['Name']. " required $readonly>
                 </div>
               </div>
 
@@ -79,14 +87,17 @@
                 <div class='col span-1-of-2'>
                   <label for='txtDes'>Designation</label>
                 </div>
-                <div class='col span-1-of-2'>
-                  <input type=\"text\" name=\"txtDes\" id=\"txtDes\" value=" .$row['Designation']. " required readonly>              
-                  ";
+                <div class='col span-1-of-2'>";
+                if($row['Designation']=='Manager'){
+                  echo"<input type='text' name='txtDes' id='txtDes' value=".$row['Designation']." required readonly>";
+                }else{
+                  echo"<input type='text' name='txtDes' id='txtDes' value=".$row['Designation']." required readonly style='width:260px; margin-right:5px;'>";
+                }  
                   $desg = $row['Designation'];
-                  if($desg=='Employee')
+                  if(($desg=='Employee') && $st=='active')
                   {
                   echo"
-                    <input type = \"submit\" name=\"btnPromote\" value=\"promote\">
+                    <input type = 'submit' name='btnConfirm' id='btnConfirm' value='promote'>
                   ";
                   }
                   echo"
@@ -98,17 +109,17 @@
                   <label for='lstDepartment'>Department</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <select name=\"lstDepartment\" id=\"lstDepartment\">
+                  <select name='lstDepartment' id='lstDepartment' $disabled>
                       <option value=".$row['Dept'].">
                           ".$row['Dept']."
                       </option>
-                      <option value=\"store\">
+                      <option value='store'>
                           Store
                       </option>
-                      <option value=\"pFloor\">
+                      <option value='pFloor'>
                           Production floor
                       </option>
-                      <option value=\"fGoods\">
+                      <option value='fGoods'>
                           Finished goods
                       </option>
                   </select>
@@ -120,7 +131,7 @@
                   <label for='txtEmail'>Email</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <input type=\"email\" name=\"txtEmail\" id=\"txtEmail\" value='" .$row['email']. "' required>
+                  <input type='email' name='txtEmail' id='txtEmail' value='" .$row['email']. "' required $readonly>
                 </div>
               </div>
 
@@ -129,7 +140,7 @@
                   <label for='txtPwd'>Password</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <input type=\"text\" name=\"txtPwd\" id=\"txtPwd\" value=" .$row['password']. " required>
+                  <input type='text' name='txtPwd' id='txtPwd' value=" .$row['password']. " required $readonly>
                 </div>
               </div>
 
@@ -138,17 +149,18 @@
                   <label for='txtStatus'>Status</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <input type=\"text\" name=\"txtStatus\" id=\"txtStatus\" value=" .$row['status']. " required readonly >
+                  <input type='text' name='txtStatus' id='txtStatus' value=" .$row['status']. " required readonly >
                 </div>
               </div>
 
               <div class='row'>
                   <div class='col span-1-of-2'>&nbsp;</div>
-                  <div class='col span-1-of-2'>
-                    <input type=\"submit\" name=\"btnUpdate\" id=\"btnUpdate\" value=\"Update\">
-                  
-                ";
-                $st=$row['status'];
+                  <div class='col span-1-of-2'>";
+                  if($st=='active'){
+                    echo"<input type='submit' name='btnUpdate' id='btnUpdate' value='Update'>";
+                  }
+                
+                
                 $con3=mysqli_connect("localhost","root","","galleon_lanka");
                 if(!$con3){
                   die("Cannot connect to DB server");
