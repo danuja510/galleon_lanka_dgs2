@@ -80,7 +80,7 @@
               </td>
             </tr>
           ";
-            $query[$i]="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$order[0]."', '".$order[1]."', 'finished product', CURDATE(), 'pfloor');";
+            $query[$i]="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$order[0]."', '".$order[1]."', 'finished_product', CURDATE(), 'pfloor');";
             $_SESSION['USQ_1']=$query;
         }
       }
@@ -125,7 +125,7 @@
             </td>
         </tr>
     </table>
-    
+
             </div>
         </div>
     </section>

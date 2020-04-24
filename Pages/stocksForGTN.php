@@ -61,8 +61,8 @@
                     $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_no`,`type`;";
                     $iType='material';
                   }elseif ($_SESSION['dept']=='pfloor') {
-                    $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished product' GROUP BY `item_no`,`type`;";
-                    $iType='finished product';
+                    $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
+                    $iType='finished_product';
                   }
                   $rowSQL= mysqli_query( $con,$sql);
                   while($row=mysqli_fetch_assoc( $rowSQL )){
@@ -80,7 +80,7 @@
                   if ($_SESSION['dept']=='fGoods') {
                     $sql="SELECT * FROM `finished_products` where status='active';";
                     $rowSQL= mysqli_query( $con,$sql);
-                    $iType='finished product';
+                    $iType='finished_product';
                     while($row=mysqli_fetch_assoc( $rowSQL )){
                       echo "<tr><td>".$row['fp_id']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['fp_id']."' name='txt".$row['fp_id']."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['fp_id']."' type='checkbox' class='css-checkbox' name='".$row['fp_id']."' value='".$row['fp_id']."'><label class='css-label' for='".$row['fp_id']."'>&nbsp;</label></td></tr>";
                     }

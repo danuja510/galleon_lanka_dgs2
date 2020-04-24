@@ -109,7 +109,7 @@
 //
 //efficiency of stock transfers between production floor and finished goods
 
-$sql5="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='pFloor' ".$curdate." AND type='out' and item_type='finished product' ".$curdate." and approved_by IS NOT null GROUP BY item_no";
+$sql5="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='pFloor' ".$curdate." AND type='out' and item_type='finished_product' ".$curdate." and approved_by IS NOT null GROUP BY item_no";
 $rowSQL= mysqli_query( $con,$sql5);
 $i=0;
 $pfloorTransferOut=0;
@@ -118,7 +118,7 @@ while($row=mysqli_fetch_assoc( $rowSQL )){
   $effpfloor_fGoods_transfers[$i++]=new efficiency($row['item_no'],$row['Qty']);
   $pfloorTransferOut+=$row['Qty'];
 }
-$sql6="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='fGoods' ".$curdate." AND type='in' and item_type='finished product' and approved_by IS NOT null GROUP BY item_no";
+$sql6="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='fGoods' ".$curdate." AND type='in' and item_type='finished_product' and approved_by IS NOT null GROUP BY item_no";
 $rowSQL= mysqli_query( $con,$sql6);
 $gGoodsTransferIn=0;
 while($row=mysqli_fetch_assoc( $rowSQL )){
@@ -144,7 +144,7 @@ while($row=mysqli_fetch_assoc( $rowSQL )){
   $gGoodsIn+=$row['Qty'];
 }
 if (isset($_GET['y'])) {
-  $sql15="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished products' AND dept='fGoods' ".$bbfdate." GROUP BY item_no";
+  $sql15="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_products' AND dept='fGoods' ".$bbfdate." GROUP BY item_no";
   $rowSQL= mysqli_query( $con,$sql15);
   while($row=mysqli_fetch_assoc( $rowSQL )){
     for ($j=0; $j <sizeof($efffGoods) ; $j++) {
@@ -158,7 +158,7 @@ if (isset($_GET['y'])) {
     $gGoodsIn+=$row['Qty'];
   }
 }
-$sql7="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished product' ".$stockdate." AND dept='fGoods' GROUP BY item_no;";
+$sql7="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_product' ".$stockdate." AND dept='fGoods' GROUP BY item_no;";
 $rowSQL= mysqli_query( $con,$sql7);
 $fgoodsout=0;
 while($row=mysqli_fetch_assoc( $rowSQL )){
@@ -222,7 +222,7 @@ if (isset($_GET['y'])) {
     $effpFloor[sizeof($effpFloor)]= new efficiency($row2['Name'],$row['Qty']);
     $pFloorIn+=$row['Qty'];
   }
-  $sql16="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished product' AND dept='pFloor' ".$bbfdate." GROUP BY item_no;";
+  $sql16="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_product' AND dept='pFloor' ".$bbfdate." GROUP BY item_no;";
   $rowSQL= mysqli_query( $con,$sql16);
   while($row=mysqli_fetch_assoc( $rowSQL )){
     $sql12="SELECT bom_id FROM `finished_products` WHERE fp_id=".$row['item_no'];
@@ -260,7 +260,7 @@ while($row=mysqli_fetch_assoc( $rowSQL )){
   $effpFloor[sizeof($effpFloor)]= new efficiency($row2['Name'],-$row['Qty']);
   $pFloorout+=$row['Qty'];
 }
-$sql11="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished product' AND dept='pFloor' ".$stockdate." GROUP BY item_no;";
+$sql11="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_product' AND dept='pFloor' ".$stockdate." GROUP BY item_no;";
 $rowSQL= mysqli_query( $con,$sql11);
 while($row=mysqli_fetch_assoc( $rowSQL )){
   $sql12="SELECT bom_id FROM `finished_products` WHERE fp_id=".$row['item_no'];

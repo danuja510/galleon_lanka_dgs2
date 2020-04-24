@@ -1,7 +1,7 @@
 <?php
      session_start();
     if (isset($_POST['btnNext'])) {
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished product' GROUP BY `item_no`,`type`;";
+        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
           $_SESSION['cno']=$_POST['txtCNO'];
           $con = mysqli_connect("localhost","root","","galleon_lanka");
           if(!$con)

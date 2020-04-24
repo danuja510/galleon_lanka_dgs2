@@ -98,7 +98,7 @@
         {
           die("Error while connecting to database");
         }
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished product' GROUP BY `item_no`,`type`;";
+        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
         $rowSQL= mysqli_query( $con,$sql);
         mysqli_close($con);
         while($row=mysqli_fetch_assoc( $rowSQL )){

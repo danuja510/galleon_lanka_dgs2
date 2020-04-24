@@ -18,7 +18,7 @@
       $sql3="SELECT `item_no`,`qty` FROM `invoice` WHERE `invoice_no`=".$_SESSION['invoice']."";
       $rowSQL3= mysqli_query( $con,$sql3);
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-        $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', 'finished product', CURDATE(), 'fGoods');";
+        $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', 'finished_product', CURDATE(), 'fGoods');";
         mysqli_query( $con,$sql2);
       }
       mysqli_close($con);
