@@ -20,7 +20,7 @@ if(isset($_POST["btnUpdate"])){
 if(isset($_POST["btnDelete"])){
     $sql3="UPDATE `employees` SET `status` = 'inactive' WHERE `eno` = '".$_SESSION['eno2']."'";
     mysqli_query($con,$sql3);
-    header('Location:../Pages/viewEmployees.php');
+    header('Location:../Pages/manageEmployees.php');
     }
  
 if(isset($_POST["btnConfirm"])){
@@ -28,5 +28,13 @@ if(isset($_POST["btnConfirm"])){
     $sql5="UPDATE `employees` SET `Dept` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
     mysqli_query($con,$sql4);
     mysqli_query($con,$sql5);
-    header('Location:../Pages/viewEmployees.php');
+    header('Location:../Pages/manageEmployees.php');
+    }
+
+if(isset($_POST["btnDemote"])){
+    $sql4="UPDATE `employees` SET `Designation` = 'Employee' WHERE `eno` = '".$_SESSION['eno2']."'";
+    $sql5="UPDATE `employees` SET `Dept` = 'Employee' WHERE `eno` = '".$_SESSION['eno2']."'";
+    mysqli_query($con,$sql4);
+    mysqli_query($con,$sql5);
+    header('Location:../Pages/manageEmployees.php');
     }

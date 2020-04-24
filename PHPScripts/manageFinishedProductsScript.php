@@ -17,5 +17,5 @@ if(isset($_POST["btnUpdate"])){
 if(isset($_POST["btnDelete"])){
     $sql4="UPDATE `finished_products` SET `status` = 'inactive' WHERE `fp_id` = '".$_SESSION['fpid']."'";
     mysqli_query($con,$sql4);
-    header('Location:../Pages/viewFinishedProducts.php');
+    header('Location:../Pages/manageFinishedProducts.php');
     }

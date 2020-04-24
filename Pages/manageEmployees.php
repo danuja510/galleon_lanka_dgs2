@@ -55,12 +55,10 @@
          $st=$row['status'];
          $readonly="";
          $disabled="";
-         if($st=='inactive')
-         {
+         if($st=='inactive'){
             $readonly="readonly";
             $disabled="disabled";
          }
-
     echo"
           <section class='section-manage'>
           <h2>Manage Employees</h2>
@@ -88,17 +86,17 @@
                   <label for='txtDes'>Designation</label>
                 </div>
                 <div class='col span-1-of-2'>";
-                if($row['Designation']=='Manager'){
+                if($st=='inactive'){
                   echo"<input type='text' name='txtDes' id='txtDes' value=".$row['Designation']." required readonly>";
                 }else{
                   echo"<input type='text' name='txtDes' id='txtDes' value=".$row['Designation']." required readonly style='width:260px; margin-right:5px;'>";
                 }  
                   $desg = $row['Designation'];
-                  if(($desg=='Employee') && $st=='active')
-                  {
-                  echo"
-                    <input type = 'submit' name='btnConfirm' id='btnConfirm' value='promote'>
-                  ";
+                  if(($desg=='Employee') && $st=='active'){
+                    echo"<input type = 'submit' name='btnConfirm' id='btnConfirm' value='Promote'>";
+                  }
+                  else if(($desg=='Manager') && $st=='active'){
+                    echo"<input type = 'submit' name='btnDemote' id='btnDemote' value='Demote'>";
                   }
                   echo"
                 </div>
@@ -108,7 +106,11 @@
                 <div class='col span-1-of-2'>
                   <label for='lstDepartment'>Department</label>
                 </div>
-                <div class='col span-1-of-2'>
+                <div class='col span-1-of-2'>";
+                if($st=='active' && $desg=='Manager'){
+                  $disabled="disabled";
+                }
+                echo"
                   <select name='lstDepartment' id='lstDepartment' $disabled>
                       <option value=".$row['Dept'].">
                           ".$row['Dept']."
