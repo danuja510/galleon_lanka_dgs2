@@ -73,7 +73,7 @@ if(isset($_GET['sort'])){
                 {
             echo"
                     Sort by Department:
-                <select name='lstDepartment'>
+                <select name='lstDepartment' id='lstDepartment'>
                     ".$op."
                   <option value='all'>All</option>
                   <option value='store'>Store</option>
