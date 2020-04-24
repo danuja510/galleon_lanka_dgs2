@@ -6,7 +6,7 @@
              die("cannot connect to DB server");
             }
 
-           $sql="SELECT * FROM `finished_products` WHERE `status`='active';";
+           $sql="SELECT * FROM `finished_products`;";
            $rowSQL= mysqli_query( $con,$sql);
 
           while($row = mysqli_fetch_array( $rowSQL ))

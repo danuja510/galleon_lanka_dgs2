@@ -12,10 +12,8 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
-    <link rel="stylesheet" type="text/css" href="../Resources/CSS/CheckboxStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
-    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
   </head>
   <body>
@@ -40,7 +38,17 @@
       
     <section class="section-manage">
     <div class="row">
-      <div class="col span-2-of-2">
+
+        <div class="col span-1-of-7">
+          <a href="createPurchaseOrders.php">
+            <div class="new">
+              <i class="ion-ios-compose-outline"></i>
+              New Purchase &nbsp; &nbsp; &nbsp; Order
+            </div>
+          </a>
+        </div>
+
+      <div class="col span-6-of-7">
         <form action="../PHPScripts/viewPurchaseOrdersScript.php" method="post">
       <table>
         <thead>
@@ -84,7 +92,7 @@
                   ".$approve."
                 </td>
                 <td class='bt'>
-                  <input type='submit' name='".$row['po_no']."' value='manage'>
+                  <input type='submit' name='".$row['po_no']."' value='view'>
                 </td>
               </tr>
             ";

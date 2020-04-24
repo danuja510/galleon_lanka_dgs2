@@ -4,17 +4,16 @@
       header('Location:signIn.php');
     }
 ?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>view finished products</title>
+    <title>View Finished Products</title>
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
-    <link rel="stylesheet" type="text/css" href="../Resources/CSS/CheckboxStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
-    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
   </head>
   <body>
@@ -44,7 +43,7 @@
           <a href="addFinishedProducts.php">
             <div class="new">
               <i class="ion-ios-compose-outline"></i>
-              New F.Product
+              New Finished &nbsp;&nbsp;&nbsp;&nbsp; Product
             </div>
           </a>
         </div>
@@ -63,10 +62,10 @@
                 BOM_ID
             </th>
             <th>
-                value
+                Value
             </th>
             <th>
-                status
+                Status
             </th>
             <th class='bt'>
                 
@@ -102,13 +101,13 @@
               </td>
               <td class='bt'>
     ";
-              $sts=$row['status'];
-              if($sts=="active")
-              {
+              // $sts=$row['status'];
+              // if($sts=="active")
+              // {
     echo"
-                  <input type='submit' name='".$row['fp_id']."' value='edit'>
+                  <input type='submit' name='".$row['fp_id']."' value='View'>
     ";
-              }
+              // }
     echo"
               </td>
             </tr>

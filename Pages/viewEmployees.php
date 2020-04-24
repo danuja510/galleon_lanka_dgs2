@@ -4,17 +4,16 @@
       header('Location:signIn.php');
     }
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>view employees</title>
+    <title>View Employees</title>
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
-    <link rel="stylesheet" type="text/css" href="../Resources/CSS/CheckboxStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
-    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
   </head>
   <body>
@@ -54,7 +53,7 @@
         <table>
           <thead>
                 <th>
-                    eno
+                    Eno.
                 </th>
                 <th>
                     Name
@@ -66,10 +65,9 @@
                     Dept
                 </th>
                 <th>
-                    status
+                    Status
                 </th>
-                <th class='bt'>
-                    
+                <th class='bt'>&nbsp;
                 </th>
           </thead>
 
@@ -104,13 +102,13 @@
           </td>
           <td class='bt'>
           ";
-          $st=$row['status'];
-            if($st=="active")
-            {
+          // $st=$row['status'];
+          //   if($st=="active")
+          //   {
               echo"
-              <input type='submit' name='".$row['eno']."' value='view'>
+              <input type='submit' name='".$row['eno']."' value='View'>
               ";
-            }
+            // }
               echo"
           </td>
           </tr>
