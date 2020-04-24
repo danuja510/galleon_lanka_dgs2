@@ -33,7 +33,7 @@ if(isset($_POST["btnConfirm"])){
 
 if(isset($_POST["btnDemote"])){
     $sql4="UPDATE `employees` SET `Designation` = 'Employee' WHERE `eno` = '".$_SESSION['eno2']."'";
-    $sql5="UPDATE `employees` SET `Dept` = 'Employee' WHERE `eno` = '".$_SESSION['eno2']."'";
+    $sql5="UPDATE `employees` SET `Dept` = 'pFloor' WHERE `eno` = '".$_SESSION['eno2']."'";
     mysqli_query($con,$sql4);
     mysqli_query($con,$sql5);
     header('Location:../Pages/manageEmployees.php');
