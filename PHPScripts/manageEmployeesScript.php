@@ -7,10 +7,6 @@ if(!$con){
 }
 
 if(isset($_POST["btnUpdate"])){
-    if($_SESSION['DES']=='Manager'){
-        $dep="Manager";
-    }
-
     $name=$_POST["txtName"];
     $dep=$_POST["lstDepartment"];
     $pass=$_POST["txtPwd"];

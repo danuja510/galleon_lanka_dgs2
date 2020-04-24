@@ -111,19 +111,22 @@
                   $disabled="disabled";
                 }
                 echo"
-                  <select name='lstDepartment' id='lstDepartment' $disabled>
+                  <select name='lstDepartment' id='lstDepartment'>
                       <option value=".$row['Dept'].">
                           ".$row['Dept']."
-                      </option>
-                      <option value='store'>
-                          Store
-                      </option>
-                      <option value='pFloor'>
-                          Production floor
-                      </option>
-                      <option value='fGoods'>
-                          Finished goods
-                      </option>
+                      </option>";
+                      if($desg!='Manager'){
+                        echo"<option value='store'>
+                            Store
+                        </option>
+                        <option value='pFloor'>
+                            Production floor
+                        </option>
+                        <option value='fGoods'>
+                            Finished goods
+                        </option>";
+                      }
+                      echo"
                   </select>
                 </div>
               </div>
