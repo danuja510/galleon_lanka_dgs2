@@ -303,7 +303,7 @@ while($row=mysqli_fetch_assoc( $rowSQL )){
   mysqli_close($con);
 
   echo "Efficiency of Store =".round($storeout/$storein*100,2)."% <br>";
-  echo "Efficiency of stock transfers between Store and Production Floor=".round($pfloorTransferIn/$storeTransferOut*100,2)."% <br>";  
+  echo "Efficiency of stock transfers between Store and Production Floor=".round($pfloorTransferIn/$storeTransferOut*100,2)."% <br>";
   echo "Efficiency of Production Floor =".round($pFloorout/$pFloorIn*100,2)."% <br>";
   echo "Efficiency of stock transfers between Production Floor and Finished goods=".round($gGoodsTransferIn/$pfloorTransferOut*100,2)."% <br>";
   echo "Efficiency of Finished Goods =".round($fgoodsout/$gGoodsIn*100,2)."% <br>";

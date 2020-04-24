@@ -86,8 +86,8 @@ if(isset($_GET['sort'])){
                 }
                  ?>
                     </div>
-        </div> 
-            <div class="col span-6-of-7">    
+        </div>
+            <div class="col span-6-of-7">
         <table>
           <thead>
             <th>Department</th>
@@ -109,24 +109,23 @@ if(isset($_GET['sort'])){
               if(isset($_GET['sort']) && $_GET['sort']!='all'){
                   $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$_GET['sort']."' GROUP BY dept, item_no, type;";
               }
-          }          
+          }
           $rowSQL= mysqli_query($con,$sql);
           while($row=mysqli_fetch_assoc($rowSQL))
           {
-       $a=$row['dept'].$row['item_no']; 
        echo"
           <tr>
             <td>".$row['dept']."</td>
             <td>".$row['item_no']."</td>
             <td>".$row['type']."</td>
-            <td><input type='number' name='txt".$row['dept']."".$row['item_no']."' id='txt".$row['dept']."".$row['item_no']."' value='".$row['finalstock']."' min=0></td>
-            <td class='bt'><input type='submit' name='btnUpdate".$row['dept']."".$row['item_no']."' id='btnUpdate".$row['dept']."".$row['item_no']."' value='Update'></td>
+            <td><input type='number' name='txt".$row['dept']."".$row['type']."".$row['item_no']."' id='txt".$row['dept']."".$row['type']."".$row['item_no']."' value='".$row['finalstock']."' min=0></td>
+            <td class='bt'><input type='submit' name='btnUpdate".$row['dept']."".$row['type']."".$row['item_no']."' id='btnUpdate".$row['dept']."".$row['type']."".$row['item_no']."' value='Update'></td>
           </tr>";
           }
         ?>
         </table>
         </div>
-    </form>  
+    </form>
         </div>
       </section>
     <footer>

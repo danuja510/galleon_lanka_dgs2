@@ -4,7 +4,7 @@
         {
           die("cannot connect to DB server");
         }
-        
+
         $sort="";
         if(isset($_POST['btnSort']))
         {
@@ -18,16 +18,14 @@
               }
         $rowSQL= mysqli_query($con,$sql);
         while($row=mysqli_fetch_assoc($rowSQL)){
-            
-            if(isset($_POST['btnUpdate'.$row['dept'].$row['item_no']])){
+
+            if(isset($_POST['btnUpdate'.$row['dept'].$row['type'].$row['item_no']])){
                 $stock=$row['finalstock'];
-                $inputamount= $_POST['txt'.$row['dept'].$row['item_no']];
+                $inputamount= $_POST['txt'.$row['dept'].$row['type'].$row['item_no']];
                 $diff=0;
-                if($inputamount!=$stock){
-                    $diff = $inputamount-$stock;
-                    $sql1="INSERT INTO `stocks`(`no`,`item_no`, `qty`, `type`, `date`, `dept`) VALUES ( NULL,'".$row['item_no']."', $diff ,'".$row['type']."', CURDATE() ,'".$row['dept']."');";
-                    mysqli_query($con,$sql1);
-                    header('Location:../Pages/updateStocks.php');
-                } 
+                $diff = $inputamount-$stock;
+                $sql1="INSERT INTO `stocks`(`no`,`item_no`, `qty`, `type`, `date`, `dept`) VALUES ( NULL,'".$row['item_no']."', $diff ,'".$row['type']."', CURDATE() ,'".$row['dept']."');";
+                mysqli_query($con,$sql1);
+                header('Location:../Pages/updateStocks.php');
             }
-        }   
+        }
