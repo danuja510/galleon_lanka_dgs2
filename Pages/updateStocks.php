@@ -119,13 +119,11 @@ if(isset($_GET['sort'])){
             <td>".$row['dept']."</td>
             <td>".$row['item_no']."</td>
             <td>".$row['type']."</td>
-            <td><input type='number' name='txt".$row['dept']."".$row['item_no']."' id='txt".$row['dept']."".$row['item_no']."' value='".$row['finalstock']."'></td>
+            <td><input type='number' name='txt".$row['dept']."".$row['item_no']."' id='txt".$row['dept']."".$row['item_no']."' value='".$row['finalstock']."' min=0></td>
             <td class='bt'><input type='submit' name='btnUpdate".$row['dept']."".$row['item_no']."' id='btnUpdate".$row['dept']."".$row['item_no']."' value='Update'></td>
-          </tr>
-    ";
+          </tr>";
           }
         ?>
-
         </table>
         </div>
     </form>  

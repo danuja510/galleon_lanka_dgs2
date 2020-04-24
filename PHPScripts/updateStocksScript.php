@@ -14,7 +14,7 @@
 
         $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` GROUP BY dept, item_no, type;";
               if(isset($_GET['sort']) && $_GET['sort']!='all'){
-                  $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$_GET['sort']."' GROUP BY dept, item_no, type;";
+                  $sql="SELECT * FROM `stocks` WHERE `dept`='".$_GET['sort']."' GROUP BY dept, item_no, type;";
               }
         $rowSQL= mysqli_query($con,$sql);
         while($row=mysqli_fetch_assoc($rowSQL)){
