@@ -144,7 +144,7 @@ while($row=mysqli_fetch_assoc( $rowSQL )){
   $gGoodsIn+=$row['Qty'];
 }
 if (isset($_GET['y'])) {
-  $sql15="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_products' AND dept='fGoods' ".$bbfdate." GROUP BY item_no";
+  $sql15="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_product' AND dept='fGoods' ".$bbfdate." GROUP BY item_no";
   $rowSQL= mysqli_query( $con,$sql15);
   while($row=mysqli_fetch_assoc( $rowSQL )){
     for ($j=0; $j <sizeof($efffGoods) ; $j++) {
