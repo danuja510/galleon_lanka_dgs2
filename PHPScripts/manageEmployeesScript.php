@@ -12,6 +12,10 @@ if(isset($_POST["btnUpdate"])){
     $pass=$_POST["txtPwd"];
     $email=$_POST["txtEmail"];
 
+    if($_SESSION['DES']=='Manager'){
+        $dep="Manager";
+    }
+
     $sql1="UPDATE `employees` SET `Name` = '".$name."',`Dept`='".$dep."', `password` = '".$pass."',`email` = '".$email."' WHERE `eno` = '".$_SESSION['eno2']."'";
     mysqli_query($con,$sql1);
     header('Location:../Pages/manageEmployees.php');
