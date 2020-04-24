@@ -16,5 +16,5 @@
         mysqli_close($con);
         unset($_SESSION['USQ_1']);
         unset($_SESSION['USQ_2']);
-        header('Location:../Pages/empHome.php');
+        header('Location:../Pages/viewStocks.php');
       }

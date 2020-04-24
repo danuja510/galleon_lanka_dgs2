@@ -54,7 +54,7 @@
                       {
                         die("Error while connecting to database");
                       }
-                      $sql="SELECT * FROM `finished_products`;";
+                      $sql="SELECT * FROM `finished_products` where status = 'active';";
                       $rowSQL= mysqli_query( $con,$sql);
                       mysqli_close($con);
                       while($row=mysqli_fetch_assoc( $rowSQL )){
