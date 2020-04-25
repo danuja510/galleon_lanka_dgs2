@@ -44,7 +44,7 @@
       <div class="col span-1-of-7">
       </div>
       <div class="col span-6-of-7">
-    <form action="viewCashreceipt.php">
+    <form action="../PHPScripts/viewCashreceiptScript.php" method="post">
     <table>
     <tr>
         <th>
