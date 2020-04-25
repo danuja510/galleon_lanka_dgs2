@@ -39,7 +39,7 @@
                   <p>Logout</p>
                 </div>
               </a>
-              <a href="logout.php">
+              <a href="userProfile.php">
                 <div class="btn-account">
                     <i class="ion-ios-person"></i>
                     <p>Account</p>
