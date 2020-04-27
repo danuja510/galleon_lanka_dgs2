@@ -10,9 +10,13 @@
     }
     $sql="UPDATE `purchase_orders` SET `approvedBy` = '".$_SESSION['eno']."' WHERE `purchase_orders`.`po_no` = ".$PO.";";
     mysqli_query( $con,$sql);
-    // adding creditor records
+    
+    $sql1="SELECT * FROM `purchase_orders` where `po_no`=".$PO.";";
+    $rowSQL= mysqli_query( $con,$sql1);
+    $row = mysqli_fetch_array( $rowSQL );
 
-      $sql2="INSERT INTO `creditors` (`no`,`sid`, `amount`, `date`) VALUES (NULL,'".$sid."', '".$value."',CURDATE());";
+    // adding creditor records
+      $sql2="INSERT INTO `creditors` (`no`,`sid`, `amount`, `date`) VALUES (NULL,'".$row['sid']."', '".$row['amount']."',CURDATE());";
       mysqli_query( $con,$sql2);
     }
     mysqli_close($con);
