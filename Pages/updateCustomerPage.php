@@ -46,10 +46,8 @@
     </header>
     <section class ="section-manage">
       <div class ="$row">
-        <div class = "cols span-2-of-2">
+        <div class = "cols span-1-of-2">
           <form action="../PHPScripts/updateCustomerPageScript.php" method="post">
-            <h2> Current Details </h2>
-
             <?php
               $cno=$_SESSION['customer'];
               $con = mysqli_connect("localhost","root","","galleon_lanka");
@@ -66,7 +64,6 @@
               mysqli_close($con);
              ?>
 
-             <h2> Update Details </h2>
            <table>
               <tr>
                 <td>
@@ -107,10 +104,9 @@
                 </td>
               </tr>
               <tr>
-                <td></td>
-                <td>
-                  <button type="submit" name="btnsubmit" id="btnsubmit">Submit</button>
-                  <input type="reset" name="btnreset" id="btnreset" value="Reset">
+                <td class ="bt"></td>
+                <td class="bt">
+                  <input type="submit" name="btnsubmit" id="btnsubmit" value ="Submit">
                 </td>
               </tr>
             </table>

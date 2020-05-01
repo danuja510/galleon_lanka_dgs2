@@ -3,9 +3,6 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }
- if(!isset($_SESSION['PVoucher'])){
-   header('Location:managePaymentVouchers.php');
- }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -39,53 +36,52 @@
             </div>
         </div>
     </header>
-      <section class="section-view">
-    <form action="ViewPaymentVoucher.php" method="post">
-        <div class="row">
-            <div class="col span-1-of-2">
+      <section class="section-manage">
+      <div class="row">
+      <div class="col span-2-of-2">
+        <form action="../PHPScripts/viewPaymentVoucherScript.php" method="post">
+        <table>
+          <thead><th>Payment Voucher No.</th><th>GRN no.</th><th>Supplier ID</th><th>Date</th><th>Amount</th><th>Prepared By</th><th>Remarks</th></th>Status</th><th class="bt">&nbsp;</th> </thead>
+
       <?php
-        $payment_voucher=$_SESSION['PVoucher'];
+
       	$con = mysqli_connect("localhost","root","","galleon_lanka");
       	if(!$con)
       	{
       		die("Error while connecting to database");
       	}
-      	$sql="SELECT * FROM `payment_voucher` where `pv_no`=".$payment_voucher." GROUP BY `pv_no`;";
+      	$sql="SELECT * FROM `payment_voucher` GROUP BY `pv_no`;";
       	$rowSQL= mysqli_query( $con,$sql);
-      	$row = mysqli_fetch_array( $rowSQL );
-        echo "<div class='row'><div class='col span-1-of-2'>Payment Voucher No. </div><div class='col span-1-of-2'>".$row['pv_no']."</div></div>";
-        echo "<div class='row'><div class='col span-1-of-2'>GRN No. </div><div class='col span-1-of-2'>".$row['grn_no']."</div></div>";
-        echo "<div class='row'><div class='col span-1-of-2'>Supplier ID. </div><div class='col span-1-of-2'>".$row['sid']."</div></div>";
+      	mysqli_close($con);
 
-        echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['date']."</div></div>";
-        echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'>".$row['prepared_by']."</div></div>";
-        echo "<div class='row'><div class='col span-1-of-2'>Amount Rs. </div><div class='col span-1-of-2'>".$row['amount']."</div></div>";
+        while($row=mysqli_fetch_assoc( $rowSQL))
+        {
+        if($row['approvedBy']!=null){
+            $approve="Approved";
+            }
+            else{
+            $approve="Pending";
+            }
+
+            echo "<tr><td>".$row['pv_no']."</td><td>".$row['grn_no']."</td><td>".$row['sid']."</td><td>".$row['date']."</td><td>".$row['amount']."</td><td>".$row['prepared_by_(eno)']."</td><td>".$row['remarks']."</td><td>".$approve."</td><td>";
+
 
         if($row['approvedBy']!=null){
-            echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Approved</div></div>";
-        }else{
-          echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Pending</div></div>";
-        }
-        ?>
-             </div>
-        
-        </div>
-        <div class="row">
-            <div class='row'>
-                <div class='col span-1-of-2'>&nbsp;</div>
-                <div class='col span-1-of-2'>
-        <?php
-        if($row['approved_by']!=null){
             echo "<input type='submit' value='Print' name='btnPrint'>";
-        }else{
+        }
+        else{
             echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
-         }?>
-     <input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
-                </div>
-            </div>
-        </div>
-                </form>
-      </section>
+        }
+
+        echo "</td></tr>";
+      }
+
+
+        ?>
+      </div>
+      </div>
+      </form>
+    </section>
     <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>

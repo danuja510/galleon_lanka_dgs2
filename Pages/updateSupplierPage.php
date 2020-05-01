@@ -44,9 +44,8 @@
     </header>
     <section class ="section-manage">
       <div class ="row">
-        <div class="col span-2-of-2">
+        <div class="col span-1-of-2">
           <form action="../PHPScripts/updateSupplierPageScript.php" method="post">
-            <h2> Current Details </h2>
 
             <?php
               $sid=$_SESSION['supplier'];
@@ -62,8 +61,6 @@
               echo "<h4>Supplier ID: ".$row['sid']."</h4>";
               mysqli_close($con);
              ?>
-
-           <h2> Update Details </h2>
            <table>
               <tr>
                 <td>
@@ -90,10 +87,9 @@
                 </td>
               </tr>
               <tr>
-                <td></td>
-                <td>
-                  <button type="submit" name="btnsubmit" id="btnsubmit">Submit</button>
-                  <input type="reset" name="btnreset" id="btnreset" value="Reset">
+                <td class="bt"></td>
+                <td class="bt">
+                  <input type="submit" name="btnsubmit" id="btnsubmit" value="Submit">
                 </td>
               </tr>
             </table>

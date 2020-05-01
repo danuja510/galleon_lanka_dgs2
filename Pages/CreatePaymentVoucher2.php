@@ -66,6 +66,16 @@
       </header>
       <?php
         $sid=$_SESSION['sid'];
+        $con = mysqli_connect("localhost","root","","galleon_lanka");
+if(!$con)
+{
+  die("Error while connecting to database");
+}
+$sql="SELECT * FROM `supplier` WHERE `sid` = ".$sid.";";
+$rowSQL= mysqli_query( $con,$sql);
+$row = mysqli_fetch_array( $rowSQL );
+echo "<h2> Payment Voucher to ".$row['Name']."</h2>";
+mysqli_close($con);
       ?>
     <section class="section-add">
       <div class="row">

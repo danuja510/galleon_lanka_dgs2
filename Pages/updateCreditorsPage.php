@@ -85,22 +85,7 @@
        </tr>
      </table>
    </form>
-   <?php
-   if(isset($_POST["btnsubmit"]))
-   {
-   $amount=$_POST["txtamount"];
-   $date=$_POST["txtdate"];
-
-   $con=mysqli_connect("localhost","root","","galleon_lanka");
-   if(!$con)
-   {
-     die("Cannot connect to DB server");
-   }
-   $sql="UPDATE `creditors` SET  `amount` = '".$amount."',`date`='".$date."'  WHERE `creditors`.`crid`=".$crid.";";
-   mysqli_query($con,$sql);
-   mysqli_close($con);
-   }
-   ?>
+   
    <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>

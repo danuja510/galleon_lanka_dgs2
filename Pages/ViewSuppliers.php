@@ -40,14 +40,14 @@
         <div class ="col span-2-of-2">
           <form action="../PHPScripts/ViewSuppliersScript.php" method="post">
             <table width="80%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6EAF8">
-              <thread>
+              <thead>
                 <tr>
                 <th align="center" > Supplier ID </th>
                 <th align="center" > Name </th>
                 <th align="center" > Address </th>
                 <th align="center" > Telephone No. </th>
                 </tr>
-              </thread>
+              </thead>
 
               <?php
               $con = mysqli_connect("localhost","root","","galleon_lanka");
