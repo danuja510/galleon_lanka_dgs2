@@ -20,6 +20,19 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>Manage Employees</title>
+    <script type="text/javascript">
+      function validateUname()
+      {
+        var uname=document.getElementById('txtName').value;
+        if(/^[a-zA-Z0-9]*$/.test(uname) == false){
+          alert("Please enter a valid Username");
+          event.preventDefault();
+        }
+        else{
+          
+        }
+      }
+    </script>
   </head>
 
   <body>
@@ -48,16 +61,14 @@
           {
            die("cannot connect to DB server");
           }
-          $eno2=$_SESSION['eno2'];
+         $eno2=$_SESSION['eno2'];
          $sql="SELECT * FROM `employees` where `eno`='$eno2';";
          $rowSQL= mysqli_query( $con,$sql);
          $row = mysqli_fetch_assoc( $rowSQL);
          $st=$row['status'];
          $readonly="";
-         $disabled="";
          if($st=='inactive'){
             $readonly="readonly";
-            $disabled="disabled";
          }
     echo"
           <section class='section-manage'>
@@ -107,15 +118,12 @@
                   <label for='lstDepartment'>Department</label>
                 </div>
                 <div class='col span-1-of-2'>";
-                if($st=='active' && $desg=='Manager'){
-                  $disabled="disabled";
-                }
                 echo"
                   <select name='lstDepartment' id='lstDepartment'>
                       <option value=".$row['Dept'].">
                           ".$row['Dept']."
                       </option>";
-                      if($desg!='Manager'){
+                      if($desg!='Manager' && $st=='active'){
                         echo"<option value='store'>
                             Store
                         </option>
@@ -145,7 +153,7 @@
                   <label for='txtPwd'>Password</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <input type='text' name='txtPwd' id='txtPwd' value=" .$row['password']. " required $readonly>
+                  <input type='text' name='txtPwd' id='txtPwd' value=" .$row['password']. " required minlength='5' $readonly>
                 </div>
               </div>
 
@@ -162,9 +170,8 @@
                   <div class='col span-1-of-2'>&nbsp;</div>
                   <div class='col span-1-of-2'>";
                   if($st=='active'){
-                    echo"<input type='submit' name='btnUpdate' id='btnUpdate' value='Update'>";
+                    echo"<input type='submit' name='btnUpdate' id='btnUpdate' value='Update' onclick='validateUname()'>";
                   }
-                
                 
                 $con3=mysqli_connect("localhost","root","","galleon_lanka");
                 if(!$con3){

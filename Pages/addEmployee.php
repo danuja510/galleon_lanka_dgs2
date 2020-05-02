@@ -24,7 +24,7 @@ if(!isset($_SESSION['eno'])){
       {
       var pwd=document.getElementById('txtPwd').value;
       var cpwd=document.getElementById('txtconPwd').value;
-      if((pwd.length < 3) || (pwd != cpwd))
+      if((pwd.length < 5) || (pwd != cpwd))
         {
 						alert("Please enter a correct Password and Confirm password");
 						return false;
@@ -34,24 +34,30 @@ if(!isset($_SESSION['eno'])){
       }
     function validateDepartment()
       {
-        if(document.getElementById('lstDepartment').value == "----------")
-          {
+        if(document.getElementById('lstDepartment').value == "----------"){
             alert("Please select a Department");
 						return false;
           }
-          else
-          {
-        return true;
+          else{
+            return true;
           }
+      }
+    function validateUname()
+      {
+        var uname=document.getElementById('txtName').value;
+        if(/^[a-zA-Z0-9]*$/.test(uname) == false){
+          alert("Please enter a valid Username");
+          return false;
+        }
+        else{
+          return true;
+        }
       }
     function Validate()
 		  {
-					if(validatePassword() && validateDepartment())
-					{
-
+					if(validatePassword() && validateDepartment() && validateUname()){
 					}
-					else
-					{
+					else{
 						event.preventDefault();
 					}
 			}
@@ -126,7 +132,7 @@ if(!isset($_SESSION['eno'])){
               </label>
             </div>
             <div class="col span-1-of-2">
-              <input type="password" name="txtPwd" id="txtPwd" value="" required>
+              <input type="password" name="txtPwd" id="txtPwd" value="" minlength='5' required>
             </div>
           </div>
 
@@ -137,7 +143,7 @@ if(!isset($_SESSION['eno'])){
               </label>
             </div>
             <div class="col span-1-of-2">
-              <input type="password" name="txtconPwd" id="txtconPwd" value="" required>
+              <input type="password" name="txtconPwd" id="txtconPwd" value="" minlength='5' required>
             </div>
           </div>
 
