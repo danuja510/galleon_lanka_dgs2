@@ -146,17 +146,17 @@
                 <div class='col span-1-of-2'>
                   <input type='email' name='txtEmail' id='txtEmail' value='" .$row['email']. "' required $readonly>
                 </div>
-              </div>
+              </div>";
 
-              <div class='row'>
-                <div class='col span-1-of-2'>
-                  <label for='txtPwd'>Password</label>
-                </div>
-                <div class='col span-1-of-2'>
-                  <input type='text' name='txtPwd' id='txtPwd' value=" .$row['password']. " required minlength='5' $readonly>
-                </div>
-              </div>
-
+              // <div class='row'>
+              //   <div class='col span-1-of-2'>
+              //     <label for='txtPwd'>Password</label>
+              //   </div>
+              //   <div class='col span-1-of-2'>
+              //     <input type='text' name='txtPwd' id='txtPwd' value=" .$row['password']. " required minlength='5' $readonly>
+              //   </div>
+              // </div>
+              echo"
               <div class='row'>
                 <div class='col span-1-of-2'>
                   <label for='txtStatus'>Status</label>
@@ -164,6 +164,11 @@
                 <div class='col span-1-of-2'>
                   <input type='text' name='txtStatus' id='txtStatus' value=" .$row['status']. " required readonly >
                 </div>
+              </div>
+
+              <div class='row'>
+              <div class='col span-1-of-2'></div>
+              <div class='col span-1-of-2'><a href='#'><b>Update Password</b></a></div>
               </div>
 
               <div class='row'>

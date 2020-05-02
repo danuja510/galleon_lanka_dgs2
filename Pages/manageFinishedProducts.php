@@ -96,7 +96,7 @@ echo"
                         </option>
         ";
                         $bom=$row['bom_id'];
-                        $sql2="SELECT distinct `bom_id` FROM `bom` where `bom_id` != '$bom' ;";
+                        $sql2="SELECT distinct `bom_id` FROM `bom` where `bom_id` != '$bom' and `state`='active' ;";
                         $rowSQL= mysqli_query( $con,$sql2);
                         while($row = mysqli_fetch_assoc( $rowSQL)){
         echo"

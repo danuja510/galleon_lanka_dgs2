@@ -24,9 +24,9 @@ if(!isset($_SESSION['eno'])){
       {
       var pwd=document.getElementById('txtPwd').value;
       var cpwd=document.getElementById('txtconPwd').value;
-      if((pwd.length < 5) || (pwd != cpwd))
+      if(pwd != cpwd)
         {
-						alert("Please enter a correct Password and Confirm password");
+						alert("Passwords do not match");
 						return false;
 				}else{
         return true;
