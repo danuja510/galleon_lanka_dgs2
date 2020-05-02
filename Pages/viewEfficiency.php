@@ -244,6 +244,77 @@
       }
     }
 
+    
+    //efficiency of stock transfers between production floor and finished goods
+
+    $rowSQL= mysqli_query( $con,$sql5);
+    $effpfloor_fGoods_transfers=[];
+    $totpfloortransef=0;
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      $effpfloor_fGoods_transfers[sizeof($effpfloor_fGoods_transfers) ]=new efficiency($row['item_no'],$row['Qty']);
+        $effpfloor_fGoods_transfers[sizeof($effpfloor_fGoods_transfers) - 1]->out=$row['Qty'];
+    }
+    $sql6="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='fGoods' ".$curdate." AND type='in' and item_type='finished_product' and approved_by IS NOT null GROUP BY item_no";
+    $rowSQL= mysqli_query( $con,$sql6);
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      for ($j=0; $j <sizeof($effpfloor_fGoods_transfers) ; $j++) {
+        if ($row['item_no']==$effpfloor_fGoods_transfers[$j]->itemID) {
+          $effpfloor_fGoods_transfers[$j]->in=$row['Qty'];
+          continue 2;
+        }
+      }
+      $effpfloor_fGoods_transfers[sizeof($effpfloor_fGoods_transfers)]= new efficiency($row['item_no']);
+        $effpfloor_fGoods_transfers[sizeof($effpfloor_fGoods_transfers) - 1]->in=$row['Qty'];
+    }
+
+
+    //efficiency of finished goods
+    $rowSQL= mysqli_query( $con,$sql6);
+    $efffGoods=[];
+    $totfgoodsef = 0;
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      $efffGoods[sizeof($efffGoods)]=new efficiency($row['item_no'],$row['Qty']);
+        $efffGoods[sizeof($efffGoods)-1]->in=$row['Qty'];
+    }
+    if (isset($_GET['y'])) {
+      $sql15="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_product' AND dept='fGoods' ".$bbfdate." GROUP BY item_no";
+      $rowSQL= mysqli_query( $con,$sql15);
+      while($row=mysqli_fetch_assoc( $rowSQL )){
+        for ($j=0; $j <sizeof($efffGoods) ; $j++) {
+          if ($row['item_no']==$efffGoods[$j]->itemID) {
+            $efffGoods[$j]->bf=$row['Qty'];
+            continue 2;
+          }
+        }
+        $efffGoods[sizeof($efffGoods)]= new efficiency($row['item_no']);
+          $efffGoods[sizeof($efffGoods)-1]->bf=$row['Qty'];
+      }
+    }
+    $sql7="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_product' ".$stockdate." AND dept='fGoods' GROUP BY item_no;";
+    $rowSQL= mysqli_query( $con,$sql7);
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      for ($j=0; $j <sizeof($efffGoods) ; $j++) {
+        if ($row['item_no']==$efffGoods[$j]->itemID) {
+          $efffGoods[$j]->stock=$row['Qty'];
+          continue 2;
+        }
+      }
+      $efffGoods[sizeof($efffGoods)]= new efficiency($row['item_no']);
+        $efffGoods[sizeof($efffGoods)-1]->stock=$row['Qty'];
+    }
+    $sql8="SELECT item_no,SUM(qty) AS Qty from invoice WHERE approved_by IS NOT null ".$curdate." GROUP BY item_no;";
+    $rowSQL= mysqli_query( $con,$sql8);
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      for ($j=0; $j <sizeof($efffGoods) ; $j++) {
+        if ($row['item_no']==$efffGoods[$j]->itemID) {
+          $efffGoods[$j]->out=$row['Qty'];
+          continue 2;
+        }
+      }
+      $efffGoods[sizeof($efffGoods)]= new efficiency($row['item_no'],-$row['Qty']);
+      $efffGoods[sizeof($efffGoods)-1]->out=$row['Qty'];
+    }
+
 
     mysqli_close($con);
 
@@ -292,7 +363,7 @@
                         $totstoreef+=$effStore[$j]->eff;
                     }
                     $class= efClass($totstoreef/sizeof($effStore));
-                    echo "<p class=".$class.">Efficiency of Store =<strong>".round($totstoreef/sizeof($effStore)*100,2)."%</p></strong>"; 
+                    echo "Efficiency of Store =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span>"; 
                 ?>
             </div>
             <div class="col span-1-of-2">
@@ -330,7 +401,7 @@
                         }
                         $class= efClass($totstoretransef/sizeof($effStore_pfloor_transfers));
                     
-                        echo "<p class=".$class.">Efficiency of Store transfers =<strong>".round($totstoretransef/sizeof($effStore_pfloor_transfers)*100,2)."%</strong></p>"; 
+                        echo "Efficiency of Store transfers =<span class=".$class."><strong>".round($totstoretransef/sizeof($effStore_pfloor_transfers)*100,2)."%</strong></span>"; 
                     }else{
                         echo "No transfers between store and pfloor";
                     }
@@ -371,7 +442,7 @@
                             $totstoreef+=$effpFloor[$j]->eff;
                         }
                         $class= efClass($totstoreef/sizeof($effStore));
-                        echo "<p class=".$class.">Efficiency of Production Floor =<strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></p>";
+                        echo "Efficiency of Production Floor =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span>";
                     ?>
                 
             </div>
@@ -394,6 +465,84 @@
                                 </tr>";
                       }
                     ?>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col span-1-of-2">
+                <?php
+                    if(sizeof($effpfloor_fGoods_transfers)>0){
+                        for ($j=0; $j <sizeof($effpfloor_fGoods_transfers) ; $j++) {
+                        $effpfloor_fGoods_transfers[$j]->dif=$effpfloor_fGoods_transfers[$j]->out - $effpfloor_fGoods_transfers[$j]->in;
+                        $effpfloor_fGoods_transfers[$j]->eff= $effpfloor_fGoods_transfers[$j]->in / $effpfloor_fGoods_transfers[$j]->out;
+                        $totpfloortransef+=$effpfloor_fGoods_transfers[$j]->eff;
+                        }
+                        $class= efClass($totpfloortransef/sizeof($effpfloor_fGoods_transfers));
+                    
+                        echo "Efficiency of Production Floor transfers =<span class=".$class."><strong>".round($totpfloortransef/sizeof($effpfloor_fGoods_transfers)*100,2)."%</strong></span>"; 
+                    }else{
+                        echo "No transfers between pfloor and fgoods";
+                    }
+                ?>
+            </div>
+            <div class="col span-1-of-2">
+                <?php
+                    if(sizeof($effpfloor_fGoods_transfers)>0){
+                        echo "
+                        <table>
+                            <thead>
+                                <th>Material No</th><th>Store OUT</th><th>PFloor IN</th><th>Difference</th><th>Transfer Efficiency</th>
+                            </thead>";
+                        for ($j=0; $j <sizeof($effpfloor_fGoods_transfers) ; $j++) {
+                            $class = efClass($effpfloor_fGoods_transfers[$j]->eff);
+                            echo "<tr>
+                                <td class=".$class."><strong>".$effpfloor_fGoods_transfers[$j]->itemID."</strong></td>
+                                <td class=".$class."><strong>".$effpfloor_fGoods_transfers[$j]->out."</strong></td>
+                                <td class=".$class."><strong>".$effpfloor_fGoods_transfers[$j]->in."</strong></td>
+                                <td class=".$class."><strong>".$effpfloor_fGoods_transfers[$j]->dif. "</strong></td>
+                                <td class=".$class."><strong>".round($effpfloor_fGoods_transfers[$j]->eff,2)."</strong></td>
+                            </tr>";
+                        }
+                        echo "</table>";
+                    }else{
+                        echo "No transfers between pfloor and fgoods";
+                    }
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col span-1-of-2">
+                <?php
+                    for ($j=0; $j <sizeof($efffGoods) ; $j++) {
+                        $efffGoods[$j]->dif=$efffGoods[$j]->in + $efffGoods[$j]->bf - $efffGoods[$j]->stock - $efffGoods[$j]->out;
+                        $efffGoods[$j]->eff=($efffGoods[$j]->stock + $efffGoods[$j]->out) / ($efffGoods[$j]->in + $efffGoods[$j]->bf);
+                        $totfgoodsef+=$efffGoods[$j]->eff;
+                    }
+                    $class= efClass($totfgoodsef/sizeof($efffGoods));
+                    echo "Efficiency of Finished Goods =<span class=".$class."><strong>".round($totfgoodsef/sizeof($efffGoods)*100,2)."%</span></strong>"; 
+                ?>
+            </div>
+            <div class="col span-1-of-2">
+                <table>
+                    <thead>
+                        <th>Material No</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Difference</th><th>Meterial Efficiency</th>
+                    </thead>
+                    <?php
+                    for ($j=0; $j <sizeof($efffGoods) ; $j++) {
+                        
+                        $class = efClass($efffGoods[$j]->eff);
+                      echo "
+                      <tr>
+                        <td class=".$class."><strong>".$efffGoods[$j]->itemID."</strong></td>
+                        <td class=".$class."><strong>".$efffGoods[$j]->in."</strong></td>
+                        <td class=".$class."><strong>".$efffGoods[$j]->bf."</strong></td>
+                        <td class=".$class."><strong>".$efffGoods[$j]->stock."</strong></td>
+                        <td class=".$class."><strong>".$efffGoods[$j]->out."</strong></td>
+                        <td class=".$class."><strong>".$efffGoods[$j]->dif."</strong></td>
+                        <td class=".$class."><strong>".round($efffGoods[$j]->eff,2)."</strong></td>
+                    </tr>";
+                  } 
+                ?>
                 </table>
             </div>
         </div>
