@@ -9,10 +9,9 @@ if(!$con){
 if(isset($_POST["btnUpdate"])){
     $name=$_POST["txtName"];
     $dep=$_POST["lstDepartment"];
-    $pass=$_POST["txtPwd"];
     $email=$_POST["txtEmail"];
 
-    $sql1="UPDATE `employees` SET `Name` = '".$name."',`Dept`='".$dep."', `password` = '".$pass."',`email` = '".$email."' WHERE `eno` = '".$_SESSION['eno2']."'";
+    $sql1="UPDATE `employees` SET `Name` = '".$name."',`Dept`='".$dep."',`email` = '".$email."' WHERE `eno` = '".$_SESSION['eno2']."'";
     mysqli_query($con,$sql1);
     header('Location:../Pages/manageEmployees.php');
     }
