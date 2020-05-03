@@ -18,6 +18,19 @@
         <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
         <title>User Profile</title>
+        <script type="text/javascript">
+        function validateUname()
+        {
+          var uname=document.getElementById('txtName').value;
+          if(/^[a-zA-Z0-9]*$/.test(uname) == false){
+            alert("Please enter a valid Username");
+            event.preventDefault();
+          }
+          else{
+            
+          }
+        }
+        </script>
       </head>
     <body>
         <header>
@@ -97,14 +110,14 @@
                       <label for='txtPwd'>Password</label>
                     </div>
                     <div class='col span-1-of-2'>
-                      <input type='password' name='txtPwd' id='txtPwd' value=".$row['password']." required>
+                      <a href='#'><b>Update Password</b></a>
                     </div>
                 </div>
                 
                 <div class='row'>
                   <div class='col span-1-of-2'>&nbsp;</div>
                   <div class='col span-1-of-2'>";
-                    echo"<input type='submit' name='btnUpdate' id='btnUpdate' value='Update'>
+                    echo"<input type='submit' name='btnUpdate' id='btnUpdate' value='Update' onclick='validateUname()'>
                   </div>
                 </div>
                 
