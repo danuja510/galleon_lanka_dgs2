@@ -87,7 +87,7 @@ mysqli_close($con);
                     <label for="txtPVno">PV number </label>
                 </div>
                 <div class="col span-1-of-2">
-                  <input type='text'name="txtPVno" id="txtPVno">
+                  <input type='text'name="txtPVno" id="txtPVno" required>
                 </div>
               </div>
 
@@ -105,7 +105,7 @@ mysqli_close($con);
                   <label for="txtAmount">Amount </label>
                 </div>
                 <div class="col span-1-of-2">
-                  <input type='text' name="txtAmount" id="txtAmount">
+                  <input type='text' name="txtAmount" id="txtAmount" required>
                 </div>
               </div>
 
@@ -114,7 +114,7 @@ mysqli_close($con);
                   <label for="txtRemarks">Remarks </label>
                 </div>
                 <div class="col span-1-of-2">
-                  <input type='text' name="txtRemarks" id="txtRemarks">
+                  <input type='text' name="txtRemarks" id="txtRemarks" >
                 </div>
               </div>
               <div class="row">

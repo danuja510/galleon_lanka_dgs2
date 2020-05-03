@@ -21,5 +21,7 @@
    $sql="UPDATE `supplier` SET `Name` = '".$name."', `Address` = '".$address."',`tpno`='".$tpno."'  WHERE `supplier`.`sid`=".$sid.";";
    mysqli_query($con,$sql);
    mysqli_close($con);
+   $message = "Supplier Updated!";
+   echo "<script type='text/javascript'>alert('$message');</script>";
    header('Location:../Pages/updateSupplierPage.php');
    }

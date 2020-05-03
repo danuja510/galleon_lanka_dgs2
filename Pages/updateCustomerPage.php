@@ -45,8 +45,8 @@
         </div>
     </header>
     <section class ="section-manage">
-      <div class ="$row">
-        <div class = "cols span-1-of-2">
+      <div class ="row">
+        <div class = "col span-1-of-2">
           <form action="../PHPScripts/updateCustomerPageScript.php" method="post">
             <?php
               $cno=$_SESSION['customer'];
@@ -70,7 +70,7 @@
                   <label for='txtName'>Name</label>
                 </td>
                 <td>
-                  <input type='text' name='txtName' <?php echo "value='".$row['Name']."'"; ?> id='txtName'>
+                  <input type='text' name='txtName' <?php echo "value='".$row['Name']."'"; ?> id='txtName' required>
                 </td>
               </tr>
               <tr>
@@ -78,7 +78,7 @@
                   <label for='txtAddress'>Address</label>
                 </td>
                 <td>
-                  <input type='text' name='txtAddress' <?php echo "value='".$row['Address']."'"; ?> id='txtAddress'>
+                  <input type='text' name='txtAddress' <?php echo "value='".$row['Address']."'"; ?> id='txtAddress' required>
                 </td>
               </tr>
               <tr>
@@ -86,7 +86,7 @@
                   <label for='txtTPNo'>TP No</label>
                 </td>
                 <td>
-                  <input type='text' name='txtTPNo' <?php echo "value='".$row['tpno']."'"; ?> id='txtTPNo'>
+                  <input type='text' name='txtTPNo' <?php echo "value='".$row['tpno']."'"; ?> id='txtTPNo' required>
                 </td>
               </tr>
               <tr>
