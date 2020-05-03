@@ -24,7 +24,7 @@ if(!isset($_SESSION['reset']))
        {
        var pwd=document.getElementById('txtPwd').value;
        var cpwd=document.getElementById('txtconPwd').value;
-       if((pwd.length < 3) || (pwd != cpwd))
+       if(pwd != cpwd)
          {
  						alert("Please enter a valid Password and Confirm password");
  						//return false;
@@ -70,7 +70,7 @@ if(!isset($_SESSION['reset']))
                </label>
            </div>
            <div class="col span-1-of-2">
-               <input type="password" name="txtPwd" id="txtPwd" value="" required>
+               <input type="password" name="txtPwd" id="txtPwd" value="" minlength="5" required>
            </div>
          </div>
 
@@ -81,14 +81,14 @@ if(!isset($_SESSION['reset']))
                </label>
            </div>
            <div class="col span-1-of-2">
-               <input type="password" name="txtconPwd" id="txtconPwd" value="" required>
+               <input type="password" name="txtconPwd" id="txtconPwd" value="" minlength="5" required>
            </div>
          </div>
 
          <div class='row'>
            <div class='col span-1-of-2'></div>
            <div class='col span-1-of-2'>
-             <input type="Submit" name="btnSubmit" id="btnSubmit" value="Submit" onclick="Validate()">
+             <input type="Submit" name="btnSubmit" id="btnSubmit" value="Submit" onclick="validatePassword()">
              <input type="Reset" name="btnReset" id="btnReset" value="Reset">
            </div>
          </div>
