@@ -17,6 +17,16 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>AddCustomer</title>
+    <script type="text/javascript">
+      function validateTPNo(){
+        var tp = document.getElementById("txtTPNo").value;
+        if (tp.length==10){
+        }else{
+          alert("Please Enter a Valid TP Number");
+          event.preventDefault();
+        }
+      }
+    </script>
   </head>
   <body>
       <header>
@@ -41,7 +51,7 @@
     </header>
     <h2>Add Customer</h2>
     <section class="section-add">
-        <form action='addCustomer' method='post'>
+      <form action='../PHPScripts/addCustomerScript.php' method='post'>
             <div class="row">
                 <div class="col span-1-of-2">
                     <label for='txtName'>Name</label>
@@ -63,7 +73,7 @@
                     <label for='txtTPNo'>TP No</label>
                 </div>
                 <div class="col span-1-of-2">
-                    <input type='text' name='txtTPNo' id='txtTPNo'>
+                    <input type='text' name='txtTPNo' id='txtTPNo' required>
                 </div>
             </div>
             <div class="row">
@@ -84,7 +94,7 @@
                     &nbsp;
                 </div>
                 <div class="col span-1-of-2">
-                    <input type="submit" name="btnConfirm" id="btnConfirm" value="Submit">
+                    <input type="submit" name="btnConfirm" id="btnConfirm" value="Submit"  onclick="validateTPNo()">
             <input type="reset" name="btnReset" id="btnReset" value="Reset">
                 </div>
             </div>
@@ -98,22 +108,7 @@
                 <p>Designed and Developed by DGS2</p>
         </div>
     </footer>
-    <?php
-		if(isset($_POST["btnConfirm"])){
-			$name=$_POST["txtName"];
-            $address=$_POST["txtAddress"];
-            $type=$_POST["txtType"];
-            $tpNo=$_POST["txtTPNo"];
-            $con=mysqli_connect("localhost","root","","galleon_lanka");
-            if(!$con){
-				die("Cannot connect to DB server");
-			}
-			$sql="INSERT INTO `customer` (`cno`, `Name`, `Address`, `tpno`, `type`) VALUES (NULL, '".$name."', '".$address."', '".$tpNo."', '".$type."');";
-			mysqli_query($con,$sql);
-			mysqli_close($con);
-            header('Location:empHome.php');
-        }
-	?>
+
   </body>
 </html>
 <!--dan-->

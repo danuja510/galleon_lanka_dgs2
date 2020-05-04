@@ -59,7 +59,7 @@
             echo "
               <tr>
                 <td>".$row['item_no']."</td>
-                <td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['Qty']."' value='".$row['Qty']."'></td>
+                <td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['Qty']."' value='".$row['Qty']."' required></td>
               </tr>
             ";
           }
@@ -68,7 +68,7 @@
               <td class="bt"></td>
               <td class="bt"><input type="submit" name="btnNext" id="btnNext" value="Next"></td>
           </tr>
-        
+
       </table>
     </form>
             </div>

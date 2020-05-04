@@ -118,7 +118,7 @@
       <?php
       if(isset($_GET['count'])){
           if($_GET['count']==0){
-              echo "<script type='text/javascript'>alert('Select A Item to be Sold');</script>";
+              echo "<script type='text/javascript'>alert('Select An Item to be Sold');</script>";
           }
           unset($_GET['count']);
       }
