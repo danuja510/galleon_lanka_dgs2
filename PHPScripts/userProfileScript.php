@@ -8,10 +8,9 @@ if(!$con){
 
 if(isset($_POST["btnUpdate"])){
     $name=$_POST["txtName"];
-    $pass=$_POST["txtPwd"];
     $email=$_POST["txtEmail"];
 
-    $sql1="UPDATE `employees` SET `Name` = '".$name."', `password` = '".$pass."',`email` = '".$email."' WHERE `eno` = '".$_SESSION['eno']."'";
+    $sql1="UPDATE `employees` SET `Name` = '".$name."',`email` = '".$email."' WHERE `eno` = '".$_SESSION['eno']."'";
     mysqli_query($con,$sql1);
     header('Location:../Pages/userProfile.php');
     }
