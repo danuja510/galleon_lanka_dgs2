@@ -99,7 +99,7 @@
                   {
                     die("Error while connecting to database");
                   }
-                  $sql="SELECT * FROM `supplier`;";
+                  $sql="SELECT * FROM `supplier` where state= 'active';";
                   $rowSQL= mysqli_query( $con,$sql);
                   while($row=mysqli_fetch_assoc( $rowSQL )){
                     echo "

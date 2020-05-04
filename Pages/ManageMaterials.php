@@ -154,7 +154,7 @@ echo"
             <label for='txtStatus'>status</label>
           </div>
           <div class='col span-1-of-2'>
-            <input type='text' name='txtStatus' id='txtStatus' value=" .$row['status']. " readonly>
+            <input type='text' name='txtStatus' id='txtStatus' value='" .$row['status']."' readonly>
             </div>
         </div>
 
@@ -162,8 +162,8 @@ echo"
         <div class='col span-1-of-2'>
         </div>
           <div class='col span-1-of-2'>
-              <input type='submit' name='btnDelete' id='btnDelete' value='delete'>
-              <input type='submit' name='btnUpdate' value='update'>
+              <input type='submit' name='btnUpdate' value='Update'>
+              <input type='submit' name='btnDelete' id='btnDelete' value='Delete'>
           </div>
 
           <div>
