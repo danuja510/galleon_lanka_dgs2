@@ -11,7 +11,7 @@ $con = mysqli_connect("localhost","root","","galleon_lanka");
     {
       die("cannot connect to DB server");
     }
-     $sql1="INSERT INTO `materials` (`Name`, `Type`, `sid`, `value`) VALUES ('".$Name."','".$Type."','".$sid."','".$Value."')";
+     $sql1="INSERT INTO `materials` (`Name`, `Type`, `sid`, `value`, `status`) VALUES ('".$Name."','".$Type."','".$sid."','".$Value."', 'active');";
     mysqli_query($con,$sql1);
     header('Location:../Pages/addMaterials.php');
    }

@@ -13,8 +13,34 @@
   <head>
     <meta charset="utf-8">
     <title>Manage Materials</title>
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select2Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
   </head>
   <body>
+    <header>
+          <div class="row">
+              <h1>Manufacturing Management System</h1>
+              <h3>Galleon Lanka PLC</h3>
+          </div>
+              <div class="nav">
+              <div class="row">
+                  <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                  <a href="empHome.php">
+                      <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                  </a>
+                  <a href="logout.php">
+                      <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
+                  </a>
+                  <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+              </div>
+              </div>
+      </header>
   <?php
     $con = mysqli_connect("localhost","root","","galleon_lanka");
       if(!$con)
@@ -28,34 +54,35 @@
        $t=$row['Type'];
 
 echo"
-    <form action='manageMaterials.php' method='post'>
-      <table>
+  <section class='section-manage'>
+    <h2>Manage Materials</h2>
+    <form action='../PHPScripts/manageMaterialsScript.php' method='post'>
 
-        <tr>
-          <td>
+        <div class='row'>
+          <div class='col span-1-of-2'>
             <label for='txtMid'>M_ID</label>
-          </td>
-          <td>
+          </div>
+          <div class='col span-1-of-2'>
 
             <input type='text' name='txtMid' id='txtMid' value=" .$row['mid']. " required readonly>
-          </td>
-        </tr>
+          </div>
+        </div>
 
-        <tr>
-          <td>
+        <div class='row'>
+          <div class='col span-1-of-2'>
             <label for='txtName'>Name</label>
-          </td>
-          <td>
+          </div>
+          <div class='col span-1-of-2'>
             <input type='text' name='txtName' id='txtName' value=" .$row['Name']. " required>
-          </td>
-        </tr>
+          </div>
+        </div>
 
 
-        <tr>
-          <td>
+        <div class='row'>
+          <div class='col span-1-of-2'>
             <label for='lstSupplier'>Supplier</label>
-          </td>
-          <td>
+          </div>
+          <div class='col span-1-of-2'>
             <select name='lstSupplier' id='lstSupplier'>
 
                 <option value=".$row['sid'].">
@@ -75,14 +102,14 @@ echo"
               }
 echo "
             </select>
-          </td>
-        </tr>
+          </div>
+        </div>
 
-        <tr>
-          <td>
+        <div class='row'>
+          <div class='col span-1-of-2'>
             <label for='lstType'>Type</label>
-          </td>
-          <td>
+          </div>
+          <div class='col span-1-of-2'>
             <select name='lstType' id='lstType'>
 
                 <option value=".$t.">
@@ -92,89 +119,73 @@ echo "
                 $type=$row['Type'];
                 $sql2="SELECT distinct `type` FROM `materials` where `type` != '$t' ;";
                 $rowSQL= mysqli_query( $con,$sql2);
-                while($row = mysqli_fetch_assoc( $rowSQL)){
+                $row = mysqli_fetch_assoc( $rowSQL);
 echo"
-                <option value='".$row['type']."'>
-                   ".$row['type']."
+                <option value='Packing'>
+                   Packing
                 </option>
-";
-              }
-echo "
+                <option value='Raw'>
+                   Raw
+                </option>
+                <option value='Chemical'>
+                   Chemical
+                </option>
             </select>
-          </td>
-        </tr>
+          </div>
+        </div>
           ";
 
           $sql="SELECT * FROM `materials` where `mid`='$material';";
           $rowSQL= mysqli_query( $con,$sql);
           $row = mysqli_fetch_assoc( $rowSQL);
+          mysqli_close($con);
 echo"
-        <tr>
-          <td>
+        <div class='row'>
+          <div class='col span-1-of-2'>
             <label for='txtValue'>value</label>
-          </td>
-          <td>
+          </div>
+          <div class='col span-1-of-2'>
             <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required>
-          </td>
-        </tr>
+          </div>
+        </div>
 
-        <tr>
-          <td>
+        <div class='row'>
+          <div class='col span-1-of-2'>
             <label for='txtStatus'>status</label>
-          </td>
-          <td>
+          </div>
+          <div class='col span-1-of-2'>
             <input type='text' name='txtStatus' id='txtStatus' value=" .$row['status']. " readonly>
-            </td>
-        </tr>
+            </div>
+        </div>
 
-        <tr>
-          <td>
+        <div class='row'>
+        <div class='col span-1-of-2'>
+        </div>
+          <div class='col span-1-of-2'>
+              <input type='submit' name='btnDelete' id='btnDelete' value='delete'>
               <input type='submit' name='btnUpdate' value='update'>
-          </td>
+          </div>
 
-          <td>
+          <div>
 ";
         $st=$row['status'];
         if($st=='active'){
 echo"
-              <input type='submit' name='btnDelete' id='btnDelete' value='delete'>
+
 ";
-        }
+}
 echo"
-        </tr>
+        </div>
 ";
             ?>
-      </table>
+
     </form>
+</section>
+<footer>
+    <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
+    <div class="row"><p>Designed and Developed by DGS2</p></div>
+</footer>
 
-    <?php
-    if(isset($_POST["btnUpdate"])){
-
-      $name=$_POST["txtName"];
-      $type=$_POST["lstType"];
-      $s=$_POST["lstSupplier"];
-      $val=$_POST["txtValue"];
-      $con=mysqli_connect("localhost","root","","galleon_lanka");
-      if(!$con){
-        die("Cannot connect to DB server");
-      }
-      $sql3="UPDATE `materials` SET `Name` = '".$name."',`Type`='".$type."', `sid`='".$s."', `value` = '".$val."' WHERE `mid` = '".$_SESSION['mid']."'";
-      mysqli_query($con,$sql3);
-      mysqli_close($con);
-      }
-      ?>
-
-      <?php
-      if(isset($_POST["btnDelete"])){
-        $con=mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con){
-          die("Cannot connect to DB server");
-        }
-        $sql4="UPDATE `materials` SET `status` = 'inactive' WHERE `mid` = '".$_SESSION['mid']."'";
-        mysqli_query($con,$sql4);
-        mysqli_close($con);
-        }
-         ?>
 
   </body>
 </html>

@@ -4,6 +4,7 @@
       header('Location:signIn.php');
     }
 ?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -15,11 +16,10 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
-    <title>view Materials</title>
+    <title>View Materials</title>
   </head>
   <body>
     <header>
-
       <div class="row">
           <h1>Manufacturing Management System</h1>
           <h3>Galleon Lanka PLC</h3>
@@ -37,9 +37,19 @@
           </div>
       </div>
   </header>
+
   <section class="section-manage">
     <div class="row">
-      <div class="col span-2-of-2">
+      <div class="col span-1-of-7">
+      <a href="addMaterials.php">
+        <div class="new">
+          <i class="ion-ios-compose-outline"></i>
+          New Material
+        </div>
+      </a>
+    </div>
+
+      <div class="col span-6-of-7">
     <form action="../PHPScripts/ViewMaterialsScript.php" method="post">
     <table>
       <thead>
@@ -87,7 +97,7 @@ echo "
            ".$row['value']."
        </td>
        <td class='bt'>
-           <input type='submit' name='".$row['mid']."' value='edit'>
+           <input type='submit' name='".$row['mid']."' value='View'>
 
        </td>
      </tr>

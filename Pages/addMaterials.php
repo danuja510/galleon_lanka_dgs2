@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
-    <title>add materials</title>
+    <title>Add Materials</title>
 
       <script type ="text/javascript">
       function validateSupplier(){
@@ -48,12 +48,6 @@
         }
       }
       </script>
-<style>
-input[type=number],input[type=text], select
-{
-  width:50%;
-}
-</style>
   </head>
   <body>
     <header>
@@ -74,30 +68,28 @@ input[type=number],input[type=text], select
           </div>
       </div>
   </header>
-  <section class="section-manage">
-    <div class="row">
-      <div class="col span-2-of-2">
+  <h2>Add Materials</h2>
+  <section class="section-add">
         <form action="../PHPScripts/addMaterialsScript.php" method="post">
-          <table>
 
-              <tr>
-              <td><label for="txtName">Name</label></td>
-              <td><input type="text" name="txtName" id="txtName" value="" required></td>
-            </tr>
-            <tr>
-              <td><label for="lstType">Type</label></td>
-              <td>
+            <div class='row'>
+              <div class='col span-1-of-2'><label for="txtName">Name</label></div>
+              <div class='col span-1-of-2'><input type="text" name="txtName" id="txtName" value="" required></div>
+            </div>
+            <div class='row'>
+              <div class='col span-1-of-2'><label for="lstType">Type</label></div>
+              <div class='col span-1-of-2'>
                 <select name="lstType" id="lstType">
                 <option value="----------">----------</option>
                 <option value="Raw">Raw</option>
                 <option value="Packing">Packing</option>
                 <option value="Chemical">Chemical</option>
                 </select>
-              </td>
-            </tr>
-            <tr>
-              <td><label for="lstSid">Supplier</label></td>
-              <td>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col span-1-of-2'><label for="lstSid">Supplier</label></div>
+              <div class='col span-1-of-2'>
                 <select name="lstSid" id="lstSid">
                 <option value='-----'>-----</option>
                 <?php
@@ -117,23 +109,20 @@ input[type=number],input[type=text], select
                  ?>
               </select>
 
-              </td>
-            </tr>
-            <tr>
-              <td><label for="txtValue">value</label></td>
-              <td><input type="number" name="txtValue" id="txtValue" value="" min="0" step="0.01" required></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col span-1-of-2'><label for="txtValue">Value</label></div>
+              <div class='col span-1-of-2'><input type="number" name="txtValue" id="txtValue" value="" min="0" step="0.01" required></div>
+            </div>
+            <div class='row'>
+              <div class='col span-1-of-2'></div>
+              <div class='col span-1-of-2'>
                 <input type="Submit" name="btnSubmit" id="btnSubmit" value="Submit" onclick="Validate()">
                 <input type="Reset" name="btnReset" id="btnReset" value="Reset">
-              </td>
-            </tr>
-          </table>
+              </div>
+            </div>
         </form>
-      </div>
-    </div>
   </section>
 
     <footer>

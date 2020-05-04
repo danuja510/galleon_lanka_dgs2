@@ -7,68 +7,91 @@ session_start();
   <head>
     <meta charset="utf-8">
     <title>reset pwd</title>
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
 
   </head>
   <body>
-    <form action="resetPassword.php" method="post">
+    <header>
+          <div class="row">
+              <h1>Manufacturing Management System</h1>
+              <h3>Galleon Lanka PLC</h3>
+          </div>
+          <div class="nav">
+              <div class="row">
+                  <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                  <a href="empHome.php">
+                      <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                  </a>
+                  <a href="logout.php">
+                      <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
+                  </a>
+                  <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+              </div>
+          </div>
+      </header>
+
+      <section class="section-view">
+        <h2>Reset Password</h2>
+      <form action="../PHPScripts/resetPasswordScript.php" method="post">
+        <div class="row">
     <table>
-      <tr>
-        <td>
+      <div class="row">
+        <div class="col span-1-of-2">
             <label for="txtEno">
                 Eno
             </label>
-        </td>
-        <td>
+        </div>
+        <div class="col span-1-of-2">
             <input type="text" name="txtEno" id="txtEno" value="" required>
-        </td>
-      </tr>
+        </div>
+      </div>
 
-      <tr>
-        <td>
+      <div class="row">
+        <div class="col span-1-of-2">
             <label for="txtEmail">
                 Email
             </label>
-        </td>
-        <td>
+        </div>
+        <div class="col span-1-of-2">
             <input type="email" name="txtEmail" id="txtEmail" value="" required>
-        </td>
-      </tr>
 
-      <tr>
-        <td>
-            <input type="submit" name="btnSubmit" value="Confirm">
-            <input type="reset" name="btnreset" value="Reset">
-        </td>
-      </tr>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class="col span-1-of-2"></div>
+        <div class="col span-1-of-2">
+          <?php
+            if(isset($_SESSION['invalid'])){
+              echo "&nbsp";
+              echo "Invalid Crediantials";
+              unset($_SESSION['invalid']);
+            }
+          ?>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col span-1-of-2'></div>
+        <div class='col span-1-of-2'>
+          <input type="Submit" name="btnSubmit" id="btnSubmit" value="Submit" onclick="Validate()">
+          <input type="Reset" name="btnReset" id="btnReset" value="Reset">
+        </div>
+      </div>
     </table>
     </form>
+  </section>
 
-    <?php
-    if(isset($_POST['btnSubmit']))
-    {
-      $eno=$_POST['txtEno'];
-      $email=$_POST['txtEmail'];
-      $sql="SELECT * FROM `employees` WHERE `eno` = ".$eno." AND `email` LIKE '".$email."';";
-      $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        $result= mysqli_query($con,$sql);
-        mysqli_close($con);
-      if(mysqli_num_rows($result)>0)
-        {
-        $_SESSION['reset']=$eno;
-        header('Location:newPassword.php');
-        echo"hi";
-        }
-        else
-        {
-          echo "invalid credentials";
-        }
-    }
-
-     ?>
+  <footer>
+      <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
+      <div class="row"><p>Designed and Developed by DGS2</p></div>
+  </footer>
 
   </body>
 </html>

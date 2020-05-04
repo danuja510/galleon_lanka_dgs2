@@ -64,7 +64,7 @@
             else{
               echo"<div class='row'><div class='col span-1-of-2'>Status : </div><div class='col span-1-of-2'> Pending</div></div>";}
             $value=$row['amount'];
-            
+
         echo "
             </div>
             <div class='col span-1-of-2'>
@@ -103,7 +103,7 @@
               </table>
             </div>
           </div>
-          
+
           <div class='row'>
           <div class='row'>
               <div class='col span-1-of-2'>&nbsp;</div>
@@ -119,7 +119,7 @@
       </div>";
       ?>
     </form>
-      
+
      </section>
     <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
