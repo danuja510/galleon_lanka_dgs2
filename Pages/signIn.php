@@ -41,7 +41,7 @@
             <label>&nbsp;</label>
           </div>
           <div class="col span-1-of-2">
-            <input type="submit" name="btnsubmit" id="btnsubmit" value="Submit">
+            <input type="submit" name="btnsubmit" id="btnsubmit" value="Sign In">
           </div>
         </div>
         <div class="row">
