@@ -11,7 +11,7 @@
         {
             die("cannot connect to DB server");
         }
-    $sql1="INSERT INTO `employees`(`Name`, `Designation`, `Dept`, `password`,`email`,`status`) VALUES ('".$name."','Employee','".$dept."','".$pwd."','".$email."','active');";
+    $sql1="INSERT INTO `employees`(`Name`, `Designation`, `Dept`, `password`,`email`,`status`) VALUES ('".$name."','Employee','".$dept."','".md5($pwd)."','".$email."','active');";
     mysqli_query($con1,$sql1);
-    header('Location:../Pages/viewEmployees.php');      
+    header('Location:../Pages/viewEmployees.php');
     }

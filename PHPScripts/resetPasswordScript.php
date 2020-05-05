@@ -19,8 +19,7 @@ if(isset($_POST['btnSubmit']))
     }
     else
     {
-      $_SESSION['invalid']=1;
-      header('Location:../Pages/resetPassword.php');
+      header('Location:../Pages/resetPassword.php?s=invalid');
     }
 
 }

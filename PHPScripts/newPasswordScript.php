@@ -9,7 +9,12 @@ session_start();
     {
       die("cannot connect to DB server");
     }
-    $sql1="UPDATE `employees` SET `password` = '".$cpwd."' WHERE `employees`.`eno` = '".$_SESSION['reset']."'";
+    $sql1="UPDATE `employees` SET `password` = '".md5($cpwd)."' WHERE `employees`.`eno` = '".$_SESSION['reset']."'";
     mysqli_query($con1,$sql1);
-    header('Location:../Pages/newPassword.php');
+    if(!isset($_SESSION['eno']))
+    {
+      $_SESSION['eno']=$_SESSION['reset'];
+    }
+    unset($_SESSION['reset']);
+    header('Location:../Pages/userProfile.php');
   }

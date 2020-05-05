@@ -60,7 +60,7 @@ if(!isset($_SESSION['reset']))
 
        <section class="section-view">
              <h2>New Password</h2>
-       <form action="../PHPScripts/newPasswordScript.php" method="post">
+       <form action="../PHPScripts/newPasswordScript.php" method="post" enctype="application/x-www-form-urlencoded">
           <div class="row">
        <table>
          <div class="row">

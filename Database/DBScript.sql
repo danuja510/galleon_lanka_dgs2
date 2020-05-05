@@ -269,4 +269,5 @@ ALTER TABLE `materials` ADD `status` VARCHAR(10) NOT NULL AFTER `value`;
 #altered bom table
 ALTER TABLE `bom` ADD `state` VARCHAR(10) NOT NULL AFTER `qty`;
 
-
+#altered employee table
+ALTER TABLE `employees` CHANGE `password` `password` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
