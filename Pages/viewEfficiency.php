@@ -2,7 +2,10 @@
   session_start();
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
+  }elseif ($_SESSION['DES']!='Manager') {
+    header('Location:empHome.php');
   }
+  
   class efficiency{
 
     public $itemID;
@@ -244,7 +247,7 @@
       }
     }
 
-    
+
     //efficiency of stock transfers between production floor and finished goods
 
     $rowSQL= mysqli_query( $con,$sql5);
@@ -363,7 +366,7 @@
                         $totstoreef+=$effStore[$j]->eff;
                     }
                     $class= efClass($totstoreef/sizeof($effStore));
-                    echo "Efficiency of Store =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span>"; 
+                    echo "Efficiency of Store =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span>";
                 ?>
             </div>
             <div class="col span-1-of-2">
@@ -373,7 +376,7 @@
                     </thead>
                     <?php
                     for ($j=0; $j <sizeof($effStore) ; $j++) {
-                        
+
                         $class = efClass($effStore[$j]->eff);
                       echo "
                       <tr>
@@ -385,7 +388,7 @@
                         <td class=".$class."><strong>".$effStore[$j]->dif."</strong></td>
                         <td class=".$class."><strong>".round($effStore[$j]->eff,2)."</strong></td>
                     </tr>";
-                  } 
+                  }
                 ?>
                 </table>
             </div>
@@ -400,8 +403,8 @@
                         $totstoretransef+=$effStore_pfloor_transfers[$j]->eff;
                         }
                         $class= efClass($totstoretransef/sizeof($effStore_pfloor_transfers));
-                    
-                        echo "Efficiency of Store transfers =<span class=".$class."><strong>".round($totstoretransef/sizeof($effStore_pfloor_transfers)*100,2)."%</strong></span>"; 
+
+                        echo "Efficiency of Store transfers =<span class=".$class."><strong>".round($totstoretransef/sizeof($effStore_pfloor_transfers)*100,2)."%</strong></span>";
                     }else{
                         echo "No transfers between store and pfloor";
                     }
@@ -434,7 +437,7 @@
         </div>
         <div class="row">
             <div class="col span-1-of-2">
-                
+
                     <?php
                         for ($j=0; $j <sizeof($effpFloor) ; $j++) {
                             $effpFloor[$j]->dif=$effpFloor[$j]->in + $effpFloor[$j]->bf - $effpFloor[$j]->stock - $effpFloor[$j]->out;
@@ -444,7 +447,7 @@
                         $class= efClass($totstoreef/sizeof($effStore));
                         echo "Efficiency of Production Floor =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span>";
                     ?>
-                
+
             </div>
             <div class="col span-1-of-2">
                 <table>
@@ -454,7 +457,7 @@
                     <?php
                         for ($j=0; $j <sizeof($effpFloor) ; $j++) {
                             $class = efClass($effpFloor[$j]->eff);
-                            echo "<tr> 
+                            echo "<tr>
                                     <td class=".$class."><strong>".$effpFloor[$j]->itemID."</strong></td>
                                     <td class=".$class."><strong>".$effpFloor[$j]->in."</strong></td>
                                     <td class=".$class."><strong>".$effpFloor[$j]->bf."</strong></td>
@@ -478,8 +481,8 @@
                         $totpfloortransef+=$effpfloor_fGoods_transfers[$j]->eff;
                         }
                         $class= efClass($totpfloortransef/sizeof($effpfloor_fGoods_transfers));
-                    
-                        echo "Efficiency of Production Floor transfers =<span class=".$class."><strong>".round($totpfloortransef/sizeof($effpfloor_fGoods_transfers)*100,2)."%</strong></span>"; 
+
+                        echo "Efficiency of Production Floor transfers =<span class=".$class."><strong>".round($totpfloortransef/sizeof($effpfloor_fGoods_transfers)*100,2)."%</strong></span>";
                     }else{
                         echo "No transfers between pfloor and fgoods";
                     }
@@ -519,7 +522,7 @@
                         $totfgoodsef+=$efffGoods[$j]->eff;
                     }
                     $class= efClass($totfgoodsef/sizeof($efffGoods));
-                    echo "Efficiency of Finished Goods =<span class=".$class."><strong>".round($totfgoodsef/sizeof($efffGoods)*100,2)."%</span></strong>"; 
+                    echo "Efficiency of Finished Goods =<span class=".$class."><strong>".round($totfgoodsef/sizeof($efffGoods)*100,2)."%</span></strong>";
                 ?>
             </div>
             <div class="col span-1-of-2">
@@ -529,7 +532,7 @@
                     </thead>
                     <?php
                     for ($j=0; $j <sizeof($efffGoods) ; $j++) {
-                        
+
                         $class = efClass($efffGoods[$j]->eff);
                       echo "
                       <tr>
@@ -541,7 +544,7 @@
                         <td class=".$class."><strong>".$efffGoods[$j]->dif."</strong></td>
                         <td class=".$class."><strong>".round($efffGoods[$j]->eff,2)."</strong></td>
                     </tr>";
-                  } 
+                  }
                 ?>
                 </table>
             </div>

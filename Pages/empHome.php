@@ -84,14 +84,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col span-1-of-4">
-                <a href="viewEmployees.php">
-                    <div class="select-option">
-                        <i class="ion-ios-person-outline icon-select"></i>
-                        <h4>Manage Employees</h4>
-                    </div>
-                </a>
-            </div>
+          <?php
+            if ($_SESSION['DES']=='Manager') {
+              echo "
+              <div class='col span-1-of-4'>
+                  <a href='viewEmployees.php'>
+                      <div class='select-option'>
+                          <i class='ion-ios-person-outline icon-select'></i>
+                          <h4>Manage Employees</h4>
+                      </div>
+                  </a>
+              </div>";
+            }
+          ?>
             <div class="col span-1-of-4">
                 <a href="viewSuppliers.php">
                     <div class="select-option">
@@ -126,14 +131,19 @@
                     </div>
                 </a>
             </div>
-            <div class="col span-1-of-4">
-                <a href="manageBOM.php">
-                    <div class="select-option">
-                        <i class="ion-ios-color-filter-outline icon-select"></i>
-                        <h4>Manage BOMs</h4>
-                    </div>
-                </a>
-            </div>
+            <?php
+              if ($_SESSION['DES']=='Manager'){
+                echo "
+                <div class='col span-1-of-4'>
+                    <a href='manageBOM.php'>
+                        <div class='select-option'>
+                            <i class='ion-ios-color-filter-outline icon-select'></i>
+                            <h4>Manage BOMs</h4>
+                        </div>
+                    </a>
+                </div>";
+              }
+            ?>
             <div class="col span-1-of-4">
                 <a href="viewStocks.php">
                     <div class="select-option">
@@ -142,14 +152,19 @@
                     </div>
                 </a>
             </div>
-            <div class="col span-1-of-4">
-                <a href="selectEf.php">
-                    <div class="select-option">
-                        <i class="ion-arrow-graph-up-right icon-select"></i>
-                        <h4>View State</h4>
-                    </div>
-                </a>
-            </div>
+            <?php
+              if ($_SESSION['DES']=='Manager'){
+                echo "
+                <div class='col span-1-of-4'>
+                    <a href='selectEf.php'>
+                        <div class='select-option'>
+                            <i class='ion-arrow-graph-up-right icon-select'></i>
+                            <h4>View State</h4>
+                        </div>
+                    </a>
+                </div>";
+              }
+            ?>
         </div>
         <div class="row">
             <div class="col span-1-of-4">

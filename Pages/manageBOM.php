@@ -2,9 +2,11 @@
   session_start();
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
+  }elseif ($_SESSION['DES']!='Manager') {
+    header('Location:empHome.php');
   }
-    if(isset($_SESSION['bom'])){
-    unset($_SESSION['bom']);
+  if(isset($_SESSION['bom'])){
+  unset($_SESSION['bom']);
   }
 ?>
 <!DOCTYPE html>
