@@ -16,5 +16,21 @@ session_start();
       $_SESSION['eno']=$_SESSION['reset'];
     }
     unset($_SESSION['reset']);
-    header('Location:../Pages/userProfile.php');
+    $previous="";
+    if (isset($_GET['f'])) {
+      $previous=$_GET['f'];
+    }
+    switch ($previous) {
+      case 'memp':
+        header('Location:../Pages/manageEmployees.php');
+        break;
+
+      case 'up':
+        header('Location:../Pages/userProfile.php');
+        break;
+
+      default:
+        header('Location:../Pages/empHome.php');
+        break;
+    }
   }

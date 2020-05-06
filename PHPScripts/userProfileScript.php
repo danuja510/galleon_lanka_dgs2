@@ -14,3 +14,10 @@ if(isset($_POST["btnUpdate"])){
     mysqli_query($con,$sql1);
     header('Location:../Pages/userProfile.php');
     }
+
+if(isset($_POST["btnNext"])){
+    $_SESSION['reset'] = $_SESSION['eno'];
+    header('Location:../Pages/newPassword.php?f=up');
+    }
+
+mysqli_close($con);

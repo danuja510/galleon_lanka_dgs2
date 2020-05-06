@@ -60,7 +60,13 @@ if(!isset($_SESSION['reset']))
 
        <section class="section-view">
              <h2>New Password</h2>
-       <form action="../PHPScripts/newPasswordScript.php" method="post" enctype="application/x-www-form-urlencoded">
+       <?php
+       $previous="";
+       if (isset($_GET['f'])) {
+         $previous="?f=".$_GET['f'];
+       }
+        echo "<form action='../PHPScripts/newPasswordScript.php".$previous."' method='post' enctype='application/x-www-form-urlencoded'>";
+        ?>
           <div class="row">
        <table>
          <div class="row">
