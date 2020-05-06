@@ -21,7 +21,7 @@ if(isset($_POST["btnDelete"])){
     mysqli_query($con,$sql3);
     header('Location:../Pages/manageEmployees.php');
     }
- 
+
 if(isset($_POST["btnConfirm"])){
     $sql4="UPDATE `employees` SET `Designation` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
     $sql5="UPDATE `employees` SET `Dept` = 'Manager' WHERE `eno` = '".$_SESSION['eno2']."'";
@@ -37,3 +37,10 @@ if(isset($_POST["btnDemote"])){
     mysqli_query($con,$sql5);
     header('Location:../Pages/manageEmployees.php');
     }
+
+if(isset($_POST["btnNext"])){
+    $_SESSION['reset'] = $_SESSION['eno2'];
+    header('Location:../Pages/newPassword.php?f=memp');
+    }
+
+  mysqli_close($con);

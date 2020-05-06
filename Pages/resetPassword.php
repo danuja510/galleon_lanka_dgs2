@@ -68,10 +68,10 @@ session_start();
         <div class="col span-1-of-2"></div>
         <div class="col span-1-of-2">
           <?php
-            if(isset($_SESSION['invalid'])){
+            if(isset($_GET['s'])){
               echo "&nbsp";
               echo "Invalid Crediantials";
-              unset($_SESSION['invalid']);
+              unset($_GET['s']);
             }
           ?>
         </div>

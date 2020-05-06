@@ -19,7 +19,21 @@
     </header>
     <section class="section-signIn">
       <h2>Sign In</h2>
-      <form action="signIn.php" method="post">
+      <?php
+        if (isset($_GET['s'])) {
+          echo "
+          <div class='row'>
+            <div class='col span-1-of-3'>
+            </div>
+            <div class='col span-1-of-3'>
+              <p class='fail'>Invalid Credetials</p>
+            </div>
+            <div class='col span-1-of-3'>
+            </div>
+          </div>";
+        }
+      ?>
+      <form action="../PHPScripts/signInScript.php" method="post" enctype="application/x-www-form-urlencoded">
         <div class="row">
           <div class="col span-1-of-2">
             <label for="txtENO">Employee No</label>
@@ -49,7 +63,7 @@
             <label>&nbsp;</label>
           </div>
           <div class="col span-1-of-2">
-            <p>If Forgot Password <a href="#">Click here</a><br> If Forgot Employee No. <a href="#">Click here</a></p>
+            <p>If Forgot Password <a href="resetPassword.php">Click here</a><br> If Forgot Employee No. <a href="#">Click here</a></p>
           </div>
         </div>
       </form>
@@ -62,37 +76,6 @@
                 <p>Designed and Developed by DGS2</p>
         </div>
     </footer>
-    <?php
-    	if(isset($_POST['btnsubmit'])){
-    		$eno=$_POST['txtENO'];
-    		$pass=$_POST['txtPass'];
-    		$sql="SELECT * FROM `employees` WHERE `eno` = ".$eno." AND `password` LIKE '".$pass."';";
-    		$con = mysqli_connect("localhost","root","","galleon_lanka");
-    			if(!$con)
-    			{
-    				die("Error while connecting to database");
-    			}
-    			$result= mysqli_query($con,$sql);
-
-      	if(mysqli_num_rows($result)>0){
-          $row=mysqli_fetch_array($result);
-
-          if ($row[ 'Designation']=='Manager') {
-            $_SESSION['DES']='Manager';
-            $_SESSION['DEPT']='Manager';
-          }else {
-            if ($row[ 'Designation']=='Employee') {
-              $_SESSION['DES']='Employee';
-              $_SESSION['DEPT']=$row[ 'Dept'];
-            }
-          }
-      		$_SESSION['eno']=$eno;
-      		header('Location:empHome.php');
-    		}else{
-    			echo "invalid credentials";
-        }
-    	}
-    ?>
   </body>
 </html>
 <!--dan-->

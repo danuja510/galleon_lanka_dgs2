@@ -29,7 +29,7 @@
           event.preventDefault();
         }
         else{
-          
+
         }
       }
     </script>
@@ -54,7 +54,7 @@
             </div>
         </div>
     </header>
-    
+
     <?php
       $con = mysqli_connect("localhost","root","","galleon_lanka");
         if(!$con)
@@ -101,7 +101,7 @@
                   echo"<input type='text' name='txtDes' id='txtDes' value=".$row['Designation']." required readonly>";
                 }else{
                   echo"<input type='text' name='txtDes' id='txtDes' value=".$row['Designation']." required readonly style='width:260px; margin-right:5px;'>";
-                }  
+                }
                   $desg = $row['Designation'];
                   if(($desg=='Employee') && $st=='active'){
                     echo"<input type = 'submit' name='btnConfirm' id='btnConfirm' value='Promote'>";
@@ -168,7 +168,7 @@
 
               <div class='row'>
               <div class='col span-1-of-2'></div>
-              <div class='col span-1-of-2'><a href='#'><b>Update Password</b></a></div>
+              <div class='col span-1-of-2'><input type='submit' id='btnNext' name='btnNext' value='Update Password'></div>
               </div>
 
               <div class='row'>
@@ -177,7 +177,7 @@
                   if($st=='active'){
                     echo"<input type='submit' name='btnUpdate' id='btnUpdate' value='Update' onclick='validateUname()'>";
                   }
-                
+
                 $con3=mysqli_connect("localhost","root","","galleon_lanka");
                 if(!$con3){
                   die("Cannot connect to DB server");

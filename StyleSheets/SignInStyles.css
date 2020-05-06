@@ -1,6 +1,6 @@
 .section-signIn {
     margin: 30px 25% 80px 25%;
-    
+
 }
 
 .section-signIn h2{
@@ -55,6 +55,13 @@ a:visited{
 a:hover,
 a:active{
     color: #555;
+}
+
+.fail{
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 400;
+    color: red;
 }
 
 /*--dan--*/

@@ -27,7 +27,7 @@
             event.preventDefault();
           }
           else{
-            
+
           }
         }
         </script>
@@ -62,7 +62,7 @@
         $rowSQL= mysqli_query( $con,$sql);
         $row = mysqli_fetch_assoc( $rowSQL);
         mysqli_close($con);
-         
+
         echo"
             <section class='section-manage'>
 
@@ -77,7 +77,7 @@
                     <input type='text' name='txtEno' id='txtEno' value=".$row['eno']." required readonly>
                   </div>
                 </div>
-  
+
                 <div class='row'>
                   <div class='col span-1-of-2'>
                     <label for='txtName'>Name</label>
@@ -110,17 +110,17 @@
                       <label for='txtPwd'>Password</label>
                     </div>
                     <div class='col span-1-of-2'>
-                      <a href='#'><b>Update Password</b></a>
+                      <input type='submit' id='btnNext' name='btnNext' value='Update Password'>
                     </div>
                 </div>
-                
+
                 <div class='row'>
                   <div class='col span-1-of-2'>&nbsp;</div>
-                  <div class='col span-1-of-2'>";
-                    echo"<input type='submit' name='btnUpdate' id='btnUpdate' value='Update' onclick='validateUname()'>
+                  <div class='col span-1-of-2'>
+                    <input type='submit' name='btnUpdate' id='btnUpdate' value='Update' onclick='validateUname()'>
                   </div>
                 </div>
-                
+
                 ";
             ?>
             </div>
