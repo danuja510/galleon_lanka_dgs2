@@ -2,7 +2,10 @@
   session_start();
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
+  }elseif ($_SESSION['DES']!='Manager') {
+    header('Location:empHome.php');
   }
+  
   $sql="select extract(year from date) as yr, extract(month from date) as mon from stocks group by extract(year from date), extract(month from date) order by yr, mon;";
   $con=mysqli_connect("localhost","root","","galleon_lanka");
   if(!$con){

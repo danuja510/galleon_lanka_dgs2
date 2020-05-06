@@ -2,6 +2,8 @@
   session_start();
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
+  }elseif ($_SESSION['DES']!='Manager') {
+    header('Location:empHome.php');
   }elseif(!isset($_SESSION['BOM'])){
     header('Location:manageBOM.php');
   }
@@ -79,7 +81,7 @@
                   <div class="col span-1-of-2">
                  <?php
                   echo "BOM ID";
-                  ?> 
+                  ?>
               </div>
               <div class="col span-1-of-2">
                   <?php
@@ -91,7 +93,7 @@
                   <div class="col span-1-of-2">
                  <?php
                   echo "State";
-                  ?> 
+                  ?>
               </div>
               <div class="col span-1-of-2">
                   <?php
@@ -99,9 +101,9 @@
                   ?>
               </div>
               </div>
-              
-            <?php  
-              
+
+            <?php
+
     if ($active) {
         echo "<form action='../PHPScripts/viewBOMScript.php' method='post'>";
     }
@@ -118,7 +120,7 @@
                  <div class="col span-1-of-3 th"><h3>Qty.</h3></div>
                  <div class="col span-1-of-3 th">&nbsp;</div>
               </div>
-            <?php    
+            <?php
     $sql="SELECT * FROM `bom` WHERE `bom_id`=".$_SESSION['BOM'].";";
     $rowSQL= mysqli_query( $con,$sql);
     mysqli_close($con);
@@ -148,7 +150,7 @@
               echo "<input type='submit' value='Update' name='btnUpdate'>";
       echo "<input type='submit' id='btnDelete' value='Delete' name='btnDelete'>";
               ?>
-                    </div> 
+                    </div>
                 </div>
               </form>
         </div>
