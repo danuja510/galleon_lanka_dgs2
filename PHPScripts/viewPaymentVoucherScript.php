@@ -1,26 +1,24 @@
 <?php
 session_start();
-    $payment_voucher=$_SESSION['PVoucher'];
+
     $con = mysqli_connect("localhost","root","","galleon_lanka");
     if(!$con)
     {
       die("Error while connecting to database");
     }
-    $sql="SELECT * FROM `payment_voucher` GROUP BY `pv_no`;";
+    $sql="SELECT * FROM `payment_voucher`;";
     $rowSQL= mysqli_query( $con,$sql);
     mysqli_close($con);
-
-    if (isset($_POST['btnConfirm'])) {
+    while($row=mysqli_fetch_assoc( $rowSQL ))
+    {
+    if (isset($_POST['btnView'.$row['pv_no']])) {
       $con = mysqli_connect("localhost","root","","galleon_lanka");
       if(!$con)
       {
         die("Error while connecting to database");
       }
-      $sql="UPDATE `payment_voucher` SET `approvedBy` = '".$_SESSION['eno']."' WHERE `payment_voucher`.`pv_no` = ".$pv_no.";";
-      mysqli_query( $con,$sql);
+      $sql="SELECT * FROM `payment_voucher`;";
+      $_SESSION['PV']=$row['pv_no'];
+      header('Location:../Pages/managePaymentVoucher.php');
     }
-
-    if (isset($_POST['btnPrint']))
-    {
-      header('Location:../Reports/paymentVoucherReport.php');
-    }
+  }

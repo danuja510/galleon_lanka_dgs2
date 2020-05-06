@@ -37,7 +37,15 @@
     </header>
     <section class ="section-manage">
       <div class ="row">
-        <div class ="col span-2-of-2">
+        <div class="col span-1-of-6">
+          <a href="addSupplier.php">
+            <div class ="new">
+              <i class="ion-ios-compose-outline"></i>
+              New supplier
+            </div>
+          </a>
+        </div>
+        <div class ="col span-5-of-6">
           <form action="../PHPScripts/ViewSuppliersScript.php" method="post">
             <table width="80%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6EAF8">
               <thead>

@@ -46,7 +46,7 @@
     </header>
     <section class ="section-manage">
       <div class ="row">
-        <div class = "col span-1-of-2">
+        <div class = "col span-2-of-2">
           <form action="../PHPScripts/updateCustomerPageScript.php" method="post">
             <?php
               $cno=$_SESSION['customer'];

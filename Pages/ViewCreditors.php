@@ -68,7 +68,6 @@
         <div class="row"><p>Designed and Developed by DGS2</p></div>
   </footer>
 </body>
-
 </html>
 
 <!--jini-->

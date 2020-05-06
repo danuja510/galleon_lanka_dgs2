@@ -5,7 +5,7 @@
   }
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
@@ -36,12 +36,20 @@
             </div>
         </div>
     </header>
-      <section class="section-manage">
+      <section class="section-view">
       <div class="row">
-      <div class="col span-2-of-2">
+      <div class="col span-1-of-10">
+        <a href="createPaymentVoucher.php">
+          <div class="new">
+            <i class="ion-ios-compose-outline"></i>
+            New Payment Voucher
+          </div>
+        </a>
+      </div>
+      <div class="col span-9-of-10">
         <form action="../PHPScripts/viewPaymentVoucherScript.php" method="post">
         <table>
-          <thead><th>Payment Voucher No.</th><th>GRN no.</th><th>Supplier ID</th><th>Date</th><th>Amount</th><th>Prepared By</th><th>Remarks</th></th>Status</th><th class="bt">&nbsp;</th> </thead>
+          <thead><th>Payment Voucher No.</th><th>GRN no.</th><th>Supplier ID</th><th>Date</th><th>Amount</th><th>Prepared By</th><th>Remarks</th><th>Status</th><th class="bt">&nbsp;</th> </thead>
 
       <?php
 
@@ -50,41 +58,37 @@
       	{
       		die("Error while connecting to database");
       	}
-      	$sql="SELECT * FROM `payment_voucher` GROUP BY `pv_no`;";
+      	$sql="SELECT * FROM `payment_voucher` ;";
       	$rowSQL= mysqli_query( $con,$sql);
       	mysqli_close($con);
 
         while($row=mysqli_fetch_assoc( $rowSQL))
         {
-        if($row['approvedBy']!=null){
+        if($row['approvedBy']!=null)
+            {
             $approve="Approved";
             }
-            else{
+            else
+            {
             $approve="Pending";
             }
 
-            echo "<tr><td>".$row['pv_no']."</td><td>".$row['grn_no']."</td><td>".$row['sid']."</td><td>".$row['date']."</td><td>".$row['amount']."</td><td>".$row['prepared_by_(eno)']."</td><td>".$row['remarks']."</td><td>".$approve."</td><td>";
+            echo "<tr><td>".$row['pv_no']."</td><td>".$row['grn_no']."</td><td>".$row['sid']."</td><td>".$row['date']."</td><td>".$row['amount']."</td><td>".$row['prepared_by_(eno)']."</td><td>".$row['remarks']."</td><td>".$approve."</td>";
 
-
-        if($row['approvedBy']!=null){
-            echo "<input type='submit' value='Print' name='btnPrint'>";
+            echo "<td>" ."<input type='submit' value='View' id='btnView".$row['pv_no'] ."' name='btnView".$row['pv_no'] ."' > "."</td></tr>";
         }
-        else{
-            echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
-        }
-
-        echo "</td></tr>";
-      }
 
 
         ?>
-      </div>
-      </div>
+      </table>
       </form>
+    </div>
+    </div>
     </section>
     <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
     </footer>
   </body>
+  </html>
 <!--jini-->

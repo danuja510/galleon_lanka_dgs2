@@ -37,7 +37,7 @@
     </header>
     <section class = "section-manage">
       <div class = "row">
-        <div class ="col span-1-of-2">
+        <div class ="col span-1-of-6">
           <a href="addCustomer.php">
             <div class="new">
               <i class="ion-ios-compose-outline"></i>
@@ -45,10 +45,10 @@
             </div>
           </a>
         </div>
-        <div class="col span-6-of-7">
+        <div class="col span-5-of-6">
           <form action="../PHPScripts/ViewCustomerScript.php" method="post">
             <table>
-              <thread><th>Customer Number</th><th> Name </th><th> Address </th><th> Telephone No. </th><th> Customer Type </th><th class="bt">&nbsp;</th></thead>
+              <thead><th>Customer Number</th><th> Name </th><th> Address </th><th> Telephone No. </th><th> Customer Type </th><th class="bt">&nbsp;</th></thead>
               <?php
               $con = mysqli_connect("localhost","root","","galleon_lanka");
               if(!$con)
@@ -67,7 +67,7 @@
                 {
                 echo "<td>" ." <input type='submit' id='btnUpdate".$row['cno'] ."'  name='btnUpdate".$row['cno'] ."' value='Update Customer'> ";
 
-                echo "<td>" ."<input type='submit' name='btndelete".$row['cno'] ."' id='btndelete".$row['cno'] ."' value= 'Delete Customer' ". "</td>";
+                echo "<td>" ."<input type='submit' name='btndelete".$row['cno'] ."' id='btndelete".$row['cno'] ."' value= 'Delete Customer'> ". "</td>";
                 }
                 echo "</tr>";
               }
