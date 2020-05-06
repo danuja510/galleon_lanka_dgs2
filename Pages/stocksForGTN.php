@@ -2,7 +2,7 @@
  session_start();
  if(!isset($_SESSION['eno'])){
    header('Location:signIn.php');
- }else if (!isset($_SESSION['dept'])) {
+ }elseif (!isset($_SESSION['dept'])) {
    header('Location:createGTN.php');
  }else if (!isset($_SESSION['gtntype'])) {
    header('Location:createGTN.php');

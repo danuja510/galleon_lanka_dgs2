@@ -82,13 +82,16 @@ if(isset($_GET['sort'])){
                 </select>
                 <input type='submit' name='btnSort' value='Sort'>
                 <br>&nbsp;<br>
-                <a href='inputFinishedGoods.php'><b class='ifg'>Input Finished Goods</b></a>
+
             ";
+                }
+                if ($_SESSION['DEPT']== 'Manager' || $_SESSION['DEPT']== 'pFloor') {
+                  echo "<a href='inputFinishedGoods.php'><b class='ifg'>Input Finished Goods</b></a>";
                 }
                  ?>
                     </div>
-        </div> 
-            <div class="col span-6-of-7">    
+        </div>
+            <div class="col span-6-of-7">
         <table>
           <thead>
             <th>Department</th>
@@ -110,7 +113,7 @@ if(isset($_GET['sort'])){
               if(isset($_GET['sort']) && $_GET['sort']!='all'){
                   $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$_GET['sort']."' GROUP BY dept, item_no, type;";
               }
-          }          
+          }
           $rowSQL= mysqli_query($con,$sql);
           while($row=mysqli_fetch_assoc($rowSQL))
           {
@@ -127,7 +130,7 @@ if(isset($_GET['sort'])){
 
         </table>
         </div>
-    </form>  
+    </form>
         </div>
       </section>
     <footer>

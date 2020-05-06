@@ -2,6 +2,8 @@
   session_start();
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
+  }elseif ($_SESSION['DEPT']=='Manager' || $_SESSION['DEPT']=='store'){
+    header('Location:empHome.php');
   }else if (!isset($_SESSION['sid'])) {
     header('Location:createPurchaseOrders.php');
   }else if (!isset($_SESSION['GRN'])) {
@@ -141,7 +143,7 @@
             <td class="bt"><input type="submit" class="btn-confirm" name="btnConfirm" value="Confirm" id="btnConfirm"></td>
           </tr>
         </form>
-      </table>  
+      </table>
       </div>
       </div>
     </section>

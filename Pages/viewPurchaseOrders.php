@@ -2,6 +2,8 @@
   session_start();
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
+  }elseif ($_SESSION['DEPT']=='Manager' || $_SESSION['DEPT']=='store'){
+    header('Location:empHome.php');
   }
 ?>
 <!DOCTYPE html>
@@ -35,7 +37,7 @@
             </div>
             </div>
     </header>
-      
+
     <section class="section-manage">
     <div class="row">
 
@@ -102,7 +104,7 @@
     </form>
       </div>
     </div>
-      
+
     </section>
     <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
