@@ -2,7 +2,9 @@
  session_start();
  if(!isset($_SESSION['eno'])){
    header('Location:signIn.php');
- }
+ }elseif ($_SESSION['DES']!='Manager') {
+    header('Location:GTNType.php');
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -66,7 +68,7 @@
                     <select name="txtDept" id="txtDept">
                       <option value='__'>___</option>
                       <option value='store'>Store</option>
-                      <option value='pfloor'>Production Floor</option>
+                      <option value='pFloor'>Production Floor</option>
                       <option value='fGoods'>Finished Goods</option>
                     </select>
                   </div>

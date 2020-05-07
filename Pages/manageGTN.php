@@ -41,7 +41,7 @@
       <section class="section-manage">
       <div class="row">
         <div class="col span-1-of-7">
-          <a href="GTNType.php">
+          <a href="createGTN.php">
             <div class="new">
               <i class="ion-ios-compose-outline"></i>
               New GTN
