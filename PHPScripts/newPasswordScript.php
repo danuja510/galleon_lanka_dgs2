@@ -30,7 +30,7 @@ session_start();
         break;
 
       default:
-        header('Location:../Pages/empHome.php');
+        header('Location:../Pages/signIn.php');
         break;
     }
   }
