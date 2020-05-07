@@ -38,16 +38,17 @@
         </div>
         <div class="nav">
             <div class="row">
-                <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                <!--<div class="btn-navi"><i class="ion-navicon-round"></i></div>-->
                 <a href="empHome.php">
                     <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                </a>
+                <a href="ViewCustomer.php">
+                    <div class="btn-back"><i class="ion-ios-arrow-back"></i><p>Back</p></div>
                 </a>
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                 </a>
-                <a href="#">
-                    <div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div>
-                </a>
+                <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
             </div>
         </div>
     </header>
