@@ -5,6 +5,9 @@
   }elseif ($_SESSION['DEPT']=='store' || $_SESSION['DEPT']=='pFloor'){
     header('Location:empHome.php');
   }
+  unset($_SESSION['invoice']);
+  unset($_SESSION['Ivalue']);
+  unset($_SESSION['Icno']);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

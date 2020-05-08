@@ -68,3 +68,4 @@
       unset($_SESSION['Icno']);
       header('Location:../Pages/manageInvoices.php');
     }
+/*dan*/
