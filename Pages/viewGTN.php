@@ -3,7 +3,7 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }
- if(!isset($_SESSION['gtn'])){
+  if(!isset($_SESSION['gtn'])){
    header('Location:manageGTN.php');
  }
 ?>
@@ -89,15 +89,20 @@
             <div class='row'>
                 <div class='col span-1-of-2'>&nbsp;</div>
                 <div class='col span-1-of-2'>
-                <?php if($row['approved_by']!=null){
-                  echo "<input type='submit' value='Print' name='btnPrint'>";
-                }
-                    else{
-                        echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
+                  <?php
+                    if($row['approved_by']!=null){
+                      echo "<input type='submit' value='Print' name='btnPrint'>";
+                      if ($_SESSION['DES']=='Manager') {
+                        echo "<input type='submit' value='Delete' name='btnDelete2' id='btnDelete2'>";
+                      }
                     }
-                ?>
-
-                    <input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
+                    else{
+                      if ($_SESSION['DES']=='Manager') {
+                        echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
+                      }
+                      echo "<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
+                    }
+                  ?>
                 </div>
             </div>
         </div>

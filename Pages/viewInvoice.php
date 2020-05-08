@@ -34,7 +34,7 @@
                 <a href="empHome.php">
                     <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
                 </a>
-                <a href="empHome.php">
+                <a href="manageInvoices.php">
                     <div class="btn-back"><i class="ion-ios-arrow-back"></i><p>Back</p></div>
                 </a>
                 <a href="logout.php">
@@ -90,13 +90,20 @@
             <div class='row'>
                 <div class='col span-1-of-2'>&nbsp;</div>
                 <div class='col span-1-of-2'>
-        <?php
-        if($row['approved_by']!=null){
-            echo "<input type='submit' value='Print' name='btnPrint'>";
-        }else{
-            echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
-         }?>
-     <input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
+                  <?php
+                      if($row['approved_by']!=null){
+                        echo "<input type='submit' value='Print' name='btnPrint'>";
+                        if ($_SESSION['DES']=='Manager') {
+                          echo "<input type='submit' value='Delete' name='btnDelete2' id='btnDelete2'>";
+                        }
+                      }
+                      else{
+                        if ($_SESSION['DES']=='Manager') {
+                          echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
+                        }
+                        echo "<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
+                      }
+                  ?>
                 </div>
             </div>
         </div>

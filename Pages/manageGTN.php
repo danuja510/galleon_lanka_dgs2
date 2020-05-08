@@ -3,6 +3,9 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }
+  unset($_SESSION['gtn']);
+  unset($_SESSION['gdept']);
+  unset($_SESSION['gtype']);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
