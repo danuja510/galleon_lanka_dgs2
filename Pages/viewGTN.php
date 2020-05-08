@@ -6,6 +6,10 @@
   if(!isset($_SESSION['gtn'])){
    header('Location:manageGTN.php');
  }
+
+  if (isset($_GET['nes'])) {
+    $nes=explode(',',$_GET['nes']);
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -72,15 +76,30 @@
                       echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Pending</div></div>";
 
                     }
+                    if (isset($_GET['nes'])) {
+                      echo "<div class='row'><div class='col span-2-of-2'><p class='nes2'><strong>Can't Be Approved! Not Enough Stocks</strong></p></div></div>";
+                    }
                   ?>
                 </div>
             <div class="col span-1-of-2">
-                <?php echo "<table><thead><th>Item ID</th><th>Item Type</th><th>Qty.</th></thead>";
+                <?php
+                  $nesc= "";
+                  echo "<table><thead><th>Item ID</th><th>Item Type</th><th>Qty.</th></thead>";
                     $sql="SELECT * FROM `gtn` WHERE `gtn_no`=".$gtn.";";
                     $rowSQL= mysqli_query( $con,$sql);
                     mysqli_close($con);
                     while($row2=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row2['item_no']."</td><td>".$row2['item_type']."</td><td>".$row2['qty']."</td></tr>";
+                      if (isset($_GET['nes'])) {
+                        for ($i=0; $i < sizeof($nes)-1; $i++) {
+                          $nes2=explode('-', $nes[$i]);
+                          $nesc= "";
+                          if ($nes2[0]==$row2['item_no'] && $nes2[1]==$row2['item_type']) {
+                            $nesc=" class='nes'";
+                            break;
+                          }
+                        }
+                      }
+                      echo "<tr><td".$nesc.">".$row2['item_no']."</td><td".$nesc.">".$row2['item_type']."</td><td".$nesc.">".$row2['qty']."</td></tr>";
                     }
                     echo "</table>"; ?>
                 </div>

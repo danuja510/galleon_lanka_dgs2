@@ -14,7 +14,7 @@
         $rowSQL= mysqli_query( $con,$sql);
         $row= mysqli_fetch_array($rowSQL);
         if ($row3['qty'] > $row['Qty']) {
-          $nes=$nes+$row3['item_no']."-".$row['type'].",";
+          $nes=$nes.$row3['item_no']."-".$row['type'].",";
         }
       }
       mysqli_close($con);
