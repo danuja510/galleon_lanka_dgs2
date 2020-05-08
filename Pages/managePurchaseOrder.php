@@ -3,8 +3,11 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }
- if(!isset($_SESSION['pOrder'])){
-   header('Location:viewPurchaseOrders.php');
+  if ($_SESSION['DEPT']!='Manager' && $_SESSION['DEPT']!='store') {
+    header('Location:empHome.php');
+  }
+  if(!isset($_SESSION['pOrder'])){
+    header('Location:viewPurchaseOrders.php');
  }
 ?>
 <!DOCTYPE html>

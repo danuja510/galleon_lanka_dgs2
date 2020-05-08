@@ -3,7 +3,10 @@
     if(!isset($_SESSION['eno'])){
       header('Location:signIn.php');
     }
-    else if (!isset($_SESSION['fpid'])) {
+    if ($_SESSION['DEPT']=='store'){
+      header('Location:empHome.php');
+    }
+    if (!isset($_SESSION['fpid'])) {
     header('Location:viewFinishedProducts.php');
     }
 ?>
@@ -31,9 +34,12 @@
         </div>
             <div class="nav">
             <div class="row">
-                <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                <!-- <div class="btn-navi"><i class="ion-navicon-round"></i></div> -->
                 <a href="empHome.php">
                     <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                </a>
+                <a href="viewFinishedProducts.php">
+                    <div class="btn-back"><i class="ion-ios-arrow-back"></i><p>Back</p></div>
                 </a>
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>

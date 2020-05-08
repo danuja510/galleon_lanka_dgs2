@@ -2,7 +2,8 @@
   session_start();
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
-  }elseif ($_SESSION['DEPT']=='pFloor' || $_SESSION['DEPT']=='fGoods'){
+  }
+  if ($_SESSION['DEPT']!='Manager' && $_SESSION['DEPT']!='store') {
     header('Location:empHome.php');
   }
 ?>
