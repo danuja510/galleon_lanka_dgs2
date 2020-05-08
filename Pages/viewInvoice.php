@@ -8,6 +8,10 @@
  if(!isset($_SESSION['invoice'])){
    header('Location:manageInvoices.php');
  }
+
+ if (isset($_GET['nes'])) {
+   $nes=explode(',',$_GET['nes']);
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -71,16 +75,30 @@
         }else{
           echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Pending</div></div>";
         }
+        if (isset($_GET['nes'])) {
+          echo "<div class='row'><div class='col span-2-of-2'><p class='nes2'><strong>Can't Be Approved! Not Enough Stocks</strong></p></div></div>";
+        }
         ?>
-             </div>
+        </div>
         <div class="col span-1-of-2">
         <?php
+        $nesc= "";
         echo "<table><thead><th>Product ID</th><th>Qty.</th><th>value</th></thead>";
             $sql="SELECT * FROM `invoice` WHERE `invoice_no`=".$invoice.";";
             $rowSQL= mysqli_query( $con,$sql);
             mysqli_close($con);
             while($row2=mysqli_fetch_assoc( $rowSQL )){
-              echo "<tr><td>".$row2['item_no']."</td><td>".$row2['qty']."</td><td>".$row2['value']."</td></tr>";
+              if (isset($_GET['nes'])) {
+                for ($i=0; $i < sizeof($nes)-1; $i++) {
+                  $nes2=explode('-', $nes[$i]);
+                  $nesc= "";
+                  if ($nes2[0]==$row2['item_no']) {
+                    $nesc=" class='nes'";
+                    break;
+                  }
+                }
+              }
+              echo "<tr><td".$nesc.">".$row2['item_no']."</td><td".$nesc.">".$row2['qty']."</td><td".$nesc.">".$row2['value']."</td></tr>";
             }
           echo "</table>";
       ?>
