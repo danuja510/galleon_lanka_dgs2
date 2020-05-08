@@ -3,7 +3,7 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }
-  if ($_SESSION['DEPT']!='Manager' || $_SESSION['DEPT']!='store') {
+  if ($_SESSION['DEPT']!='Manager' && $_SESSION['DEPT']!='store') {
     header('Location:empHome.php');
   }
   if(!isset($_SESSION['pOrder'])){
