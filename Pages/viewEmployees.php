@@ -3,6 +3,9 @@
     if(!isset($_SESSION['eno'])){
       header('Location:signIn.php');
     }
+    if ($_SESSION['DES']!='Manager') {
+      header('Location:empHome.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

@@ -3,7 +3,10 @@
     if(!isset($_SESSION['eno'])){
       header('Location:signIn.php');
     }
-    else if (!isset($_SESSION['eno2'])) {
+    if ($_SESSION['DES']!='Manager') {
+      header('Location:empHome.php');
+    }
+    if (!isset($_SESSION['eno2'])) {
     header('Location:viewEmployees.php');
     }
 ?>
