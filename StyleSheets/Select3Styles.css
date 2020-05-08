@@ -3,12 +3,12 @@
   border: 1px solid #2ecc71;
 }
 
-#btnDelete, #btnDemote{
+#btnDelete, #btnDemote, #btnDelete2{
     background-color: #e74c3c;
     border: 1px solid #e74c3c;
 }
 
-input[type=submit],#btnConfirm, #btnNext,#btnDelete,#btnDemote{
+input[type=submit],#btnConfirm, #btnNext,#btnDelete,#btnDemote, #btnDelete2{
     padding: 10px 35px;
     margin-top: 5px;
 }
@@ -20,6 +20,8 @@ input[type=submit],#btnConfirm, #btnNext,#btnDelete,#btnDemote{
 
 #btnDelete:hover,
 #btnDelete:active,
+#btnDelete2:hover,
+#btnDelete2:active,
 #btnDemote:hover,
 #btnDemote:active{
     background-color: #e3301e;

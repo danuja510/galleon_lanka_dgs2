@@ -24,9 +24,9 @@
         </div>
         <div class="nav">
           <div class="row">
-            <div class="btn-navi">
+            <!--<div class="btn-navi">
               <i class="ion-navicon-round"></i>
-            </div>
+            </div>-->
             <a href="empHome.php">
               <div class="btn-home">
                 <i class="ion-home"></i>

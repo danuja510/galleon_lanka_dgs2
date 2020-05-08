@@ -63,7 +63,8 @@
             <label>&nbsp;</label>
           </div>
           <div class="col span-1-of-2">
-            <p>If Forgot Password <a href="resetPassword.php">Click here</a><br> If Forgot Employee No. <a href="#">Click here</a></p>
+            <p>If Forgot Password <a href="resetPassword.php">Click here</a></p>
+            <!--<p> If Forgot Employee No. <a href="#">Click here</a></p>-->
           </div>
         </div>
       </form>
