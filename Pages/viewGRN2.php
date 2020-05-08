@@ -65,7 +65,7 @@
                     echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['date']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'>".$row['prepared_by_(eno)']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Amount Rs. </div><div class='col span-1-of-2'>".$row['value']."</div></div>";
-                    $value=$row['value'];
+                    $_SESSION['value']=$row['value'];
                     if($row['approvedBy']!=null){
                         echo "<div class='row'><div class='col span-1-of-2'>Status </div><div class='col span-1-of-2'>Approved</div></div>";
                     }else{
@@ -93,12 +93,17 @@
                     <?php
                         if($row['approvedBy']!=null){
                           echo "<input type='submit' value='Print' name='btnPrint'>";
+                          if ($_SESSION['DES']=='Manager') {
+                            echo "<input type='submit' value='Delete' name='btnDelete2' id='btnDelete2'>";
+                          }
                         }
                         else{
+                          if ($_SESSION['DES']=='Manager') {
                             echo "<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
+                          }
+                          echo "<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
                         }
                     ?>
-                    <input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
                 </div>
             </div>
         </div>

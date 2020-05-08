@@ -5,6 +5,9 @@
   }elseif ($_SESSION['DEPT']=='pFloor' || $_SESSION['DEPT']=='fGoods'){
     header('Location:empHome.php');
   }
+  unset($_SESSION['grn']);
+  unset($_SESSION['gsid']);
+  unset($_SESSION['value']);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
