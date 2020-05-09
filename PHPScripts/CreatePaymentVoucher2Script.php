@@ -25,5 +25,5 @@
     $sql1="INSERT INTO `payment_voucher`(`pv_no`,`grn_no`,`sid`,`date`,`amount`,`prepared_by_(eno)`,`approvedBy`,`remarks`) VALUES('".$pv_no."','".$grn_no."','".$sid."','".$date."','".$amount."','".$_SESSION['eno']."',NULL,'".$remarks."');";
     mysqli_query($con1,$sql1);
     mysqli_close($con1);
-    header('Location:../Pages/CreatePaymentVoucher2.php');
+    header('Location:../Pages/empHome.php');
   }

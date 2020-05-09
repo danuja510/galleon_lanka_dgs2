@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
    <title>Update Supplier</title>
  </head>
@@ -42,9 +43,9 @@
             </div>
         </div>
     </header>
-    <section class ="section-manage">
+    <section class ="section-add">
       <div class ="row">
-        <div class="col span-2-of-2">
+        <div class="col span-1-of-2">
           <form action="../PHPScripts/updateSupplierPageScript.php" method="post">
 
             <?php
@@ -61,38 +62,42 @@
               echo "<h4>Supplier ID: ".$row['sid']."</h4>";
               mysqli_close($con);
              ?>
-           <table>
-              <tr>
-                <td>
+             <div class="row">
+               <div class="col span-1-of-2">
                   <label for='txtName'>Name</label>
-                </td>
-                <td>
+                </div>
+                <div class="col span-1-of-2">
                   <input type='text' name='txtName' <?php echo "value='".$row['Name']."'"; ?> id='txtName' required>
-                </td>
-              </tr>
-              <tr>
-                <td>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col span-1-of-2">
                   <label for='txtAddress'>Address</label>
-                </td>
-                <td>
+                </div>
+                <div class="col span-1-of-2">
                   <input type='text' name='txtAddress' <?php echo "value='".$row['Address']."'"; ?> id='txtAddress' required>
-                </td>
-              </tr>
-              <tr>
-                <td>
+                </div>
+            </div>
+
+              <div class="row">
+                <div class="col span-1-of-2">
                   <label for='txtTPNo'>TP No</label>
-                </td>
-                <td>
+                </div>
+                <div class="col span-1-of-2">
                   <input type='text' name='txtTPNo' <?php echo "value='".$row['tpno']."'"; ?> id='txtTPNo' required>
-                </td>
-              </tr>
-              <tr>
-                <td class="bt"></td>
-                <td class="bt">
-                  <input type="submit" name="btnsubmit" id="btnsubmit" value="Submit">
-                </td>
-              </tr>
-            </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-2">
+                    &nbsp;
+            </div>
+            <div class="col span-1-of-2">
+                <input type="submit" name="btnsubmit" id="btnsubmit" value="Submit">
+                <input type="submit" name="btnDelete" id="btnDelete" value="Delete Supplier">
+            </div>
+          </div>
+          
           </form>
         </div>
       </div>

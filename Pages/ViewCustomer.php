@@ -66,9 +66,8 @@
 
                 if ($row['state'] =='active')
                 {
-                echo "<td>" ." <input type='submit' id='btnUpdate".$row['cno'] ."'  name='btnUpdate".$row['cno'] ."' value='Update Customer'> ";
+                echo "<td>" ." <input type='submit' id='btnUpdate".$row['cno'] ."'  name='btnUpdate".$row['cno'] ."' value='Manage Customer'> ";
 
-                echo "<td>" ."<input type='submit' name='btndelete".$row['cno'] ."' id='btndelete".$row['cno'] ."' value= 'Delete Customer'> ". "</td>";
                 }
                 echo "</tr>";
               }
