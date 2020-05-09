@@ -2,5 +2,5 @@
     session_start();
     if (isset($_POST['btnNext'])) {
         $_SESSION['sid']=$_POST['lstSupplier'];
-        header('Location:../Pages/CreatePaymentVoucher2.php');
+        header('Location:../Pages/grnForCreatePV.php');
     }

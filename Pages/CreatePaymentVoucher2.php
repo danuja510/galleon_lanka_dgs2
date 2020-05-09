@@ -3,11 +3,13 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }
-  elseif (!isset($_SESSION['sid']))
+  elseif (!isset($_SESSION['grn']))
   {
-    header('Location:createPaymentVoucher.php');
+    header('Location:grnForCreatePV.php');
   }
  ?>
+
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
@@ -15,7 +17,8 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
-    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select2Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/PVStyles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>Create Payment Voucher</title>
     <script type="text/javascript">
@@ -66,6 +69,7 @@
       </header>
       <?php
         $sid=$_SESSION['sid'];
+        $grn_no =$_SESSION['grn'];
         $con = mysqli_connect("localhost","root","","galleon_lanka");
 if(!$con)
 {
@@ -82,18 +86,42 @@ mysqli_close($con);
         <div class="col span-2-of-2">
 
           <form action="../PHPScripts/CreatePaymentVoucher2Script.php" method="post">
+
+                  <?php
+                  $con = mysqli_connect("localhost","root","","galleon_lanka");
+                  if(!$con)
+                  {
+                    die("Error while connecting to database");
+                  }
+                  $sql="SELECT MAX(pv_no) AS max FROM `payment_voucher`;";
+                  $rowSQL = mysqli_query($con,$sql);
+                  $row = mysqli_fetch_array($rowSQL);
+                  $max=$row['max'];
+                  mysqli_close($con);
+                  $pv_no=$max+1;
+                  ?>
+
               <div class="row">
                 <div class="col span-1-of-2">
-                    <label for="txtPVno">PV number </label>
+                  <label>PV number </label>
                 </div>
                 <div class="col span-1-of-2">
-                  <input type='text'name="txtPVno" id="txtPVno" required>
+                  <input type='text'name="txtPVno" id="txtPVno" <?php echo "value= '".$pv_no."' "; ?> readonly >
                 </div>
               </div>
 
               <div class="row">
                 <div class="col span-1-of-2">
-                  <label class="dd" for="txtDate">Date </label>
+                  <label for="txtGRN">GRN No. </label>
+                </div>
+                <div class="col span-1-of-2">
+                  <input type='text' name="txtGRN" id="txtGRN" <?php echo "value= '".$grn_no."' "; ?> readonly>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col span-1-of-2">
+                  <label for="txtDate">Date </label>
                 </div>
                 <div class="col span-1-of-2">
                   <input type='date' name="txtDate" id="txtDate" required>
