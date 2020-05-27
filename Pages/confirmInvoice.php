@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/remarksStyles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>confirmInvoice</title>
   </head>
@@ -82,24 +83,26 @@
           }
             $_SESSION['InvoiceQ']=$query;
             $_SESSION['InvoiceQC']=$count;
+            $_SESSION['InvoiceNo']=$invoice_no;
             unset($_SESSION['cno']);
             unset($_SESSION['INVOICE']);
         ?>
-        <form  action="../PHPScripts/confirmInvoiceScript.php" method="post">
-          <tr>
-            <td class="bt">&nbsp;</td>
-            <td class="bt">&nbsp;</td>
-            <td class="bt">&nbsp;</td>
-            <td class="bt">&nbsp;</td>
-            <td class="bt">&nbsp;</td>
-            <td class="bt">
-              <input type="submit" name="btnConfirm" value="Confirm" id="btnConfirm">
-            </td>
-          </tr>
-        </form>
       </table>
           </div>
         </div>
+        <form  action="../PHPScripts/confirmInvoiceScript.php" method="post">
+        <div class="row">
+          <div class="col span-1-of-8">
+            <label for="txtRemarks">Remarks</label>
+          </div>
+          <div class="col span-7-of-8">
+            <input type="text" name="txtRemarks" id="txtRemarks">
+          </div>
+        </div>
+        <div class="row">
+            <input type="submit" name="btnConfirm" value="Confirm" id="btnConfirm">
+        </div>
+        </form>
       </section>
       <footer>
         <div class="row">
