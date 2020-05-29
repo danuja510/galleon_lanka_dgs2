@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (isset($_POST['btnConfirm'])) {
-      if ($_SESSION['gtype']=='out') {
+      if ($_SESSION['gtype']=='out' || $_SESSION['gtype']=='return_out') {
         $con = mysqli_connect("localhost","root","","galleon_lanka");
         if(!$con)
         {
@@ -34,17 +34,13 @@
           $sql3="SELECT `item_no`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
           $rowSQL3= mysqli_query( $con,$sql3);
           while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-        	  if($_SESSION['gtype']=='in'){
-              $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$_SESSION['gdept']."');";
-            }elseif ($_SESSION['gtype']=='out') {
-              $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$_SESSION['gdept']."');";
-            }
+        	  $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$_SESSION['gdept']."');";
             mysqli_query( $con,$sql2);
           }
           mysqli_close($con);
           header('Location:../Pages/viewGTN.php');
         }
-      }elseif ($_SESSION['gtype']=='in') {
+      }elseif ($_SESSION['gtype']=='in' || $_SESSION['gtype']=='return_in') {
         // updating gtn records to approved
         $con = mysqli_connect("localhost","root","","galleon_lanka");
         if(!$con)
@@ -94,9 +90,9 @@
       $sql3="SELECT `item_no`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
       $rowSQL3= mysqli_query( $con,$sql3);
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-    	  if($_SESSION['gtype']=='in'){
+    	  if($_SESSION['gtype']=='in' || $_SESSION['gtype']=='return_in'){
           $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$_SESSION['gdept']."');";
-        }elseif ($_SESSION['gtype']=='out') {
+        }elseif ($_SESSION['gtype']=='out' || $_SESSION['gtype']=='return_out') {
           $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$_SESSION['gdept']."');";
         }
         mysqli_query( $con,$sql2);

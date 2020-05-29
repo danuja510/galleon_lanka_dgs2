@@ -50,7 +50,7 @@
                 <a href="empHome.php">
                     <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
                 </a>
-                <a href="createGTN.php">
+                <a href="manageGTN.php">
                     <div class="btn-back"><i class="ion-ios-arrow-back"></i><p>Back</p></div>
                 </a>
                 <a href="logout.php">
@@ -71,6 +71,8 @@
                     <option value="__">___</option>
                     <option value="in">IN</option>
                     <option value="out">OUT</option>
+                    <option value="return_in">IN - Returns</option>
+                    <option value="return_out">OUT - Returns</option>
                   </select>
                 </div>
             </div>
