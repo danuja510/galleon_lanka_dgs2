@@ -66,7 +66,10 @@
             Supplier ID
         </th>
         <th>
-            value
+            Value
+        </th>
+        <th>
+            Status
         </th>
       </thead>
 
@@ -95,6 +98,9 @@ echo "
        </td>
        <td>
            ".$row['value']."
+       </td>
+       <td>
+           ".$row['status']."
        </td>
        <td class='bt'>
            <input type='submit' name='".$row['mid']."' value='View'>
