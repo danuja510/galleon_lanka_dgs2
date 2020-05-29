@@ -64,4 +64,10 @@ a:active{
     color: red;
 }
 
+.links{
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
 /*--dan--*/
