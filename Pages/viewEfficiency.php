@@ -5,7 +5,7 @@
   }elseif ($_SESSION['DES']!='Manager') {
     header('Location:empHome.php');
   }
-  
+
   class efficiency{
 
     public $itemID;
@@ -49,14 +49,55 @@
   $bbfdate="";
   $curdate="";
   $stockdate="";
+  $dateDisplay="";
   if (isset($_GET['y'])&&isset($_GET['m'])) {
     $bbfdate="AND date<'".$_GET['y']."-".$_GET['m']."-01'";
     $stockdate="AND date<='".$_GET['y']."-".($_GET['m']+1)."-01'";
     $curdate="AND extract(year from date)=".$_GET['y']." and extract(month from date)=".$_GET['m']."";
+    $dateDisplay="For ".$_GET['y'].", ";
+    switch ($_GET['m']) {
+      case 1:
+        $dateDisplay.="January";
+        break;
+      case 2:
+        $dateDisplay.="February";
+        break;
+      case 3:
+        $dateDisplay.="March";
+        break;
+      case 4:
+        $dateDisplay.="April";
+        break;
+      case 5:
+        $dateDisplay.="May";
+        break;
+      case 6:
+        $dateDisplay.="June";
+        break;
+      case 7:
+        $dateDisplay.="July";
+        break;
+      case 8:
+        $dateDisplay.="August";
+        break;
+      case 9:
+        $dateDisplay.="September";
+        break;
+      case 10:
+        $dateDisplay.="Octomber";
+        break;
+      case 11:
+        $dateDisplay.="November";
+        break;
+      case 12:
+        $dateDisplay.="December";
+        break;
+    }
   }elseif (isset($_GET['y'])&&!isset($_GET['m'])) {
     $bbfdate="AND date<'".$_GET['y']."-01-01'";
     $stockdate="AND date<='".($_GET['y']+1)."-01-01'";
     $curdate="AND extract(year from date)=".$_GET['y'];
+    $dateDisplay="For ".$_GET['y'];
   }
 
   $con=mysqli_connect("localhost","root","","galleon_lanka");
@@ -369,7 +410,8 @@
                         $totstoreef+=$effStore[$j]->eff;
                     }
                     $class= efClass($totstoreef/sizeof($effStore));
-                    echo "Efficiency of Store =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span>";
+                    echo "Efficiency of Store =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span><br>";
+                    echo $dateDisplay;
                 ?>
             </div>
             <div class="col span-1-of-2">
@@ -407,9 +449,10 @@
                         }
                         $class= efClass($totstoretransef/sizeof($effStore_pfloor_transfers));
 
-                        echo "Efficiency of Store transfers =<span class=".$class."><strong>".round($totstoretransef/sizeof($effStore_pfloor_transfers)*100,2)."%</strong></span>";
+                        echo "Efficiency of Store transfers =<span class=".$class."><strong>".round($totstoretransef/sizeof($effStore_pfloor_transfers)*100,2)."%</strong></span><br>";
+                        echo $dateDisplay;
                     }else{
-                        echo "No transfers between store and pfloor";
+                        echo "No transfers between store and pfloor ".$dateDisplay;
                     }
                 ?>
             </div>
@@ -433,7 +476,7 @@
                         }
                         echo "</table>";
                     }else{
-                        echo "No transfers between store and pfloor";
+                        echo "No transfers between store and pfloor ".$dateDisplay;
                     }
                 ?>
             </div>
@@ -448,7 +491,8 @@
                             $totstoreef+=$effpFloor[$j]->eff;
                         }
                         $class= efClass($totstoreef/sizeof($effStore));
-                        echo "Efficiency of Production Floor =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span>";
+                        echo "Efficiency of Production Floor =<span class=".$class."><strong>".round($totstoreef/sizeof($effStore)*100,2)."%</strong></span><br>";
+                        echo $dateDisplay;
                     ?>
 
             </div>
@@ -485,9 +529,10 @@
                         }
                         $class= efClass($totpfloortransef/sizeof($effpfloor_fGoods_transfers));
 
-                        echo "Efficiency of Production Floor transfers =<span class=".$class."><strong>".round($totpfloortransef/sizeof($effpfloor_fGoods_transfers)*100,2)."%</strong></span>";
+                        echo "Efficiency of Production Floor transfers =<span class=".$class."><strong>".round($totpfloortransef/sizeof($effpfloor_fGoods_transfers)*100,2)."%</strong></span><br>";
+                        echo $dateDisplay;
                     }else{
-                        echo "No transfers between pfloor and fgoods";
+                        echo "No transfers between pfloor and fgoods ".$dateDisplay;
                     }
                 ?>
             </div>
@@ -511,7 +556,7 @@
                         }
                         echo "</table>";
                     }else{
-                        echo "No transfers between pfloor and fgoods";
+                        echo "No transfers between pfloor and fgoods ".$dateDisplay;
                     }
                 ?>
             </div>
@@ -525,7 +570,8 @@
                         $totfgoodsef+=$efffGoods[$j]->eff;
                     }
                     $class= efClass($totfgoodsef/sizeof($efffGoods));
-                    echo "Efficiency of Finished Goods =<span class=".$class."><strong>".round($totfgoodsef/sizeof($efffGoods)*100,2)."%</span></strong>";
+                    echo "Efficiency of Finished Goods =<span class=".$class."><strong>".round($totfgoodsef/sizeof($efffGoods)*100,2)."%</span></strong><br>";
+                    echo $dateDisplay;
                 ?>
             </div>
             <div class="col span-1-of-2">
