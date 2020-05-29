@@ -224,7 +224,31 @@
                   </a>
               </div>";
             }
-          ?>
+            
+            if ($_SESSION['DES']=='Manager') {
+              echo "
+              <div class='col span-1-of-4'>
+                  <a href='viewCreditors.php'>
+                      <div class='select-option'>
+                          <i class='ion-ios-person-outline icon-select'></i>
+                          <h4>View Creditors</h4>
+                      </div>
+                  </a>
+              </div>";
+            }
+           
+            if ($_SESSION['DES']=='Manager') {
+              echo "
+              <div class='col span-1-of-4'>
+                  <a href='viewDebtors.php'>
+                      <div class='select-option'>
+                          <i class='ion-ios-person-outline icon-select'></i>
+                          <h4>View Debtors</h4>
+                      </div>
+                  </a>
+              </div>";
+            }
+            ?>
         </div>
     </section>
     <footer>
