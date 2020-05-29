@@ -117,7 +117,13 @@
         }else{
         echo"<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
         }
-        echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
+
+        if($row['approved_by']==null){
+          echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
+        }else{
+          echo"<input type='submit' value='Delete' name='btnDelete2' id='btnDelete2'>";
+        }
+        echo"
         </div>
 
         </div>

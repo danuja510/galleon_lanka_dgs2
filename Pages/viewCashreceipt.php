@@ -42,6 +42,12 @@
   <section class="section-manage">
     <div class="row">
       <div class="col span-1-of-7">
+        <a href="createCashReceipt.php">
+          <div class="new">
+            <i class="ion-ios-compose-outline"></i>
+            New Cash &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Receipt
+          </div>
+        </a>
       </div>
       <div class="col span-6-of-7">
     <form action="../PHPScripts/viewCashreceiptScript.php" method="post">
@@ -71,6 +77,9 @@
         <th>
           Date
         </th>
+        <th>
+          Status
+        </th>
     </tr>
 
     <?php
@@ -84,6 +93,11 @@
            $rowSQL=mysqli_query($con,$sql);
            while($row=mysqli_fetch_array($rowSQL))
            {
+             if($row['approved_by']!=null){
+               $approve='Approved';
+             }else{
+               $approve='Pending';
+             }
    echo"
        <tr>
            <td>
@@ -109,6 +123,9 @@
            </td>
            <td>
                ".$row['date']."
+           </td>
+           <td>
+               ".$approve."
            </td>
            <td class='bt'>
                <input type='submit' name='".$row['cr_no']."' value='View'>
