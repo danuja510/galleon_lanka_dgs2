@@ -49,10 +49,8 @@
         </div>
     </header>
     <section class="section-select">
-        <div class="row">
-          <?php
-            if ($_SESSION['DEPT']=='Manager' || $_SESSION['DEPT']=='store') {
-              echo "
+        <?php
+            $purchaseOrders="
               <div class='col span-1-of-4'>
                   <a href='viewPurchaseOrders.php'>
                       <div class='select-option'>
@@ -62,8 +60,7 @@
                   </a>
               </div>
               ";
-
-              echo "
+            $grn="
               <div class='col span-1-of-4'>
                   <a href='viewGRN.php'>
                       <div class='select-option'>
@@ -72,9 +69,7 @@
                       </div>
                   </a>
               </div>";
-            }
-
-            echo "
+            $gtn="
             <div class='col span-1-of-4'>
                 <a href='manageGTN.php'>
                     <div class='select-option'>
@@ -83,9 +78,7 @@
                     </div>
                 </a>
             </div>";
-
-            if ($_SESSION['DEPT']=='Manager' || $_SESSION['DEPT']=='fGoods') {
-              echo "
+            $invoice="
               <div class='col span-1-of-4'>
                   <a href='manageInvoices.php'>
                       <div class='select-option'>
@@ -94,115 +87,7 @@
                       </div>
                   </a>
               </div>";
-            }
-
-          ?>
-        </div>
-        <div class="row">
-          <?php
-            if ($_SESSION['DES']=='Manager') {
-              echo "
-              <div class='col span-1-of-4'>
-                  <a href='viewEmployees.php'>
-                      <div class='select-option'>
-                          <i class='ion-ios-person-outline icon-select'></i>
-                          <h4>Manage Employees</h4>
-                      </div>
-                  </a>
-              </div>";
-            }
-
-            if ($_SESSION['DEPT']=='Manager' || $_SESSION['DEPT']=='store'){
-              echo "
-              <div class='col span-1-of-4'>
-                  <a href='viewSuppliers.php'>
-                      <div class='select-option'>
-                          <i class='ion-ios-person-outline icon-select'></i>
-                          <h4>Manage Suppliers</h4>
-                      </div>
-                  </a>
-              </div>";
-            }
-
-            if ($_SESSION['DEPT']=='Manager' || $_SESSION['DEPT']=='fGoods'){
-              echo "
-              <div class='col span-1-of-4'>
-                  <a href='viewCustomer.php'>
-                      <div class='select-option'>
-                          <i class='ion-ios-person-outline icon-select'></i>
-                          <h4>Manage Customers</h4>
-                      </div>
-                  </a>
-              </div>";
-            }
-
-            if ($_SESSION['DEPT']!='store'){
-              echo "
-              <div class='col span-1-of-4'>
-                  <a href='viewFinishedProducts.php'>
-                      <div class='select-option'>
-                          <i class='ion-ios-star icon-select'></i>
-                          <h4>Manage Finished Products</h4>
-                      </div>
-                  </a>
-              </div>";
-            }
-
-          ?>
-        </div>
-        <div class="row">
-            <?php
-              if ($_SESSION['DEPT']!='store'){
-                echo "
-                <div class='col span-1-of-4'>
-                    <a href='viewMaterials.php'>
-                        <div class='select-option'>
-                            <i class='ion-ios-star-outline icon-select'></i>
-                            <h4>Manage Materials</h4>
-                        </div>
-                    </a>
-                </div>";
-              }
-
-              if ($_SESSION['DES']=='Manager'){
-                echo "
-                <div class='col span-1-of-4'>
-                    <a href='manageBOM.php'>
-                        <div class='select-option'>
-                            <i class='ion-ios-color-filter-outline icon-select'></i>
-                            <h4>Manage BOMs</h4>
-                        </div>
-                    </a>
-                </div>";
-              }
-
-              echo "
-              <div class='col span-1-of-4'>
-                  <a href='viewStocks.php'>
-                      <div class='select-option'>
-                          <i class='ion-clipboard icon-select'></i>
-                          <h4>View Stock</h4>
-                      </div>
-                  </a>
-              </div>";
-
-              if ($_SESSION['DES']=='Manager'){
-                echo "
-                <div class='col span-1-of-4'>
-                    <a href='selectEf.php'>
-                        <div class='select-option'>
-                            <i class='ion-arrow-graph-up-right icon-select'></i>
-                            <h4>View State</h4>
-                        </div>
-                    </a>
-                </div>";
-              }
-            ?>
-        </div>
-        <div class="row">
-          <?php
-            if ($_SESSION['DEPT']=='Manager' || $_SESSION['DEPT']=='store'){
-              echo "
+            $paymentVoucher="
               <div class='col span-1-of-4'>
                   <a href='managePaymentVouchers.php'>
                       <div class='select-option'>
@@ -211,10 +96,7 @@
                       </div>
                   </a>
               </div>";
-            }
-
-            if ($_SESSION['DEPT']=='Manager' || $_SESSION['DEPT']=='fGoods'){
-              echo "
+            $cashReceipt="
               <div class='col span-1-of-4'>
                   <a href='viewCashreceipt.php'>
                       <div class='select-option'>
@@ -223,10 +105,70 @@
                       </div>
                   </a>
               </div>";
-            }
-            
-            if ($_SESSION['DES']=='Manager') {
-              echo "
+            $finishedProducts="
+              <div class='col span-1-of-4'>
+                  <a href='viewFinishedProducts.php'>
+                      <div class='select-option'>
+                          <i class='ion-ios-star icon-select'></i>
+                          <h4>Manage Finished Products</h4>
+                      </div>
+                  </a>
+              </div>";
+            $materials="
+                <div class='col span-1-of-4'>
+                    <a href='viewMaterials.php'>
+                        <div class='select-option'>
+                            <i class='ion-ios-star-outline icon-select'></i>
+                            <h4>Manage Materials</h4>
+                        </div>
+                    </a>
+                </div>";
+            $suppliers="
+              <div class='col span-1-of-4'>
+                  <a href='viewSuppliers.php'>
+                      <div class='select-option'>
+                          <i class='ion-ios-person-outline icon-select'></i>
+                          <h4>Manage Suppliers</h4>
+                      </div>
+                  </a>
+              </div>";
+            $customers="
+              <div class='col span-1-of-4'>
+                  <a href='viewCustomer.php'>
+                      <div class='select-option'>
+                          <i class='ion-ios-person-outline icon-select'></i>
+                          <h4>Manage Customers</h4>
+                      </div>
+                  </a>
+              </div>";
+            $bom="
+                <div class='col span-1-of-4'>
+                    <a href='manageBOM.php'>
+                        <div class='select-option'>
+                            <i class='ion-ios-color-filter-outline icon-select'></i>
+                            <h4>Manage BOMs</h4>
+                        </div>
+                    </a>
+                </div>";
+            $stocks="
+              <div class='col span-1-of-4'>
+                  <a href='viewStocks.php'>
+                      <div class='select-option'>
+                          <i class='ion-clipboard icon-select'></i>
+                          <h4>View Stock</h4>
+                      </div>
+                  </a>
+              </div>";
+            $efficiency="
+                <div class='col span-1-of-4'>
+                    <a href='selectEf.php'>
+                        <div class='select-option'>
+                            <i class='ion-arrow-graph-up-right icon-select'></i>
+                            <h4>View State</h4>
+                        </div>
+                    </a>
+                </div>";
+            $creditors="
               <div class='col span-1-of-4'>
                   <a href='viewCreditors.php'>
                       <div class='select-option'>
@@ -235,10 +177,7 @@
                       </div>
                   </a>
               </div>";
-            }
-           
-            if ($_SESSION['DES']=='Manager') {
-              echo "
+            $debtors="
               <div class='col span-1-of-4'>
                   <a href='viewDebtors.php'>
                       <div class='select-option'>
@@ -247,7 +186,72 @@
                       </div>
                   </a>
               </div>";
+
+            $employees="
+            <div class='col span-1-of-4'>
+                <a href='viewEmployees.php'>
+                    <div class='select-option'>
+                        <i class='ion-ios-person-outline icon-select'></i>
+                        <h4>Manage Employees</h4>
+                    </div>
+                </a>
+            </div>";
+        ?>
+        <div class="row">
+          <?php
+            switch ($_SESSION['DEPT']) {
+              case 'Manager':
+                echo $purchaseOrders.$grn.$gtn.$invoice;
+                break;
+
+              case 'store':
+                echo $purchaseOrders.$grn.$gtn.$paymentVoucher;
+                break;
+
+              case 'pFloor':
+                echo $gtn.$materials.$finishedProducts.$stocks;
+                break;
+
+              case 'fGoods':
+                echo $gtn.$invoice.$cashReceipt.$stocks;
+                break;
             }
+          ?>
+        </div>
+        <div class="row">
+          <?php
+          switch ($_SESSION['DEPT']) {
+            case 'Manager':
+              echo $paymentVoucher.$cashReceipt.$stocks.$employees;
+              break;
+
+            case 'store':
+              echo $stocks.$materials.$suppliers;
+              break;
+
+            case 'fGoods':
+              echo $customers;
+              break;
+          }
+          ?>
+        </div>
+        <div class="row">
+            <?php
+            switch ($_SESSION['DEPT']) {
+              case 'Manager':
+                echo $efficiency.$creditors.$debtors.$bom;
+                break;
+            }
+            ?>
+        </div>
+        <div class="row">
+          <?php
+
+          switch ($_SESSION['DEPT']) {
+            case 'Manager':
+              echo $materials.$finishedProducts.$suppliers.$customers;
+              break;
+          }
             ?>
         </div>
     </section>
