@@ -84,10 +84,10 @@ if(isset($_GET['sort'])){
                   <option value='fGoods'>Finished Goods</option>
                 </select>
                 <input type='submit' name='btnSort' value='Sort'>
-                <br>&nbsp;<br>
-
+                <br>&nbsp;<br><br>
             ";
                 }
+                echo "<a href='updateStocks.php'><b class='ifg'>Update Stocks</b></a><br><br>";
                 if ($_SESSION['DEPT']== 'Manager' || $_SESSION['DEPT']== 'pFloor') {
                   echo "<a href='inputFinishedGoods.php'><b class='ifg'>Input Finished Goods</b></a>";
                 }

@@ -171,12 +171,15 @@
                   <input type='text' name='txtStatus' id='txtStatus' value=" .$row['status']. " required readonly >
                 </div>
               </div>
-
+              ";
+              if($st=='active'){
+                echo"
               <div class='row'>
               <div class='col span-1-of-2'></div>
               <div class='col span-1-of-2'><input type='submit' id='btnNext' name='btnNext' value='Update Password'></div>
-              </div>
-
+              </div>";
+              }
+              echo"
               <div class='row'>
                   <div class='col span-1-of-2'>&nbsp;</div>
                   <div class='col span-1-of-2'>";
