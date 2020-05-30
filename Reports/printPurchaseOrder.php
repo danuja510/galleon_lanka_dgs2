@@ -128,7 +128,7 @@ function header()
           $this->cell(110,10,'','T,B',0,'');
           $this->cell(10,10,'Total Rs.','T,B',0,'L');
           $this->cell(50,10,'','T,B',0,'');
-          $this->cell(20,10,$sum,'T,B',1,'L');
+          $this->cell(20,10,round($sum,2),'T,B',1,'L');
 
 
           $this->Ln(20);

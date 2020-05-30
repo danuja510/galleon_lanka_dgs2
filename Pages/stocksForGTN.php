@@ -59,25 +59,45 @@
                 {
                   die("Error while connecting to database");
                 }
-                if($_SESSION['gtntype']=='out'){
-                  $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' GROUP BY `item_no`,`type`;";
-                  $rowSQL= mysqli_query( $con,$sql);
-                  while($row=mysqli_fetch_assoc( $rowSQL )){
-                    echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."".$row['type']."' name='txt".$row['item_no']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_no']."".$row['type']."' class='css-checkbox' name='".$row['item_no']."".$row['type']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."".$row['type']."'>&nbsp;</label></td></tr>";
+                if($_SESSION['gtntype']=='out' || $_SESSION['gtntype']=='return_out'){
+                  if ($_SESSION['dept']=='pFloor') {
+                    if ($_SESSION['gtntype']=='out') {
+                      $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' and `type` = 'finished_product' GROUP BY `item_no`,`type`;";
+                      $rowSQL= mysqli_query( $con,$sql);
+                      while($row=mysqli_fetch_assoc( $rowSQL )){
+                        echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."".$row['type']."' name='txt".$row['item_no']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_no']."".$row['type']."' class='css-checkbox' name='".$row['item_no']."".$row['type']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."".$row['type']."'>&nbsp;</label></td></tr>";
+                      }
+                    }elseif ($_SESSION['gtntype']=='return_out') {
+                      $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' and `type` = 'material' GROUP BY `item_no`,`type`;";
+                      $rowSQL= mysqli_query( $con,$sql);
+                      while($row=mysqli_fetch_assoc( $rowSQL )){
+                        echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."".$row['type']."' name='txt".$row['item_no']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_no']."".$row['type']."' class='css-checkbox' name='".$row['item_no']."".$row['type']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."".$row['type']."'>&nbsp;</label></td></tr>";
+                      }
+                    }
+                  }else {
+                    $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' GROUP BY `item_no`,`type`;";
+                    $rowSQL= mysqli_query( $con,$sql);
+                    while($row=mysqli_fetch_assoc( $rowSQL )){
+                      echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."".$row['type']."' name='txt".$row['item_no']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_no']."".$row['type']."' class='css-checkbox' name='".$row['item_no']."".$row['type']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."".$row['type']."'>&nbsp;</label></td></tr>";
+                    }
                   }
+
                 }else {
                   if ($_SESSION['dept']=='pFloor') {
-                    $sql="SELECT * FROM `materials` where status='active';";
-                    $rowSQL= mysqli_query( $con,$sql);
-                    $iType='material';
-                    while($row=mysqli_fetch_assoc( $rowSQL )){
-                      echo "<tr><td>".$row['mid']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['mid']."".$iType."' name='txt".$row['mid']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input type='checkbox' id='".$row['mid']."".$iType."' class='css-checkbox' name='".$row['mid']."".$iType."' value='".$row['mid']."'><label class='css-label' for='".$row['mid']."".$iType."'>&nbsp;</label></td></tr>";
-                    }
-                    $sql="SELECT * FROM `finished_products` where status='active';";
-                    $rowSQL= mysqli_query( $con,$sql);
-                    $iType='finished_product';
-                    while($row=mysqli_fetch_assoc( $rowSQL )){
-                      echo "<tr><td>".$row['fp_id']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['fp_id']."".$iType."' name='txt".$row['fp_id']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['fp_id']."".$iType."' type='checkbox' class='css-checkbox' name='".$row['fp_id']."".$iType."' value='".$row['fp_id']."'><label class='css-label' for='".$row['fp_id']."".$iType."'>&nbsp;</label></td></tr>";
+                    if ($_SESSION['gtntype']=='return_in') {
+                      $sql="SELECT * FROM `finished_products` where status='active';";
+                      $rowSQL= mysqli_query( $con,$sql);
+                      $iType='finished_product';
+                      while($row=mysqli_fetch_assoc( $rowSQL )){
+                        echo "<tr><td>".$row['fp_id']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['fp_id']."".$iType."' name='txt".$row['fp_id']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['fp_id']."".$iType."' type='checkbox' class='css-checkbox' name='".$row['fp_id']."".$iType."' value='".$row['fp_id']."'><label class='css-label' for='".$row['fp_id']."".$iType."'>&nbsp;</label></td></tr>";
+                      }
+                    }elseif ($_SESSION['gtntype']=='in') {
+                      $sql="SELECT * FROM `materials` where status='active';";
+                      $rowSQL= mysqli_query( $con,$sql);
+                      $iType='material';
+                      while($row=mysqli_fetch_assoc( $rowSQL )){
+                        echo "<tr><td>".$row['mid']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['mid']."".$iType."' name='txt".$row['mid']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input type='checkbox' id='".$row['mid']."".$iType."' class='css-checkbox' name='".$row['mid']."".$iType."' value='".$row['mid']."'><label class='css-label' for='".$row['mid']."".$iType."'>&nbsp;</label></td></tr>";
+                      }
                     }
                   }
                   if ($_SESSION['dept']=='fGoods') {

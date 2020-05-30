@@ -5,41 +5,82 @@
   }elseif ($_SESSION['DES']!='Manager') {
     header('Location:empHome.php');
   }
-  
-  $sql="select extract(year from date) as yr, extract(month from date) as mon from stocks group by extract(year from date), extract(month from date) order by yr, mon;";
-  $con=mysqli_connect("localhost","root","","galleon_lanka");
-  if(!$con){
-    die("Cannot connect to DB server");
-  }
-  $rowSQL= mysqli_query( $con,$sql);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
+    <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/SignInStyles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>selectEfficiency</title>
   </head>
   <body>
-    <h3>Monthly Efficiency</h3>
-    <?php
-      while($row=mysqli_fetch_assoc( $rowSQL )){
-        echo "
-          <a href='viewEfficiency.php?y=".$row['yr']."&m=".$row['mon']."'> Efficiency of ".$row['mon']."/".$row['yr']."</a><br>
-        ";
-      }
-    ?>
-    <h3>Yearly Efficiency</h3>
-    <?php
-      $sql="select extract(year from date) as yr from grn group by extract(year from date);";
-      $rowSQL= mysqli_query( $con,$sql);
-      while($row=mysqli_fetch_assoc( $rowSQL )){
-        echo "
-          <a href='viewEfficiency.php?y=".$row['yr']."'> Efficiency of ".$row['yr']."</a><br>
-        ";
-      }
-      mysqli_close($con);
-    ?>
-    <h3>Full Efficiency</h3>
-    <a href="viewEfficiency.php">Full Efficiency</a>
+    <header>
+        <div class="row">
+            <h1>Manufacturing Management System</h1>
+            <h3>Galleon Lanka PLC</h3>
+        </div>
+        <div class="nav">
+            <div class="row">
+                <!--<div class="btn-navi"><i class="ion-navicon-round"></i></div>-->
+                <a href="empHome.php">
+                    <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                </a>
+                <a href="empHome.php">
+                    <div class="btn-back"><i class="ion-ios-arrow-back"></i><p>Back</p></div>
+                </a>
+                <a href="logout.php">
+                    <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
+                </a>
+                <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="row">
+            <div class="col span-1-of-3">
+                <h3><strong>Full Efficiency</strong></h3>
+                <a class="links" href="viewEfficiency.php">Full Efficiency</a>
+            </div>
+            <div class="col span-1-of-3">
+                <h3><strong>Yearly Efficiency</strong></h3>
+                <?php
+                  $con=mysqli_connect("localhost","root","","galleon_lanka");
+                  if(!$con){
+                    die("Cannot connect to DB server");
+                  }
+                  $sql="select extract(year from date) as yr from grn group by extract(year from date);";
+                  $rowSQL= mysqli_query( $con,$sql);
+                  while($row=mysqli_fetch_assoc( $rowSQL )){
+                    echo "
+                      <a class='links' href='viewEfficiency.php?y=".$row['yr']."'> Efficiency of ".$row['yr']."</a><br>
+                    ";
+                  }
+                ?>
+            </div>
+            <div class="col span-1-of-3">
+                <h3><strong>Monthly Efficiency</strong></h3>
+                <?php
+                    $sql="select extract(year from date) as yr, extract(month from date) as mon from stocks group by extract(year from date), extract(month from date) order by yr, mon;";
+                    $rowSQL= mysqli_query( $con,$sql);
+                  while($row=mysqli_fetch_assoc( $rowSQL )){
+                    echo "
+                      <a class='links' href='viewEfficiency.php?y=".$row['yr']."&m=".$row['mon']."'> Efficiency of ".$row['mon']."/".$row['yr']."</a><br>
+                    ";
+                  }
+                mysqli_close($con);
+                ?>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
+        <div class="row"><p>Designed and Developed by DGS2</p></div>
+      </footer>
   </body>
 </html>
+<!--dan-->

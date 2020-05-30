@@ -3,9 +3,9 @@
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
   }else if (!isset($_SESSION['dept'])) {
-    header('Location:empHome.php');
+    header('Location:createGTN.php');
   }else if (!isset($_SESSION['GTN'])) {
-    header('Location:stocksForGTN.php');
+    header('Location:createGTN.php');
   }
 ?>
 <!DOCTYPE html>
@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/remarksStyles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>ConfirmGTN</title>
   </head>
@@ -91,22 +92,26 @@
         }
             $_SESSION['GTNQ']=$query;
             $_SESSION['GTNQC']=$count;
+            $_SESSION['GTNNo']=$gtn_no;
             unset($_SESSION['dept']);
             unset($_SESSION['GTN']);
       ?>
-      <form  action="../PHPScripts/confirmGTNScript.php" method="post">
-        <tr>
-          <td class="bt">&nbsp;</td>
-          <td class="bt">&nbsp;</td>
-          <td class="bt">&nbsp;</td>
-          <td class="bt chk">
-            <input type="submit" name="btnConfirm" value="Confirm" id="btnConfirm">
-          </td>
-        </tr>
-      </form>
     </table>
           </div>
       </div>
+      <form  action="../PHPScripts/confirmGTNScript.php" method="post">
+      <div class="row">
+        <div class="col span-1-of-8">
+          <label for="txtRemarks">Remarks</label>
+        </div>
+        <div class="col span-7-of-8">
+          <input type="text" name="txtRemarks" id="txtRemarks">
+        </div>
+      </div>
+      <div class="row">
+          <input type="submit" name="btnConfirm" value="Confirm" id="btnConfirm">
+      </div>
+      </form>
     </section>
     <footer>
         <div class="row">

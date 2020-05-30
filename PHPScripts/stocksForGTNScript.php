@@ -1,24 +1,30 @@
 <?php
     session_start();
-    if($_SESSION['gtntype']=='out'){
+    if($_SESSION['gtntype']=='out' || $_SESSION['gtntype']=='return_out'){
       if ($_SESSION['dept']=='store') {
         $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_no`,`type`;";
         $iType='material';
       }elseif ($_SESSION['dept']=='pFloor') {
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
-        $iType='finished_product';
-        $sql2="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_no`,`type`;";
-        $iType2='material';
+        if ($_SESSION['gtntype']=='out') {
+          $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
+          $iType='finished_product';
+        }elseif ($_SESSION['gtntype']=='return_out') {
+          $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_no`,`type`;";
+          $iType='material';
+        }
       }elseif ($_SESSION['dept']=='fGoods') {
         $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
         $iType='finished_product';
       }
     }else {
       if ($_SESSION['dept']=='pFloor') {
-        $sql="SELECT * FROM `materials` where status='active';";
-        $iType='material';
-        $sql2="SELECT * FROM `finished_products` where status='active';";
-        $iType2='finished_product';
+        if ($_SESSION['gtntype']=='in') {
+          $sql="SELECT * FROM `materials` where status='active';";
+          $iType='material';
+        }elseif ($_SESSION['gtntype']=='return_in') {
+          $sql="SELECT * FROM `finished_products` where status='active';";
+          $iType='finished_product';
+        }
       }elseif ($_SESSION['dept']=='fGoods') {
         $sql="SELECT * FROM `finished_products` where status='active';";
         $iType='finished_product';
@@ -35,70 +41,23 @@
         {
           die("Error while connecting to database");
         }
-        if ($_SESSION['gtntype']=='out') {
+        if ($_SESSION['gtntype']=='out' || $_SESSION['gtntype']=='return_out') {
           $rowSQL3= mysqli_query( $con,$sql);
           $m=$_SESSION['gtntype']."+";
           $count=0;
           $count2=0;
-          if ($_SESSION['dept']!='pFloor') {
-            while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['item_no'].$iType])){
-                $count++;
-                $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no'].$iType].'x'.$iType.',';
-                  if($_POST['txt'.$row3['item_no'].$iType]>0){
-                  $count2++;
-                }
-              }
-            }
-          }elseif ($_SESSION['dept']=='pFloor'){
-            while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['item_no'].$iType])){
-                $count++;
-                $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no'].$iType].'x'.$iType.',';
-                  if($_POST['txt'.$row3['item_no'].$iType]>0){
-                  $count2++;
-                }
-              }
-            }
-            $rowSQL4= mysqli_query( $con,$sql2);
-            while($row4=mysqli_fetch_assoc( $rowSQL4 )){
-              if(isset($_POST[$row4['item_no'].$iType2])){
 
-                $count++;
-                $m=$m.$row4['item_no'].'x'.$_POST['txt'.$row4['item_no'].$iType2].'x'.$iType2.',';
-                  if($_POST['txt'.$row4['item_no'].$iType2]>0){
-                  $count2++;
-                }
-              }
-            }
-          }
-        }else {
-          if ($_SESSION['dept']=='pFloor') {
-            $rowSQL3= mysqli_query( $con,$sql);
-            $m=$_SESSION['gtntype']."+";
-            $count=0;
-            $count2=0;
             while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['mid'].$iType])){
+              if(isset($_POST[$row3['item_no'].$iType])){
                 $count++;
-                $m=$m.$row3['mid'].'x'.$_POST['txt'.$row3['mid'].$iType].'x'.$iType.',';
-                  if($_POST['txt'.$row3['mid'].$iType]>0){
-                $count2++;
-                }
-              }
-            }
-            $rowSQL4= mysqli_query( $con,$sql2);
-            while($row4=mysqli_fetch_assoc( $rowSQL4 )){
-              if(isset($_POST[$row4['fp_id'].$iType2])){
-                $count++;
-                $m=$m.$row4['fp_id'].'x'.$_POST['txt'.$row4['fp_id'].$iType2].'x'.$iType2.',';
-                if($_POST['txt'.$row4['fp_id'].$iType2]>0){
+                $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no'].$iType].'x'.$iType.',';
+                  if($_POST['txt'.$row3['item_no'].$iType]>0){
                   $count2++;
                 }
               }
             }
-          }
-          if ($_SESSION['dept']=='fGoods') {
+        }else {
+          if ($_SESSION['dept']=='fGoods' || ($_SESSION['dept']=='pFloor' && $_SESSION['gtntype']=='return_in')) {
             $rowSQL3= mysqli_query( $con,$sql);
             $m=$_SESSION['gtntype']."+";
             $count=0;
@@ -113,7 +72,7 @@
               }
             }
           }
-          if ($_SESSION['dept']=='store') {
+          if ($_SESSION['dept']=='store' || ($_SESSION['dept']=='pFloor' && $_SESSION['gtntype']=='in')) {
             $rowSQL3= mysqli_query( $con,$sql);
             $m=$_SESSION['gtntype']."+";
             $count=0;

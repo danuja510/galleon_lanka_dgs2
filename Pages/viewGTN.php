@@ -6,7 +6,7 @@
   if(!isset($_SESSION['gtn'])){
    header('Location:manageGTN.php');
  }
-
+//nes=not enough stocks
   if (isset($_GET['nes'])) {
     $nes=explode(',',$_GET['nes']);
   }
