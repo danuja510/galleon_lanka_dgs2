@@ -132,7 +132,7 @@
                ".$approve."
            </td>
            <td class='bt'>
-               <input type='submit' name='".$row['cr_no']."' value='View'>
+               <input type='submit' name='".$row['cr_no']."' value='view'>
            </td>
        </tr>
    ";

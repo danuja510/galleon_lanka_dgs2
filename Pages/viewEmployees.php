@@ -112,7 +112,7 @@
           //   if($st=="active")
           //   {
               echo"
-              <input type='submit' name='".$row['eno']."' value='View'>
+              <input type='submit' name='".$row['eno']."' value='view'>
               ";
             // }
               echo"

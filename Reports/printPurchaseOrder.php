@@ -134,10 +134,11 @@ function header()
           $this->Ln(20);
 
           $this->cell(50,5,'..................................',0,0,'C');
-          $this->cell(85,5,'..................................',0,0,'C');
-          $this->cell(70,5,'..................................',0,1,'C');
+          $this->cell(105,5,'..................................',0,0,'C');
+          $this->cell(30,5,'..................................',0,1,'C');
           $this->cell(50,5,"Prepared by Emp no. $prpby",0,0,'C');
-          $this->cell(85,5,"Approved by Emp no. $appby",0,0,'C');
+          $this->cell(105,5,"Approved by Emp no. $appby",0,0,'C');
+            $this->cell(70,5,"Signature & stamp",0,'C');
           //$this->multicell(70,5,"Signature & stamp \n received the above items in \n good order & condition",0,'C');
 
           $this->Ln(20);
