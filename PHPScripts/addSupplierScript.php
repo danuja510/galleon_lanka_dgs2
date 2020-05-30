@@ -13,5 +13,6 @@ session_start();
        }
        $sql="INSERT INTO `Supplier`(`Name`, `Address`, `tpno`, `state`) VALUES ('".$name."','".$Address."','".$Tno."', 'active')";
               mysqli_query($con,$sql);
+                mysqli_close($con);
               header('Location:../Pages/viewSuppliers.php');
   }

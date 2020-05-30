@@ -2,7 +2,9 @@
  session_start();
  if(!isset($_SESSION['eno'])){
    header('Location:signIn.php');
- }
+ }elseif ($_SESSION['DEPT']=='store' || $_SESSION['DEPT']=='pFloor'){
+    header('Location:empHome.php');
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -59,7 +61,7 @@
                     <select name="txtIno" id="txtIno">
                       <option value='__'>___</option>
                       <?php
-                        $sql="SELECT * FROM `invoice` GROUP BY `invoice_no` ;";
+                        $sql="SELECT * FROM `invoice` where approved_by is not null GROUP BY `invoice_no` ;";
                         $con = mysqli_connect("localhost","root","","galleon_lanka");
                         if(!$con)
                         {

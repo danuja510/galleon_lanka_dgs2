@@ -2,6 +2,8 @@
   session_start();
   if(!isset($_SESSION['eno'])){
     header('Location:signIn.php');
+  }elseif ($_SESSION['DEPT']=='store' || $_SESSION['DEPT']=='pFloor'){
+    header('Location:empHome.php');
   }
   if(!isset($_SESSION['Inum'])){
     header('Location:createCashReceipt.php');
@@ -96,7 +98,7 @@
                     <td class="bt">&nbsp;</td>
                     <td class="bt">&nbsp;</td>
                     <td class="bt">
-                        <input type="submit" name="btnNext" id="btnNext" value="Next">
+                        <input type="submit" name="btnConfirm" id="btnConfirm" value="Confirm">
                     </td>
                 </tr>
             </table>

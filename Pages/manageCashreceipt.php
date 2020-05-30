@@ -2,7 +2,9 @@
     session_start();
     if(!isset($_SESSION['eno'])){
       header('Location:signIn.php');
-    }
+    }elseif ($_SESSION['DEPT']=='store' || $_SESSION['DEPT']=='pFloor'){
+    header('Location:empHome.php');
+  }
     if(!isset($_SESSION['CR'])){
       header('Location:viewcashreceipt.php');
     }
@@ -29,21 +31,24 @@
         </div>
         <div class="nav">
             <div class="row">
-                <div class="btn-navi"><i class="ion-navicon-round"></i></div>
+                <!--<div class="btn-navi"><i class="ion-navicon-round"></i></div>-->
                 <a href="empHome.php">
                     <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                </a>
+                <a href="viewCashreceipt.php">
+                    <div class="btn-back"><i class="ion-ios-arrow-back"></i><p>Back</p></div>
                 </a>
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                 </a>
-                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+                <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
             </div>
         </div>
-    </header>
+</header>
       <section class="section-view">
       <form action="../PHPScripts/manageCashreceiptScript.php" method="post">
       <div class="row">
-          <div class="col span-1-of-2">
+          
           <?php
           $CR=$_SESSION['CR'];
           $con = mysqli_connect("localhost","root","","galleon_lanka");
@@ -54,58 +59,22 @@
           $sql="SELECT *,sum(amout) as price FROM `cash_receipts` where `cr_no`=".$CR." GROUP BY `cr_no`;";
           $rowSQL= mysqli_query( $con,$sql);
           $row = mysqli_fetch_array( $rowSQL );
-          echo "<div class='row'><div class='col span-1-of-2'>Cash Receipt No.</div><div class='col span-1-of-2'> ".$row['cr_no']."</div></div>";
-          echo "<div class='row'><div class='col span-1-of-2'>Invoice No.</div><div class='col span-1-of-2'> ".$row['invoice_no']."</div></div>";
-          echo "<div class='row'><div class='col span-1-of-2'>Customer No.</div><div class='col span-1-of-2'>".$row['cno'] ."</div></div>";
+          echo "<div class='row'><div class='col span-1-of-2'><span>Cash Receipt No.</span></div><div class='col span-1-of-2'> ".$row['cr_no']."</div></div>";
+          echo "<div class='row'><div class='col span-1-of-2'><span>Invoice No.</span></div><div class='col span-1-of-2'> ".$row['invoice_no']."</div></div>";
+          echo "<div class='row'><div class='col span-1-of-2'><span>Customer No.</span></div><div class='col span-1-of-2'>".$row['cno'] ."</div></div>";
           $cno=$row['cno'];
-          echo "<div class='row'><div class='col span-1-of-2'>Remarks</div><div class='col span-1-of-2'>".$row['remarks'] ."</div></div>";
-          echo "<div class='row'><div class='col span-1-of-2'>Amount Rs. </div><div class='col span-1-of-2'> ".$row['price']."</div></div>";
-          echo "<div class='row'><div class='col span-1-of-2'>Date</div><div class='col span-1-of-2'>".$row['date'] ."</div></div>";
-          echo "<div class='row'><div class='col span-1-of-2'>Prepared by</div><div class='col span-1-of-2'> ".$row['prepared_by']."</div></div>";
+          echo "<div class='row'><div class='col span-1-of-2'><span>Remarks</span></div><div class='col span-1-of-2'>".$row['remarks'] ."</div></div>";
+          echo "<div class='row'><div class='col span-1-of-2'><span>Amount Rs.</span> </div><div class='col span-1-of-2'> ".$row['price']."</div></div>";
+          echo "<div class='row'><div class='col span-1-of-2'><span>Date</span></div><div class='col span-1-of-2'>".$row['date'] ."</div></div>";
+          echo "<div class='row'><div class='col span-1-of-2'><span>Prepared by</span></div><div class='col span-1-of-2'> ".$row['prepared_by']."</div></div>";
 
           if($row['approved_by']!=null){
-            echo"<div class='row'><div class='col span-1-of-2'>Status : </div><div class='col span-1-of-2'> Approved</div></div>";}
+            echo"<div class='row'><div class='col span-1-of-2'><span>Status :</span> </div><div class='col span-1-of-2'> Approved</div></div>";}
           else{
-            echo"<div class='row'><div class='col span-1-of-2'>Status : </div><div class='col span-1-of-2'> Pending</div></div>";}
+            echo"<div class='row'><div class='col span-1-of-2'><span>Status :</span> </div><div class='col span-1-of-2'> Pending</div></div>";}
           $value=$row['amout'];
 
-      echo "
-        </div>
-          <div class='col span-1-of-2'>
-          <table>
-            <thead>
-                <th>
-                  Invoice No.
-                </th>
-                <th>
-                  Customer ID.
-                </th>
-                <th>
-                  Amount
-                </th>
-              </thead>
-      ";
-          $sql="SELECT * FROM `cash_receipts` WHERE `cr_no`=".$CR.";";
-          $rowSQL=mysqli_query($con,$sql);
-          while($row1=mysqli_fetch_array($rowSQL))
-          {
-            echo "
-              <tr>
-                <td>
-                  ".$row1['invoice_no']."
-                </td>
-                <td>
-                  ".$row1['cno']."
-                </td>
-                <td>
-                  ".$row1['amout']."
-                </td>
-              </tr>
-            ";
-          }
-  echo"
-        </table>
-        </div>
+     echo "
         </div>
 
         <div class='row'>
@@ -113,15 +82,15 @@
           <div class='col span-1-of-2'>&nbsp;</div>
           <div class='col span-1-of-2'>";
         if($row['approved_by']!=null){
-        echo"<input type='submit' value='Print' name='btnPrint'>";
-        }else{
+            echo"<input type='submit' value='Print' name='btnPrint'>";
+            if($_SESSION['DES']=='Manager' ){
+                echo"<input type='submit' value='Delete' name='btnDelete2' id='btnDelete2'>";
+            }
+        }elseif($_SESSION['DES']=='Manager' ){
         echo"<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
-        }
-
-        if($row['approved_by']==null){
-          echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
+            echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
         }else{
-          echo"<input type='submit' value='Delete' name='btnDelete2' id='btnDelete2'>";
+            echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
         }
         echo"
         </div>

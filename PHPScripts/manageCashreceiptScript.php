@@ -12,7 +12,7 @@
     $sql="UPDATE `cash_receipts` SET `approved_by` = '".$_SESSION['eno']."' WHERE `cash_receipts`.`cr_no` = ".$CR.";";
     mysqli_query( $con,$sql);
 
-    $sql1="SELECT * FROM `cash_receipts`";
+    $sql1="SELECT * FROM `cash_receipts`  WHERE `cash_receipts`.`cr_no` = ".$CR."";
     $rowSQL=mysqli_query( $con,$sql1);
     $row=mysqli_fetch_assoc($rowSQL);
 
@@ -24,6 +24,7 @@
     header('Location:../Pages/manageCashreceipt.php');
 
   if (isset($_POST['btnPrint'])) {
+      mysqli_close($con);
     header('Location:../Reports/cashReceipt.php');
   }
 
@@ -35,6 +36,8 @@
     }
     $sql3="DELETE FROM `cash_receipts` WHERE `cr_no` =$CR;";
     mysqli_query( $con,$sql3);
+    unset($_SESSION['CR']);
+    mysqli_close($con);
     header('Location:../Pages/viewCashreceipt.php');
   }
 
@@ -44,7 +47,7 @@
     {
       die("Error while connecting to database");
     }
-    $sql6="SELECT * FROM `cash_receipts`";
+    $sql6="SELECT * FROM `cash_receipts`  WHERE `cash_receipts`.`cr_no` = ".$CR."";
     $rowSQL=mysqli_query( $con,$sql6);
     $row=mysqli_fetch_assoc($rowSQL);
     //reverse debtor records
@@ -53,5 +56,7 @@
 
     $sql5="DELETE FROM `cash_receipts` WHERE `cr_no` =".$_SESSION['CR'].";";
     mysqli_query( $con,$sql5);
+    unset($_SESSION['CR']);
+    mysqli_close($con);
     header('Location:../Pages/viewCashreceipt.php');
   }
