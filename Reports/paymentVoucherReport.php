@@ -4,8 +4,7 @@ if(!isset($_SESSION['eno']))
   {
   header('Location:signIn.php');
   }
-  $_SESSION['PVoucher']=1;
-if(!isset($_SESSION['PVoucher']))
+if(!isset($_SESSION['PV']))
   {
     header('viewPaymentVoucher.php');
   }
@@ -45,7 +44,7 @@ function header()
           die("cannot connect to DB server");
         }
 
-        $sql1="SELECT * FROM `payment_voucher` where `pv_no`=".$_SESSION['PVoucher'].";";
+        $sql1="SELECT * FROM `payment_voucher` where `pv_no`=".$_SESSION['PV'].";";
         $rowSQL1= mysqli_query($con,$sql1);
         $row = mysqli_fetch_assoc($rowSQL1);
         $amount=$row['amount'];
@@ -68,7 +67,7 @@ function header()
       $sname=$row['Name'];
       $saddress=$row['Address'];
 
-      $this->cell(25,5,'Date',0,0,'L');
+      $this->cell(45,5,'Date',0,0,'L');
 
 
       $this->cell(80,5,$date,0,0,'L');
@@ -79,51 +78,45 @@ function header()
 
       $this->cell(80,5,$saddress,0,0,'L');
 
-      $this->cell(25,5,'Payment Voucher no.',0,0,'L');
+      $this->cell(45,5,'Payment Voucher no.',0,0,'L');
 
-      $this->cell(25,5,$_SESSION['PVoucher'],0,0,'L');
+      $this->cell(25,5,$_SESSION['PV'],0,0,'L');
+    
+        $this->Ln(10);
 
-      $this->Ln(20);
+      $this->SetFont('Arial','U',10);
+      $this->SetFont('Arial','',10);
+      $this->cell(80,5,"Remarks: $remark",0,1);
+
+      $this->Ln(10);
 
       //$this->Ln(10);
       $this->SetFont('Times','B','10');
       //$this->line(10, 105, 210-10, 105);
 
-      $this->cell(22,10,'Amount','T',1,'L');
-
           $this->Ln(10);
 
           //$this->line(10, 133, 210-10, 133);
           //$this->line(10, 140, 210-10, 140);
-          $this->cell(110,10,'','T,B',0,'');
+          $this->cell(100,10,'','T,B',0,'');
           $this->cell(10,10,'Total Rs.','T,B',0,'L');
-          $this->cell(50,10,'','T,B',0,'');
-          $this->cell(20,10,$amount,'T,B',1,'L');
+          $this->cell(35,10,'','T,B',0,'');
+          $this->cell(30,10,$amount,'T,B',0,'L');
+            $this->cell(15,10,'','T,B',1,'L');
 
           $this->Ln(20);
 
           $this->cell(50,5,'..................................',0,0,'C');
           $this->cell(85,5,'..................................',0,0,'C');
-          $this->cell(70,5,'..................................',0,1,'C');
-          $this->cell(50,5,"Prepared by Emp no. $prpby",0,0,'C');
-          $this->cell(85,5,"Approved by Emp no. $appby",0,0,'C');
+          $this->cell(60,5,'..................................',0,1,'C');
+          $this->cell(40,5,"Prepared by Emp no. $prpby",0,0,'C');
+          $this->cell(110,5,"Approved by Emp no. $appby",0,0,'C');
           $this->cell(70,5,"Signature & stamp",0,'C');
 
           $this->Ln(20);
 
-          $this->cell(50,5,'..................................',0,0,'C');
-          $this->cell(85,5,'..................................',0,0,'C');
-          $this->cell(70,5,'..................................',0,1,'C');
-          $this->cell(50,5,'Payment Method',0,0,'C');
-          $this->cell(85,5,'Cash',0,0,'C');
-          $this->multicell(70,5,"Check#",0,'C');
 
-      $this->Ln(10);
-
-      $this->SetFont('Arial','U',10);
-      $this->cell(80,5,'Remarks',0,1);
-      $this->SetFont('Arial','',10);
-      $this->cell(80,5,"Remarks: $remark",0,1);
+      
 
 
   }

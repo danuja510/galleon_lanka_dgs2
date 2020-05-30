@@ -2,16 +2,7 @@
 session_start();
 
 $cno=$_SESSION['customer'];
-$con = mysqli_connect("localhost","root","","galleon_lanka");
-if(!$con)
-  {
-    die("Error while connecting to database");
-  }
-  $sql="SELECT * FROM `customer` WHERE `cno`=".$cno.";";
-  $rowSQL= mysqli_query( $con,$sql);
-  mysqli_close($con);
-  while($row=mysqli_fetch_assoc( $rowSQL ))
-  {
+
 if(isset($_POST["btnsubmit"]))
 {
 $name=$_POST["txtName"];
@@ -37,9 +28,9 @@ if(isset($_POST["btnDelete"]))
   {
     die("Error while connecting to database");
   }
-  $sql2="UPDATE `customer` SET `state` = 'inactive' WHERE `customer`.`cno`=".$row['cno'].";";
+  $sql2="UPDATE `customer` SET `state` = 'inactive' WHERE `customer`.`cno`=".$cno.";";
   mysqli_query($con,$sql2);
   mysqli_close($con);
-  header('Location:../Pages/empHome.php');
+  header('Location:../Pages/updateCustomerPage.php');
 }
-}
+

@@ -10,8 +10,6 @@
   $sql="SELECT * FROM `supplier` WHERE `sid`=".$sid.";";
   $rowSQL= mysqli_query( $con,$sql);
   mysqli_close($con);
-  while($row=mysqli_fetch_assoc( $rowSQL ))
-  {
    if(isset($_POST["btnsubmit"]))
    {
 
@@ -27,8 +25,8 @@
    $sql="UPDATE `supplier` SET `Name` = '".$name."', `Address` = '".$address."',`tpno`='".$tpno."'  WHERE `supplier`.`sid`=".$sid.";";
    mysqli_query($con,$sql);
    mysqli_close($con);
-   $message = "Supplier Updated!";
-   echo "<script type='text/javascript'>alert('$message');</script>";
+   //$message = "Supplier Updated!";
+   //echo "<script type='text/javascript'>alert('$message');</script>";
    header('Location:../Pages/updateSupplierPage.php');
    }
 
@@ -40,10 +38,8 @@
         die("Eror while connecting to database");
       }
 
-      $sql2="UPDATE `supplier` SET `state` = 'inactive' WHERE `supplier`.`sid`=".$row['sid'].";";
+      $sql2="UPDATE `supplier` SET `state` = 'inactive' WHERE `supplier`.`sid`=".$sid.";";
       mysqli_query($con,$sql2);
       mysqli_close($con);
-      header('Location:../Pages/empHome.php');
+      header('Location:../Pages/updateSupplierPage.php');
     }
-
-  }

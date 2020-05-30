@@ -79,7 +79,7 @@
                   {
                     die("Error while connecting to database");
                   }
-                  $sql1="SELECT * FROM `materials` WHERE `sid` = '".$sid."';";
+                  $sql1="SELECT * FROM `materials` WHERE `sid` = '".$sid."' and status='active';";
                   $rowSQL1= mysqli_query( $con,$sql1);
                   while($row1=mysqli_fetch_assoc( $rowSQL1 )){
                     echo "

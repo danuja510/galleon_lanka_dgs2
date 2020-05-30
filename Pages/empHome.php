@@ -89,7 +89,7 @@
               </div>";
             $paymentVoucher="
               <div class='col span-1-of-4'>
-                  <a href='managePaymentVouchers.php'>
+                  <a href='viewPaymentVoucher.php'>
                       <div class='select-option'>
                           <i class='ion-ios-paper-outline icon-select'></i>
                           <h4>Manage Payment Vouchers</h4>

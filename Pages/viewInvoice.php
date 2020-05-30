@@ -27,7 +27,7 @@
     <title>ViewInvoice</title>
   </head>
   <body>
-      <header>
+    <header>
         <div class="row">
             <h1>Manufacturing Management System</h1>
             <h3>Galleon Lanka PLC</h3>

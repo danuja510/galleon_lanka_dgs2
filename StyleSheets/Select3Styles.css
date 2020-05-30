@@ -73,8 +73,12 @@ input[type=number]{
     border: 1px solid #ccc;
 }
 
-label{
+span,label{
     margin-left: 60%;
+}
+
+span{
+    font-weight: 400;
 }
 
 .dd{

@@ -16,7 +16,6 @@
               {
                 die("Error while connecting to database");
               }
-              $sql="SELECT * FROM `supplier`;";
       $_SESSION['supplier']=$row['sid'];
       header('Location:../Pages/updateSupplierPage.php');
     }    
