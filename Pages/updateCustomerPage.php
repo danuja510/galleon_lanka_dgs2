@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
 
     <title>Update Customer</title>
@@ -44,11 +45,10 @@
             </div>
         </div>
     </header>
-    <section class ="section-manage">
-      <div class ="$row">
-        <div class = "cols span-2-of-2">
+    <section class ="section-add">
+      <div class ="row">
+        <div class = "col span-2-of-3">
           <form action="../PHPScripts/updateCustomerPageScript.php" method="post">
-            <h2> Current Details </h2>
 
             <?php
               $cno=$_SESSION['customer'];
@@ -66,37 +66,40 @@
               mysqli_close($con);
              ?>
 
-             <h2> Update Details </h2>
-           <table>
-              <tr>
-                <td>
-                  <label for='txtName'>Name</label>
-                </td>
-                <td>
-                  <input type='text' name='txtName' <?php echo "value='".$row['Name']."'"; ?> id='txtName'>
-                </td>
-              </tr>
-              <tr>
-                <td>
+           </br>
+
+             <div class="row">
+               <div class="col span-1-of-2">
+                 <label for='txtName'>Name</label>
+               </div>
+               <div class="col span-1-of-2">
+                  <input type='text' name='txtName' <?php echo "value='".$row['Name']."'"; ?> id='txtName' required>
+                </div>
+             </div>
+
+             <div class="row">
+               <div class="col span-1-of-2">
                   <label for='txtAddress'>Address</label>
-                </td>
-                <td>
-                  <input type='text' name='txtAddress' <?php echo "value='".$row['Address']."'"; ?> id='txtAddress'>
-                </td>
-              </tr>
-              <tr>
-                <td>
+                </div>
+                <div class="col span-1-of-2">
+                  <input type='text' name='txtAddress' <?php echo "value='".$row['Address']."'"; ?> id='txtAddress' required>
+                </div>
+             </div>
+
+              <div class="row">
+                <div class="col span-1-of-2">
                   <label for='txtTPNo'>TP No</label>
-                </td>
-                <td>
-                  <input type='text' name='txtTPNo' <?php echo "value='".$row['tpno']."'"; ?> id='txtTPNo'>
-                </td>
-              </tr>
-              <tr>
-                <td>
+                </div>
+                <div class="col span-1-of-2">
+                  <input type='text' name='txtTPNo' <?php echo "value='".$row['tpno']."'"; ?> id='txtTPNo' required>
+                </div>
+             </div>
+
+              <div class="row">
+                <div class="col span-1-of-2">
                   <label for='txtType'>Type</label>
-                </td>
-                <td>
+                </div>
+                <div class="col span-1-of-2">
                   <select name='txtType'  id='txtType'>
                     <option value="<?php echo $row['type']; ?>"><?php echo $row['type']; ?></option>
                     <option value="other">Other</option>
@@ -104,16 +107,21 @@
                     <option value="dealer">Dealer</option>
                     <option value="customer">Customer</option>
                   </select>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <button type="submit" name="btnsubmit" id="btnsubmit">Submit</button>
-                  <input type="reset" name="btnreset" id="btnreset" value="Reset">
-                </td>
-              </tr>
-            </table>
+                </div>
+             </div>
+
+
+             <div class="row">
+               <div class="col span-1-of-2">
+                    &nbsp;
+               </div>
+               <div class="col span-1-of-2">
+                  <input type="submit" name="btnsubmit" id="btnsubmit" value ="Submit">
+
+                  <input type="submit" name="btnDelete" id="btnDelete" value ="Delete Customer">
+               </div>
+             </div>
+
           </form>
         </div>
       </div>

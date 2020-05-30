@@ -5,7 +5,9 @@
     header('Location:signIn.php');
   }
  ?>
- <html>
+
+ <!DOCTYPE html>
+ <html lang="en" dir="ltr">
  <head>
    <meta charset="utf-8">
    <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
@@ -37,17 +39,25 @@
     </header>
     <section class ="section-manage">
       <div class ="row">
-        <div class ="col span-2-of-2">
+        <div class="col span-1-of-6">
+          <a href="addSupplier.php">
+            <div class ="new">
+              <i class="ion-ios-compose-outline"></i>
+              New supplier
+            </div>
+          </a>
+        </div>
+        <div class ="col span-5-of-6">
           <form action="../PHPScripts/ViewSuppliersScript.php" method="post">
             <table width="80%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6EAF8">
-              <thread>
+              <thead>
                 <tr>
                 <th align="center" > Supplier ID </th>
                 <th align="center" > Name </th>
                 <th align="center" > Address </th>
                 <th align="center" > Telephone No. </th>
                 </tr>
-              </thread>
+              </thead>
 
               <?php
               $con = mysqli_connect("localhost","root","","galleon_lanka");
@@ -70,9 +80,7 @@
 
                 if ($row['state']== 'active')
                 {
-                  echo "<td>" . "<input type ='submit' id = 'btnUpdate".$row['sid'] ."' name='btnUpdate".$row['sid'] ."' value= 'Update Supplier'> ";
-
-                  echo "<td>" . "<input type ='submit' id= 'btnDelete".$row['sid'] ."' name='btnDelete".$row['sid'] . "'value= 'Delete Supplier'>". "</td>";
+                  echo "<td>" . "<input type ='submit' id = 'btnUpdate".$row['sid'] ."' name='btnUpdate".$row['sid'] ."' value= 'Manage Supplier'> ";
                 }
                 echo "</tr>";
               }

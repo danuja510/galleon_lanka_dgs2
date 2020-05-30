@@ -4,6 +4,7 @@
     header('Location:signIn.php');
   }
  ?>
+ <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset='utf-8'>
@@ -12,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
-    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select2Styles.css">
+    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>Create Payment Voucher</title>
     <script type="text/javascript">

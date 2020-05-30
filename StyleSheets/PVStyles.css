@@ -1,0 +1,7 @@
+input[type=date]{
+  width: 75%;
+  margin-right: 25%;
+  padding: 7px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}

@@ -11,7 +11,8 @@
     $sql="SELECT * FROM `supplier` WHERE `sid` = ".$sid.";";
 
 
-    $grn_no=$_POST['txtPVno'];
+    $pv_no=$_POST['txtPVno'];
+    $grn_no=$_POST['txtGRN'];
     $date=$_POST['txtDate'];
     $amount=$_POST['txtAmount'];
     $remarks=$_POST['txtRemarks'];
@@ -21,8 +22,8 @@
     {
       die("cannot connect to DB server");
     }
-    $sql1="INSERT INTO `payment_voucher`(`pv_no`,`sid`,`date`,`amount`,`prepared_by_(eno)`,`remarks`) VALUES('".$grn_no."','".$sid."','".$date."','".$amount."','".$_SESSION['eno']."','".$remarks."');";
+    $sql1="INSERT INTO `payment_voucher`(`pv_no`,`grn_no`,`sid`,`date`,`amount`,`prepared_by_(eno)`,`approvedBy`,`remarks`) VALUES('".$pv_no."','".$grn_no."','".$sid."','".$date."','".$amount."','".$_SESSION['eno']."',NULL,'".$remarks."');";
     mysqli_query($con1,$sql1);
     mysqli_close($con1);
-    header('Location:../Pages/CreatePaymentVoucher2.php');
+    header('Location:../Pages/empHome.php');
   }
