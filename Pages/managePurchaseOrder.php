@@ -116,10 +116,16 @@
               <div class='col span-1-of-2'>";
           if($row['approvedBy']!=null){
             echo"<input type='submit' value='Print' name='btnPrint'>";
-          }else{
+              if($_SESSION['DES']=='Manager'){
+                  echo "<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
+              }
+          }elseif($_SESSION['DES']=='Manager'){
             echo"<input type='submit' value='Approve' name='btnConfirm' id='btnConfirm'>";
+            echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
+          }else{
+          echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>";
           }
-          echo"<input type='submit' value='Delete' name='btnDelete' id='btnDelete'>
+              echo "
           </div>
           </div>
       </div>";
