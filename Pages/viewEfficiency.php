@@ -555,12 +555,12 @@
                 ?>
             </div>
             <div class="col span-1-of-2">
-                <table>
-                    <thead>
-                        <th>Material No</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Difference</th><th>Meterial Efficiency</th>
-                    </thead>
                     <?php
                         if(sizeof($effStore)>0){
+                            echo "<table>
+                                    <thead>
+                                        <th>Material No</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Difference</th><th>Meterial Efficiency</th>
+                                    </thead>";
                             for ($j=0; $j <sizeof($effStore) ; $j++) {
                               $class = efClass($effStore[$j]->eff);
                               echo "
@@ -574,11 +574,11 @@
                                 <td class=".$class."><strong>".round($effStore[$j]->eff,2)."</strong></td>
                             </tr>";
                            }
+                            echo "</table>";
                         }else{
                             echo "No Recorded Operations ".$dateDisplay;
                         }
                 ?>
-                </table>
             </div>
         </div>
         <div class="row">
@@ -705,24 +705,26 @@
                         if($totpflooref>0){
                             $class= efClass($totpflooref/sizeof($effpFloor));
                             echo "Efficiency of Production Floor =<span class=".$class."><strong>".round($totpflooref/sizeof($effpFloor)*100,2)."%</strong></span><br>";
+                            echo $dateDisplay;
+                            echo "<br>(Calculated by converting finished products using their BOMs)";
                         }else{
                             $class= efClass(0);
                             echo "Efficiency of Production Floor =<span class=".$class."><strong>0%</strong></span><br>";
+                            echo $dateDisplay;
                         }
                         }else{
                             echo "No Recorded Operations ";
+                            echo $dateDisplay;
                         }
-                        echo $dateDisplay;
                     ?>
-
             </div>
             <div class="col span-1-of-2">
-                <table>
-                    <thead>
-                        <th>Material No</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Difference</th><th>Meterial Efficiency</th>
-                    </thead>
                     <?php
                         if(sizeof($effpFloor)>0){
+                            echo "<table>
+                                    <thead>
+                                        <th>Material Name</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Difference</th><th>Meterial Efficiency</th>
+                                    </thead>";
                             for ($j=0; $j <sizeof($effpFloor) ; $j++) {
                             $class = efClass($effpFloor[$j]->eff);
                             echo "<tr>
@@ -735,11 +737,11 @@
                                     <td class=".$class."><strong>".round($effpFloor[$j]->eff,2)."</strong></td>
                                 </tr>";
                             }
+                            echo "</table>";
                           }else{
                             echo "No Recorded Operations ".$dateDisplay;
                         }
                     ?>
-                </table>
             </div>
         </div>
         <div class="row">
@@ -777,7 +779,7 @@
                         echo "
                         <table>
                             <thead>
-                                <th>Material No</th><th>Store OUT</th><th>PFloor IN</th><th>Difference</th><th>Transfer Efficiency</th>
+                                <th>Finished Product No</th><th>Store OUT</th><th>PFloor IN</th><th>Difference</th><th>Transfer Efficiency</th>
                             </thead>";
                         for ($j=0; $j <sizeof($effpfloor_fGoods_transfers) ; $j++) {
                             $class = efClass($effpfloor_fGoods_transfers[$j]->eff);
@@ -830,7 +832,7 @@
                         echo "
                         <table>
                             <thead>
-                                <th>Material No</th><th>pfloor in</th><th>fgoods out</th><th>Difference</th><th>Transfer Efficiency</th>
+                                <th>Finished Product No</th><th>pfloor in</th><th>fgoods out</th><th>Difference</th><th>Transfer Efficiency</th>
                             </thead>";
                         for ($j=0; $j <sizeof($effpfloor_fGoods_returnss) ; $j++) {
                             $class = efClass($effpfloor_fGoods_returnss[$j]->eff);
@@ -879,12 +881,12 @@
                 ?>
             </div>
             <div class="col span-1-of-2">
-                <table>
-                    <thead>
-                        <th>Material No</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Difference</th><th>Meterial Efficiency</th>
-                    </thead>
                     <?php
                         if(sizeof($efffGoods)>0){
+                            echo "<table>
+                                    <thead>
+                                        <th>Finished Product No</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Difference</th><th>Meterial Efficiency</th>
+                                    </thead>";
                             for ($j=0; $j <sizeof($efffGoods) ; $j++) {
                                 $class = efClass($efffGoods[$j]->eff);
                               echo "
@@ -897,12 +899,12 @@
                                 <td class=".$class."><strong>".$efffGoods[$j]->dif."</strong></td>
                                 <td class=".$class."><strong>".round($efffGoods[$j]->eff,2)."</strong></td>
                             </tr>";
-                          }
+                            }
+                           echo "</table>";
                         }else{
                             echo "No Recorded Operations ".$dateDisplay;
                         }
                 ?>
-                </table>
             </div>
         </div>
     </section>
