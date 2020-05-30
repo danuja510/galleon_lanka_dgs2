@@ -52,6 +52,13 @@
        $rowSQL= mysqli_query( $con,$sql);
        $row = mysqli_fetch_assoc( $rowSQL);
        $t=$row['Type'];
+       $st=$row['status'];
+         $readonly="";
+         $disabled="";
+         if($st=='inactive'){
+            $readonly="readonly";
+            $disabled="disabled";
+         }
 
 echo"
   <section class='section-manage'>
@@ -73,7 +80,7 @@ echo"
             <label for='txtName'>Name</label>
           </div>
           <div class='col span-1-of-2'>
-            <input type='text' name='txtName' id='txtName' value=" .$row['Name']. " required>
+            <input type='text' name='txtName' id='txtName' value=" .$row['Name']. " required $readonly>
           </div>
         </div>
 
@@ -83,7 +90,7 @@ echo"
             <label for='lstSupplier'>Supplier</label>
           </div>
           <div class='col span-1-of-2'>
-            <select name='lstSupplier' id='lstSupplier'>
+            <select name='lstSupplier' id='lstSupplier' $disabled>
 
                 <option value=".$row['sid'].">
                    ".$row['sid']."
@@ -110,7 +117,7 @@ echo "
             <label for='lstType'>Type</label>
           </div>
           <div class='col span-1-of-2'>
-            <select name='lstType' id='lstType'>
+            <select name='lstType' id='lstType' $disabled>
 
                 <option value=".$t.">
                    ".$t."
@@ -145,7 +152,7 @@ echo"
             <label for='txtValue'>value</label>
           </div>
           <div class='col span-1-of-2'>
-            <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required>
+            <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required $readonly>
           </div>
         </div>
 
@@ -161,24 +168,19 @@ echo"
         <div class='row'>
         <div class='col span-1-of-2'>
         </div>
-          <div class='col span-1-of-2'>
+
+          <div class='col span-1-of-2'>";
+          if($st=='active'){
+          echo"
               <input type='submit' name='btnUpdate' value='Update'>
-              <input type='submit' name='btnDelete' id='btnDelete' value='Delete'>
+              <input type='submit' name='btnDelete' id='btnDelete' value='Delete'>";
+          }
+          echo"
           </div>
-
-          <div>
-";
-        $st=$row['status'];
-        if($st=='active'){
-echo"
-
-";
-}
-echo"
+        <div>
         </div>
 ";
             ?>
-
     </form>
 </section>
 <footer>
