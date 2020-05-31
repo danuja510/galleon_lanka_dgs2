@@ -64,7 +64,7 @@
             $sid=$row['sid'];
             echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['prep_date'] ."</div></div>";
             echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'> ".$row['prepared_by_(eno)']."</div></div>";
-            echo "<div class='row'><div class='col span-1-of-2'>Amount Rs. </div><div class='col span-1-of-2'> ".$row['price']."</div></div>";
+            echo "<div class='row'><div class='col span-1-of-2'>Amount Rs. </div><div class='col span-1-of-2'> ".round($row['price'],2)."</div></div>";
             if($row['approvedBy']!=null){
               echo"<div class='row'><div class='col span-1-of-2'>Status : </div><div class='col span-1-of-2'> Approved</div></div>";}
             else{

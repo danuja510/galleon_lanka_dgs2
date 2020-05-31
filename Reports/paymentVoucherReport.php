@@ -81,7 +81,7 @@ function header()
       $this->cell(45,5,'Payment Voucher no.',0,0,'L');
 
       $this->cell(25,5,$_SESSION['PV'],0,0,'L');
-    
+
         $this->Ln(10);
 
       $this->SetFont('Arial','U',10);
@@ -101,7 +101,7 @@ function header()
           $this->cell(100,10,'','T,B',0,'');
           $this->cell(10,10,'Total Rs.','T,B',0,'L');
           $this->cell(35,10,'','T,B',0,'');
-          $this->cell(30,10,$amount,'T,B',0,'L');
+          $this->cell(30,10,round($amount,2),'T,B',0,'L');
             $this->cell(15,10,'','T,B',1,'L');
 
           $this->Ln(20);
@@ -116,7 +116,7 @@ function header()
           $this->Ln(20);
 
 
-      
+
 
 
   }

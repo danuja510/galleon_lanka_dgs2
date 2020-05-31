@@ -87,7 +87,7 @@ function header()
       $this->SetFont('Arial','U',10);
       $this->SetFont('Arial','',10);
       $this->cell(80,5,"Remarks: $remark",0,1);
-    
+
     $this->Ln(10);
 
       //$this->Ln(10);
@@ -101,7 +101,7 @@ function header()
           $this->cell(100,10,'','T,B',0,'');
           $this->cell(10,10,'Total Rs.','T,B',0,'L');
           $this->cell(25,10,'','T,B',0,'');
-          $this->cell(30,10,$amount,'T,B',0,'L');
+          $this->cell(30,10,round($amount,2),'T,B',0,'L');
             $this->cell(25,10,'','T,B',1,'L');
 
           $this->Ln(20);

@@ -76,7 +76,7 @@ echo"
           </div>
           <div class='col span-1-of-2'>
 
-            <input type='text' name='txtMid' id='txtMid' value=" .$row['mid']. " required readonly>
+            <input type='text' name='txtMid' id='txtMid' value='" .$row['mid']. "' required readonly>
           </div>
         </div>
 
@@ -85,7 +85,7 @@ echo"
             <label for='txtName'>Name</label>
           </div>
           <div class='col span-1-of-2'>
-            <input type='text' name='txtName' id='txtName' value=" .$row['Name']. " required $readonly>
+            <input type='text' name='txtName' id='txtName' value='" .$row['Name']. "' required $readonly>
           </div>
         </div>
 
@@ -97,7 +97,7 @@ echo"
           <div class='col span-1-of-2'>
             <select name='lstSupplier' id='lstSupplier' $disabled>
 
-                <option value=".$row['sid'].">
+                <option value='".$row['sid']."'>
                    ".$row['sid']."
                 </option>
 ";
@@ -124,7 +124,7 @@ echo "
           <div class='col span-1-of-2'>
             <select name='lstType' id='lstType' $disabled>
 
-                <option value=".$t.">
+                <option value='".$t."'>
                    ".$t."
                 </option>
 ";
@@ -157,7 +157,7 @@ echo"
             <label for='txtValue'>value</label>
           </div>
           <div class='col span-1-of-2'>
-            <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required $readonly>
+            <input type='number' name='txtValue' id='txtValue' value='".$row['value']."' min='0' step='0.01' required $readonly>
           </div>
         </div>
 

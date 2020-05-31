@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `purchase_orders` (
   `mid` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   `prep_date` date NOT NULL,
-  `amount` int(11) NOT NULL,
+  `amount` float NOT NULL,
   `delivery_date` date NOT NULL,
   `prepared_by_(eno)` int(11) NOT NULL,
   `approvedBy` int(11) DEFAULT NULL,

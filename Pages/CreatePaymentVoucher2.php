@@ -148,7 +148,7 @@ mysqli_close($con);
                       $sql="select grn_no,SUM(amount) as value from grn where grn_no='".$grn_no."' group by grn_no";
                       $rowSQL = mysqli_query($con,$sql);
                       $row = mysqli_fetch_array($rowSQL);
-                      echo "<input type='number' name='txtAmount' id='txtAmount' min='0' max='".$row['value']."' value='".$row['value']."' required>";
+                      echo "<input type='number' name='txtAmount' id='txtAmount' step='0.01' min='0' max='".round($row['value'],2)."' value='".round($row['value'],2)."' required>";
                     ?>
                 </div>
               </div>

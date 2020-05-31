@@ -59,7 +59,7 @@
 
               while($row = mysqli_fetch_assoc( $rowSQL ))
               {
-                echo "<tr><td>" . $row['sid'] . "</td><td>" . $row['Amount'] . "</td><td>" . $row['date'] . "</td></tr>";
+                echo "<tr><td>" . $row['sid'] . "</td><td>" . round($row['Amount'],2) . "</td><td>" . $row['date'] . "</td></tr>";
               }
             ?>
           </table>

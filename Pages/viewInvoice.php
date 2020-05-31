@@ -69,7 +69,7 @@
         echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['date']."</div></div>";
         echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'>".$row['prepared_by']."</div></div>";
         echo "<div class='row'><div class='col span-1-of-2'>Remarks </div><div class='col span-1-of-2'>".$row['remarks']."</div></div>";
-        echo "<div class='row'><div class='col span-1-of-2'>Amount Rs. </div><div class='col span-1-of-2'>".$row['price']."</div></div>";
+        echo "<div class='row'><div class='col span-1-of-2'>Amount Rs. </div><div class='col span-1-of-2'>".round($row['price'],2)."</div></div>";
         $_SESSION['Ivalue']=$row['price'];
         if($row['approved_by']!=null){
             echo "<div class='row'><div class='col span-1-of-2'>Status :</div><div class='col span-1-of-2'>Approved</div></div>";

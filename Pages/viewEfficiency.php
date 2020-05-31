@@ -472,7 +472,7 @@
     }
 
     $sq23="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='fGoods' ".$curdate." AND type='return_in' and item_type='finished_product' and approved_by IS NOT null GROUP BY item_no";
-    $rowSQL= mysqli_query( $con,$sq22);
+    $rowSQL= mysqli_query( $con,$sq23);
     while($row=mysqli_fetch_assoc( $rowSQL )){
       for ($j=0; $j <sizeof($efffGoods) ; $j++) {
         if ($row['item_no']==$efffGoods[$j]->itemID) {
@@ -498,7 +498,6 @@
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
-    <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/efStyles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>viewEfficiency</title>
@@ -766,7 +765,7 @@
                             $class= efClass(0);
                             echo "Efficiency of Production Floor transfers =<span class=".$class."><strong>0%</strong></span><br>";
                         }
-                        
+
                         echo $dateDisplay;
                     }else{
                         echo "No transfers between pfloor and fgoods ".$dateDisplay;
@@ -876,7 +875,7 @@
                     }else{
                         echo "No Recorded Operations ";
                     }
-                    
+
                     echo $dateDisplay;
                 ?>
             </div>

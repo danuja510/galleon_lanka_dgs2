@@ -88,7 +88,7 @@
                         <td>".$row['invoice_no']."</td>
                         <td>".$row1['cno']."</td>
                         <td>".$row1['Name']."</td>
-                        <td><input type='number' id='".$row['invoice_no']."' name='".$row['invoice_no']."' value='".$row['tot']."' step='0.1' min='0'></td>
+                        <td><input type='number' id='".$row['invoice_no']."' name='".$row['invoice_no']."' value='".round($row['tot'],2)."' step='0.01' min='0'></td>
                         </tr>
                         ";
                   mysqli_close($con);

@@ -48,7 +48,7 @@
       <section class="section-view">
       <form action="../PHPScripts/manageCashreceiptScript.php" method="post">
       <div class="row">
-          
+
           <?php
           $CR=$_SESSION['CR'];
           $con = mysqli_connect("localhost","root","","galleon_lanka");
@@ -64,7 +64,7 @@
           echo "<div class='row'><div class='col span-1-of-2'><span>Customer No.</span></div><div class='col span-1-of-2'>".$row['cno'] ."</div></div>";
           $cno=$row['cno'];
           echo "<div class='row'><div class='col span-1-of-2'><span>Remarks</span></div><div class='col span-1-of-2'>".$row['remarks'] ."</div></div>";
-          echo "<div class='row'><div class='col span-1-of-2'><span>Amount Rs.</span> </div><div class='col span-1-of-2'> ".$row['price']."</div></div>";
+          echo "<div class='row'><div class='col span-1-of-2'><span>Amount Rs.</span> </div><div class='col span-1-of-2'> ".round($row['price'],2)."</div></div>";
           echo "<div class='row'><div class='col span-1-of-2'><span>Date</span></div><div class='col span-1-of-2'>".$row['date'] ."</div></div>";
           echo "<div class='row'><div class='col span-1-of-2'><span>Prepared by</span></div><div class='col span-1-of-2'> ".$row['prepared_by']."</div></div>";
 

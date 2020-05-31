@@ -77,7 +77,7 @@ echo"
                     <label for='txtFpid'>FP ID</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <input type='text' name='txtFpid' id='txtFpid' value=".$row['fp_id']." required readonly>
+                    <input type='text' name='txtFpid' id='txtFpid' value='".$row['fp_id']."' required readonly>
                   </div>
                 </div>
 
@@ -86,7 +86,7 @@ echo"
                     <label for='txtName'>Name</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <input type='text' name='txtName' id='txtName' value=".$row['Name']." required $readonly>
+                    <input type='text' name='txtName' id='txtName' value='".$row['Name']."' required $readonly>
                   </div>
                 </div>
 
@@ -97,7 +97,7 @@ echo"
                   <div class='col span-1-of-2'>
                     <select name='lstBomid' id='lstBomid' $disabled>
 
-                        <option value=".$row['bom_id'].">
+                        <option value='".$row['bom_id']."'>
                            ".$row['bom_id']."
                         </option>
         ";
@@ -125,7 +125,7 @@ echo"
                     <label for='txtValue'>Value</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required $readonly>
+                    <input type='number' name='txtValue' id='txtValue' value='".$row['value']."' min='0' step='0.01' required $readonly>
                   </div>
                 </div>
 
@@ -134,7 +134,7 @@ echo"
                     <label for='txtStatus'>Status</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <input type='text' name='txtStatus' id='txtStatus' value=".$row['status']." readonly>
+                    <input type='text' name='txtStatus' id='txtStatus' value='".$row['status']."' readonly>
                     </div>
                 </div>
 

@@ -47,7 +47,7 @@
       <form action="../PHPScripts/addBOMScript.php" method="post">
         <div class="row">
                 <div class="col span-1-of-2">
-                    <label for="txtName">BOM Name</label>
+                    <label for="txtName">Material Name</label>
                 </div>
                 <div class="col span-1-of-2">
                     <input type="text" name="txtName" list="lstBOM" required><br>

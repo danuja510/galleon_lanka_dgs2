@@ -117,7 +117,7 @@
             </tr>
           ";
           $query2[$i]="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$order[0]."', '".-$order[1]."', 'material', CURDATE(), 'pfloor');";
-            $_SESSION['USQ_2']=$query;
+            $_SESSION['USQ_2']=$query2;
           }
         mysqli_close($con);
       ?>

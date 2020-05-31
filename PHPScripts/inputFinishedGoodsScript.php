@@ -6,7 +6,7 @@
         {
          die("Error while connecting to database");
         }
-        $sql="SELECT * FROM `finished_products`;";
+        $sql="SELECT * FROM `finished_products` where status ='active';";
         $rowSQL3= mysqli_query( $con,$sql);
         mysqli_close($con);
         $m="";
@@ -28,5 +28,5 @@
         }else {
           $_SESSION['ifg']=$m;
           header('Location:../Pages/updateStock.php');
-        } 
+        }
       }
