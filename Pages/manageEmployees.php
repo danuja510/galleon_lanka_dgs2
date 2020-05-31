@@ -27,7 +27,7 @@
       function validateUname()
       {
         var uname=document.getElementById('txtName').value;
-        if(/^[a-zA-Z0-9]*$/.test(uname) == false){
+        if(/^[a-zA-Z0-9_ ]*$/.test(uname) == false){
           alert("Please enter a valid Username");
           event.preventDefault();
         }
