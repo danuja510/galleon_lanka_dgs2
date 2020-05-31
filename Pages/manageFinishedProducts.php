@@ -44,7 +44,7 @@
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                 </a>
-                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+                <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
             </div>
             </div>
     </header>
@@ -71,7 +71,7 @@ echo"
         <section class='section-manage'>
         <h2>Manage Finished Products</h2>
               <form action='../PHPScripts/manageFinishedProductsScript.php' method='post'>
-        
+
                 <div class='row'>
                   <div class='col span-1-of-2'>
                     <label for='txtFpid'>FP ID</label>
@@ -80,7 +80,7 @@ echo"
                     <input type='text' name='txtFpid' id='txtFpid' value=".$row['fp_id']." required readonly>
                   </div>
                 </div>
-        
+
                 <div class='row'>
                   <div class='col span-1-of-2'>
                     <label for='txtName'>Name</label>
@@ -89,14 +89,14 @@ echo"
                     <input type='text' name='txtName' id='txtName' value=".$row['Name']." required $readonly>
                   </div>
                 </div>
-      
+
                 <div class='row'>
                   <div class='col span-1-of-2'>
                     <label for='lstBomid'>BOM ID</label>
                   </div>
                   <div class='col span-1-of-2'>
                     <select name='lstBomid' id='lstBomid' $disabled>
-        
+
                         <option value=".$row['bom_id'].">
                            ".$row['bom_id']."
                         </option>
@@ -128,7 +128,7 @@ echo"
                     <input type='number' name='txtValue' id='txtValue' value=".$row['value']." min='0' step='0.01' required $readonly>
                   </div>
                 </div>
-        
+
                 <div class='row'>
                   <div class='col span-1-of-2'>
                     <label for='txtStatus'>Status</label>
@@ -137,10 +137,10 @@ echo"
                     <input type='text' name='txtStatus' id='txtStatus' value=".$row['status']." readonly>
                     </div>
                 </div>
-        
+
                 <div class='row'>
                   <div class='col span-1-of-2'>
-                     &nbsp;   
+                     &nbsp;
                   </div>
                   <div class='col span-1-of-2'>";
                   if($st=='active'){

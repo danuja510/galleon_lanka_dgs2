@@ -40,23 +40,26 @@ if(!isset($_SESSION['reset']))
    </head>
    <body>
      <header>
-           <div class="row">
-               <h1>Manufacturing Management System</h1>
-               <h3>Galleon Lanka PLC</h3>
-           </div>
-           <div class="nav">
-               <div class="row">
-                   <div class="btn-navi"><i class="ion-navicon-round"></i></div>
-                   <a href="empHome.php">
-                       <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
-                   </a>
-                   <a href="logout.php">
-                       <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
-                   </a>
-                   <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
-               </div>
-           </div>
-       </header>
+         <div class="row">
+             <h1>Manufacturing Management System</h1>
+             <h3>Galleon Lanka PLC</h3>
+         </div>
+         <div class="nav">
+             <div class="row">
+                 <!--<div class="btn-navi"><i class="ion-navicon-round"></i></div>-->
+                 <a href="empHome.php">
+                     <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
+                 </a>
+                 <a href="empHome.php">
+                     <div class="btn-back"><i class="ion-ios-arrow-back"></i><p>Back</p></div>
+                 </a>
+                 <a href="logout.php">
+                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
+                 </a>
+                 <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+             </div>
+         </div>
+     </header>
 
        <section class="section-view">
              <h2>New Password</h2>

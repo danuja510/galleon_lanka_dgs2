@@ -37,11 +37,11 @@
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                 </a>
-                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+                <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
             </div>
         </div>
         </header>
-      
+
       <section class="section-manage">
         <div class="row">
 
@@ -122,11 +122,11 @@
             }
             ?>
       </table>
-      </form>  
+      </form>
             </div>
         </div>
       </section>
-      
+
       <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>

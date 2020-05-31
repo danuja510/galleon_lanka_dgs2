@@ -50,7 +50,7 @@
                       <a href="logout.php">
                           <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                       </a>
-                      <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+                      <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
                   </div>
               </div>
           </header>
@@ -77,7 +77,7 @@
                     <label for='txtEno'>Eno</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <input type='text' name='txtEno' id='txtEno' value=".$row['eno']." required readonly>
+                    <input type='text' name='txtEno' id='txtEno' value='".$row['eno']."' required readonly>
                   </div>
                 </div>
 
@@ -86,7 +86,7 @@
                     <label for='txtName'>Name</label>
                   </div>
                   <div class='col span-1-of-2'>
-                    <input type='text' name='txtName' id='txtName' value=".$row['Name']." required>
+                    <input type='text' name='txtName' id='txtName' value='".$row['Name']."' required>
                   </div>
                 </div>
 

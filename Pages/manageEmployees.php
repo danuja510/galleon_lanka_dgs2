@@ -56,7 +56,7 @@
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                 </a>
-                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+                <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
             </div>
         </div>
     </header>
@@ -85,7 +85,7 @@
                   <label for='txtEno'>Eno</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <input type='text' name='txtEno' id='txtEno' value=" .$row['eno']. " required readonly>
+                  <input type='text' name='txtEno' id='txtEno' value='" .$row['eno']."' required readonly>
                 </div>
               </div>
 
@@ -94,7 +94,7 @@
                   <label for='txtName'>Name</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <input type='text' name='txtName' id='txtName' value=" .$row['Name']. " required $readonly>
+                  <input type='text' name='txtName' id='txtName' value='" .$row['Name']."' required $readonly>
                 </div>
               </div>
 
@@ -104,9 +104,9 @@
                 </div>
                 <div class='col span-1-of-2'>";
                 if($st=='inactive'){
-                  echo"<input type='text' name='txtDes' id='txtDes' value=".$row['Designation']." required readonly>";
+                  echo"<input type='text' name='txtDes' id='txtDes' value='".$row['Designation']."' required readonly>";
                 }else{
-                  echo"<input type='text' name='txtDes' id='txtDes' value=".$row['Designation']." required readonly style='width:260px; margin-right:5px;'>";
+                  echo"<input type='text' name='txtDes' id='txtDes' value='".$row['Designation']."' required readonly style='width:260px; margin-right:5px;'>";
                 }
                   $desg = $row['Designation'];
                   if(($desg=='Employee') && $st=='active'){
@@ -126,7 +126,7 @@
                 <div class='col span-1-of-2'>";
                 echo"
                   <select name='lstDepartment' id='lstDepartment'>
-                      <option value=".$row['Dept'].">
+                      <option value='".$row['Dept']."'>
                           ".$row['Dept']."
                       </option>";
                       if($desg!='Manager' && $st=='active'){
@@ -168,7 +168,7 @@
                   <label for='txtStatus'>Status</label>
                 </div>
                 <div class='col span-1-of-2'>
-                  <input type='text' name='txtStatus' id='txtStatus' value=" .$row['status']. " required readonly >
+                  <input type='text' name='txtStatus' id='txtStatus' value='".$row['status']."' required readonly >
                 </div>
               </div>
               ";

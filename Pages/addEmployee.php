@@ -85,7 +85,7 @@ if ($_SESSION['DES']!='Manager') {
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                 </a>
-                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+                <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
             </div>
         </div>
     </header>

@@ -70,7 +70,7 @@
                 <a href="logout.php">
                     <div class="btn-logout"><i class="ion-log-out"></i><p>Logout</p></div>
                 </a>
-                <a href="#"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
+                <a href="userProfile.php"><div class="btn-account"><i class="ion-ios-person"></i><p>Account</p></div></a>
             </div>
         </div>
     </header>
@@ -78,7 +78,7 @@
     <h2>Add Finished Product</h2>
     <section class="section-add">
     <form action="../PHPScripts/addFinishedProductsScript.php" method="post">
-        
+
         <div class="row">
             <div class="col span-1-of-2">
               <label for="txtName">Name</label>
@@ -135,7 +135,7 @@
           </div>
       </form>
     </section>
-    
+
     <footer>
         <div class="row"><p> Copyright &copy; 2020 by Galleon Lanka PLC. All rights reserved.</p></div>
         <div class="row"><p>Designed and Developed by DGS2</p></div>
