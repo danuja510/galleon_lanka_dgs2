@@ -73,6 +73,7 @@
                 $row = mysqli_fetch_array( $rowSQL );
                 $max = $row['max'];
                 $po_no=$max+1;
+                $_SESSION['pOrder']=$po_no;
                 for ($i=0; $i <sizeof($POs)-1 ; $i++) {
                   $order=explode('x',$POs[$i]);
                   if ($order[1]==0) {

@@ -14,8 +14,15 @@
     $date=$_POST['txtDate'];
     $amount=$_POST['txtAmount'];
     $remarks=$_POST['txtRemarks'];
-    $sql1="INSERT INTO `payment_voucher`(`pv_no`,`grn_no`,`sid`,`date`,`amount`,`prepared_by_(eno)`,`approvedBy`,`remarks`) VALUES('".$pv_no."','".$grn_no."','".$sid."','".$date."','".$amount."','".$_SESSION['eno']."',NULL,'".$remarks."');";
+    if ($_SESSION['DES']=='Manager') {
+      $sql1="INSERT INTO `payment_voucher`(`pv_no`,`grn_no`,`sid`,`date`,`amount`,`prepared_by_(eno)`,`approvedBy`,`remarks`) VALUES('".$pv_no."','".$grn_no."','".$sid."','".$date."','".$amount."','".$_SESSION['eno']."','".$_SESSION['eno']."','".$remarks."');";
+      $sql2="INSERT INTO `creditors` (`no`,`sid`, `amount`, `date`) VALUES (NULL,'".$sid."', '".-$amount."',CURDATE() );";
+      mysqli_query( $con,$sql2);
+    }else{
+      $sql1="INSERT INTO `payment_voucher`(`pv_no`,`grn_no`,`sid`,`date`,`amount`,`prepared_by_(eno)`,`approvedBy`,`remarks`) VALUES('".$pv_no."','".$grn_no."','".$sid."','".$date."','".$amount."','".$_SESSION['eno']."',NULL,'".$remarks."');";
+    }
     mysqli_query($con,$sql1);
     mysqli_close($con);
-    header('Location:../Pages/viewPaymentVoucher.php');
+    $_SESSION['PV']=$pv_no;
+    header('Location:../Pages/managePaymentVoucher.php');
   }

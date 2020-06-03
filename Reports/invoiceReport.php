@@ -118,7 +118,7 @@ function header()
           $this->cell(80,10,$row['Name'],0,0,'L');
           $this->cell(30,10,$val,0,0,'L');
           $this->cell(30,10,$qty,0,0,'L');
-          $this->cell(15,10,$row1['total'],0,1,'L');
+          $this->cell(15,10,round($row1['total'],2),0,1,'L');
 
         }
       }

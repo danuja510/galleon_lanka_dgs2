@@ -119,11 +119,12 @@
               $query[$i]="INSERT INTO `grn` (`no`, `grn_no`, `po_no`, `sid`, `mid`, `qty`, `date`, `amount`, `prepared_by_(eno)`,       `remarks`,`approvedBy`)VALUES(NULL,'".$grn_no."',".$pono.",'".$_SESSION['sid']."','".$order[0]."','".$order[1]."',CURDATE(),'".$row['value']*$order[1]."', '".$_SESSION['eno']."', NULL, NULL);";
             }
           }
+          unset($_SESSION['GRN']);
+          unset($_SESSION['sid']);
+          $_SESSION['gsid']=$sid;
             $_SESSION['GRNQ']=$query;
             $_SESSION['GRNQC']=$count;
-            $_SESSION['GRNNo']=$grn_no;
-            unset($_SESSION['sid']);
-            unset($_SESSION['GRN']);
+            $_SESSION['grn']=$grn_no;
         ?>
       </table>
       </div>

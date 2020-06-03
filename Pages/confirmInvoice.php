@@ -81,11 +81,12 @@
               $query[$i]="INSERT INTO `invoice` (`no`, `invoice_no`, `cno`, `item_no`, `remarks`, `qty`, `value`, `prepared_by`,`approved_by`, `date`, `po_no`, `vehicle_no`, `total`) VALUES(NULL, '".$invoice_no."', '".$_SESSION['cno']."', '".$order[0]."', NULL, '".$order[1]."','".$row['value']."' ,'".$_SESSION['eno']."' ,NULL, CURDATE(), NULL, NULL, '".$row['value']*$order[1]."')";
             }
           }
+          unset($_SESSION['INVOICE']);
             $_SESSION['InvoiceQ']=$query;
             $_SESSION['InvoiceQC']=$count;
-            $_SESSION['InvoiceNo']=$invoice_no;
+            $_SESSION['invoice']=$invoice_no;
+            $_SESSION['Icno']=$_SESSION['cno'];
             unset($_SESSION['cno']);
-            unset($_SESSION['INVOICE']);
         ?>
       </table>
           </div>

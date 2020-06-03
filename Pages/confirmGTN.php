@@ -90,11 +90,13 @@
             $query[$i]="INSERT INTO `gtn` (`no`, `gtn_no`, `item_no`,`item_type`, `qty`, `type`, `remarks`, `dept`,`prepared_by`, `approved_by`, `date`) VALUES (NULL, '".$gtn_no."', '".$order[0]."', '".$order[2]."', '".$order[1]."','".$gtnType."', NULL, '".$_SESSION['dept']."','".$_SESSION['eno']."', NULL, CURDATE());";
           }
         }
+        unset($_SESSION['GTN']);
+        $_SESSION['gdept']=$_SESSION['dept'];
+          unset($_SESSION['dept']);
+          $_SESSION['gtype']=$gtnType;
             $_SESSION['GTNQ']=$query;
             $_SESSION['GTNQC']=$count;
-            $_SESSION['GTNNo']=$gtn_no;
-            unset($_SESSION['dept']);
-            unset($_SESSION['GTN']);
+            $_SESSION['gtn']=$gtn_no;
       ?>
     </table>
           </div>
