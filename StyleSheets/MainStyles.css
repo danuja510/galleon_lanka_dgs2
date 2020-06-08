@@ -14,7 +14,7 @@ html  {
     text-rendering: optimizeLegibility;
 }
 
-section { min-height: 260px; }
+section { min-height: 60vh; }
 
 h1,
 h2,
@@ -57,7 +57,7 @@ h1  {
 }
 
 .row{
-    max-width: 1140px;
+    max-width: 80vw;
     margin: 0 auto;
 }
 
