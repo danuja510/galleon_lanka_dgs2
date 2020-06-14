@@ -90,9 +90,9 @@ function header()
       $this->cell(80,5,"Remarks: $remark",0,1);
 
       $this->SetFont('Times','B','10');
-      $this->cell(30,10,'Meterial Code','T',0,'L');
+      $this->cell(30,10,'Meterial No','T',0,'L');
       $this->line(10, 110, 210-8, 110);
-      $this->cell(60,10,'Meterial Description','T',0,'L');
+      $this->cell(60,10,'Meterial Name/Code','T',0,'L');
       $this->cell(30,10,'Meterial Type','T',0,'L');
       $this->cell(30,10,'Unit Price','T',0,'L');
       $this->cell(20,10,'Qty.','T',0,'L');

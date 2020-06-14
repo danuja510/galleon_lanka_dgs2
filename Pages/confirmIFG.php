@@ -33,7 +33,7 @@
                 <a href="empHome.php">
                     <div class="btn-home"><i class="ion-home"></i><p>Home</p></div>
                 </a>
-                <a href="updateStock.php">
+                <a href="inputFinishedGoods.php">
                     <div class="btn-back"><i class="ion-ios-arrow-back"></i><p>Back</p></div>
                 </a>
                 <a href="logout.php">
@@ -45,17 +45,15 @@
     </header>
     <section>
         <div class="row">
-            <div class="col span-1-of-2">
+            <div class="col span-2-of-2">
                 <table>
       <thead>
-        <th>Finished Product ID</th>
         <th>Finished Product Name</th>
         <th>Qty. to be Inserted</th>
         <th></th>
       </thead>
       <?php
       $query=[];
-      $query2=[];
       $ifg=$_SESSION['ifg'];
       $ifgs=explode(',',$ifg);
       $count=0;
@@ -75,9 +73,6 @@
           echo "
             <tr>
               <td>
-                ".$order[0]."
-              </td>
-              <td>
                 ".$row['Name']."
               </td>
               <td>
@@ -85,53 +80,22 @@
               </td>
             </tr>
           ";
-            $query[$i]="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$order[0]."', '".$order[1]."', 'finished_product', CURDATE(), 'pfloor');";
+            $query[$i]="INSERT INTO `stocks` (`no`, `item_name`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row['Name']."', '".$order[1]."', 'finished_product', NOW(), 'pfloor');";
             $_SESSION['USQ_1']=$query;
         }
       }
       ?>
     </table>
-            </div>
-            <div class="col span-1-of-2">
-                <table>
-      <thead>
-        <th>Material ID</th>
-        <th>Updated Qty.</th>
-      </thead>
-      <?php
-        $ifg_us=$_SESSION['ifg_us'];
-        $ifg_uss=explode(',',$ifg_us);
-        for ($i=0; $i <sizeof($ifg_uss)-1 ; $i++) {
-          $order=explode('x',$ifg_uss[$i]);
-          $sql4="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='pfloor'AND `item_no`=".$order[0]." AND `type`='material' GROUP BY `item_no`,`type`;";
-          $rowSQL4= mysqli_query( $con,$sql4);
-          $row4 = mysqli_fetch_array( $rowSQL4 );
-          echo "
-            <tr>
-              <td>
-                ".$order[0]."
-              </td>
-              <td>
-                ".($row4['Qty']-$order[1])."
-              </td>
-            </tr>
-          ";
-          $query2[$i]="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$order[0]."', '".-$order[1]."', 'material', CURDATE(), 'pfloor');";
-            $_SESSION['USQ_2']=$query2;
-          }
-        mysqli_close($con);
-      ?>
-        <tr>
-            <td class="bt">&nbsp;</td>
-            <td class="bt">
-                <form action="../PHPScripts/confirmIFGScript.php" method="post">
-                    <input type="submit" class="btn-confirm" id="btnConfirm" name="btnConfirm" value="Confirm">
-                </form>
-            </td>
-        </tr>
-    </table>
-
-            </div>
+  </div>
+        <div class="row">
+          <div class="col span-3-of-4">
+            &nbsp;
+          </div>
+          <div class="col span-1-of-4">
+            <form action="../PHPScripts/confirmIFGScript.php" method="post">
+                <input type="submit" class="btn-confirm" id="btnConfirm" name="btnConfirm" value="Confirm">
+            </form>
+          </div>
         </div>
     </section>
       <footer>

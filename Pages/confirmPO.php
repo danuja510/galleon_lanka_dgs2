@@ -51,7 +51,6 @@
           </div>
             <table>
               <thead>
-                <th>Material No.</th>
                 <th>Material Name</th>
                 <th>Material Type</th>
                 <th>Unit Price</th>
@@ -89,7 +88,6 @@
                     $row = mysqli_fetch_array( $rowSQL );
                     mysqli_close($con);
                     echo "<tr>
-                        <td>".$order[0]."</td>
                         <td>".$row['Name']."</td>
                         <td>".$row['Type']."</td>
                         <td>".$row['value']."</td>
@@ -109,7 +107,6 @@
               ?>
               <form  action="../PHPScripts/confirmPOScript.php" method="post">
                 <tr>
-                  <td class='bt'>&nbsp;</td>
                   <td class='bt'>&nbsp;</td>
                   <td class='bt'>&nbsp;</td>
                   <td class='bt'>&nbsp;</td>

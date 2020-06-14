@@ -65,9 +65,6 @@
         <table>
         <thead>
           <th>
-            Material No.
-          </th>
-          <th>
             Material Name
           </th>
           <th>
@@ -115,8 +112,8 @@
               $rowSQL= mysqli_query( $con,$sql);
               $row = mysqli_fetch_array( $rowSQL );
               mysqli_close($con);
-              echo "<tr><td>".$order[0]."</td><td>".$row['Name']."</td><td>".$row['Type']."</td><td>".$row['value']."</td><td>".$order[1]."</td><td>".$row['value']*$order[1]."</td></tr>";
-              $query[$i]="INSERT INTO `grn` (`no`, `grn_no`, `po_no`, `sid`, `mid`, `qty`, `date`, `amount`, `prepared_by_(eno)`,       `remarks`,`approvedBy`)VALUES(NULL,'".$grn_no."',".$pono.",'".$_SESSION['sid']."','".$order[0]."','".$order[1]."',CURDATE(),'".$row['value']*$order[1]."', '".$_SESSION['eno']."', NULL, NULL);";
+              echo "<tr><td>".$row['Name']."</td><td>".$row['Type']."</td><td>".$row['value']."</td><td>".$order[1]."</td><td>".$row['value']*$order[1]."</td></tr>";
+              $query[$i]="INSERT INTO `grn` (`no`, `grn_no`, `po_no`, `sid`, `mid`, `qty`, `date`, `amount`, `prepared_by_(eno)`, `remarks`,`approvedBy`)VALUES(NULL,'".$grn_no."',".$pono.",'".$_SESSION['sid']."','".$order[0]."','".$order[1]."',CURDATE(),'".$row['value']*$order[1]."', '".$_SESSION['eno']."', NULL, NULL);";
             }
           }
           unset($_SESSION['GRN']);

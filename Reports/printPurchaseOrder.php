@@ -92,9 +92,9 @@ function header()
       //$this->Ln(10);
       $this->SetFont('Times','B','10');
       //$this->line(10, 105, 210-10, 105);
-      $this->cell(30,10,'Item Code','T',0,'L');
+      $this->cell(30,10,'Item No','T',0,'L');
       $this->line(10, 105, 210-8, 105);
-      $this->cell(80,10,'Item Description','T',0,'L');
+      $this->cell(80,10,'Item Name/Code','T',0,'L');
       $this->cell(30,10,'Unit Price','T',0,'L');
       $this->cell(30,10,'Qty.','T',0,'L');
       $this->cell(22,10,'Amount','T',1,'L');

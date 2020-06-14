@@ -22,14 +22,14 @@
                 die("Error while connecting to database");
               }
               $nes="";
-              $sql3="SELECT `item_no`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
+              $sql3="SELECT `item_name`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
               $rowSQL3= mysqli_query( $con,$sql3);
               while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-                $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['gdept']."'AND `type`='".$row3['item_type']."' AND `item_no`='".$row3['item_no']."' GROUP BY `item_no`,`type`;";
+                $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['gdept']."'AND `type`='".$row3['item_type']."' AND `item_name`='".$row3['item_name']."' GROUP BY `item_name`,`type`;";
                 $rowSQL= mysqli_query( $con,$sql);
                 $row= mysqli_fetch_array($rowSQL);
                 if ($row3['qty'] > $row['Qty']) {
-                  $nes=$nes.$row3['item_no']."-".$row['type'].",";
+                  $nes=$nes.$row3['item_name']."-".$row['type'].",";
                 }
               }
               mysqli_close($con);
@@ -45,10 +45,10 @@
                 $sql="UPDATE `gtn` SET `approved_by` = '".$_SESSION['eno']."' WHERE `gtn`.`gtn_no` = ".$_SESSION['gtn'].";";
                 mysqli_query( $con,$sql);
                 // adding/updating stock rocords
-                $sql3="SELECT `item_no`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
+                $sql3="SELECT `item_name`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
                 $rowSQL3= mysqli_query( $con,$sql3);
                 while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              	  $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$_SESSION['gdept']."');";
+              	  $sql2="INSERT INTO `stocks` (`no`, `item_name`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_name']."', '".-$row3['qty']."', '".$row3['item_type']."', NOW(), '".$_SESSION['gdept']."');";
                   mysqli_query( $con,$sql2);
                 }
                 mysqli_close($con);
@@ -64,10 +64,10 @@
               $sql="UPDATE `gtn` SET `approved_by` = '".$_SESSION['eno']."' WHERE `gtn`.`gtn_no` = ".$_SESSION['gtn'].";";
               mysqli_query( $con,$sql);
               // adding/updating stock rocords
-              $sql3="SELECT `item_no`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
+              $sql3="SELECT `item_name`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
               $rowSQL3= mysqli_query( $con,$sql3);
               while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-                $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".$row3['qty']."', '".$row3['item_type']."', CURDATE(), '".$_SESSION['gdept']."');";
+                $sql2="INSERT INTO `stocks` (`no`, `item_name`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_name']."', '".$row3['qty']."', '".$row3['item_type']."', NOW(), '".$_SESSION['gdept']."');";
                 mysqli_query( $con,$sql2);
               }
             }

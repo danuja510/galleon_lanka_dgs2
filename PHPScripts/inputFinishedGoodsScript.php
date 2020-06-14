@@ -27,6 +27,6 @@
             header('Location:../Pages/inputFinishedGoods.php?count2=0');
         }else {
           $_SESSION['ifg']=$m;
-          header('Location:../Pages/updateStock.php');
+          header('Location:../Pages/confirmIFG.php');
         }
       }
