@@ -66,8 +66,7 @@
           <form action="../PHPScripts/materialOFGRNScript.php" method="post">
             <table>
               <thead>
-                <th>Material ID</th>
-                <th>Name</th>
+                <th>Material Name</th>
                 <th>Type</th>
                 <th>Value</th>
                 <th>Qty.</th>
@@ -93,7 +92,7 @@
                     $checked="checked='checked'";
                   }
                 }
-                echo "<tr><td>".$row1['mid']."</td><td>".$row1['Name']."</td><td>".$row1['Type']."</td><td>".$row1['value']."</td><td><input type='number' id='txt".$row1['mid']."' name='txt".$row1['mid']."' value='".$val."' step='1' min='0'></td><td class='chk'><input id='".$row1['mid']."' type='checkbox' class='css-checkbox' name='".$row1['mid']."' value='".$row1['mid']."' ".$checked."><label class='css-label' for='".$row1['mid']."'>&nbsp;</label></td></tr>";
+                echo "<tr><td>".$row1['Name']."</td><td>".$row1['Type']."</td><td>".$row1['value']."</td><td><input type='number' id='txt".$row1['mid']."' name='txt".$row1['mid']."' value='".$val."' step='1' min='0'></td><td class='chk'><input id='".$row1['mid']."' type='checkbox' class='css-checkbox' name='".$row1['mid']."' value='".$row1['mid']."' ".$checked."><label class='css-label' for='".$row1['mid']."'>&nbsp;</label></td></tr>";
                 }
                 mysqli_close($con);
               ?>

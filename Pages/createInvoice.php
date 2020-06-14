@@ -92,7 +92,7 @@
           <div class="col span-6-of-7">
               <table>
               <thead>
-          <th>Item No.</th>
+          <th>Item Name</th>
           <th>Available Qty.</th>
           <th>Qty. to be Sold</th>
           <th class="bt">&nbsp;</th>
@@ -103,11 +103,11 @@
         {
           die("Error while connecting to database");
         }
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
+        $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' GROUP BY `item_name`,`type`;";
         $rowSQL= mysqli_query( $con,$sql);
         mysqli_close($con);
         while($row=mysqli_fetch_assoc( $rowSQL )){
-          echo "<tr><td>".$row['item_no']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."' name='txt".$row['item_no']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td><input type='checkbox' id='".$row['item_no']."' class='css-checkbox' name='".$row['item_no']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."'>&nbsp;</label></td></tr>";
+          echo "<tr><td>".$row['item_name']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_name']."' name='txt".$row['item_name']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td><input type='checkbox' id='".$row['item_name']."' class='css-checkbox' name='".$row['item_name']."' value='".$row['item_name']."'><label class='css-label' for='".$row['item_name']."'>&nbsp;</label></td></tr>";
         }
         ?>
       <tr><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt chk"><input type="submit" name="btnNext" value="Next" onclick="validate()"></td></tr>

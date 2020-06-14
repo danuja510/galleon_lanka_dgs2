@@ -16,7 +16,10 @@
       $sql3="SELECT `mid`,`qty` FROM `grn` WHERE `grn_no`=".$_SESSION['grn']."";
       $rowSQL3= mysqli_query( $con,$sql3);
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-          $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['mid']."', '".$row3['qty']."', 'material', CURDATE(), 'store');";
+        $sql4="SELECT `Name` FROM `materials` WHERE `mid`=".$row3['mid']."";
+        $rowSQL4= mysqli_query( $con,$sql4);
+        $row4=mysqli_fetch_array( $rowSQL4 );
+          $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row4['Name']."', '".$row3['qty']."', 'material', NOW(), 'store');";
           mysqli_query( $con,$sql2);
       }
       mysqli_close($con);

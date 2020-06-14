@@ -1,8 +1,13 @@
 <?php
 session_start();
+
+require '../PHPScripts/stock.php';
+
 if(!isset($_SESSION['eno']))
 {
   header('Location:signIn.php');
+}elseif ($_SESSION['DES']!='Manager') {
+  header('Location:empHome.php');
 }
 else if(!isset($_SESSION['DES']))
 {
@@ -28,7 +33,7 @@ if(isset($_GET['sort'])){
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Update stocks</title>
+    <title>Update Balance Stocks</title>
     <link rel="stylesheet" type="text/css" href="../StyleSheets/viewStocksStyles.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/normalize.css">
     <link rel="stylesheet" type="text/css" href="../Resources/CSS/grid.css">
@@ -64,7 +69,7 @@ if(isset($_GET['sort'])){
     </header>
       <section class="section-manage">
         <div class="row">
-            <form action="../PHPScripts/updateStocksScript.php" method="post">
+          <form action="../PHPScripts/updateStocksScript.php" method="post">
             <div class="col span-1-of-7">
                     <div class="new">
                     Your Department:
@@ -90,41 +95,49 @@ if(isset($_GET['sort'])){
                  ?>
                     </div>
         </div>
+          </form>
             <div class="col span-6-of-7">
         <table>
           <thead>
-            <th>Department</th>
-            <th>item no</th>
-            <th>type</th>
-            <th>qty</th>
+            <thead>
+              <th>Item Name</th>
+              <th>qty</th>
+              <th>type</th>
+              <th>Department</th>
+            </thead>
           </thead>
-
           <?php
-          $con=mysqli_connect("localhost","root","","galleon_lanka");
-          if(!$con)
-            {
-              die("cannot connect to DB server");
+            $get="";
+            if(isset($_GET['sort'])){
+              $get="?sort=".$_GET['sort'];
             }
-            $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$dep."' GROUP BY dept, item_no, type;";
-          if($dep=="Manager")
-          {
-          $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` GROUP BY dept, item_no, type;";
-              if(isset($_GET['sort']) && $_GET['sort']!='all'){
-                  $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$_GET['sort']."' GROUP BY dept, item_no, type;";
-              }
+            echo "<form action='../PHPScripts/updateStocksScript.php".$get."' method='post'>";
+           ?>
+          <?php
+
+          $departments =array('store', 'fGoods', 'pFloor');
+          if(isset($_GET['sort']) && in_array($_GET['sort'], $departments)){
+              $stockArr=viewStocksManagerFiltered($sort=$_GET['sort']);
+          }else {
+            $stockArr=viewStocksManager();
           }
-          $rowSQL= mysqli_query($con,$sql);
-          while($row=mysqli_fetch_assoc($rowSQL))
-          {
+
+          foreach ($stockArr as $stock) {
        echo"
           <tr>
-            <td>".$row['dept']."</td>
-            <td>".$row['item_no']."</td>
-            <td>".$row['type']."</td>
-            <td><input type='number' name='txt".$row['dept']."".$row['type']."".$row['item_no']."' id='txt".$row['dept']."".$row['type']."".$row['item_no']."' value='".$row['finalstock']."' min=0></td>
-            <td class='bt'><input type='submit' name='btnUpdate".$row['dept']."".$row['type']."".$row['item_no']."' id='btnUpdate".$row['dept']."".$row['type']."".$row['item_no']."' value='Update'></td>
+            <td>".$stock->item_name."</td>
+            <td>".$stock->type."</td>
+            <td><input type='number' name='txt".$stock->dept."".$stock->type."".$stock->item_name."' id='txt".$stock->dept."".$stock->type."".$stock->item_name."' min=0 required></td>
+            <td>".$stock->dept."</td>
           </tr>";
           }
+          echo "
+          <tr>
+            <td class='bt'>&nbsp;</td>
+            <td class='bt'>&nbsp;</td>
+            <td class='bt'>&nbsp;</td>
+            <td class='bt'><input type='submit' name='btnUpdate' id='btnUpdate' value='Update'></td>
+          </tr>";
         ?>
         </table>
         </div>

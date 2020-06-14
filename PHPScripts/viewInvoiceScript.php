@@ -7,14 +7,14 @@
         die("Error while connecting to database");
       }
       $nes="";
-      $sql3="SELECT `item_no`,`qty` FROM `invoice` WHERE `invoice_no`=".$_SESSION['invoice']."";
+      $sql3="SELECT `item_name`,`qty` FROM `invoice` WHERE `invoice_no`=".$_SESSION['invoice']."";
       $rowSQL3= mysqli_query( $con,$sql3);
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' AND `item_no`='".$row3['item_no']."' GROUP BY `item_no`,`type`;";
+        $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' AND `item_name`='".$row3['item_name']."' GROUP BY `item_name`,`type`;";
         $rowSQL= mysqli_query( $con,$sql);
         $row= mysqli_fetch_array($rowSQL);
         if ($row3['qty'] > $row['Qty']) {
-          $nes=$nes.$row3['item_no']."-".$row['type'].",";
+          $nes=$nes.$row3['item_name']."-".$row['type'].",";
         }
       }
       mysqli_close($con);
@@ -36,10 +36,10 @@
           mysqli_query( $con,$sql2);
 
         // updating stock rocords
-        $sql3="SELECT `item_no`,`qty` FROM `invoice` WHERE `invoice_no`=".$_SESSION['invoice']."";
+        $sql3="SELECT `item_name`,`qty` FROM `invoice` WHERE `invoice_no`=".$_SESSION['invoice']."";
         $rowSQL3= mysqli_query( $con,$sql3);
         while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-          $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".-$row3['qty']."', 'finished_product', CURDATE(), 'fGoods');";
+          $sql2="INSERT INTO `stocks` (`no`, `item_name`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_name']."', '".-$row3['qty']."', 'finished_product', NOW(), 'fGoods');";
           mysqli_query( $con,$sql2);
         }
         mysqli_close($con);
@@ -76,10 +76,10 @@
       $sql2="INSERT INTO `debtors` (`no`, `cno`, `amount`, `date`) VALUES (NULL, '".$_SESSION['Icno']."', '".-$_SESSION['Ivalue']."',CURDATE() );";
       mysqli_query( $con,$sql2);
       // reversing stock rocords
-      $sql3="SELECT `item_no`,`qty` FROM `invoice` WHERE `invoice_no`=".$_SESSION['invoice']."";
+      $sql3="SELECT `item_name`,`qty` FROM `invoice` WHERE `invoice_no`=".$_SESSION['invoice']."";
       $rowSQL3= mysqli_query( $con,$sql3);
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-        $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_no']."', '".$row3['qty']."', 'finished_product', CURDATE(), 'fGoods');";
+        $sql2="INSERT INTO `stocks` (`no`, `item_name`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['item_name']."', '".$row3['qty']."', 'finished_product', CURDATE(), 'fGoods');";
         mysqli_query( $con,$sql2);
       }
       $sql="DELETE FROM `invoice` WHERE  `invoice_no` =".$_SESSION['invoice'].";";

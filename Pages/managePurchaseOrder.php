@@ -89,12 +89,14 @@
             ";
             $sql="SELECT * FROM `purchase_orders` WHERE `po_no`=".$PO.";";
             $rowSQL= mysqli_query( $con,$sql);
-            mysqli_close($con);
             while($row2=mysqli_fetch_assoc( $rowSQL )){
+              $sql="SELECT Name FROM `materials` WHERE `mid`=".$row2['mid'].";";
+              $rowSQL2= mysqli_query( $con,$sql);
+              $row3=mysqli_fetch_array( $rowSQL2 );
               echo "
                 <tr>
                   <td>
-                    ".$row2['mid']."
+                    ".$row3['Name']."
                   </td>
                   <td>
                     ".$row2['qty']."
@@ -105,6 +107,7 @@
                 </tr>
               ";
             }
+            mysqli_close($con);
           echo "
               </table>
             </div>

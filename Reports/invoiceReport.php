@@ -92,9 +92,9 @@ function header()
       //$this->Ln(10);
       $this->SetFont('Times','B','10');
       //$this->line(10, 105, 210-10, 105);
-      $this->cell(30,10,'Item Code','T',0,'L');
+      $this->cell(30,10,'Item Name/ Code','T',0,'L');
       $this->line(10, 110, 210-8, 110);
-      $this->cell(80,10,'Item Description','T',0,'L');
+      $this->cell(80,10,'','T',0,'L');
       $this->cell(30,10,'Unit Price','T',0,'L');
       $this->cell(30,10,'Qty.','T',0,'L');
       $this->cell(22,10,'Amount','T',1,'L');
@@ -103,24 +103,17 @@ function header()
       $this->SetFont('Times','B','10');
 
       //getting finished goods details
-      $sql="SELECT `item_no`,`qty`,`value`,`total` FROM `invoice` where `invoice_no`=".$_SESSION['invoice']." ";
+      $sql="SELECT `item_name`,`qty`,`value`,`total` FROM `invoice` where `invoice_no`=".$_SESSION['invoice']." ";
       $rowSQL1= mysqli_query($con,$sql);
       while($row1=mysqli_fetch_assoc( $rowSQL1))
       {
-      $ino=$row1['item_no'];
       $qty=$row1['qty'];
       $val=$row1['value'];
-        $sql="SELECT `fp_id`,`Name` FROM `finished_products` where `fp_id`=$ino;";
-        $rowSQL2= mysqli_query($con,$sql);
-        while($row = mysqli_fetch_assoc( $rowSQL2))
-        {
-          $this->cell(30,10,$row['fp_id'],0,0,'L');
-          $this->cell(80,10,$row['Name'],0,0,'L');
-          $this->cell(30,10,$val,0,0,'L');
-          $this->cell(30,10,$qty,0,0,'L');
-          $this->cell(15,10,round($row1['total'],2),0,1,'L');
-
-        }
+      $this->cell(30,10,$row1['item_name'],0,0,'L');
+      $this->cell(80,10,'',0,0,'L');
+      $this->cell(30,10,$val,0,0,'L');
+      $this->cell(30,10,$qty,0,0,'L');
+      $this->cell(15,10,round($row1['total'],2),0,1,'L');
       }
           $this->Ln(10);
 

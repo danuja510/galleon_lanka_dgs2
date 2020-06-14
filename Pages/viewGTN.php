@@ -93,13 +93,13 @@
                         for ($i=0; $i < sizeof($nes)-1; $i++) {
                           $nes2=explode('-', $nes[$i]);
                           $nesc= "";
-                          if ($nes2[0]==$row2['item_no'] && $nes2[1]==$row2['item_type']) {
+                          if ($nes2[0]==$row2['item_name'] && $nes2[1]==$row2['item_type']) {
                             $nesc=" class='nes'";
                             break;
                           }
                         }
                       }
-                      echo "<tr><td".$nesc.">".$row2['item_no']."</td><td".$nesc.">".$row2['item_type']."</td><td".$nesc.">".$row2['qty']."</td></tr>";
+                      echo "<tr><td".$nesc.">".$row2['item_name']."</td><td".$nesc.">".$row2['item_type']."</td><td".$nesc.">".$row2['qty']."</td></tr>";
                     }
                     echo "</table>"; ?>
                 </div>

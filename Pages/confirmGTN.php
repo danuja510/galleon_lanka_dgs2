@@ -49,7 +49,7 @@
           <div class="col span-2-of-2">
               <table>
       <thead>
-        <th>Item No.</th>
+        <th>Item Name</th>
         <th>Item Type</th>
         <th>Qty.</th>
       </thead>
@@ -87,7 +87,7 @@
                 <td>".$order[1]."</td>
               </tr>
             ";
-            $query[$i]="INSERT INTO `gtn` (`no`, `gtn_no`, `item_no`,`item_type`, `qty`, `type`, `remarks`, `dept`,`prepared_by`, `approved_by`, `date`) VALUES (NULL, '".$gtn_no."', '".$order[0]."', '".$order[2]."', '".$order[1]."','".$gtnType."', NULL, '".$_SESSION['dept']."','".$_SESSION['eno']."', NULL, CURDATE());";
+            $query[$i]="INSERT INTO `gtn` (`no`, `gtn_no`, `item_name`,`item_type`, `qty`, `type`, `remarks`, `dept`,`prepared_by`, `approved_by`, `date`) VALUES (NULL, '".$gtn_no."', '".$order[0]."', '".$order[2]."', '".$order[1]."','".$gtnType."', NULL, '".$_SESSION['dept']."','".$_SESSION['eno']."', NULL, CURDATE());";
           }
         }
         unset($_SESSION['GTN']);

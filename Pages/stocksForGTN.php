@@ -50,7 +50,7 @@
         <div class="col span-2-of-2">
           <form action="../PHPScripts/stocksForGTNScript.php" method="post">
             <table>
-              <thead><th>Item No.</th><th>Type</th><th>Available Qty.</th><th>Qty. to be transfered <?php echo $_SESSION['gtntype']; ?></th><th class="bt">&nbsp;</th>
+              <thead><th>Item Name</th><th>Type</th><th>Available Qty.</th><th>Qty</th><th class="bt">&nbsp;</th>
               </thead>
               <?php
                 $type=$_SESSION['gtntype'];
@@ -62,58 +62,58 @@
                 if($_SESSION['gtntype']=='out' || $_SESSION['gtntype']=='return_out'){
                   if ($_SESSION['dept']=='pFloor') {
                     if ($_SESSION['gtntype']=='out') {
-                      $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' and `type` = 'finished_product' GROUP BY `item_no`,`type`;";
+                      $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' and `type` = 'finished_product' GROUP BY `item_name`,`type`;";
                       $rowSQL= mysqli_query( $con,$sql);
                       while($row=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."".$row['type']."' name='txt".$row['item_no']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_no']."".$row['type']."' class='css-checkbox' name='".$row['item_no']."".$row['type']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."".$row['type']."'>&nbsp;</label></td></tr>";
+                        echo "<tr><td>".$row['item_name']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_name']."".$row['type']."' name='txt".$row['item_name']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_name']."".$row['type']."' class='css-checkbox' name='".$row['item_name']."".$row['type']."' value='".$row['item_name']."'><label class='css-label' for='".$row['item_name']."".$row['type']."'>&nbsp;</label></td></tr>";
                       }
                     }elseif ($_SESSION['gtntype']=='return_out') {
-                      $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' and `type` = 'material' GROUP BY `item_no`,`type`;";
+                      $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' and `type` = 'material' GROUP BY `item_name`,`type`;";
                       $rowSQL= mysqli_query( $con,$sql);
                       while($row=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."".$row['type']."' name='txt".$row['item_no']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_no']."".$row['type']."' class='css-checkbox' name='".$row['item_no']."".$row['type']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."".$row['type']."'>&nbsp;</label></td></tr>";
+                        echo "<tr><td>".$row['item_name']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_name']."".$row['type']."' name='txt".$row['item_name']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_name']."".$row['type']."' class='css-checkbox' name='".$row['item_name']."".$row['type']."' value='".$row['item_name']."'><label class='css-label' for='".$row['item_name']."".$row['type']."'>&nbsp;</label></td></tr>";
                       }
                     }
                   }else {
-                    $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' GROUP BY `item_no`,`type`;";
+                    $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' GROUP BY `item_name`,`type`;";
                     $rowSQL= mysqli_query( $con,$sql);
                     while($row=mysqli_fetch_assoc( $rowSQL )){
-                      echo "<tr><td>".$row['item_no']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_no']."".$row['type']."' name='txt".$row['item_no']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_no']."".$row['type']."' class='css-checkbox' name='".$row['item_no']."".$row['type']."' value='".$row['item_no']."'><label class='css-label' for='".$row['item_no']."".$row['type']."'>&nbsp;</label></td></tr>";
+                      echo "<tr><td>".$row['item_name']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_name']."".$row['type']."' name='txt".$row['item_name']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_name']."".$row['type']."' class='css-checkbox' name='".$row['item_name']."".$row['type']."' value='".$row['item_name']."'><label class='css-label' for='".$row['item_name']."".$row['type']."'>&nbsp;</label></td></tr>";
                     }
                   }
 
                 }else {
                   if ($_SESSION['dept']=='pFloor') {
                     if ($_SESSION['gtntype']=='return_in') {
-                      $sql="SELECT * FROM `finished_products` where status='active';";
+                      $sql="SELECT * FROM `finished_products` where status='active' group by Name;";
                       $rowSQL= mysqli_query( $con,$sql);
                       $iType='finished_product';
                       while($row=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row['fp_id']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['fp_id']."".$iType."' name='txt".$row['fp_id']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['fp_id']."".$iType."' type='checkbox' class='css-checkbox' name='".$row['fp_id']."".$iType."' value='".$row['fp_id']."'><label class='css-label' for='".$row['fp_id']."".$iType."'>&nbsp;</label></td></tr>";
+                        echo "<tr><td>".$row['Name']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['Name']."".$iType."' name='txt".$row['Name']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['Name']."".$iType."' type='checkbox' class='css-checkbox' name='".$row['Name']."".$iType."' value='".$row['Name']."'><label class='css-label' for='".$row['Name']."".$iType."'>&nbsp;</label></td></tr>";
                       }
                     }elseif ($_SESSION['gtntype']=='in') {
-                      $sql="SELECT * FROM `materials` where status='active';";
+                      $sql="SELECT * FROM `materials` where status='active' group by Name;";
                       $rowSQL= mysqli_query( $con,$sql);
                       $iType='material';
                       while($row=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row['mid']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['mid']."".$iType."' name='txt".$row['mid']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input type='checkbox' id='".$row['mid']."".$iType."' class='css-checkbox' name='".$row['mid']."".$iType."' value='".$row['mid']."'><label class='css-label' for='".$row['mid']."".$iType."'>&nbsp;</label></td></tr>";
+                        echo "<tr><td>".$row['Name']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['Name']."".$iType."' name='txt".$row['Name']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input type='checkbox' id='".$row['Name']."".$iType."' class='css-checkbox' name='".$row['Name']."".$iType."' value='".$row['Name']."'><label class='css-label' for='".$row['Name']."".$iType."'>&nbsp;</label></td></tr>";
                       }
                     }
                   }
                   if ($_SESSION['dept']=='fGoods') {
-                    $sql="SELECT * FROM `finished_products` where status='active';";
+                    $sql="SELECT * FROM `finished_products` where status='active' group by Name;";
                     $rowSQL= mysqli_query( $con,$sql);
                     $iType='finished_product';
                     while($row=mysqli_fetch_assoc( $rowSQL )){
-                      echo "<tr><td>".$row['fp_id']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['fp_id']."".$iType."' name='txt".$row['fp_id']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['fp_id']."".$iType."' type='checkbox' class='css-checkbox' name='".$row['fp_id']."".$iType."' value='".$row['fp_id']."'><label class='css-label' for='".$row['fp_id']."".$iType."'>&nbsp;</label></td></tr>";
+                      echo "<tr><td>".$row['Name']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['Name']."".$iType."' name='txt".$row['Name']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['Name']."".$iType."' type='checkbox' class='css-checkbox' name='".$row['Name']."".$iType."' value='".$row['Name']."'><label class='css-label' for='".$row['Name']."".$iType."'>&nbsp;</label></td></tr>";
                     }
                   }
                   if ($_SESSION['dept']=='store') {
-                    $sql="SELECT * FROM `materials` where status='active';";
+                    $sql="SELECT * FROM `materials` where status='active' group by Name;";
                     $rowSQL= mysqli_query( $con,$sql);
                     $iType='material';
                     while($row=mysqli_fetch_assoc( $rowSQL )){
-                      echo "<tr><td>".$row['mid']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['mid']."".$iType."' name='txt".$row['mid']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input type='checkbox' id='".$row['mid']."".$iType."' class='css-checkbox' name='".$row['mid']."".$iType."' value='".$row['mid']."'><label class='css-label' for='".$row['mid']."".$iType."'>&nbsp;</label></td></tr>";
+                      echo "<tr><td>".$row['Name']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['Name']."".$iType."' name='txt".$row['Name']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input type='checkbox' id='".$row['Name']."".$iType."' class='css-checkbox' name='".$row['Name']."".$iType."' value='".$row['Name']."'><label class='css-label' for='".$row['Name']."".$iType."'>&nbsp;</label></td></tr>";
                     }
                   }
                 }

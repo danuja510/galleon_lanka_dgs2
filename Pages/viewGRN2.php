@@ -76,13 +76,16 @@
             </div>
             <div class="col span-1-of-2">
                 <?php
-                    echo "<table><thead><th>Material ID</th><th>Qty.</th><th>Price</th></thead>";
+                    echo "<table><thead><th>Material Name</th><th>Qty.</th><th>Price</th></thead>";
                     $sql="SELECT * FROM `grn` WHERE `grn_no`=".$grn.";";
                     $rowSQL= mysqli_query( $con,$sql);
-                    mysqli_close($con);
                     while($row2=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row2['mid']."</td><td>".$row2['qty']."</td><td>".$row2['amount']."</td></tr>";
+                      $sql1="SELECT Name FROM `materials` WHERE `mid`=".$row2['mid'].";";
+                      $rowSQL1= mysqli_query( $con,$sql1);
+                      $row3=mysqli_fetch_array( $rowSQL1 );
+                        echo "<tr><td>".$row3['Name']."</td><td>".$row2['qty']."</td><td>".$row2['amount']."</td></tr>";
                     }
+                    mysqli_close($con);
                     echo "</table>";
                 ?>
             </div>

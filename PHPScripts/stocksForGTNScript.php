@@ -2,18 +2,18 @@
     session_start();
     if($_SESSION['gtntype']=='out' || $_SESSION['gtntype']=='return_out'){
       if ($_SESSION['dept']=='store') {
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_no`,`type`;";
+        $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_name`,`type`;";
         $iType='material';
       }elseif ($_SESSION['dept']=='pFloor') {
         if ($_SESSION['gtntype']=='out') {
-          $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
+          $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_name`,`type`;";
           $iType='finished_product';
         }elseif ($_SESSION['gtntype']=='return_out') {
-          $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_no`,`type`;";
+          $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_name`,`type`;";
           $iType='material';
         }
       }elseif ($_SESSION['dept']=='fGoods') {
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
+        $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_name`,`type`;";
         $iType='finished_product';
       }
     }else {
@@ -48,10 +48,10 @@
           $count2=0;
 
             while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['item_no'].$iType])){
+              if(isset($_POST[$row3['item_name'].$iType])){
                 $count++;
-                $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no'].$iType].'x'.$iType.',';
-                  if($_POST['txt'.$row3['item_no'].$iType]>0){
+                $m=$m.$row3['item_name'].'x'.$_POST['txt'.$row3['item_name'].$iType].'x'.$iType.',';
+                  if($_POST['txt'.$row3['item_name'].$iType]>0){
                   $count2++;
                 }
               }
@@ -63,10 +63,10 @@
             $count=0;
             $count2=0;
             while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['fp_id'].$iType])){
+              if(isset($_POST[$row3['Name'].$iType])){
                 $count++;
-                $m=$m.$row3['fp_id'].'x'.$_POST['txt'.$row3['fp_id'].$iType].'x'.$iType.',';
-                if($_POST['txt'.$row3['fp_id'].$iType]>0){
+                $m=$m.$row3['Name'].'x'.$_POST['txt'.$row3['Name'].$iType].'x'.$iType.',';
+                if($_POST['txt'.$row3['Name'].$iType]>0){
                   $count2++;
                 }
               }
@@ -78,10 +78,10 @@
             $count=0;
             $count2=0;
             while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['mid'].$iType])){
+              if(isset($_POST[$row3['Name'].$iType])){
                 $count++;
-                $m=$m.$row3['mid'].'x'.$_POST['txt'.$row3['mid'].$iType].'x'.$iType.',';
-                if($_POST['txt'.$row3['mid'].$iType]>0){
+                $m=$m.$row3['Name'].'x'.$_POST['txt'.$row3['Name'].$iType].'x'.$iType.',';
+                if($_POST['txt'.$row3['Name'].$iType]>0){
                   $count2++;
                 }
               }

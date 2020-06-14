@@ -85,45 +85,24 @@ function header()
       $this->SetFont('Times','B','10');
       $this->cell(40,10,'Item Code','T',0,'L');
       $this->line(10, 110, 200, 110);
-      $this->cell(80,10,'Item Description','T',0,'L');
+      $this->cell(80,10,'','T',0,'L');
       $this->cell(40,10,'Item Type','T',0,'L');
       $this->cell(30,10,'Qty.','T',1,'L');
 
 
       $this->SetFont('Times','B','10');
 
-      //getting finished goods details
-      if ($_SESSION['gdept'] =='store' or ($_SESSION['gdept']== 'pFloor' and ($_SESSION['gtype']=='in' || $_SESSION['gtype']=='return_out'))) {
         $sql="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." ";
         $rowSQL1= mysqli_query($con,$sql);
         while($row1=mysqli_fetch_assoc( $rowSQL1))
         {
-          $ino=$row1['item_no'];
-          $qty=$row1['qty'];
-          $sql="SELECT `mid`,`Name`,`value` FROM `materials` where `mid`=$ino;";
-          $rowSQL2= mysqli_query($con,$sql);
-          $row = mysqli_fetch_array( $rowSQL2 );
-          $this->cell(40,10,$row['mid'],0,0,'L');
-          $this->cell(80,10,$row['Name'],0,0,'L');
+          $this->cell(40,10,$row1['item_name'],0,0,'L');
+          $this->cell(80,10,'',0,0,'L');
           $this->cell(40,10,$row1['item_type'],0,0,'L');
-          $this->cell(30,10,$qty,0,1,'L');
+          $this->cell(30,10,$row1['qty'],0,1,'L');
         }
-      }elseif($_SESSION['gdept'] =='fGoods' or ($_SESSION['gdept']== 'pFloor' and ($_SESSION['gtype']=='out' || $_SESSION['gtype']=='return_in'))){
-        $sql="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." ";
-        $rowSQL1= mysqli_query($con,$sql);
-        while($row1=mysqli_fetch_assoc( $rowSQL1))
-        {
-          $ino=$row1['item_no'];
-          $qty=$row1['qty'];
-          $sql="SELECT `fp_id`,`Name` FROM `finished_products` where `fp_id`=$ino;";
-          $rowSQL2= mysqli_query($con,$sql);
-          $row = mysqli_fetch_array( $rowSQL2);
-          $this->cell(40,10,$row['fp_id'],0,0,'L');
-          $this->cell(80,10,$row['Name'],0,0,'L');
-          $this->cell(40,10,$row1['item_type'],0,0,'L');
-          $this->cell(30,10,$qty,0,1,'L');
-        }
-      }
+
+
 
           $this->Ln(20);
 

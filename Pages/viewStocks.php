@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+require '../PHPScripts/stock.php';
+
 if(!isset($_SESSION['eno']))
 {
   header('Location:signIn.php');
@@ -15,6 +18,8 @@ else if(!isset($_SESSION['DEPT']))
 $des=$_SESSION['DES'];
 $dep=$_SESSION['DEPT'];
 $op="";
+
+
 if(isset($_GET['sort'])){
     switch ($_GET['sort']){
         case 'store':$op = "<option value='".$_GET['sort']."'>Store</option>";break;
@@ -22,7 +27,6 @@ if(isset($_GET['sort'])){
         case 'fGoods':$op = "<option value='".$_GET['sort']."'>Finished Goods</option>";break;
     }
 }
-
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -83,13 +87,15 @@ if(isset($_GET['sort'])){
                   <option value='pFloor'>Production floor</option>
                   <option value='fGoods'>Finished Goods</option>
                 </select>
-                <input type='submit' name='btnSort' value='Sort'>
+                <input type='submit' name='btnSort' value='Filter'>
                 <br>&nbsp;<br><br>
             ";
                 }
-                echo "<a href='updateStocks.php'><b class='ifg'>Update Stocks</b></a><br><br>";
                 if ($_SESSION['DEPT']== 'Manager' || $_SESSION['DEPT']== 'pFloor') {
-                  echo "<a href='inputFinishedGoods.php'><b class='ifg'>Input Finished Goods</b></a>";
+                  echo "<a href='inputFinishedGoods.php'><b class='ifg'>Input Finished Goods</b></a><br><br>";
+                  if ($_SESSION['DEPT']== 'Manager') {
+                    echo "<a href='updateStocks.php'><b class='ifg'>Update Monthly Balance Stocks</b></a><br><br>";
+                  }
                 }
                  ?>
                     </div>
@@ -97,38 +103,34 @@ if(isset($_GET['sort'])){
             <div class="col span-6-of-7">
         <table>
           <thead>
-            <th>Department</th>
-            <th>item no</th>
-            <th>type</th>
+            <th>Item Name</th>
             <th>qty</th>
+            <th>type</th>
+            <th>Department</th>
           </thead>
 
           <?php
-          $con=mysqli_connect("localhost","root","","galleon_lanka");
-          if(!$con)
+            if($dep=="Manager")
             {
-              die("cannot connect to DB server");
-            }
-            $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$dep."' GROUP BY dept, item_no, type;";
-          if($dep=="Manager")
-          {
-          $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` GROUP BY dept, item_no, type;";
-              if(isset($_GET['sort']) && $_GET['sort']!='all'){
-                  $sql="SELECT dept,item_no,type,SUM(qty) as finalstock FROM `stocks` WHERE `dept`='".$_GET['sort']."' GROUP BY dept, item_no, type;";
+              $departments =array('store', 'fGoods', 'pFloor');
+              if(isset($_GET['sort']) && in_array($_GET['sort'], $departments)){
+                  $stockArr=viewStocksManagerFiltered($sort=$_GET['sort']);
+              }else {
+                $stockArr=viewStocksManager();
               }
-          }
-          $rowSQL= mysqli_query($con,$sql);
-          while($row=mysqli_fetch_assoc($rowSQL))
-          {
-    echo"
-          <tr>
-            <td>".$row['dept']."</td>
-            <td>".$row['item_no']."</td>
-            <td>".$row['type']."</td>
-            <td>".$row['finalstock']."</td>
-          </tr>
-    ";
-          }
+            }else {
+              $stockArr=viewStocksEmployee($dep=$dep);
+            }
+            foreach ($stockArr as $stock) {
+              echo"
+                    <tr>
+                      <td>".$stock->item_name."</td>
+                      <td>".$stock->qty."</td>
+                      <td>".$stock->type."</td>
+                      <td>".$stock->dept."</td>
+                    </tr>
+              ";
+            }
         ?>
 
         </table>

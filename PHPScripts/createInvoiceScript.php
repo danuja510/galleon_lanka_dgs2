@@ -1,7 +1,7 @@
 <?php
      session_start();
     if (isset($_POST['btnNext'])) {
-        $sql="SELECT `item_no`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' GROUP BY `item_no`,`type`;";
+        $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' GROUP BY `item_name`,`type`;";
           $_SESSION['cno']=$_POST['txtCNO'];
           $con = mysqli_connect("localhost","root","","galleon_lanka");
           if(!$con)
@@ -13,10 +13,10 @@
           $count=0;
             $count2=0;
           while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-            if(isset($_POST[$row3['item_no']])){
+            if(isset($_POST[$row3['item_name']])){
               $count++;
-              $m=$m.$row3['item_no'].'x'.$_POST['txt'.$row3['item_no']].',';
-                if($_POST['txt'.$row3['item_no']]>0){
+              $m=$m.$row3['item_name'].'x'.$_POST['txt'.$row3['item_name']].',';
+                if($_POST['txt'.$row3['item_name']]>0){
                 $count2++;
             }
             }

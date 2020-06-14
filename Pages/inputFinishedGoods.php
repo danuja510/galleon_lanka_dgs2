@@ -48,7 +48,6 @@
                 <form action="../PHPScripts/InputFinishedGoodsScript.php" method="post">
                   <table>
                     <thead>
-                      <th>Finished Product ID</th>
                       <th>Finished Product Name</th>
                       <th>Qty. to be Inserted</th>
                       <th class="bt">&nbsp;</th>
@@ -65,7 +64,6 @@
                       while($row=mysqli_fetch_assoc( $rowSQL )){
                         echo "
                           <tr>
-                            <td>".$row['fp_id']."</td>
                             <td>".$row['Name']."</td>
                             <td><input type='number' id='txt".$row['fp_id']."' name='txt".$row['fp_id']."' step='1' min='0' value='0'></td>
                             <td class='chk'><input class='css-checkbox' id='".$row['fp_id']."' type='checkbox' name='".$row['fp_id']."' value='".$row['fp_id']."' ><label class='css-label' for='".$row['fp_id']."'>&nbsp;</label></td>

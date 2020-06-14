@@ -48,7 +48,7 @@
       <div class="row">
           <div class="col span-2-of-2">
               <table>
-          <thead><th>Product No.</th><th>Product Name</th><th>Unit Price</th><th>Qty.</th><th>Amount</th></thead>
+          <thead><th>Product Name</th><th>Unit Price</th><th>Qty.</th><th>Amount</th></thead>
         <?php
           $query=[];
           $invoice=$_SESSION['INVOICE'];
@@ -73,12 +73,13 @@
               {
                 die("Error while connecting to database");
               }
-              $sql="SELECT * FROM `finished_products` WHERE `fp_id` = ".$order[0].";";
+              $sql="SELECT * FROM `finished_products` WHERE `Name` = '".$order[0]."';";
+              //echo $sql;
               $rowSQL= mysqli_query( $con,$sql);
               $row = mysqli_fetch_array( $rowSQL );
               mysqli_close($con);
-              echo "<tr><td>".$order[0]."</td><td>".$row['Name']."</td><td>".$row['value']."</td><td>".$order[1]."</td><td>".$row['value']*$order[1]."</td></tr>";
-              $query[$i]="INSERT INTO `invoice` (`no`, `invoice_no`, `cno`, `item_no`, `remarks`, `qty`, `value`, `prepared_by`,`approved_by`, `date`, `po_no`, `vehicle_no`, `total`) VALUES(NULL, '".$invoice_no."', '".$_SESSION['cno']."', '".$order[0]."', NULL, '".$order[1]."','".$row['value']."' ,'".$_SESSION['eno']."' ,NULL, CURDATE(), NULL, NULL, '".$row['value']*$order[1]."')";
+              echo "<tr><td>".$row['Name']."</td><td>".$row['value']."</td><td>".$order[1]."</td><td>".$row['value']*$order[1]."</td></tr>";
+              $query[$i]="INSERT INTO `invoice` (`no`, `invoice_no`, `cno`, `item_name`, `remarks`, `qty`, `value`, `prepared_by`,`approved_by`, `date`, `po_no`, `vehicle_no`, `total`) VALUES(NULL, '".$invoice_no."', '".$_SESSION['cno']."', '".$order[0]."', NULL, '".$order[1]."','".$row['value']."' ,'".$_SESSION['eno']."' ,NULL, CURDATE(), NULL, NULL, '".$row['value']*$order[1]."')";
             }
           }
           unset($_SESSION['INVOICE']);

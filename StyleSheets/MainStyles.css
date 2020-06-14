@@ -124,4 +124,8 @@ header a:visited{
 
 header a :hover{ background-color: #c6c6c6; }
 
+th{
+  text-transform: capitalize;
+}
+
 /*--dan--*/

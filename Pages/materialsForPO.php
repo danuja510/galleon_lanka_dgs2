@@ -72,7 +72,7 @@
         <div class="col span-2-of-2">
             <form action="../PHPScripts/materialsForPOScript.php" method="post">
               <table>
-                <thead><th>Material ID</th><th>Name</th><th>Type</th><th>Value</th><th>Qty.</th><th class="bt">&nbsp;</th></thead>
+                <thead><th>Name</th><th>Type</th><th>Value</th><th>Qty.</th><th class="bt">&nbsp;</th></thead>
                 <?php
                   $con = mysqli_connect("localhost","root","","galleon_lanka");
                   if(!$con)
@@ -84,7 +84,6 @@
                   while($row1=mysqli_fetch_assoc( $rowSQL1 )){
                     echo "
                     <tr>
-                        <td>".$row1['mid']."</td>
                         <td>".$row1['Name']."</td>
                         <td>".$row1['Type']."</td>
                         <td>".$row1['value']."</td>
@@ -102,7 +101,6 @@
                   <td>
                     <input type="date" name="txtDate" id="txtDate" required>
                   </td>
-                    <td class="bt">&nbsp;</td>
                     <td class="bt">&nbsp;</td>
                     <td class="bt">&nbsp;</td>
                     <td class="bt">
