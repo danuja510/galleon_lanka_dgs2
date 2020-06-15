@@ -1,5 +1,8 @@
 <?php
  session_start();
+
+ require '../PHPScripts/stock.php';
+
  if(!isset($_SESSION['eno'])){
    header('Location:signIn.php');
  }elseif ($_SESSION['DEPT']=='pFloor' || $_SESSION['DEPT']=='store'){
@@ -71,7 +74,7 @@
               <select name="txtCNO" id="txtCNO">
                   <option value="__">___</option>
                   <?php
-                  $sql="SELECT * FROM `customer`;";
+                  $sql="SELECT * FROM `customer` where `state` = 'active';";
                   $con = mysqli_connect("localhost","root","","galleon_lanka");
                   if(!$con)
                   {
@@ -98,16 +101,16 @@
           <th class="bt">&nbsp;</th>
         </thead>
         <?php
-        $con = mysqli_connect("localhost","root","","galleon_lanka");
-        if(!$con)
-        {
-          die("Error while connecting to database");
-        }
-        $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' GROUP BY `item_name`,`type`;";
-        $rowSQL= mysqli_query( $con,$sql);
-        mysqli_close($con);
-        while($row=mysqli_fetch_assoc( $rowSQL )){
-          echo "<tr><td>".$row['item_name']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_name']."' name='txt".$row['item_name']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td><input type='checkbox' id='".$row['item_name']."' class='css-checkbox' name='".$row['item_name']."' value='".$row['item_name']."'><label class='css-label' for='".$row['item_name']."'>&nbsp;</label></td></tr>";
+        $stockArr= viewStocksEmployee($dept='fGoods');
+        foreach ($stockArr as $stock) {
+          echo"
+                <tr>
+                  <td>".$stock->item_name."</td>
+                  <td>".$stock->qty."</td>
+                  <td><input type='number' id='txt".$stock->item_name."' name='txt".$stock->item_name."' step='1' min='0' max='".$stock->qty."' value='0'></td>
+                  <td><input type='checkbox' id='".$stock->item_name."' class='css-checkbox' name='".$stock->item_name."' value='".$stock->item_name."'><label class='css-label' for='".$stock->item_name."'>&nbsp;</label></td>
+                </tr>
+          ";
         }
         ?>
       <tr><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt">&nbsp;</td><td class="bt chk"><input type="submit" name="btnNext" value="Next" onclick="validate()"></td></tr>

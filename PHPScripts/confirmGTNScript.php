@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require 'stock.php';
     if (isset($_POST['btnConfirm'])) {
         $con = mysqli_connect("localhost","root","","galleon_lanka");
         if(!$con)
@@ -16,23 +17,19 @@
         if ($_SESSION['DES']=='Manager') {
 
             if ($_SESSION['gtype']=='out' || $_SESSION['gtype']=='return_out') {
-              $con = mysqli_connect("localhost","root","","galleon_lanka");
-              if(!$con)
-              {
-                die("Error while connecting to database");
-              }
               $nes="";
               $sql3="SELECT `item_name`,`qty`,`item_type` FROM `gtn` WHERE `gtn_no`=".$_SESSION['gtn']."";
               $rowSQL3= mysqli_query( $con,$sql3);
               while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-                $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['gdept']."'AND `type`='".$row3['item_type']."' AND `item_name`='".$row3['item_name']."' GROUP BY `item_name`,`type`;";
-                $rowSQL= mysqli_query( $con,$sql);
-                $row= mysqli_fetch_array($rowSQL);
-                if ($row3['qty'] > $row['Qty']) {
-                  $nes=$nes.$row3['item_name']."-".$row['type'].",";
+                $stockArr= viewStocksEmployee($dept=$_SESSION['gdept']);
+                foreach ($stockArr as $stock){
+                  if ($row3['item_name']==$stock->item_name && $row3['item_type']==$stock->type) {
+                    if ($row3['qty'] > $stock->qty) {
+                      $nes=$nes.$row3['item_name']."-".$stock->type.",";
+                    }
+                  }
                 }
               }
-              mysqli_close($con);
               if ($nes!="") {
                 header('Location:../Pages/viewGTN.php?nes='.$nes);
               }else{

@@ -1,5 +1,7 @@
 <?php
  session_start();
+ require '../PHPScripts/stock.php';
+
  if(!isset($_SESSION['eno'])){
    header('Location:signIn.php');
  }elseif (!isset($_SESSION['dept'])) {
@@ -62,23 +64,42 @@
                 if($_SESSION['gtntype']=='out' || $_SESSION['gtntype']=='return_out'){
                   if ($_SESSION['dept']=='pFloor') {
                     if ($_SESSION['gtntype']=='out') {
-                      $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' and `type` = 'finished_product' GROUP BY `item_name`,`type`;";
-                      $rowSQL= mysqli_query( $con,$sql);
-                      while($row=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row['item_name']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_name']."".$row['type']."' name='txt".$row['item_name']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_name']."".$row['type']."' class='css-checkbox' name='".$row['item_name']."".$row['type']."' value='".$row['item_name']."'><label class='css-label' for='".$row['item_name']."".$row['type']."'>&nbsp;</label></td></tr>";
+                      $stockArr= viewStocksEmployee($dept='pFloor');
+                      foreach ($stockArr as $stock){
+                        if ($stock->type=='finished_product') {
+                          echo "<tr>
+                                  <td>".$stock->item_name."</td>
+                                  <td>".$stock->type."</td>
+                                  <td>".$stock->qty."</td>
+                                  <td><input type='number' id='txt".$stock->item_name."".$stock->type."' name='txt".$stock->item_name."".$stock->type."' step='1' min='0' max='".$stock->qty."' value='0'></td>
+                                  <td class='chk'><input type='checkbox' id='".$stock->item_name."".$stock->type."' class='css-checkbox' name='".$stock->item_name."".$stock->type."' value='".$stock->item_name."'><label class='css-label' for='".$stock->item_name."".$stock->type."'>&nbsp;</label></td>
+                              </tr>";
+                        }
                       }
                     }elseif ($_SESSION['gtntype']=='return_out') {
-                      $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' and `type` = 'material' GROUP BY `item_name`,`type`;";
-                      $rowSQL= mysqli_query( $con,$sql);
-                      while($row=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row['item_name']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_name']."".$row['type']."' name='txt".$row['item_name']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_name']."".$row['type']."' class='css-checkbox' name='".$row['item_name']."".$row['type']."' value='".$row['item_name']."'><label class='css-label' for='".$row['item_name']."".$row['type']."'>&nbsp;</label></td></tr>";
+                      $stockArr= viewStocksEmployee($dept='pFloor');
+                      foreach ($stockArr as $stock){
+                        if ($stock->type=='material') {
+                          echo "<tr>
+                                  <td>".$stock->item_name."</td>
+                                  <td>".$stock->type."</td>
+                                  <td>".$stock->qty."</td>
+                                  <td><input type='number' id='txt".$stock->item_name."".$stock->type."' name='txt".$stock->item_name."".$stock->type."' step='1' min='0' max='".$stock->qty."' value='0'></td>
+                                  <td class='chk'><input type='checkbox' id='".$stock->item_name."".$stock->type."' class='css-checkbox' name='".$stock->item_name."".$stock->type."' value='".$stock->item_name."'><label class='css-label' for='".$stock->item_name."".$stock->type."'>&nbsp;</label></td>
+                              </tr>";
+                        }
                       }
                     }
                   }else {
-                    $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' GROUP BY `item_name`,`type`;";
-                    $rowSQL= mysqli_query( $con,$sql);
-                    while($row=mysqli_fetch_assoc( $rowSQL )){
-                      echo "<tr><td>".$row['item_name']."</td><td>".$row['type']."</td><td>".$row['Qty']."</td><td><input type='number' id='txt".$row['item_name']."".$row['type']."' name='txt".$row['item_name']."".$row['type']."' step='1' min='0' max='".$row['Qty']."' value='0'></td><td class='chk'><input type='checkbox' id='".$row['item_name']."".$row['type']."' class='css-checkbox' name='".$row['item_name']."".$row['type']."' value='".$row['item_name']."'><label class='css-label' for='".$row['item_name']."".$row['type']."'>&nbsp;</label></td></tr>";
+                    $stockArr= viewStocksEmployee($dept=$_SESSION['dept']);
+                    foreach ($stockArr as $stock){
+                      echo "<tr>
+                              <td>".$stock->item_name."</td>
+                              <td>".$stock->type."</td>
+                              <td>".$stock->qty."</td>
+                              <td><input type='number' id='txt".$stock->item_name."".$stock->type."' name='txt".$stock->item_name."".$stock->type."' step='1' min='0' max='".$stock->qty."' value='0'></td>
+                              <td class='chk'><input type='checkbox' id='".$stock->item_name."".$stock->type."' class='css-checkbox' name='".$stock->item_name."".$stock->type."' value='".$stock->item_name."'><label class='css-label' for='".$stock->item_name."".$stock->type."'>&nbsp;</label></td>
+                          </tr>";
                     }
                   }
 

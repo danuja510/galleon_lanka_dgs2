@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require 'stock.php';
     if (isset($_POST['btnConfirm'])) {
         $con = mysqli_connect("localhost","root","","galleon_lanka");
         if(!$con)
@@ -18,11 +19,13 @@
           $sql3="SELECT `item_name`,`qty` FROM `invoice` WHERE `invoice_no`=".$_SESSION['invoice']."";
           $rowSQL3= mysqli_query( $con,$sql3);
           while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-            $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='fGoods'AND `type`='finished_product' AND `item_name`='".$row3['item_name']."' GROUP BY `item_name`,`type`;";
-            $rowSQL= mysqli_query( $con,$sql);
-            $row= mysqli_fetch_array($rowSQL);
-            if ($row3['qty'] > $row['Qty']) {
-              $nes=$nes.$row3['item_name']."-".$row['type'].",";
+            $stockArr= viewStocksEmployee($dept='fGoods');
+            foreach ($stockArr as $stock){
+              if ($row3['item_name']==$stock->item_name) {
+                if ($row3['qty'] > $stock->qty) {
+                  $nes=$nes.$row3['item_name']."-".$stock->type.",";
+                }
+              }
             }
           }
           mysqli_close($con);
