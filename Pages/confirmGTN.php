@@ -7,7 +7,6 @@
   }else if (!isset($_SESSION['GTN'])) {
     header('Location:createGTN.php');
   }
-  echo $_SESSION['GTN'];
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

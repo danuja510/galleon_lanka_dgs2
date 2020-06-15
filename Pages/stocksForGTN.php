@@ -117,19 +117,23 @@
                       $rowSQL= mysqli_query( $con,$sql);
                       $iType='material';
                       while($row=mysqli_fetch_assoc( $rowSQL )){
-                        echo "<tr><td>".$row['Name']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['Name']."".$iType."' name='txt".$row['Name']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input type='checkbox' id='".$row['Name']."".$iType."' class='css-checkbox' name='".$row['Name']."".$iType."' value='".$row['Name']."'><label class='css-label' for='".$row['Name']."".$iType."'>&nbsp;</label></td></tr>";
+                        echo "<tr>
+                                <td>".$row['Name']."</td>
+                                <td>".$iType."</td>
+                                <td>-</td>
+                                <td><input type='number' id='txt".$row['Name']."".$iType."' name='txt".$row['Name']."".$iType."' step='1' min='0' value='0'></td>
+                                <td class='chk'><input type='checkbox' id='".$row['Name']."".$iType."' class='css-checkbox' name='".$row['Name']."".$iType."' value='".$row['Name']."'><label class='css-label' for='".$row['Name']."".$iType."'>&nbsp;</label></td>
+                              </tr>";
                       }
                     }
-                  }
-                  if ($_SESSION['dept']=='fGoods') {
+                  }elseif ($_SESSION['dept']=='fGoods') {
                     $sql="SELECT * FROM `finished_products` where status='active' group by Name;";
                     $rowSQL= mysqli_query( $con,$sql);
                     $iType='finished_product';
                     while($row=mysqli_fetch_assoc( $rowSQL )){
                       echo "<tr><td>".$row['Name']."</td><td>".$iType."</td><td>-</td><td><input type='number' id='txt".$row['Name']."".$iType."' name='txt".$row['Name']."".$iType."' step='1' min='0' value='0'></td><td class='chk'><input id='".$row['Name']."".$iType."' type='checkbox' class='css-checkbox' name='".$row['Name']."".$iType."' value='".$row['Name']."'><label class='css-label' for='".$row['Name']."".$iType."'>&nbsp;</label></td></tr>";
                     }
-                  }
-                  if ($_SESSION['dept']=='store') {
+                  }elseif ($_SESSION['dept']=='store') {
                     $sql="SELECT * FROM `materials` where status='active' group by Name;";
                     $rowSQL= mysqli_query( $con,$sql);
                     $iType='material';

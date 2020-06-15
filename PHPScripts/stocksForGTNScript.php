@@ -7,17 +7,17 @@
     }else {
       if ($_SESSION['dept']=='pFloor') {
         if ($_SESSION['gtntype']=='in') {
-          $sql="SELECT * FROM `materials` where status='active';";
+          $sql="SELECT * FROM `materials` where status='active'  group by Name;";
           $iType='material';
         }elseif ($_SESSION['gtntype']=='return_in') {
-          $sql="SELECT * FROM `finished_products` where status='active';";
+          $sql="SELECT * FROM `finished_products` where status='active'  group by Name;";
           $iType='finished_product';
         }
       }elseif ($_SESSION['dept']=='fGoods') {
-        $sql="SELECT * FROM `finished_products` where status='active';";
+        $sql="SELECT * FROM `finished_products` where status='active'  group by Name;";
         $iType='finished_product';
       }elseif ($_SESSION['dept']=='store') {
-        $sql="SELECT * FROM `materials` where status='active';";
+        $sql="SELECT * FROM `materials` where status='active'  group by Name;";
         $iType='material';
       }
     }
@@ -78,6 +78,7 @@
             $count=0;
             $count2=0;
             while($row3=mysqli_fetch_assoc( $rowSQL3 )){
+              //print_r($row3);
               if(isset($_POST[$row3['Name'].$iType])){
                 $count++;
                 $m=$m.$row3['Name'].'x'.$_POST['txt'.$row3['Name'].$iType].'x'.$iType.',';
@@ -86,8 +87,7 @@
                 }
               }
             }
-          }
-          if ($_SESSION['dept']=='fGoods' || ($_SESSION['dept']=='pFloor' && $_SESSION['gtntype']=='return_in')) {
+          }elseif ($_SESSION['dept']=='fGoods' || ($_SESSION['dept']=='pFloor' && $_SESSION['gtntype']=='return_in')) {
             $rowSQL3= mysqli_query( $con,$sql);
             $m=$_SESSION['gtntype']."+";
             $count=0;
@@ -102,7 +102,6 @@
               }
             }
           }
-
         }
           if($count==0){
             header('Location:../Pages/stocksForGTN.php?count=0');
