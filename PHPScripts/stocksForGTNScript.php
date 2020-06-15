@@ -1,35 +1,23 @@
 <?php
     session_start();
+    require 'stock.php';
+
     if($_SESSION['gtntype']=='out' || $_SESSION['gtntype']=='return_out'){
-      if ($_SESSION['dept']=='store') {
-        $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_name`,`type`;";
-        $iType='material';
-      }elseif ($_SESSION['dept']=='pFloor') {
-        if ($_SESSION['gtntype']=='out') {
-          $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_name`,`type`;";
-          $iType='finished_product';
-        }elseif ($_SESSION['gtntype']=='return_out') {
-          $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."' AND `type`='material' GROUP BY `item_name`,`type`;";
-          $iType='material';
-        }
-      }elseif ($_SESSION['dept']=='fGoods') {
-        $sql="SELECT `item_name`,`type`,SUM(qty) as Qty FROM `stocks` WHERE `dept`='".$_SESSION['dept']."'AND `type`='finished_product' GROUP BY `item_name`,`type`;";
-        $iType='finished_product';
-      }
+      $stockArr= viewStocksEmployee($dept=$_SESSION['dept']);
     }else {
       if ($_SESSION['dept']=='pFloor') {
         if ($_SESSION['gtntype']=='in') {
-          $sql="SELECT * FROM `materials` where status='active';";
+          $sql="SELECT * FROM `materials` where status='active'  group by Name;";
           $iType='material';
         }elseif ($_SESSION['gtntype']=='return_in') {
-          $sql="SELECT * FROM `finished_products` where status='active';";
+          $sql="SELECT * FROM `finished_products` where status='active'  group by Name;";
           $iType='finished_product';
         }
       }elseif ($_SESSION['dept']=='fGoods') {
-        $sql="SELECT * FROM `finished_products` where status='active';";
+        $sql="SELECT * FROM `finished_products` where status='active'  group by Name;";
         $iType='finished_product';
       }elseif ($_SESSION['dept']=='store') {
-        $sql="SELECT * FROM `materials` where status='active';";
+        $sql="SELECT * FROM `materials` where status='active'  group by Name;";
         $iType='material';
       }
     }
@@ -42,27 +30,55 @@
           die("Error while connecting to database");
         }
         if ($_SESSION['gtntype']=='out' || $_SESSION['gtntype']=='return_out') {
-          $rowSQL3= mysqli_query( $con,$sql);
           $m=$_SESSION['gtntype']."+";
           $count=0;
           $count2=0;
-
-            while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-              if(isset($_POST[$row3['item_name'].$iType])){
+          if ($_SESSION['dept']=='pFloor') {
+            if ($_SESSION['gtntype']=='out') {
+              foreach ($stockArr as $stock){
+                if ($stock->type=='finished_product') {
+                  if(isset($_POST[$stock->item_name.$stock->type])){
+                    $count++;
+                    $m=$m.$stock->item_name.'x'.$_POST['txt'.$stock->item_name.$stock->type].'x'.$stock->type.',';
+                      if($_POST['txt'.$stock->item_name.$stock->type]>0){
+                      $count2++;
+                    }
+                  }
+                }
+              }
+            }else {
+              foreach ($stockArr as $stock){
+                if ($stock->type=='material') {
+                  if(isset($_POST[$stock->item_name.$stock->type])){
+                    $count++;
+                    $m=$m.$stock->item_name.'x'.$_POST['txt'.$stock->item_name.$stock->type].'x'.$stock->type.',';
+                      if($_POST['txt'.$stock->item_name.$stock->type]>0){
+                      $count2++;
+                    }
+                  }
+                }
+              }
+            }
+          }else {
+            foreach ($stockArr as $stock){
+              if(isset($_POST[$stock->item_name.$stock->type])){
                 $count++;
-                $m=$m.$row3['item_name'].'x'.$_POST['txt'.$row3['item_name'].$iType].'x'.$iType.',';
-                  if($_POST['txt'.$row3['item_name'].$iType]>0){
+                $m=$m.$stock->item_name.'x'.$_POST['txt'.$stock->item_name.$stock->type].'x'.$stock->type.',';
+                  if($_POST['txt'.$stock->item_name.$stock->type]>0){
                   $count2++;
                 }
               }
             }
+          }
+
         }else {
-          if ($_SESSION['dept']=='fGoods' || ($_SESSION['dept']=='pFloor' && $_SESSION['gtntype']=='return_in')) {
+          if ($_SESSION['dept']=='store' || ($_SESSION['dept']=='pFloor' && $_SESSION['gtntype']=='in')) {
             $rowSQL3= mysqli_query( $con,$sql);
             $m=$_SESSION['gtntype']."+";
             $count=0;
             $count2=0;
             while($row3=mysqli_fetch_assoc( $rowSQL3 )){
+              //print_r($row3);
               if(isset($_POST[$row3['Name'].$iType])){
                 $count++;
                 $m=$m.$row3['Name'].'x'.$_POST['txt'.$row3['Name'].$iType].'x'.$iType.',';
@@ -71,8 +87,7 @@
                 }
               }
             }
-          }
-          if ($_SESSION['dept']=='store' || ($_SESSION['dept']=='pFloor' && $_SESSION['gtntype']=='in')) {
+          }elseif ($_SESSION['dept']=='fGoods' || ($_SESSION['dept']=='pFloor' && $_SESSION['gtntype']=='return_in')) {
             $rowSQL3= mysqli_query( $con,$sql);
             $m=$_SESSION['gtntype']."+";
             $count=0;

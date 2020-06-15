@@ -14,6 +14,7 @@
     public $in =0;
     public $bf =0;
     public $stock =0;
+    public $balance_stock = 0;
     public $out =0;
 
     function __construct($itemID){
@@ -105,84 +106,156 @@
     die("Cannot connect to DB server");
   }
 
+  $datebf["year"] = $_GET['y'];
+  $datebf["month"] = $_GET['m']-1;
+  if ($datebf["month"] == 0) {
+    $datebf["year"]--;
+    $datebf["month"]= 12;
+  }
+
 
   //efficiency of store
-  $sql="SELECT mid,SUM(qty) as Qty FROM `grn` WHERE approvedBy is not null ".$curdate." GROUP BY mid";
-  $rowSQL= mysqli_query( $con,$sql);
-  $effStore=[];
-  $totstoreef=0;
-  while($row=mysqli_fetch_assoc( $rowSQL )){
-    $effStore[sizeof($effStore)]=new efficiency($row['mid']);
-    $effStore[sizeof($effStore)-1]->in=$row['Qty'];
-  }
-  if (isset($_GET['y'])) {
-    $sql15="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='material' AND dept='store' ".$bbfdate." GROUP BY item_no";
-    $rowSQL= mysqli_query( $con,$sql15);
+  $sql="SELECT item_name,type,qty,date
+        FROM `balance_stocks`
+        where extract(month from date)= '".$_GET['m']."'
+        and extract(year from date)= '".$_GET['y']."'
+        and dept = 'store';";
+  $result= mysqli_query($con,$sql);
+  $row = mysqli_fetch_array($result);
+  $sql="SELECT MAX(date) as mdate
+        FROM `stocks`
+        WHERE dept = 'store'
+        and extract(month from date)= '".$_GET['m']."'
+        and extract(year from date)= '".$_GET['y']."'";
+  $result= mysqli_query($con,$sql);
+  $row2 = mysqli_fetch_array($result);
+
+
+  if($row['date'] > $row2['mdate']) {
+    $sql="SELECT mid,SUM(qty) as Qty FROM `grn` WHERE approvedBy is not null ".$curdate." GROUP BY mid";
+    $rowSQL= mysqli_query( $con,$sql);
+    $effStore=[];
+    $totstoreef=0;
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      $sql="SELECT `Name` FROM `materials` WHERE `mid`=".$row['mid']."";
+      $rowSQL4= mysqli_query( $con,$sql);
+      $row4=mysqli_fetch_array( $rowSQL4 );
+      $effStore[sizeof($effStore)]=new efficiency($row4['Name']);
+      $effStore[sizeof($effStore)-1]->in=$row['Qty'];
+    }
+    if (isset($_GET['y'])) {
+      $sql15="SELECT dept,item_name,type,qty
+            FROM `balance_stocks`
+            where extract(month from date)= '".$datebf["month"]."'
+            and extract(year from date)= '".$datebf["year"]."'
+            and dept = 'store';";
+      $rowSQL= mysqli_query( $con,$sql15);
+      while($row=mysqli_fetch_assoc( $rowSQL )){
+        for ($j=0; $j <sizeof($effStore) ; $j++) {
+          if ($row['item_name']==$effStore[$j]->itemID) {
+            $effStore[$j]->bf+=$row['qty'];
+            $effStore[$j]->stock+=$row['qty'];
+            continue 2;
+          }
+        }
+          if($row['qty']!=0){
+            $effStore[sizeof($effStore)]= new efficiency($row['item_name']);
+            $effStore[sizeof($effStore)-1]->bf=$row['qty'];
+            $effStore[sizeof($effStore)-1]->stock=$row['qty'];
+          }
+      }
+    }
+    $sql2="SELECT item_name,SUM(qty) AS Qty
+          from stocks
+          WHERE type='material'
+          AND dept='store'
+          ".$curdate."
+           GROUP BY item_name;";
+    $rowSQL= mysqli_query( $con,$sql2);
     while($row=mysqli_fetch_assoc( $rowSQL )){
       for ($j=0; $j <sizeof($effStore) ; $j++) {
-        if ($row['item_no']==$effStore[$j]->itemID) {
-          $effStore[$j]->bf+=$row['Qty'];
+        if ($row['item_name']==$effStore[$j]->itemID) {
+          $effStore[$j]->stock+=$row['Qty'];
           continue 2;
         }
       }
-        if($row['Qty']!=0){
-          $effStore[sizeof($effStore)]= new efficiency($row['item_no']);
-            $effStore[sizeof($effStore)-1]->bf=$row['Qty'];
+      $effStore[sizeof($effStore)]= new efficiency($row['item_name']);
+      $effStore[sizeof($effStore)-1]->stock=$row['Qty'];
+    }
+    $sql3="SELECT item_name,SUM(qty) AS Qty
+          FROM `gtn`
+          WHERE dept='store'
+          AND type='out'
+          ".$curdate."
+          and item_type='material'
+          and approved_by IS NOT null
+          GROUP BY item_name";
+    $rowSQL= mysqli_query( $con,$sql3);
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      for ($j=0; $j <sizeof($effStore) ; $j++) {
+        if ($row['item_name']==$effStore[$j]->itemID) {
+          $effStore[$j]->out+=$row['Qty'];
+          continue 2;
         }
+      }
+      $effStore[sizeof($effStore)]= new efficiency($row['item_name']);
+      $effStore[sizeof($effStore)-1]->out=$row['Qty'];
     }
-  }
-  $sql2="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='material' AND dept='store' ".$stockdate." GROUP BY item_no;";
-  $rowSQL= mysqli_query( $con,$sql2);
-  while($row=mysqli_fetch_assoc( $rowSQL )){
-    for ($j=0; $j <sizeof($effStore) ; $j++) {
-      if ($row['item_no']==$effStore[$j]->itemID) {
-        $effStore[$j]->stock+=$row['Qty'];
-        continue 2;
+    $sql19="SELECT item_name,SUM(qty) AS Qty
+            FROM `gtn`
+            WHERE dept='store'
+            AND type='return_in'
+            ".$curdate."
+            and item_type='material'
+            and approved_by IS NOT null
+            GROUP BY item_name";
+    $rowSQL= mysqli_query( $con,$sql19);
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      for ($j=0; $j <sizeof($effStore) ; $j++) {
+        if ($row['item_name']==$effStore[$j]->itemID) {
+          $effStore[$j]->in+=$row['Qty'];
+          continue 2;
+        }
+      }
+      $effStore[sizeof($effStore)]= new efficiency($row['item_name']);
+      $effStore[sizeof($effStore)-1]->in=$row['Qty'];
+    }
+    $sql20="SELECT item_name,SUM(qty) AS Qty
+            FROM `gtn`
+            WHERE dept='store'
+            AND type='return_out'
+            ".$curdate."
+            and item_type='material'
+            and approved_by IS NOT null
+            GROUP BY item_name";
+    $rowSQL= mysqli_query( $con,$sql20);
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      for ($j=0; $j <sizeof($effStore) ; $j++) {
+        if ($row['item_name']==$effStore[$j]->itemID) {
+          $effStore[$j]->out+=$row['Qty'];
+          continue 2;
+        }
+      }
+      $effStore[sizeof($effStore)]= new efficiency($row['item_name']);
+      $effStore[sizeof($effStore)-1]->out=$row['Qty'];
+    }
+    $sql="SELECT dept,item_name,type,qty
+          FROM `balance_stocks`
+          WHERE dept='store'
+          ".$curdate.";";
+    $rowSQL= mysqli_query( $con,$sql);
+    while($row=mysqli_fetch_assoc( $rowSQL )){
+      for ($j=0; $j <sizeof($effStore) ; $j++) {
+        if ($row['item_name']==$effStore[$j]->itemID) {
+          $effStore[$j]->balance_stock=$row['qty'];
+          continue 2;
+        }
       }
     }
-    if($row['Qty']!=0){
-        $effStore[sizeof($effStore)]= new efficiency($row['item_no']);
-        $effStore[sizeof($effStore)-1]->stock=$row['Qty'];
-    }
+  }else{
+    echo "Update Balance Stocks of this month to view Efficiency";
   }
-  $sql3="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='store' AND type='out' ".$curdate." and item_type='material' and approved_by IS NOT null GROUP BY item_no";
-  $rowSQL= mysqli_query( $con,$sql3);
-  while($row=mysqli_fetch_assoc( $rowSQL )){
-    for ($j=0; $j <sizeof($effStore) ; $j++) {
-      if ($row['item_no']==$effStore[$j]->itemID) {
-        $effStore[$j]->out+=$row['Qty'];
-        continue 2;
-      }
-    }
-    $effStore[sizeof($effStore)]= new efficiency($row['item_no']);
-    $effStore[sizeof($effStore)-1]->out=$row['Qty'];
-  }
-  $sql19="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='store' AND type='return_in' ".$curdate." and item_type='material' and approved_by IS NOT null GROUP BY item_no";
-  $rowSQL= mysqli_query( $con,$sql19);
-  while($row=mysqli_fetch_assoc( $rowSQL )){
-    for ($j=0; $j <sizeof($effStore) ; $j++) {
-      if ($row['item_no']==$effStore[$j]->itemID) {
-        $effStore[$j]->in+=$row['Qty'];
-        continue 2;
-      }
-    }
-    $effStore[sizeof($effStore)]= new efficiency($row['item_no']);
-    $effStore[sizeof($effStore)-1]->in=$row['Qty'];
-  }
-  $sql20="SELECT item_no,SUM(qty) AS Qty FROM `gtn` WHERE dept='store' AND type='return_out' ".$curdate." and item_type='material' and approved_by IS NOT null GROUP BY item_no";
-  $rowSQL= mysqli_query( $con,$sql20);
-  while($row=mysqli_fetch_assoc( $rowSQL )){
-    for ($j=0; $j <sizeof($effStore) ; $j++) {
-      if ($row['item_no']==$effStore[$j]->itemID) {
-        $effStore[$j]->out+=$row['Qty'];
-        continue 2;
-      }
-    }
-    $effStore[sizeof($effStore)]= new efficiency($row['item_no']);
-    $effStore[sizeof($effStore)-1]->out=$row['Qty'];
-  }
-
-
+/*
     //efficiency of stock transfers between store and production floor
       $rowSQL= mysqli_query( $con,$sql3);
       $effStore_pfloor_transfers=[];
@@ -482,7 +555,7 @@
       }
       $efffGoods[sizeof($efffGoods)]= new efficiency($row['item_no'],$row['Qty']);
       $efffGoods[sizeof($efffGoods)-1]->in=$row['Qty'];
-    }
+    }*/
 
 
     mysqli_close($con);
@@ -530,14 +603,8 @@
                 <?php
                     if(sizeof($effStore)>0){
                         for ($j=0; $j <sizeof($effStore) ; $j++) {
-                        $effStore[$j]->dif=($effStore[$j]->in + $effStore[$j]->bf) - ($effStore[$j]->stock + $effStore[$j]->out);
-                        if(($effStore[$j]->in + $effStore[$j]->bf)==0 && ($effStore[$j]->stock + $effStore[$j]->out)==0){
-                            $effStore[$j]->eff=1;
-                        }elseif(($effStore[$j]->in + $effStore[$j]->bf)==0 || ($effStore[$j]->stock + $effStore[$j]->out)==0){
-                            $effStore[$j]->eff=0;
-                        }else{
-                            $effStore[$j]->eff=($effStore[$j]->in + $effStore[$j]->bf) / ($effStore[$j]->stock + $effStore[$j]->out);
-                        }
+                        $effStore[$j]->dif=$effStore[$j]->balance_stock - $effStore[$j]->stock;
+                        $effStore[$j]->eff=$effStore[$j]->balance_stock / $effStore[$j]->stock;
                         $totstoreef+=$effStore[$j]->eff;
                         }
                         if($totstoreef>0){
@@ -558,7 +625,7 @@
                         if(sizeof($effStore)>0){
                             echo "<table>
                                     <thead>
-                                        <th>Material No</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Difference</th><th>Meterial Efficiency</th>
+                                        <th>Material Name</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Updated Balance Stock</th><th>Difference</th><th>Meterial Efficiency</th>
                                     </thead>";
                             for ($j=0; $j <sizeof($effStore) ; $j++) {
                               $class = efClass($effStore[$j]->eff);
@@ -569,6 +636,7 @@
                                 <td class=".$class."><strong>".$effStore[$j]->bf."</strong></td>
                                 <td class=".$class."><strong>".$effStore[$j]->stock."</strong></td>
                                 <td class=".$class."><strong>".$effStore[$j]->out."</strong></td>
+                                <td class=".$class."><strong>".$effStore[$j]->balance_stock."</strong></td>
                                 <td class=".$class."><strong>".$effStore[$j]->dif."</strong></td>
                                 <td class=".$class."><strong>".round($effStore[$j]->eff,2)."</strong></td>
                             </tr>";
@@ -580,7 +648,7 @@
                 ?>
             </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <div class="col span-1-of-2">
                 <?php
                     if(sizeof($effStore_pfloor_transfers)>0){
@@ -905,7 +973,7 @@
                         }
                 ?>
             </div>
-        </div>
+        </div>-->
     </section>
     <footer>
         <div class="row">
