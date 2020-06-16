@@ -130,11 +130,13 @@
   $result= mysqli_query($con,$sql);
   $row2 = mysqli_fetch_array($result);
 
-
-  if($row['date'] > $row2['mdate']) {
+  $effStore=[];
+  $effStore_exception=0;
+  if ($row2['date']==NULL) {
+    $effStore_exception=2;
+  }elseif($row['date'] > $row2['mdate']) {
     $sql="SELECT mid,SUM(qty) as Qty FROM `grn` WHERE approvedBy is not null ".$curdate." GROUP BY mid";
     $rowSQL= mysqli_query( $con,$sql);
-    $effStore=[];
     $totstoreef=0;
     while($row=mysqli_fetch_assoc( $rowSQL )){
       $sql="SELECT `Name` FROM `materials` WHERE `mid`=".$row['mid']."";
@@ -253,13 +255,13 @@
       }
     }
   }else{
-    echo "Update Balance Stocks of this month to view Efficiency";
+    $effStore_exception=1;
   }
-/*
+
     //efficiency of stock transfers between store and production floor
       $rowSQL= mysqli_query( $con,$sql3);
       $effStore_pfloor_transfers=[];
-    $totstoretransef=0;
+      $totstoretransef=0;
       while($row=mysqli_fetch_assoc( $rowSQL )){
         $effStore_pfloor_transfers[sizeof($effStore_pfloor_transfers)]=new efficiency($row['item_no']);
         $effStore_pfloor_transfers[sizeof($effStore_pfloor_transfers) - 1]->out=$row['Qty'];
@@ -300,8 +302,27 @@
 
 
     //efficiency of production floor**
-    $rowSQL= mysqli_query( $con,$sql4);
-    $effpFloor=[];
+ $sql="SELECT item_name,type,qty,date
+        FROM `balance_stocks`
+        where extract(month from date)= '".$_GET['m']."'
+        and extract(year from date)= '".$_GET['y']."'
+        and dept = 'pFloor';";
+  $result= mysqli_query($con,$sql);
+  $row = mysqli_fetch_array($result);
+  $sql="SELECT MAX(date) as mdate
+        FROM `stocks`
+        WHERE dept = 'pFloor'
+        and extract(month from date)= '".$_GET['m']."'
+        and extract(year from date)= '".$_GET['y']."'";
+  $result= mysqli_query($con,$sql);
+  $row2 = mysqli_fetch_array($result);
+  $effpFloor=[];
+  $effStore_exception=0;
+
+  if ($row['date']==NULL) {
+    $effStore_exception=2;
+  }elseif($row['date'] > $row2['mdate']){
+      $rowSQL= mysqli_query( $con,$sql4);
     $totpflooref=0;
     while($row=mysqli_fetch_assoc( $rowSQL )){
       $sql9="SELECT Name FROM `materials` WHERE mid=".$row['item_no']."";
@@ -440,6 +461,10 @@
       $effpFloor[sizeof($effpFloor)]=new efficiency($row2['Name'],$row['Qty']);
       $effpFloor[sizeof($effpFloor) - 1]->out=$row['Qty'];
     }
+  }else{
+    $effStore_exception=1;
+  }
+
     //efficiency of stock transfers between production floor and finished goods
 
     $rowSQL= mysqli_query( $con,$sql5);
@@ -484,7 +509,7 @@
       $effpfloor_fGoods_returnss[sizeof($effpfloor_fGoods_returnss)]= new efficiency($row['item_no']);
         $effpfloor_fGoods_returnss[sizeof($effpfloor_fGoods_returnss) - 1]->out=$row['Qty'];
     }
-
+/*
     //efficiency of finished goods
     $rowSQL= mysqli_query( $con,$sql6);
     $efffGoods=[];
@@ -601,7 +626,7 @@
         <div class="row">
             <div class="col span-1-of-2">
                 <?php
-                    if(sizeof($effStore)>0){
+                    if($effStore_exception==0){
                         for ($j=0; $j <sizeof($effStore) ; $j++) {
                         $effStore[$j]->dif=$effStore[$j]->balance_stock - $effStore[$j]->stock;
                         $effStore[$j]->eff=$effStore[$j]->balance_stock / $effStore[$j]->stock;
@@ -614,15 +639,17 @@
                             $class= efClass(0);
                             echo "Efficiency of Store =<span class=".$class."><strong>0%</strong></span><br>";
                         }
-                    }else{
+                    }elseif($effStore_exception==2){
                         echo "No Recorded Operations ";
+                    }elseif ($effStore_exception==1) {
+                      echo "Update Balance Stocks of this month to view Efficiency ";
                     }
                     echo $dateDisplay;
                 ?>
             </div>
             <div class="col span-1-of-2">
                     <?php
-                        if(sizeof($effStore)>0){
+                        if($effStore_exception==0){
                             echo "<table>
                                     <thead>
                                         <th>Material Name</th><th>IN</th><th>Balance Stock Brought Forward</th><th>In Stock</th><th>OUT</th><th>Updated Balance Stock</th><th>Difference</th><th>Meterial Efficiency</th>
@@ -643,12 +670,17 @@
                            }
                             echo "</table>";
                         }else{
-                            echo "No Recorded Operations ".$dateDisplay;
+                          if($effStore_exception==2){
+                              echo "No Recorded Operations ";
+                          }elseif ($effStore_exception==1) {
+                            echo "Update Balance Stocks of this month to view Efficiency ";
+                          }
+                          echo $dateDisplay;
                         }
                 ?>
             </div>
         </div>
-        <!--<div class="row">
+        <div class="row">
             <div class="col span-1-of-2">
                 <?php
                     if(sizeof($effStore_pfloor_transfers)>0){
@@ -918,7 +950,7 @@
                 ?>
             </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <div class="col span-1-of-2">
                 <?php
                     if(sizeof($efffGoods)>0){
