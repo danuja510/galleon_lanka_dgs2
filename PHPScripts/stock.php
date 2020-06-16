@@ -17,7 +17,7 @@
     }
   }
 
-  function current_date()
+  function previous_month()
   {
     $date["year"] = date("Y");
     $date["month"] = date("m")-1;
@@ -47,36 +47,84 @@
   function getCurrentStock($dept){
     $con = create_connection();
 
-    $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
-          FROM `stocks`
-          where extract(month from date)= extract(month from CURDATE())
-          and extract(year from date)= extract(year from CURDATE())
-          ".$dept."
-          GROUP BY dept, item_name, type;";
-    $stockArr=[];
-    $rowSQL= mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_assoc($rowSQL)) {
-      $stockArr[sizeof($stockArr)]= new Stock($row['item_name'], $row['finalstock'], $row['type'], $row['dept']);
-    }
+    $date=previous_month();
 
-    $date=current_date();
-
-    $sql="SELECT dept,item_name,type,qty
+    $sql="SELECT dept,item_name,type,qty,date
           FROM `balance_stocks`
           where extract(month from date)= '".$date["month"]."'
           and extract(year from date)= '".$date["year"]."'
           ".$dept."
           ;";
+    $stockArr=[];
     $rowSQL= mysqli_query($con,$sql);
     while ($row = mysqli_fetch_assoc($rowSQL)) {
-      foreach ($stockArr as $stock) {
-        if ($stock->item_name==$row['item_name'] && $stock->dept==$row['dept']) {
-          $stock->qty+=$row['qty'];
-          continue 2;
+      if ($row['qty']!=0){
+        $stockArr[sizeof($stockArr)]= new Stock($row['item_name'], $row['qty'], $row['type'], $row['dept']);
+      }
+    }
+
+    if ($dept!="") {
+      $sql="SELECT MAX(date) as pdate FROM `balance_stocks` WHERE date < '".date("Y")."-".date("m")."-01' ".$dept.";";
+      $rowSQL= mysqli_query($con,$sql);
+      if(mysqli_num_rows($rowSQL)>0){
+        $pdate=mysqli_fetch_array($rowSQL);
+        $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
+              FROM `stocks`
+              where date > '".$pdate['pdate']."'
+              ".$dept."
+              GROUP BY dept, item_name, type;";
+      }else{
+        $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
+              FROM `stocks`
+              where extract(month from date)= extract(month from NOW())
+              and extract(year from date)= extract(year from NOW())
+              ".$dept."
+              GROUP BY dept, item_name, type;";
+      }
+      $rowSQL= mysqli_query($con,$sql);
+      while ($row = mysqli_fetch_assoc($rowSQL)) {
+        foreach ($stockArr as $stock) {
+          if ($stock->item_name==$row['item_name'] && $stock->dept==$row['dept']) {
+            $stock->qty+=$row['finalstock'];
+            continue 2;
+          }
+        }
+        if ($row['finalstock']!=0) {
+          $stockArr[sizeof($stockArr)]= new Stock($row['item_name'], $row['finalstock'], $row['type'], $row['dept']);
         }
       }
-      if ($row['qty']!=0) {
-        $stockArr[sizeof($stockArr)]= new Stock($row['item_name'], $row['qty'], $row['type'], $row['dept']);
+    }else{
+      $depts=['store', 'pFloor', 'fGoods'];
+      foreach ($depts as $d) {
+        $sql="SELECT MAX(date) as pdate FROM `balance_stocks` WHERE date < '".date("Y")."-".date("m")."-01' and `dept`='".$d."';";
+        $rowSQL= mysqli_query($con,$sql);
+        if(mysqli_num_rows($rowSQL)>0){
+          $pdate=mysqli_fetch_array($rowSQL);
+          $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
+                FROM `stocks`
+                where date > '".$pdate['pdate']."'
+                and `dept`='".$d."'
+                GROUP BY dept, item_name, type;";
+        }else{
+          $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
+                FROM `stocks`
+                where extract(month from date)= extract(month from NOW())
+                and extract(year from date)= extract(year from NOW())
+                and `dept`='".$d."'
+                GROUP BY dept, item_name, type;";
+        }
+        $rowSQL= mysqli_query($con,$sql);
+        while ($row = mysqli_fetch_assoc($rowSQL)) {
+          foreach ($stockArr as $stock) {
+            if ($stock->item_name==$row['item_name'] && $stock->dept==$row['dept']) {
+              $stock->qty+=$row['finalstock'];
+              continue 2;
+            }
+          }
+          if ($row['finalstock']!=0) {
+            $stockArr[sizeof($stockArr)]= new Stock($row['item_name'], $row['finalstock'], $row['type'], $row['dept']);
+          }
+        }
       }
     }
 

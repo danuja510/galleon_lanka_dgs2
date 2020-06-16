@@ -132,7 +132,7 @@
 
   $effStore=[];
   $effStore_exception=0;
-  if ($row['date']==NULL) {
+  if ($row2['date']==NULL) {
     $effStore_exception=2;
   }elseif($row['date'] > $row2['mdate']) {
     $sql="SELECT mid,SUM(qty) as Qty FROM `grn` WHERE approvedBy is not null ".$curdate." GROUP BY mid";
