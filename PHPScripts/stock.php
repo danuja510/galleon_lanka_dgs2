@@ -40,7 +40,7 @@
 
 
     if ($dept!="") {
-      $sql="SELECT * FROM `balance_stocks` WHERE dept = '".$dept."' and date = (SELECT MAX(date) FROM `balance_stocks` WHERE dept = '".$dept."');";
+      $sql="SELECT * FROM `balance_stocks` WHERE dept = '".$dept."' and date >= all (SELECT DATE_FORMAT(date, '%Y-%c-%d %H:%i') FROM `balance_stocks` WHERE dept = '".$dept."');";
       $rowSQL= mysqli_query($con,$sql);
       if(mysqli_num_rows($rowSQL)>0){
         while($row=mysqli_fetch_assoc($rowSQL)){
@@ -48,13 +48,13 @@
         }
         $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
               FROM `stocks`
-              where date > '".mysqli_fetch_assoc($rowSQL)['date']."'
+              where date > all (SELECT DATE_FORMAT(date, '%Y-%c-%d %H:%i') FROM `balance_stocks` WHERE dept = '".$dept."')
               and dept = '".$dept."'
               GROUP BY dept, item_name, type;";
       }else{
         $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
               FROM `stocks`
-              and dept = '".$dept."'
+              where dept = '".$dept."'
               GROUP BY dept, item_name, type;";
       }
       $rowSQL= mysqli_query($con,$sql);
@@ -72,7 +72,7 @@
     }else{
       $depts=['store', 'pFloor', 'fGoods'];
       foreach ($depts as $d) {
-        $sql="SELECT * FROM `balance_stocks` WHERE dept = '".$d."' and date = (SELECT MAX(date) FROM `balance_stocks` WHERE dept = '".$d."');";
+        $sql="SELECT * FROM `balance_stocks` WHERE dept = '".$d."' and date >= all (SELECT DATE_FORMAT(date, '%Y-%c-%d %H:%i') FROM `balance_stocks` WHERE dept = '".$d."');";
         $rowSQL= mysqli_query($con,$sql);
         if(mysqli_num_rows($rowSQL)>0){
           while($row=mysqli_fetch_assoc($rowSQL)){
@@ -80,13 +80,13 @@
           }
           $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
                 FROM `stocks`
-                where date > '".mysqli_fetch_assoc($rowSQL)['date']."'
+                where date > all (SELECT DATE_FORMAT(date, '%Y-%c-%d %H:%i') FROM `balance_stocks` WHERE dept = '".$d."')
                 and dept = '".$d."'
                 GROUP BY dept, item_name, type;";
         }else{
           $sql="SELECT dept,item_name,type,SUM(qty) as finalstock
                 FROM `stocks`
-                and dept = '".$d."'
+                where dept = '".$d."'
                 GROUP BY dept, item_name, type;";
         }
         $rowSQL= mysqli_query($con,$sql);
