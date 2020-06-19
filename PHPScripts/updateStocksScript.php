@@ -42,7 +42,7 @@
 
           $departments =array('store', 'fGoods', 'pFloor');
           if(isset($_GET['sort']) && in_array($_GET['sort'], $departments)){
-              $stockArr=viewStocksManagerFiltered($sort=$_GET['sort']);
+            $stockArr=viewStocksManagerFiltered($sort=$_GET['sort']);
           }else {
             $stockArr=viewStocksManager();
           }
