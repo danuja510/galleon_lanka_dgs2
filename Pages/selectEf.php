@@ -41,40 +41,43 @@
         </div>
     </header>
     <section>
-        <div class="row">
-            <div class="col span-1-of-3">
-                <h3><strong>Full Efficiency</strong></h3>
-                <a class="links" href="viewEfficiency.php">Full Efficiency</a>
-            </div>
-            <div class="col span-1-of-3">
-                <h3><strong>Yearly Efficiency</strong></h3>
-                <?php
-                  $con=mysqli_connect("localhost","root","","galleon_lanka");
-                  if(!$con){
-                    die("Cannot connect to DB server");
-                  }
-                  $sql="select extract(year from date) as yr from grn group by extract(year from date);";
-                  $rowSQL= mysqli_query( $con,$sql);
-                  while($row=mysqli_fetch_assoc( $rowSQL )){
-                    echo "
-                      <a class='links' href='viewEfficiency.php?y=".$row['yr']."'> Efficiency of ".$row['yr']."</a><br>
-                    ";
-                  }
-                ?>
-            </div>
-            <div class="col span-1-of-3">
-                <h3><strong>Monthly Efficiency</strong></h3>
-                <?php
-                    $sql="select extract(year from date) as yr, extract(month from date) as mon from stocks group by extract(year from date), extract(month from date) order by yr, mon;";
-                    $rowSQL= mysqli_query( $con,$sql);
-                  while($row=mysqli_fetch_assoc( $rowSQL )){
-                    echo "
-                      <a class='links' href='viewEfficiency.php?y=".$row['yr']."&m=".$row['mon']."'> Efficiency of ".$row['mon']."/".$row['yr']."</a><br>
-                    ";
-                  }
-                mysqli_close($con);
-                ?>
-            </div>
+        <div class='row'>
+            <?php
+              $con=mysqli_connect("localhost","root","","galleon_lanka");
+              if(!$con){
+                die("Cannot connect to DB server");
+              }
+              $sql="select extract(year from date) as yr from balance_stocks group by extract(year from date);";
+              $rowSQL= mysqli_query( $con,$sql);
+              if (mysqli_num_rows($rowSQL)>0) {
+                echo "<div class='col span-1-of-3'>
+                    <h3><strong>Full Efficiency</strong></h3>
+                    <a class='links' href='viewEfficiency.php'>Full Efficiency</a>
+                </div>
+                <div class='col span-1-of-3'>
+                    <h3><strong>Yearly Efficiency</strong></h3>";
+                      while($row=mysqli_fetch_assoc( $rowSQL )){
+                        echo "
+                          <a class='links' href='viewEfficiency.php?y=".$row['yr']."'> Efficiency of ".$row['yr']."</a><br>
+                        ";
+                      }
+                      echo "
+                </div>
+                <div class='col span-1-of-3'>
+                    <h3><strong>Monthly Efficiency</strong></h3>";
+                        $sql="select extract(year from date) as yr, extract(month from date) as mon from balance_stocks group by extract(year from date), extract(month from date) order by yr, mon;";
+                        $rowSQL= mysqli_query( $con,$sql);
+                      while($row=mysqli_fetch_assoc( $rowSQL )){
+                        echo "
+                          <a class='links' href='viewEfficiency.php?y=".$row['yr']."&m=".$row['mon']."'> Efficiency of ".$row['mon']."/".$row['yr']."</a><br>
+                        ";
+                      }
+                    mysqli_close($con);
+                echo "</div>";
+              }else {
+                echo "<h2>Update Balance Stocks to View Efficiency</h2>";
+              }
+             ?>
         </div>
     </section>
     <footer>
