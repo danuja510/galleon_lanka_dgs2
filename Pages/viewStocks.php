@@ -72,7 +72,24 @@ if(isset($_GET['sort'])){
                     <div class="new">
                     Your Department:
                     <?php
-                    echo "<p style='text-transform: capitalize;'><b>$dep</b></p><br>";
+                    if($dep=="Manager")
+                    {
+                      $departments =array('store', 'fGoods', 'pFloor');
+                      if(isset($_GET['sort']) && in_array($_GET['sort'], $departments)){
+                          $stockArr=viewStocksManagerFiltered($sort=$_GET['sort']);
+                      }else {
+                        $stockArr=viewStocksManager();
+                      }
+                    }else {
+                      $stockArr=viewStocksEmployee($dep=$dep);
+                    }
+                    echo "<p style='text-transform: capitalize;'><strong>$dep</strong></p><br>";
+                    echo "Total Value of stocks:<br>";
+                    $tot=0;
+                    foreach ($stockArr as $stock){
+                      $tot+=$stock->total_value;
+                    }
+                    echo "<strong>".round($tot,2)."</strong><br>";
                     ?>
               <br>
                 <?php
@@ -107,20 +124,10 @@ if(isset($_GET['sort'])){
             <th>qty</th>
             <th>type</th>
             <th>Department</th>
+            <th>Value</th>
           </thead>
 
           <?php
-            if($dep=="Manager")
-            {
-              $departments =array('store', 'fGoods', 'pFloor');
-              if(isset($_GET['sort']) && in_array($_GET['sort'], $departments)){
-                  $stockArr=viewStocksManagerFiltered($sort=$_GET['sort']);
-              }else {
-                $stockArr=viewStocksManager();
-              }
-            }else {
-              $stockArr=viewStocksEmployee($dep=$dep);
-            }
             foreach ($stockArr as $stock) {
               echo"
                     <tr>
@@ -128,6 +135,7 @@ if(isset($_GET['sort'])){
                       <td>".$stock->qty."</td>
                       <td>".$stock->type."</td>
                       <td>".$stock->dept."</td>
+                      <td>".round($stock->total_value,2)."</td>
                     </tr>
               ";
             }
