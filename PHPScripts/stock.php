@@ -7,6 +7,8 @@
     public $dept;
     public $type;
     public $qty;
+    public $avg_value = 0;
+    public $total_value = 0;
 
     function __construct($item_name,$qty, $type, $dept)
     {
@@ -102,6 +104,17 @@
           }
         }
       }
+    }
+    foreach ($stockArr as $stock){
+      if ($stock->type=='material') {
+        $sql="SELECT AVG(value) AS 'VAL' FROM `materials` WHERE `Name` = '$stock->item_name';";
+      }else {
+        $sql="SELECT AVG(value) AS 'VAL' FROM `finished_products` WHERE `Name` = '$stock->item_name';";
+      }
+      $rowSQL= mysqli_query($con,$sql);
+      $row = mysqli_fetch_assoc($rowSQL);
+      $stock->avg_value= $row['VAL'];
+      $stock->total_value=$stock->avg_value*$stock->qty;
     }
     mysqli_close($con);
     return $stockArr;
