@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/MainStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select2Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
-    <title>TypeOfGTN</title>
+    <title>TypeOfTransfer</title>
     <script type="text/javascript">
       function validateType(){
         var type=document.getElementById("txtGTNType").value;
@@ -64,15 +64,21 @@
         <form action="../PHPScripts/GTNTypeScript.php" method="post">
             <div class="row">
                 <div class="col span-1-of-2">
-                    <label for="txtGTNType">Select GTN Type</label>
+                    <label for="txtGTNType">Select Transfer Type</label>
                 </div>
                 <div class="col span-1-of-2">
                     <select name="txtGTNType" id="txtGTNType">
                     <option value="__">___</option>
-                    <option value="in">IN</option>
-                    <option value="out">OUT</option>
-                    <option value="return_in">IN - Returns</option>
-                    <option value="return_out">OUT - Returns</option>
+                    <?php
+                      if ($_SESSION['dept']!='store') {
+                        echo "<option value='in'>STOCK IN</option>";
+                      }
+                      if ($_SESSION['dept']!='fGoods'){
+                        echo "<option value='out'>GTN</option>";
+                      }
+                    ?>
+                    <option value="return_in">STOCK IN - Returns</option>
+                    <option value="return_out">GTN - Returns</option>
                   </select>
                 </div>
             </div>

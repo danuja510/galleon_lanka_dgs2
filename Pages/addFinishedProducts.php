@@ -21,17 +21,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <script type="text/javascript">
 
-        /*function validateName(){
-          var n=document.getElementById("txtName").value;
-          if(n==null)
-          {
-              alert("please enter a name");
-              return false;
-          }
-          else {
-              return true;
-          }
-        }*/
         function validateBom(){
           if(document.getElementById('lstBom').value=="-----")
           {
@@ -42,9 +31,20 @@
               return true;
           }
       }
+      function validateName()
+        {
+          var uname=document.getElementById('txtName').value;
+          if(/^\S*$/.test(uname) == false){
+            alert("Please enter a valid Product Name (Spaces are not allowed)");
+            return false;
+          }
+          else{
+            return true;
+          }
+        }
 
       function Validate(){
-        if(validateBom() /*&& validateName()*/ )
+        if(validateBom() && validateName() )
         {}
         else {
           event.preventDefault();

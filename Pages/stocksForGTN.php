@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/ManageStyles.css">
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
-    <title>stocksForGTN</title>
+    <title>stocksForGoodsTransfer</title>
   </head>
   <body>
     <header>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </header>
-    <?php echo "<h2 class='gtn'>Department : ".$_SESSION['dept']."</h2><h2 class='gtn'>GTN Type : ".$_SESSION['gtntype']."</h2>"; ?>
+    <?php echo "<h2 class='gtn'>Department : ".$_SESSION['dept']."</h2><h2 class='gtn'>Transfer Type : ".$_SESSION['gtntype']."</h2>"; ?>
     <section class="section-select2">
       <div class="row">
         <div class="col span-2-of-2">

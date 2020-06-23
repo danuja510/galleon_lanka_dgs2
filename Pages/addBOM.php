@@ -19,6 +19,16 @@
     <link rel="stylesheet" type="text/css" href="../StyleSheets/Select3Styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap" rel="stylesheet">
     <title>addBOM</title>
+    <script type="text/javascript">
+    function validate()
+      {
+        var uname=document.getElementById('txtName').value;
+        if(/^\S*$/.test(uname) == false){
+          alert("Please enter a valid Material Name (Spaces are not allowed)");
+          event.preventDefault();
+        }
+      }
+    </script>
   </head>
   <body>
     <header>
@@ -50,14 +60,14 @@
                     <label for="txtName">Material Name</label>
                 </div>
                 <div class="col span-1-of-2">
-                    <input type="text" name="txtName" list="lstBOM" required><br>
+                    <input type="text" name="txtName" id="txtName" list="lstBOM" required><br>
                       <datalist id="lstBOM">
                         <?php
                           $con=mysqli_connect("localhost","root","","galleon_lanka");
                           if(!$con){
                             die("Cannot connect to DB server");
                           }
-                          $sql="SELECT DISTINCT Name FROM `materials`";
+                          $sql="SELECT DISTINCT Name FROM `materials` where status='active'";
                           $rowSQL= mysqli_query( $con,$sql);
                           while($row=mysqli_fetch_assoc( $rowSQL )){
                             echo "<option value='".$row["Name"]."'>";
@@ -80,8 +90,8 @@
                     &nbsp;
                 </div>
                 <div class="col span-1-of-2">
-                    <input type="submit" name="btnSubmit" value="Next">
-                    <button type="submit" id="btnNext" name="btnNext">Add Another Material</button>
+                    <input type="submit" name="btnSubmit" id="btnSubmit" value="Next" onclick="validate()">
+                    <button type="submit" id="btnNext" name="btnNext" onclick="validate()">Add Another Material</button>
                 </div>
         </div>
     </form>

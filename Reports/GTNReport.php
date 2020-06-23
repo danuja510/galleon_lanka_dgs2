@@ -35,7 +35,7 @@ function header()
       $this->Ln(8);
 
       $this->SetFont('Arial','B',13);
-      $this->cell(190,8,'Goods Transfer Note',0,1,'C');
+      $this->cell(190,8,'Goods Transfer Note/ Stock In Note',0,1,'C');
       $this->Ln(10);
 
     $con = mysqli_connect("localhost","root","","galleon_lanka");
@@ -66,10 +66,10 @@ function header()
       $this->Ln(5);
 
       $this->SetFont('Arial','B',10);
-      $this->cell(20,5,'GTN Type:',0,0,'L');
+      $this->cell(22,5,'Type:',0,0,'L');
       $this->SetFont('Arial','',10);
 
-      $this->cell(80,5,$_SESSION['gtype'],0,0,'L');
+      $this->cell(78,5,$_SESSION['gtype'],0,0,'L');
 
       $this->cell(25,5,'GRN no.',0,0,'L');
 

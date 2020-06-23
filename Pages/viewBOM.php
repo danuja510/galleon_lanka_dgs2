@@ -170,7 +170,12 @@
       alert('Please Enter a Name of a Material to Add');
       return false;
     }else{
-      return true;
+      if(/^\S*$/.test(mName) == false){
+        alert("Please enter a valid Material Name (Spaces are not allowed)");
+        return false;
+      }else{
+        return true;
+    }
     }
   }
   function validateQty(){

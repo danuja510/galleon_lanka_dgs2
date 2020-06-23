@@ -77,7 +77,7 @@ echo"
         ".$row['cno']."
     </td>
     <td>
-        ".$row['tot']."
+        ".round($row['tot'],2)."
     </td>
     <td>
         ".$row['date']."

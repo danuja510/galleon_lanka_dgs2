@@ -43,8 +43,19 @@
             return true;
         }
       }
+      function validateUname()
+        {
+          var uname=document.getElementById('txtName').value;
+          if(/^\S*$/.test(uname) == false){
+            alert("Please enter a valid Material Name (Spaces are not allowed)");
+            return false;
+          }
+          else{
+            return true;
+          }
+        }
     function Validate(){
-        if(validateSupplier() &&validateType()){
+        if(validateSupplier() && validateType() && validateUname()){
         }
         else {
           event.preventDefault();

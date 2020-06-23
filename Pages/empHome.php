@@ -73,8 +73,8 @@
             <div class='col span-1-of-4'>
                 <a href='manageGTN.php'>
                     <div class='select-option'>
-                        <i class='ion-ios-paper-outline icon-select'></i>
-                        <h4>Manage GTNs</h4>
+                        <i class='ion-arrow-swap icon-select'></i>
+                        <h4>Manage Goods Transfers</h4>
                     </div>
                 </a>
             </div>";

@@ -47,7 +47,7 @@
           <a href="createGTN.php">
             <div class="new">
               <i class="ion-ios-compose-outline"></i>
-              New GTN
+              New GTN/ Stock In
             </div>
           </a>
         </div>
