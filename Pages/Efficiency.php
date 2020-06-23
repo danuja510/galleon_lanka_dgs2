@@ -48,14 +48,24 @@
       <?php
         $depts=['store', 'pFloor', 'fGoods'];
         foreach ($depts as $d){
-          if (isset($_GET['y']) && isset($_GET['m'])) {
+          if (isset($_GET['y']) && isset($_GET['m'])){
             $eff= getDeptEfficiencyMonthly($dept=$d, $y=$_GET['y'], $m=$_GET['m']);
-          }elseif (isset($_GET['y']) && !isset($_GET['m'])) {
+          }elseif (isset($_GET['y']) && !isset($_GET['m'])){
             $eff= getDeptEfficiencyYearly($dept=$d, $y=$_GET['y']);
-          }else {
+          }else{
             $eff= getDeptEfficiencyFull($dept=$d);
           }
           processEfficiency($eff, $d);
+        }
+        for ($i=1; $i < sizeof($depts); $i++) {
+          if (isset($_GET['y']) && isset($_GET['m'])){
+            $eff= getTransferEfficiencyMonthly($fromDept=$depts[$i-1], $toDept=$depts[$i], $y=$_GET['y'], $m=$_GET['m']);
+          }elseif (isset($_GET['y']) && !isset($_GET['m'])){
+            $eff= getTransferEfficiencyYearly($fromDept=$depts[$i-1], $toDept=$depts[$i], $y=$_GET['y']);
+          }else{
+            $eff= getTransferEfficiencyFull($fromDept=$depts[$i-1], $toDept=$depts[$i]);
+          }
+          processTransferEfficiency($eff, $depts[$i-1], $depts[$i]);
         }
       ?>
     </section>

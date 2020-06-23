@@ -11,6 +11,8 @@
     public $stock =0;
     public $balance_stock = 0;
     public $out =0;
+    public $return_in =0;
+    public $return_out = 0;
 
     function __construct($itemID){
       $this->itemID = $itemID;
@@ -233,6 +235,14 @@
             case 'out':
               $eff[$j]->out+=$row['qty'];
               continue 3;
+
+            case 'return_out':
+              $eff[$j]->return_out+=$row['qty'];
+              continue 3;
+
+            case 'return_in':
+              $eff[$j]->return_in+=$row['qty'];
+              continue 3;
           }
 
         }
@@ -263,6 +273,14 @@
             case 'out':
               $eff[sizeof($eff)-1]->out+=$row['qty'];
               break;
+
+            case 'return_out':
+              $eff[sizeof($eff)-1]->return_out+=$row['qty'];
+              break;
+
+            case 'return_in':
+              $eff[sizeof($eff)-1]->return_in+=$row['qty'];
+              break;
           }
         }
     }
@@ -270,8 +288,7 @@
     return $eff;
   }
 
-  function processEfficiency($eff, $dept)
-  {
+  function processEfficiency($eff, $dept){
     echo "<div class='row'>
             <div class='col span-1-of-2'>";
     if($eff[2]==0){
@@ -306,7 +323,7 @@
     if($eff[2]==0){
         echo "<table>
                 <thead>
-                    <th>Item Name</th><th>IN</th><th>Balance Stock Brought Forward</th><th>Calculated Stock</th><th>OUT</th><th>Updated Balance Stock</th><th>Difference</th><th>Meterial Efficiency</th>
+                    <th>Item Name</th><th>IN</th><th>Balance Stock Brought Forward</th><th>Calculated Stock</th><th>OUT</th><th>Updated Balance Stock</th><th>Difference</th><th>Item Efficiency</th>
                 </thead>";
         for ($j=0; $j <sizeof($eff[0]) ; $j++) {
           $class = efClass($eff[0][$j]->eff);
@@ -332,4 +349,121 @@
     }
     echo "  </div>
           </div>";
+  }
+
+  function getTransferEfficiencyMonthly($fromDept, $toDept, $y, $m){
+    $where = "AND extract(month from date)= '".$m."'
+              AND extract(year from date)= '".$y."'";
+    return getTransferEfficiency($fromDept, $toDept, $where);
+  }
+
+  function getTransferEfficiencyYearly($fromDept, $toDept, $y){
+    $where = "AND extract(year from date)='".$y."'";
+    return getTransferEfficiency($fromDept, $toDept, $where);
+  }
+
+  function getTransferEfficiencyFull($fromDept, $toDept){
+    $where = "";
+    return getTransferEfficiency($fromDept, $toDept, $where);
+  }
+
+  function getTransferEfficiency($fromDept, $toDept, $where){
+    $con = create_connection();
+
+    $eff = [];
+    $tot_eff = 0;
+
+    $sql="SELECT item_name,SUM(qty) AS qty
+          FROM `gtn`
+          WHERE dept='$fromDept'
+          AND type='out'
+          $where
+          and approved_by IS NOT null
+          GROUP BY item_name";
+    $eff = calEfficiency($sql, 'out', $eff, NULL);
+
+    $sql="SELECT item_name,SUM(qty) AS qty
+          FROM `gtn`
+          WHERE dept= '$toDept'
+          $where
+          AND type='in'
+          And approved_by IS NOT null
+          GROUP BY item_name";
+    $eff = calEfficiency($sql, 'in', $eff, NULL);
+
+    $sql="SELECT item_name,SUM(qty) AS qty
+            FROM `gtn`
+            WHERE dept='$toDept'
+            AND type='return_out'
+            $where
+            and approved_by IS NOT null
+            GROUP BY item_name";
+    $eff = calEfficiency($sql, 'return_out', $eff, NULL);
+
+    $sql="SELECT item_name,SUM(qty) AS qty
+            FROM `gtn`
+            WHERE dept='$fromDept'
+            AND type='return_in'
+            $where
+            and approved_by IS NOT null
+            GROUP BY item_name";
+    $eff = calEfficiency($sql, 'return_in', $eff, NULL);
+
+    return [$eff, $tot_eff];
+  }
+
+  function processTransferEfficiency($eff, $fromDept, $toDept){
+    echo "<div class='row'>
+            <div class='col span-1-of-2'>";
+    if(sizeof($eff[0])>0){
+        for ($j=0; $j <sizeof($eff[0]) ; $j++) {
+        $eff[0][$j]->dif=($eff[0][$j]->out + $eff[0][$j]->return_out)- ($eff[0][$j]->in + $eff[0][$j]->return_in);
+        if (($eff[0][$j]->out + $eff[0][$j]->return_out)==0 || ($eff[0][$j]->in + $eff[0][$j]->return_in)==0) {
+          if (($eff[0][$j]->out + $eff[0][$j]->return_out)==0 && ($eff[0][$j]->in + $eff[0][$j]->return_in)==0) {
+            $eff[0][$j]->eff=1;
+          }else {
+            $eff[0][$j]->eff=0;
+          }
+        }else{
+          $eff[0][$j]->eff=($eff[0][$j]->out + $eff[0][$j]->return_out) / ($eff[0][$j]->in + $eff[0][$j]->return_in);
+        }
+        $eff[1]+=$eff[0][$j]->eff;
+        }
+        if($eff[1]>0){
+            $class= efClass($eff[1]/sizeof($eff[0]));
+            echo "Efficiency of transfers between $fromDept and $toDept =<span class=".$class."><strong>".round($eff[1]/sizeof($eff[0])*100,2)."%</strong></span><br>";
+        }else{
+            $class= efClass(0);
+            echo "Efficiency of transfers between $fromDept and $toDept =<span class=".$class."><strong>0%</strong></span><br>";
+        }
+        //echo "Efficiency of the period ".$from_date_store." - ".$to_date_store;
+    }else{
+      echo "No transfers between $fromDept and $toDept";
+    }
+    echo "</div>
+          <div class='col span-1-of-2'>";
+    if(sizeof($eff[0])>0){
+      echo "<table>
+              <thead>
+                  <th>Item Name</th><th>$fromDept OUT</th><th>$toDept IN</th><th>$toDept RETURN OUT</th><th>$fromDept RETURN IN</th><th>Difference</th><th>Item Efficiency</th>
+              </thead>";
+      for ($j=0; $j <sizeof($eff[0]) ; $j++) {
+        $class = efClass($eff[0][$j]->eff);
+        echo "
+        <tr>
+          <td class=".$class."><strong>".$eff[0][$j]->itemID."</strong></td>
+          <td class=".$class."><strong>".$eff[0][$j]->out."</strong></td>
+          <td class=".$class."><strong>".$eff[0][$j]->in."</strong></td>
+          <td class=".$class."><strong>".$eff[0][$j]->return_out."</strong></td>
+          <td class=".$class."><strong>".$eff[0][$j]->return_in."</strong></td>
+          <td class=".$class."><strong>".$eff[0][$j]->dif."</strong></td>
+          <td class=".$class."><strong>".round($eff[0][$j]->eff,2)."</strong></td>
+      </tr>";
+     }
+      echo "</table>";
+    }else{
+      echo "No transfers between $fromDept and $toDept";
+    }
+    echo "  </div>
+        </div>";
   }
