@@ -92,29 +92,6 @@
       return [$eff, $tot_eff, $exception];
     }elseif (mysqli_num_rows($result)>0) {
 
-      if ($dept == 'store') {
-        $sql="SELECT mid,SUM(qty) as qty
-              FROM `grn`
-              WHERE approvedBy is not null
-              $where[0]
-              GROUP BY mid";
-        $rowSQL= mysqli_query( $con,$sql);
-        while($row=mysqli_fetch_assoc( $rowSQL )){
-          $sql="SELECT `Name` as 'item_name'
-                FROM `materials`
-                WHERE `mid`='".$row['mid']."';";
-          $eff = calEfficiency($sql, 'in', $eff, $row['qty']);
-        }
-      }
-
-      $sql="SELECT item_name,SUM(qty) AS qty
-            FROM `gtn`
-            WHERE dept= '$dept'
-            $where[0]
-            AND type='in'
-            And approved_by IS NOT null
-            GROUP BY item_name";
-      $eff = calEfficiency($sql, 'in', $eff, NULL);
 
       if ($where[0]!="") {
         $sql="SELECT item_name,type,qty, date
@@ -161,43 +138,7 @@
       }
       $eff = calEfficiency($sql, 'stock', $eff, NULL);
 
-      $sql="SELECT item_name,SUM(qty) AS qty
-            FROM `gtn`
-            WHERE dept='$dept'
-            AND type='out'
-            $where[0]
-            and approved_by IS NOT null
-            GROUP BY item_name";
-      $eff = calEfficiency($sql, 'out', $eff, NULL);
-
-      $sql="SELECT item_name,SUM(qty) AS qty
-              FROM `gtn`
-              WHERE dept='$dept'
-              AND type='return_in'
-              $where[0]
-              and approved_by IS NOT null
-              GROUP BY item_name";
-      $eff = calEfficiency($sql, 'in', $eff, NULL);
-
-      $sql="SELECT item_name,SUM(qty) AS qty
-              FROM `gtn`
-              WHERE dept='$dept'
-              AND type='return_out'
-              $where[0]
-              and approved_by IS NOT null
-              GROUP BY item_name";
-      $eff = calEfficiency($sql, 'out', $eff, NULL);
-
-      if ($dept=='fGoods') {
-        $sql="SELECT item_name,SUM(qty) AS qty
-              from invoice
-              WHERE approved_by IS NOT null
-              $where[0]
-              GROUP BY item_name;";
-        $eff = calEfficiency($sql, 'out', $eff, NULL);
-      }
-
-      return [$eff, $tot_eff, $exception];
+      return [$eff, $tot_eff, $exception, [$from_date, $to_date]];
     }else {
       $exception = 2;
       return [$eff, $tot_eff, $exception];
@@ -312,7 +253,13 @@
             $class= efClass(0);
             echo "Efficiency of $dept =<span class=".$class."><strong>0%</strong></span><br>";
         }
-        //echo "Efficiency of the period ".$from_date_store." - ".$to_date_store;
+        echo "<span style='font-size:70%;'>During the period<br> <strong>";
+        if ($eff[3][0]=="") {
+          echo "begining";
+        }else {
+          echo $eff[3][0];
+        }
+        echo "</strong> — <strong>".$eff[3][1]."</strong></span><br><span style='font-size:65%;'>*Update Balance Stocks to view the latest statistics</span>";
     }elseif($eff[2]==1){
         echo "No Recorded Operations ";
     }elseif ($eff[2]==2) {
@@ -323,17 +270,15 @@
     if($eff[2]==0){
         echo "<table>
                 <thead>
-                    <th>Item Name</th><th>IN</th><th>Balance Stock Brought Forward</th><th>Calculated Stock</th><th>OUT</th><th>Updated Balance Stock</th><th>Difference</th><th>Item Efficiency</th>
+                    <th>Item Name</th><th>Balance Stock Brought Forward</th><th>Calculated Stock</th><th>Updated Balance Stock</th><th>Difference</th><th>Item Efficiency</th>
                 </thead>";
         for ($j=0; $j <sizeof($eff[0]) ; $j++) {
           $class = efClass($eff[0][$j]->eff);
           echo "
           <tr>
             <td class=".$class."><strong>".$eff[0][$j]->itemID."</strong></td>
-            <td class=".$class."><strong>".$eff[0][$j]->in."</strong></td>
             <td class=".$class."><strong>".$eff[0][$j]->bf."</strong></td>
             <td class=".$class."><strong>".$eff[0][$j]->stock."</strong></td>
-            <td class=".$class."><strong>".$eff[0][$j]->out."</strong></td>
             <td class=".$class."><strong>".$eff[0][$j]->balance_stock."</strong></td>
             <td class=".$class."><strong>".$eff[0][$j]->dif."</strong></td>
             <td class=".$class."><strong>".round($eff[0][$j]->eff,2)."</strong></td>
@@ -436,7 +381,13 @@
             $class= efClass(0);
             echo "Efficiency of transfers between $fromDept and $toDept =<span class=".$class."><strong>0%</strong></span><br>";
         }
-        //echo "Efficiency of the period ".$from_date_store." - ".$to_date_store;
+        if (isset($_GET['y'])) {
+          echo "<span style='font-size:70%;'>During <strong>".$_GET['y']."</strong>";
+          if (isset($_GET['m'])) {
+            echo " - <strong>".$_GET['m']."</strong>";
+          }
+          echo "</span>";
+        }
     }else{
       echo "No transfers between $fromDept and $toDept";
     }

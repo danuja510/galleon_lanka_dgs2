@@ -47,7 +47,7 @@
               if(!$con){
                 die("Cannot connect to DB server");
               }
-              $sql="select extract(year from date) as yr from balance_stocks group by extract(year from date);";
+              $sql="select extract(year from date) as yr from stocks group by extract(year from date);";
               $rowSQL= mysqli_query( $con,$sql);
               if (mysqli_num_rows($rowSQL)>0) {
                 echo "<div class='col span-1-of-3'>
@@ -65,7 +65,7 @@
                 </div>
                 <div class='col span-1-of-3'>
                     <h3><strong>Monthly Efficiency</strong></h3>";
-                        $sql="select extract(year from date) as yr, extract(month from date) as mon from balance_stocks group by extract(year from date), extract(month from date) order by yr, mon;";
+                        $sql="select extract(year from date) as yr, extract(month from date) as mon from stocks group by extract(year from date), extract(month from date) order by yr, mon;";
                         $rowSQL= mysqli_query( $con,$sql);
                       while($row=mysqli_fetch_assoc( $rowSQL )){
                         echo "
@@ -75,7 +75,7 @@
                     mysqli_close($con);
                 echo "</div>";
               }else {
-                echo "<h2>Update Balance Stocks to View Efficiency</h2>";
+                echo "<h2>NO OPERATIONS HAS BEEN CARRIED OUT</h2>";
               }
              ?>
         </div>
