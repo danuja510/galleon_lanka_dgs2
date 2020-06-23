@@ -130,7 +130,7 @@ $to_date_store="";
 							AND date< '".$_GET['y']."-01-01'
 						);";
 			if (isset($_GET['m'])) {
-				$sql="SELECT item_name,type,qty,CONVERT(date, date) as 'frdate'
+				$sql="SELECT item_name,type,qty,CONVERT(date, date) as 'frdate', date
 			        FROM `balance_stocks`
 			        WHERE dept = 'store'
               AND date< '".$_GET['y']."-".$_GET['m']."-01'
@@ -141,8 +141,6 @@ $to_date_store="";
 								AND date< '".$_GET['y']."-".$_GET['m']."-01'
 							);";
 			}
-      //echo $sql;
-
 
       $rowSQL= mysqli_query( $con,$sql);
       while($row=mysqli_fetch_assoc( $rowSQL )){
@@ -161,10 +159,11 @@ $to_date_store="";
       }
       $rowSQL= mysqli_query( $con,$sql);
       $from_date_store = mysqli_fetch_assoc( $rowSQL )['frdate'];
+      $rowSQL= mysqli_query( $con,$sql);
+      $from_date = mysqli_fetch_assoc( $rowSQL )['date'];
     }
 
-
-		$sql="SELECT dept,item_name,type,qty, CONVERT(date, date) as 'todate'
+		$sql="SELECT dept,item_name,type,qty, CONVERT(date, date) as 'todate', date
           FROM `balance_stocks`
           WHERE dept='store'
           ".$curdate."
@@ -187,17 +186,20 @@ $to_date_store="";
     }
     $rowSQL= mysqli_query( $con,$sql);
     $to_date_store = mysqli_fetch_assoc( $rowSQL )['todate'];
+    $rowSQL= mysqli_query( $con,$sql);
+    $to_date = mysqli_fetch_assoc( $rowSQL )['date'];
     $sql="SELECT item_name,SUM(qty) AS Qty
           from stocks
           WHERE type='material'
           AND dept='store'
+          AND date < $to_date
           GROUP BY item_name;";
 		if (isset($_GET['y'])) {
 			$sql="SELECT item_name,SUM(qty) AS Qty
 	          from stocks
 	          WHERE type='material'
 	          AND dept='store'
-						AND date between '".$from_date_store."' and '".$to_date_store."'
+						AND date between '".$from_date."' and '".$to_date."'
 	          GROUP BY item_name;";
 		}
     $rowSQL= mysqli_query( $con,$sql);
@@ -209,7 +211,7 @@ $to_date_store="";
         }
       }
     }
-    $sql3="SELECT item_name,SUM(qty) AS Qty
+    $sql3="SELECT item_name,SUM(qty) AS qty
           FROM `gtn`
           WHERE dept='store'
           AND type='out'
@@ -221,7 +223,7 @@ $to_date_store="";
     while($row=mysqli_fetch_assoc( $rowSQL )){
       for ($j=0; $j <sizeof($effStore) ; $j++) {
         if ($row['item_name']==$effStore[$j]->itemID) {
-          $effStore[$j]->out+=$row['Qty'];
+          $effStore[$j]->out+=$row['qty'];
           continue 2;
         }
       }
@@ -515,6 +517,7 @@ $to_date_store="";
       $effpfloor_fGoods_returnss[sizeof($effpfloor_fGoods_returnss)]= new efficiency($row['item_no']);
         $effpfloor_fGoods_returnss[sizeof($effpfloor_fGoods_returnss) - 1]->out=$row['Qty'];
     }
+*/
 
     //efficiency of finished goods
     $rowSQL= mysqli_query( $con,$sql6);
@@ -538,7 +541,7 @@ $to_date_store="";
           $efffGoods[sizeof($efffGoods)-1]->bf=$row['Qty'];
       }
     }
-    $sql7="SELECT item_no,SUM(qty) AS Qty from stocks WHERE type='finished_product' ".$stockdate." AND dept='fGoods' GROUP BY item_no;";
+    $sql7="SELECT item_name,SUM(qty) AS Qty from stocks WHERE type='finished_product' ".$stockdate." AND dept='fGoods' GROUP BY item_name;";
     $rowSQL= mysqli_query( $con,$sql7);
     while($row=mysqli_fetch_assoc( $rowSQL )){
       for ($j=0; $j <sizeof($efffGoods) ; $j++) {
@@ -550,7 +553,7 @@ $to_date_store="";
       $efffGoods[sizeof($efffGoods)]= new efficiency($row['item_no']);
         $efffGoods[sizeof($efffGoods)-1]->stock=$row['Qty'];
     }
-    $sql8="SELECT item_no,SUM(qty) AS Qty from invoice WHERE approved_by IS NOT null ".$curdate." GROUP BY item_no;";
+    $sql8="SELECT item_name,SUM(qty) AS Qty from invoice WHERE approved_by IS NOT null ".$curdate." GROUP BY item_name;";
     $rowSQL= mysqli_query( $con,$sql8);
     while($row=mysqli_fetch_assoc( $rowSQL )){
       for ($j=0; $j <sizeof($efffGoods) ; $j++) {
@@ -586,7 +589,7 @@ $to_date_store="";
       }
       $efffGoods[sizeof($efffGoods)]= new efficiency($row['item_no'],$row['Qty']);
       $efffGoods[sizeof($efffGoods)-1]->in=$row['Qty'];
-    }*/
+    }
 
 
     mysqli_close($con);
@@ -657,7 +660,7 @@ $to_date_store="";
                     }elseif($effStore_exception==2){
                         echo "No Recorded Operations ";
                     }elseif ($effStore_exception==1) {
-                      echo "Update Balance Stocks to view Efficiency ";
+                      echo "Balance stocks hasn't been updated in this period";
                     }
                 ?>
             </div>
@@ -687,7 +690,7 @@ $to_date_store="";
                           if($effStore_exception==2){
                               echo "No Recorded Operations ";
                           }elseif ($effStore_exception==1) {
-                            echo "Update Balance Stocks to view Efficiency ";
+                            echo "Balance stocks hasn't been updated in this period";
                           }
                         }
                 ?>
