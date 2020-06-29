@@ -46,7 +46,27 @@
             </div>
         </div>
     </header>
-    <?php echo "<h2 class='gtn'>Department : ".$_SESSION['dept']."</h2><h2 class='gtn'>Transfer Type : ".$_SESSION['gtntype']."</h2>"; ?>
+    <?php
+      echo "<h2 class='gtn'>Department : ".$_SESSION['dept']."</h2><h2 class='gtn'>Transfer Type : ";
+      switch ($_SESSION['gtntype']) {
+        case 'in':
+          echo "stock in";
+          break;
+
+        case 'return_in':
+          echo "stock in (returns)";
+          break;
+
+        case 'out':
+          echo "gtn";
+          break;
+
+        case 'return_out':
+          echo "gtn (returns)";
+          break;
+      }
+      echo "</h2>";
+    ?>
     <section class="section-select2">
       <div class="row">
         <div class="col span-2-of-2">

@@ -22,7 +22,6 @@ function header()
       $this->cell(20);
 
 
-      //$this->rect(5,5,200,35,'D');
       $this->line(10, 10, 210-10, 10);
       $this->line(10, 40, 210-10, 40);
       $this->cell(150,15,'GALLEON LANKA (PVT) LTD',0,1,'C');
@@ -34,23 +33,33 @@ function header()
       $this->cell(150,8,'Tel: +94 11 4 423 928 / +94 76 440 1 440',0,1,'C');
       $this->Ln(8);
 
-      $this->SetFont('Arial','B',13);
-      $this->cell(190,8,'Goods Transfer Note/ Stock In Note',0,1,'C');
-      $this->Ln(10);
-
-    $con = mysqli_connect("localhost","root","","galleon_lanka");
+      $con = mysqli_connect("localhost","root","","galleon_lanka");
       if(!$con)
-        {
-          die("cannot connect to DB server");
-        }
+      {
+        die("cannot connect to DB server");
+      }
 
-        $sql1="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." GROUP BY gtn_no;";
-        $rowSQL1= mysqli_query($con,$sql1);
-        $row = mysqli_fetch_assoc($rowSQL1);
-        $date=$row['date'];
-      	$remark=$row['remarks'];
-      	$prpby=$row['prepared_by'];
-      	$appby=$row['approved_by'];
+      $sql1="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." GROUP BY gtn_no;";
+      $rowSQL1= mysqli_query($con,$sql1);
+      $row = mysqli_fetch_assoc($rowSQL1);
+      $date=$row['date'];
+    	$remark=$row['remarks'];
+    	$prpby=$row['prepared_by'];
+    	$appby=$row['approved_by'];
+
+      $this->SetFont('Arial','B',13);
+      switch ($_SESSION['gtype']) {
+        case 'in' :
+        case 'return_in':
+          $this->cell(190,8,'Stock In',0,1,'C');
+          break;
+
+        case 'out':
+        case 'return_out':
+          $this->cell(190,8,'Goods Transfer Note',0,1,'C');
+          break;
+      }
+      $this->Ln(10);
 
       $this->SetFont('Arial','B',10);
       $this->cell(20,5,'Department:',0,0,'L');
@@ -69,7 +78,23 @@ function header()
       $this->cell(22,5,'Type:',0,0,'L');
       $this->SetFont('Arial','',10);
 
-      $this->cell(78,5,$_SESSION['gtype'],0,0,'L');
+      switch ($_SESSION['gtype']) {
+        case 'in':
+          $this->cell(78,5,"stock in",0,0,'L');
+          break;
+
+        case 'return_in':
+          $this->cell(78,5,"stock in (returns)",0,0,'L');
+          break;
+
+        case 'out':
+          $this->cell(78,5,"gtn",0,0,'L');
+          break;
+
+        case 'return_out':
+          $this->cell(78,5,"gtn (returns)",0,0,'L');
+          break;
+      }
 
       $this->cell(25,5,'GRN no.',0,0,'L');
 
@@ -92,28 +117,28 @@ function header()
 
       $this->SetFont('Times','B','10');
 
-        $sql="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." ";
-        $rowSQL1= mysqli_query($con,$sql);
-        while($row1=mysqli_fetch_assoc( $rowSQL1))
-        {
-          $this->cell(40,10,$row1['item_name'],0,0,'L');
-          $this->cell(80,10,'',0,0,'L');
-          $this->cell(40,10,$row1['item_type'],0,0,'L');
-          $this->cell(30,10,$row1['qty'],0,1,'L');
-        }
+      $sql="SELECT * FROM `gtn` where `gtn_no`=".$_SESSION['gtn']." ";
+      $rowSQL1= mysqli_query($con,$sql);
+      while($row1=mysqli_fetch_assoc( $rowSQL1))
+      {
+        $this->cell(40,10,$row1['item_name'],0,0,'L');
+        $this->cell(80,10,'',0,0,'L');
+        $this->cell(40,10,$row1['item_type'],0,0,'L');
+        $this->cell(30,10,$row1['qty'],0,1,'L');
+      }
 
 
 
-          $this->Ln(20);
+      $this->Ln(20);
 
-          $this->cell(50,5,'..................................',0,0,'C');
-          $this->cell(85,5,'..................................',0,0,'C');
-          $this->cell(70,5,'..................................',0,1,'C');
-          $this->cell(50,5,"Prepared by Emp no. $prpby",0,0,'C');
-          $this->cell(85,5,"Approved by Emp no. $appby",0,0,'C');
-          $this->multicell(70,5,"Signature & stamp \n received the above items in \n good order & condition",0,'C');
+      $this->cell(50,5,'..................................',0,0,'C');
+      $this->cell(85,5,'..................................',0,0,'C');
+      $this->cell(70,5,'..................................',0,1,'C');
+      $this->cell(50,5,"Prepared by Emp no. $prpby",0,0,'C');
+      $this->cell(85,5,"Approved by Emp no. $appby",0,0,'C');
+      $this->multicell(70,5,"Signature & stamp \n received the above items in \n good order & condition",0,'C');
 
-          $this->Ln(20);
+      $this->Ln(20);
 
   }
 }

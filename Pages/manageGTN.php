@@ -77,7 +77,25 @@
             }else{
               $approve='Pending';
             }
-            echo "<tr><td>".$row['gtn_no']."</td><td>".$row['dept']."</td><td>".$row['type']."</td><td>".$row['date']."</td><td>".$approve."</td><td><input type='submit' value='view' name='".$row['gtn_no']."'></td></tr>";
+            echo "<tr><td>".$row['gtn_no']."</td><td>".$row['dept']."</td><td>";
+            switch ($row['type']) {
+              case 'in':
+                echo "stock in";
+                break;
+
+              case 'return_in':
+                echo "stock in (returns)";
+                break;
+
+              case 'out':
+                echo "gtn";
+                break;
+
+              case 'return_out':
+                echo "gtn (returns)";
+                break;
+            }
+            echo "</td><td>".$row['date']."</td><td>".$approve."</td><td><input type='submit' value='view' name='".$row['gtn_no']."'></td></tr>";
           }
           ?>
         </table>

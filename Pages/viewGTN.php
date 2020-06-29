@@ -63,7 +63,25 @@
                     echo "<div class='row'><div class='col span-1-of-2'>GTN No. </div><div class='col span-1-of-2'>".$row['gtn_no']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Department </div><div class='col span-1-of-2'>".$row['dept']."</div></div>";
                     $_SESSION['gdept']=$row['dept'];
-                    echo "<div class='row'><div class='col span-1-of-2'>Type </div><div class='col span-1-of-2'>".$row['type']."</div></div>";
+                    echo "<div class='row'><div class='col span-1-of-2'>Type </div><div class='col span-1-of-2'>";
+                    switch ($row['type']) {
+                      case 'in':
+                        echo "stock in";
+                        break;
+
+                      case 'return_in':
+                        echo "stock in (returns)";
+                        break;
+
+                      case 'out':
+                        echo "gtn";
+                        break;
+
+                      case 'return_out':
+                        echo "gtn (returns)";
+                        break;
+                    }
+                    echo "</div></div>";
                     $_SESSION['gtype']=$row['type'];
                     echo "<div class='row'><div class='col span-1-of-2'>Date </div><div class='col span-1-of-2'>".$row['date']."</div></div>";
                     echo "<div class='row'><div class='col span-1-of-2'>Prepared by eno </div><div class='col span-1-of-2'>".$row['prepared_by']."</div></div>";
