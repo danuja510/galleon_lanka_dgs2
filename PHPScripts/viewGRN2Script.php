@@ -58,8 +58,12 @@
       $sql3="SELECT `mid`,`qty` FROM `grn` WHERE `grn_no`=".$_SESSION['grn']."";
       $rowSQL3= mysqli_query( $con,$sql3);
       while($row3=mysqli_fetch_assoc( $rowSQL3 )){
-          $sql2="INSERT INTO `stocks` (`no`, `item_no`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row3['mid']."', '".-$row3['qty']."', 'material', CURDATE(), 'store');";
+        $sql="SELECT `Name` FROM `materials` WHERE `mid`=".$row3['mid']."";
+        $rowSQL= mysqli_query( $con,$sql);
+        while($row=mysqli_fetch_assoc( $rowSQL )){
+          $sql2="INSERT INTO `stocks` (`no`, `item_name`, `qty`, `type`, `date`, `dept`) VALUES (NULL, '".$row['Name']."', '".-$row3['qty']."', 'material', CURDATE(), 'store');";
           mysqli_query( $con,$sql2);
+        }
       }
       $sql4="DELETE FROM `grn` WHERE  `grn_no` =".$_SESSION['grn'].";";
       mysqli_query( $con,$sql4);
