@@ -30,7 +30,7 @@
             $sql="select * from bom where bom_id = '".$bom."'";
             $rowSQL= mysqli_query( $con,$sql);
             while($row = mysqli_fetch_assoc( $rowSQL )){
-              $sql="insert into stocks values (NULL, '".$row['mName']."', '".-$row['qty']*$order[1]."', 'material', NOW(), 'pfloor')";
+              $sql="insert into stocks values (NULL, '".$row['mName']."', '".-$row['qty']*$order[1]."', 'material', NOW(), 'pFloor')";
               mysqli_query( $con,$sql);
             }
           }
